@@ -88,90 +88,81 @@
         class="list-item"
         :key="i"
         v-for="(attentionCompany, i) in attentionCompanys"
-    /></view>
+      />
+    </view>
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import CompanyDetail from '@/components/CompanyDetail/CompanyDetail.vue'
+<script lang="ts" setup>
+import { ref, reactive } from 'vue'
+import CompanyDetail from '../../components/CompanyDetail/CompanyDetail.vue'
 
-export default {
-  components: {
-    CompanyDetail,
+const attentionCompanys = reactive([
+  {
+    logoAddress:
+      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
+    name: '字节跳动',
+    recruitmentPosition: '200',
+    cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
+    benefitOne: '技能培训',
+    benefitTwo: '年薪双假',
+    benefitThree: '带薪年假',
   },
-  data() {
-    return {
-      attentionCompanys: [
-        {
-          logoAddress:
-            'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
-          name: '字节跳动',
-          recruitmentPosition: '200',
-          cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
-          benefitOne: '技能培训',
-          benefitTwo: '年薪双假',
-          benefitThree: '带薪年假',
-        },
-        {
-          logoAddress:
-            'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
-          name: '字节跳动',
-          recruitmentPosition: '200',
-          cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
-          benefitOne: '技能培训',
-          benefitTwo: '年薪双假',
-          benefitThree: '带薪年假',
-        },
-        {
-          logoAddress:
-            'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
-          name: '字节跳动',
-          recruitmentPosition: '200',
-          cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
-          benefitOne: '技能培训',
-          benefitTwo: '年薪双假',
-          benefitThree: '带薪年假',
-        },
-        {
-          logoAddress:
-            'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
-          name: '字节跳动',
-          recruitmentPosition: '200',
-          cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
-          benefitOne: '技能培训',
-          benefitTwo: '年薪双假',
-          benefitThree: '带薪年假',
-        },
-      ],
-      city: '重庆',
-      direction: '不限',
-      jobName: '请输入关键字',
-    }
+  {
+    logoAddress:
+      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
+    name: '字节跳动',
+    recruitmentPosition: '200',
+    cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
+    benefitOne: '技能培训',
+    benefitTwo: '年薪双假',
+    benefitThree: '带薪年假',
   },
-  methods: {
-    textOnClick() {
-      uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
-    },
-    text_1OnClick() {
-      uni.navigateBack()
-    },
-    text_2OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
-    },
-    view_5OnClick() {
-      uni.navigateTo({ url: '/pages/gongsijieshao/gongsijieshao' })
-    },
-    view_6OnClick() {
-      uni.navigateTo({ url: '/pages/gongsijieshao/gongsijieshao' })
-    },
-    view_7OnClick() {
-      uni.navigateTo({ url: '/pages/gongsijieshao/gongsijieshao' })
-    },
-    view_8OnClick() {
-      uni.navigateTo({ url: '/pages/gongsijieshao/gongsijieshao' })
-    },
+  {
+    logoAddress:
+      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
+    name: '字节跳动',
+    recruitmentPosition: '200',
+    cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
+    benefitOne: '技能培训',
+    benefitTwo: '年薪双假',
+    benefitThree: '带薪年假',
   },
+  {
+    logoAddress:
+      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
+    name: '字节跳动',
+    recruitmentPosition: '200',
+    cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
+    benefitOne: '技能培训',
+    benefitTwo: '年薪双假',
+    benefitThree: '带薪年假',
+  },
+])
+const city = ref('重庆')
+const direction = ref('不限')
+const jobName = ref('请输入关键字')
+const textOnClick = () => {
+  uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
+}
+const text_1OnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
+}
+const text_2OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
+}
+const view_5OnClick = () => {
+  uni.navigateTo({ url: '/pages/gongsijieshao/gongsijieshao' })
+}
+const view_6OnClick = () => {
+  uni.navigateTo({ url: '/pages/gongsijieshao/gongsijieshao' })
+}
+const view_7OnClick = () => {
+  uni.navigateTo({ url: '/pages/gongsijieshao/gongsijieshao' })
+}
+const view_8OnClick = () => {
+  uni.navigateTo({ url: '/pages/gongsijieshao/gongsijieshao' })
 }
 </script>
 

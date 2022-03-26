@@ -31,23 +31,14 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return { userName: '张三' }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
-}
+<script lang="ts" setup>
+import { ref } from 'vue';
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+const userName = ref('张三')
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
+},
 </script>
 
 <style lang="scss" scoped>

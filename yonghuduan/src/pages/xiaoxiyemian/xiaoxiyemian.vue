@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <view class="section_1"> </view>
+    <view class="section_1"></view>
     <view class="justify-between section_2">
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481301635916856956.png"
@@ -12,30 +12,21 @@
     </view>
     <view class="flex-col section_3">
       <view class="flex-row">
-        <view
-          @click="view_18OnClick"
-          class="equal-division-item flex-col items-center"
-        >
+        <view @click="view_18OnClick" class="equal-division-item flex-col items-center">
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481301635914473539.png"
             class="image_1"
           />
           <text class="text_1">我的投递</text>
         </view>
-        <view
-          @click="view_19OnClick"
-          class="flex-col items-center equal-division-item_1"
-        >
+        <view @click="view_19OnClick" class="flex-col items-center equal-division-item_1">
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481301635917890448.png"
             class="image_3"
           />
           <text class="text_3">谁看过我</text>
         </view>
-        <view
-          @click="view_20OnClick"
-          class="equal-division-item flex-col items-center group_1"
-        >
+        <view @click="view_20OnClick" class="equal-division-item flex-col items-center group_1">
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481301635916217973.png"
             class="image_1"
@@ -85,39 +76,28 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import MailBar from '@/components/MailBar/MailBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue';
+import MailBar from '../../components/MailBar/MailBar.vue'
+const time = ref('昨天')
+const avatarAddress = ref(
+  'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481301635901980128.png')
+const messageCount = ref(
+  'https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481301674203179834.png')
+const name = ref('张三')
+const message = ref('方便投递吗？')
 
-export default {
-  components: {
-    MailBar,
-  },
-  data() {
-    return {
-      time: '昨天',
-      avatarAddress:
-        'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481301635901980128.png',
-      messageCount:
-        'https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481301674203179834.png',
-      name: '张三',
-      message: '方便投递吗？',
-    }
-  },
-  methods: {
-    view_18OnClick() {
-      uni.navigateTo({ url: '/pages/toudijilu/toudijilu' })
-    },
-    view_19OnClick() {
-      uni.navigateTo({ url: '/pages/shuikanguowo/shuikanguowo' })
-    },
-    view_20OnClick() {
-      uni.navigateTo({ url: '/pages/wodechakan/wodechakan' })
-    },
-    view_3OnClick() {
-      uni.navigateTo({ url: '/pages/liaotianyemian/liaotianyemian' })
-    },
-  },
+const view_18OnClick = () => {
+  uni.navigateTo({ url: '/pages/toudijilu/toudijilu' })
+}
+const view_19OnClick = () => {
+  uni.navigateTo({ url: '/pages/shuikanguowo/shuikanguowo' })
+}
+const view_20OnClick = () => {
+  uni.navigateTo({ url: '/pages/wodechakan/wodechakan' })
+}
+const view_3OnClick = () => {
+  uni.navigateTo({ url: '/pages/liaotianyemian/liaotianyemian' })
 }
 </script>
 

@@ -16,24 +16,16 @@
     </view>
   </view>
 </template>
+<script lang="ts" setup>
+import { ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return { phoneNumber: '173****6235' }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+const phoneNumber = ref('173****6235')
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
+
 </script>
 
 <style lang="scss" scoped>
