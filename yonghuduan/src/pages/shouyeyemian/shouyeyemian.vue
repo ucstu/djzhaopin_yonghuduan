@@ -74,7 +74,7 @@
           src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274042906672.png"
           class="image_12"
         />
-        <text>{{ city1 }}</text>
+        <text>消息</text>
       </view>
       <view class="flex-col items-center group_18">
         <image
@@ -88,9 +88,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from '@vue/reactivity';
-import { reactive, ref } from 'vue'
 import JobDetail from '../../components/JobDetail/JobDetail.vue'
+import { key } from '../../stores';
+import { reactive, ref } from 'vue'
+import { useStore } from 'vuex';
+
+const store = useStore(key);
 
 const jobs = reactive([
   {
@@ -154,10 +157,6 @@ const expects = reactive([
 ])
 
 const city = ref('重庆')
-
-const city1 = computed(() => {
-  return city.value + '1'
-})
 
 const image_5OnClick = () => {
   uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
