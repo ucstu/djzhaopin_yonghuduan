@@ -21,25 +21,16 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue';
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {
-      confirmPassword: '请再次输入密码',
-      password: '8~16位大小写字母、数字、特殊字符组成',
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+
+const confirmPassword = ref('请再次输入密码')
+const password = ref('8~16位大小写字母、数字、特殊字符组成')
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
 </script>
 

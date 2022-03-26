@@ -87,24 +87,19 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-export default {
-  data() {
-    return {
-      jobName: '前端开发工程师',
-      personnelName: '张三',
-      companyAndJob: '字节跳动 · 人事总监',
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-    text_7OnClick() {
-      uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-    },
-  },
+<script lang="ts" setup>import { ref } from 'vue'
+
+
+const jobName = ref('前端开发工程师')
+const personnelName = ref('张三')
+const companyAndJob = ref('字节跳动 · 人事总监')
+
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
+}
+const text_7OnClick = () => {
+  uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
 }
 </script>
 

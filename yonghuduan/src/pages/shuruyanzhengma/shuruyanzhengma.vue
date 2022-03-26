@@ -16,22 +16,15 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return { phonceNumber: '180******64' }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+const phonceNumber = ref('180******64')
+
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
 </script>
 

@@ -19,23 +19,13 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {}
-  },
-  methods: {
-    imageOnClick() {
+const imageOnClick=()=> {
+  // @ts-ignore
       uni.navigateBack()
-    },
-  },
-}
+    }
 </script>
 
 <style lang="scss" scoped>

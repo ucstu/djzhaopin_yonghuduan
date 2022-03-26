@@ -16,37 +16,27 @@
     <view class="justify-between bar-5">
       <view class="flex-col">
         <text class="text-disturb">勿扰时间</text>
-        <text class="text-disturb-info"
-          >开启后，在指定时间内将不再接收消息推送</text
-        >
+        <text class="text-disturb-info">开启后，在指定时间内将不再接收消息推送</text>
       </view>
       <view class="flex-row group-disturb-time">
         <text class="text-disturb-time">{{ noDisturbTime }}</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478529383962808577.png"
-          class="image-right"
-        />
+          class="image-right" />
       </view>
     </view>
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue';
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return { noDisturbTime: '22：00-7：00' }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+const noDisturbTime = ref('22：00-7：00')
+
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
 </script>
 

@@ -55,40 +55,33 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return { newVersion: '1.0.0' }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-    view_4OnClick() {
-      uni.navigateTo({ url: '/pages/wodezhanghu/wodezhanghu' })
-    },
-    view_5OnClick() {
-      uni.navigateTo({ url: '/pages/shezhimima/shezhimima' })
-    },
-    view_6OnClick() {
-      uni.navigateTo({ url: '/pages/tongzhishezhi/tongzhishezhi' })
-    },
-    view_7OnClick() {
-      uni.navigateTo({ url: '/pages/yonghuxieyi/yonghuxieyi' })
-    },
-    view_8OnClick() {
-      uni.navigateTo({ url: '/pages/yinsicelve/yinsicelve' })
-    },
-    view_10OnClick() {
-      uni.navigateTo({ url: '/pages/banbengengxin/banbengengxin' })
-    },
-  },
+const newVersion = ref('1.0.0')
+
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
+}
+const view_4OnClick = () => {
+  uni.navigateTo({ url: '/pages/wodezhanghu/wodezhanghu' })
+}
+const view_5OnClick = () => {
+  uni.navigateTo({ url: '/pages/shezhimima/shezhimima' })
+}
+const view_6OnClick = () => {
+  uni.navigateTo({ url: '/pages/tongzhishezhi/tongzhishezhi' })
+}
+const view_7OnClick = () => {
+  uni.navigateTo({ url: '/pages/yonghuxieyi/yonghuxieyi' })
+}
+const view_8OnClick = () => {
+  uni.navigateTo({ url: '/pages/yinsicelve/yinsicelve' })
+}
+const view_10OnClick = () => {
+  uni.navigateTo({ url: '/pages/banbengengxin/banbengengxin' })
 }
 </script>
 

@@ -8,8 +8,7 @@
         <text class="text_3">{{ jobExpectation }}</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716985504722.png"
-          class="image_1"
-        />
+          class="image_1" />
       </view>
     </view>
     <view class="section_1 flex-col">
@@ -18,8 +17,7 @@
         <text>{{ cityExpectation }}</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716985504722.png"
-          class="image_1"
-        />
+          class="image_1" />
       </view>
     </view>
     <view class="section_1 flex-col">
@@ -28,8 +26,7 @@
         <text>{{ salaryExpectation }}</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716985504722.png"
-          class="image_1"
-        />
+          class="image_1" />
       </view>
     </view>
     <view class="flex-col items-center button">
@@ -38,32 +35,24 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {
-      jobExpectation: '请选择',
-      cityExpectation: '请选择',
-      salaryExpectation: '请选择',
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-    view_6OnClick() {
-      uni.navigateTo({ url: '/pages/zhiweileixing/zhiweileixing' })
-    },
-    view_7OnClick() {
-      uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
-    },
-  },
+
+const jobExpectation = ref('请选择')
+const cityExpectation = ref('请选择')
+const salaryExpectation = ref('请选择')
+
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
+}
+const view_6OnClick = () => {
+  uni.navigateTo({ url: '/pages/zhiweileixing/zhiweileixing' })
+}
+const view_7OnClick = () => {
+  uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
 }
 </script>
 

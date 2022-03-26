@@ -3,25 +3,18 @@
     <NavigationBar class="header" />
     <view class="flex-row">
       <view class="flex-col list">
-        <view
-          class="list-item flex-row"
-          :key="i"
-          v-for="(province, i) in provinces"
-        >
+        <view class="list-item flex-row" :key="i" v-for="(province, i) in provinces">
           <image class="image_1" :src="province.name" />
-          <view class="section_2"> </view> </view
-      ></view>
+          <view class="section_2"></view>
+        </view>
+      </view>
       <view class="flex-col group_2">
         <text class="text_7">热门城市</text>
         <view class="flex-row list_1">
-          <view
-            class="list-item_1 flex-col items-center"
-            :key="i"
-            v-for="(city, i) in citys"
-          >
+          <view class="list-item_1 flex-col items-center" :key="i" v-for="(city, i) in citys">
             <text>{{ city.name }}</text>
-          </view></view
-        >
+          </view>
+        </view>
       </view>
     </view>
     <view class="flex-row group_3">
@@ -35,48 +28,38 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { reactive } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
+const provinces = reactive([
+  {
+    name: 'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292195202550038.png',
   },
-  data() {
-    return {
-      provinces: [
-        {
-          name: 'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292195202550038.png',
-        },
-        { name: '直辖市' },
-        { name: '河北' },
-        { name: '山西' },
-        { name: '内蒙' },
-        { name: '辽宁' },
-        { name: '吉林' },
-      ],
-      citys: [
-        { name: '北京' },
-        { name: '上海' },
-        { name: '深圳' },
-        { name: '广州' },
-        { name: '杭州' },
-        { name: '成都' },
-        { name: '武汉' },
-        { name: '西安' },
-        { name: '南京' },
-        { name: '长沙' },
-        { name: '郑州' },
-        { name: '重庆' },
-      ],
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+  { name: '直辖市' },
+  { name: '河北' },
+  { name: '山西' },
+  { name: '内蒙' },
+  { name: '辽宁' },
+  { name: '吉林' },
+])
+const citys = reactive([
+  { name: '北京' },
+  { name: '上海' },
+  { name: '深圳' },
+  { name: '广州' },
+  { name: '杭州' },
+  { name: '成都' },
+  { name: '武汉' },
+  { name: '西安' },
+  { name: '南京' },
+  { name: '长沙' },
+  { name: '郑州' },
+  { name: '重庆' },
+])
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
 </script>
 

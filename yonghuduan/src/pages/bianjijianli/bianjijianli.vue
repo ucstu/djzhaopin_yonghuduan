@@ -28,7 +28,8 @@
           class="list-item"
           :key="i"
           v-for="(jobExpectation, i) in jobExpectations"
-      /></view>
+        />
+      </view>
     </view>
     <view class="flex-col group_9">
       <view class="justify-between group_10">
@@ -56,7 +57,8 @@
           class="list-item_1"
           :key="i"
           v-for="(workExperience, i) in workExperiences"
-      /></view>
+        />
+      </view>
     </view>
     <view class="flex-col group_17">
       <view class="justify-between group_18">
@@ -73,7 +75,8 @@
           class="list-item_2"
           :key="i"
           v-for="(educationExperience, i) in educationExperiences"
-      /></view>
+        />
+      </view>
     </view>
     <view class="flex-col group_21">
       <view class="justify-between group_22">
@@ -90,7 +93,8 @@
           class="list-item_3"
           :key="i"
           v-for="(projectExperience, i) in projectExperiences"
-      /></view>
+        />
+      </view>
     </view>
     <view class="flex-col group_25">
       <view class="justify-between group_26">
@@ -117,126 +121,114 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-import JobExpectation from '@/components/JobExpectation/JobExpectation.vue'
-import WorkExperience from '@/components/WorkExperience/WorkExperience.vue'
-import EducationalExperience from '@/components/EducationalExperience/EducationalExperience.vue'
-import ProjectExperience from '@/components/ProjectExperience/ProjectExperience.vue'
+<script lang="ts" setup>
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import JobExpectation from '../../components/JobExpectation/JobExpectation.vue'
+import WorkExperience from '../../components/WorkExperience/WorkExperience.vue'
+import EducationalExperience from '../../components/EducationalExperience/EducationalExperience.vue'
+import ProjectExperience from '../../components/ProjectExperience/ProjectExperience.vue'
+import { reactive, ref } from 'vue'
 
-export default {
-  components: {
-    NavigationBar,
-    JobExpectation,
-    WorkExperience,
-    EducationalExperience,
-    ProjectExperience,
+
+
+const jobExpectations = reactive([
+  {
+    name: '前段工程师',
+    salary: '8K-9K',
+    direction: 'React',
+    city: '重庆',
+    entryTime: '1个月内入职',
   },
-  data() {
-    return {
-      jobExpectations: [
-        {
-          name: '前段工程师',
-          salary: '8K-9K',
-          direction: 'React',
-          city: '重庆',
-          entryTime: '1个月内入职',
-        },
-        {
-          name: '后段工程师',
-          salary: '8K-9K',
-          direction: 'JAVA',
-          city: '成都',
-          entryTime: '3个月内入职',
-        },
-      ],
-      workExperiences: [
-        {
-          company: '命通科技',
-          direction: '后端工程师',
-          work: '开发后台',
-          date: '2020.03 - 2021.03',
-        },
-        {
-          company: '小而美科技',
-          direction: '前端工程师',
-          work: '小程序开发',
-          date: '2020.03 - 2021.03',
-        },
-      ],
-      educationExperiences: [
-        {
-          school: '电子科技大学',
-          levelAndProfession: '本科 | 计算机科学与技术',
-          date: '2019.09 - 2022.06',
-        },
-        {
-          school: '清华大学',
-          levelAndProfession: '研究生 | 计算机科学与技术',
-          date: '2022.09 - 2026.06',
-        },
-      ],
-      projectExperiences: [
-        { project: 'LOL', date: '2020.02-2021.06', work: '完成召唤兽' },
-        { project: 'LOL', date: '2020.02-2021.06', work: '完成召唤兽' },
-      ],
-      personalAdvantage: '能吃苦，能加班，身体挺好！',
-      socialUrl: 'https://blog.ucstu.com',
-      basicInformation: '应届毕业生/18岁/本科',
-      userName: '张三',
-    }
+  {
+    name: '后段工程师',
+    salary: '8K-9K',
+    direction: 'JAVA',
+    city: '成都',
+    entryTime: '3个月内入职',
   },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-    image_8OnClick() {
-      uni.navigateTo({ url: '/pages/gerenxinxi/gerenxinxi' })
-    },
-    view_23OnClick() {
-      uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
-    },
-    view_24OnClick() {
-      uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
-    },
-    image_2OnClick() {
-      uni.navigateTo({ url: '/pages/gerenyoushi/gerenyoushi' })
-    },
-    image_3OnClick() {
-      uni.navigateTo({ url: '/pages/gongzuojingli/gongzuojingli' })
-    },
-    view_25OnClick() {
-      uni.navigateTo({ url: '/pages/gongzuojingli/gongzuojingli' })
-    },
-    view_26OnClick() {
-      uni.navigateTo({ url: '/pages/gongzuojingli/gongzuojingli' })
-    },
-    image_4OnClick() {
-      uni.navigateTo({ url: '/pages/jiaoyujingli/jiaoyujingli' })
-    },
-    view_27OnClick() {
-      uni.navigateTo({ url: '/pages/jiaoyujingli/jiaoyujingli' })
-    },
-    view_28OnClick() {
-      uni.navigateTo({ url: '/pages/jiaoyujingli/jiaoyujingli' })
-    },
-    image_5OnClick() {
-      uni.navigateTo({ url: '/pages/xiangmujingli/xiangmujingli' })
-    },
-    view_29OnClick() {
-      uni.navigateTo({ url: '/pages/xiangmujingli/xiangmujingli' })
-    },
-    view_30OnClick() {
-      uni.navigateTo({ url: '/pages/xiangmujingli/xiangmujingli' })
-    },
-    image_6OnClick() {
-      uni.navigateTo({ url: '/pages/shejiaozhuye/shejiaozhuye' })
-    },
-    image_7OnClick() {
-      uni.navigateTo({ url: '/pages/tupianzuopin/tupianzuopin' })
-    },
+])
+const workExperiences = reactive([
+  {
+    company: '命通科技',
+    direction: '后端工程师',
+    work: '开发后台',
+    date: '2020.03 - 2021.03',
   },
+  {
+    company: '小而美科技',
+    direction: '前端工程师',
+    work: '小程序开发',
+    date: '2020.03 - 2021.03',
+  },
+])
+const educationExperiences = reactive([
+  {
+    school: '电子科技大学',
+    levelAndProfession: '本科 | 计算机科学与技术',
+    date: '2019.09 - 2022.06',
+  },
+  {
+    school: '清华大学',
+    levelAndProfession: '研究生 | 计算机科学与技术',
+    date: '2022.09 - 2026.06',
+  },
+])
+const projectExperiences = reactive([
+  { project: 'LOL', date: '2020.02-2021.06', work: '完成召唤兽' },
+  { project: 'LOL', date: '2020.02-2021.06', work: '完成召唤兽' },
+])
+const personalAdvantage = ref('能吃苦，能加班，身体挺好！')
+const socialUrl = ref('https://blog.ucstu.com')
+const basicInformation = ref('应届毕业生/18岁/本科')
+const userName = ref('张三')
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
+}
+const image_8OnClick = () => {
+  uni.navigateTo({ url: '/pages/gerenxinxi/gerenxinxi' })
+}
+const view_23OnClick = () => {
+  uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
+}
+const view_24OnClick = () => {
+  uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
+}
+const image_2OnClick = () => {
+  uni.navigateTo({ url: '/pages/gerenyoushi/gerenyoushi' })
+}
+const image_3OnClick = () => {
+  uni.navigateTo({ url: '/pages/gongzuojingli/gongzuojingli' })
+}
+const view_25OnClick = () => {
+  uni.navigateTo({ url: '/pages/gongzuojingli/gongzuojingli' })
+}
+const view_26OnClick = () => {
+  uni.navigateTo({ url: '/pages/gongzuojingli/gongzuojingli' })
+}
+const image_4OnClick = () => {
+  uni.navigateTo({ url: '/pages/jiaoyujingli/jiaoyujingli' })
+}
+const view_27OnClick = () => {
+  uni.navigateTo({ url: '/pages/jiaoyujingli/jiaoyujingli' })
+}
+const view_28OnClick = () => {
+  uni.navigateTo({ url: '/pages/jiaoyujingli/jiaoyujingli' })
+}
+const image_5OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangmujingli/xiangmujingli' })
+}
+const view_29OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangmujingli/xiangmujingli' })
+}
+const view_30OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangmujingli/xiangmujingli' })
+}
+const image_6OnClick = () => {
+  uni.navigateTo({ url: '/pages/shejiaozhuye/shejiaozhuye' })
+}
+const image_7OnClick = () => {
+  uni.navigateTo({ url: '/pages/tupianzuopin/tupianzuopin' })
 }
 </script>
 
@@ -286,7 +278,7 @@ export default {
     .image-wrapper {
       padding: 90rpx 0 5rpx;
       border-radius: 60rpx;
-      background-image: url('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303726169734760.png');
+      background-image: url("https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303726169734760.png");
       background-size: 100% 100%;
       background-repeat: no-repeat;
       width: 120rpx;

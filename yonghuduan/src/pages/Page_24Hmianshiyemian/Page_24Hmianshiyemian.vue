@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <view class="group"> </view>
+    <view class="group"></view>
     <view class="justify-between footer">
       <view class="flex-col items-center group_1">
         <image
@@ -34,13 +34,7 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-export default {
-  data() {
-    return {}
-  },
-}
+<script lang="ts" setup>
 </script>
 
 <style lang="scss" scoped>

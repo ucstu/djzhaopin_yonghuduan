@@ -5,13 +5,11 @@
       <view class="flex-row search">
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773197745663.png"
-          class="image"
-        />
+          class="image" />
         <view class="flex-row section_1">
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528771387958614.png"
-            class="image_1"
-          />
+            class="image_1" />
           <text class="text_1">{{ searchContent }}</text>
         </view>
       </view>
@@ -23,127 +21,111 @@
         <text>技术</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254581114841.png"
-          class="image_2"
-        />
+          class="image_2" />
       </view>
     </view>
     <view class="flex-col group_3">
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765056774629.png"
-        class="image_3"
-      />
+        class="image_3" />
       <view class="justify-between list">
-        <view
-          @click="view_9OnClick"
-          class="list-item flex-col items-center"
-          :key="i"
-          v-for="(popularPosition, i) in popularPositions"
-        >
+        <view @click="view_9OnClick" class="list-item flex-col items-center" :key="i"
+          v-for="(popularPosition, i) in popularPositions">
           <text class="text_5 text_6">{{ popularPosition.name }}</text>
-        </view></view
-      >
+        </view>
+      </view>
     </view>
     <view class="flex-col group_5">
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765055995713.png"
-        class="image_3"
-      />
+        class="image_3" />
       <view class="flex-row list_1">
-        <view
-          @click="view_18OnClick"
-          class="list-item_1 flex-col items-center"
-          :key="i"
-          v-for="(popularCompany, i) in popularCompanys"
-        >
+        <view @click="view_18OnClick" class="list-item_1 flex-col items-center" :key="i"
+          v-for="(popularCompany, i) in popularCompanys">
           <text class="text_11 text_12">{{ popularCompany.name }}</text>
-        </view></view
-      >
+        </view>
+      </view>
     </view>
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-export default {
-  data() {
-    return {
-      popularPositions: [
-        { name: 'java' },
-        { name: 'ios' },
-        { name: '前端' },
-        { name: null },
-      ],
-      popularCompanys: [
-        { name: '字节跳动' },
-        { name: '美团' },
-        { name: '腾讯' },
-        { name: '网易' },
-        { name: '百度' },
-        { name: '贝壳' },
-        { name: '北京京东世纪贸易有限公司' },
-        { name: '快手' },
-        { name: '安居客' },
-        {
-          name: 'https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528867666609714.png',
-        },
-      ],
-      city: '重庆',
-      searchContent: '请输入关键字',
-    }
+<script lang="ts" setup>import { reactive, ref } from 'vue'
+
+
+const popularPositions = reactive([
+  { name: 'java' },
+  { name: 'ios' },
+  { name: '前端' },
+  { name: null },
+])
+const popularCompanys = reactive([
+  { name: '字节跳动' },
+  { name: '美团' },
+  { name: '腾讯' },
+  { name: '网易' },
+  { name: '百度' },
+  { name: '贝壳' },
+  { name: '北京京东世纪贸易有限公司' },
+  { name: '快手' },
+  { name: '安居客' },
+  {
+    name: 'https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528867666609714.png',
   },
-  methods: {
-    textOnClick() {
-      uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
-    },
-    text_1OnClick() {
-      uni.navigateBack()
-    },
-    view_9OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
-    },
-    view_10OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
-    },
-    view_11OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
-    },
-    view_16OnClick() {
-      uni.navigateTo({ url: '/pages/index/index' })
-    },
-    view_17OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
-    },
-    view_18OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-    },
-    view_19OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-    },
-    view_20OnClick() {
-      uni.navigateTo({ url: '/pages/guanzhugongsi/guanzhugongsi' })
-    },
-    view_21OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-    },
-    view_22OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-    },
-    view_23OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-    },
-    view_24OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-    },
-    view_25OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-    },
-    view_26OnClick() {
-      uni.navigateTo({ url: '/pages/banbengengxin/banbengengxin' })
-    },
-    image_4OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-    },
-  },
+])
+const city = ref('重庆')
+const searchContent = ref('请输入关键字')
+
+const textOnClick = () => {
+  uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
+}
+const text_1OnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
+}
+const view_9OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
+}
+const view_10OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
+}
+const view_11OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
+}
+const view_16OnClick = () => {
+  uni.navigateTo({ url: '/pages/index/index' })
+}
+const view_17OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
+}
+const view_18OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
+}
+const view_19OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
+}
+const view_20OnClick = () => {
+  uni.navigateTo({ url: '/pages/guanzhugongsi/guanzhugongsi' })
+}
+const view_21OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
+}
+const view_22OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
+}
+const view_23OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
+}
+const view_24OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
+}
+const view_25OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
+}
+const view_26OnClick = () => {
+  uni.navigateTo({ url: '/pages/banbengengxin/banbengengxin' })
+}
+const image_4OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
 }
 </script>
 
@@ -275,7 +257,7 @@ export default {
       flex: 1 1 auto;
       border-radius: 25rpx;
       filter: drop-shadow(0px 4rpx 2rpx rgba(0, 0, 0, 0.25));
-      background-image: url('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292187851976434.png');
+      background-image: url("https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292187851976434.png");
       background-size: 100% 100%;
       background-repeat: no-repeat;
       height: 43rpx;

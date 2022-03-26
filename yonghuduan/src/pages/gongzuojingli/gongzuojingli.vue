@@ -46,30 +46,20 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {
-      companyName: '请填写',
-      department: '请填写',
-      jobContent: '工作内容',
-      projectIndustry: '请选择',
-      startTime: '入职时间',
-      overTime: '至今',
-      positionType: '请选择',
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+const companyName = ref('请填写')
+const department = ref('请填写')
+const jobContent = ref('工作内容')
+const projectIndustry = ref('请选择')
+const startTime = ref('入职时间')
+const overTime = ref('至今')
+const positionType = ref('请选择')
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
 </script>
 

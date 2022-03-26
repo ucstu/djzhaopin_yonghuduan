@@ -28,47 +28,35 @@
     </view>
     <view class="flex-col footer">
       <view class="protocol-strategy">
-        <text @click="text_7OnClick" class="text-protocol"
-          >《东江网用户协议》</text
-        >
+        <text @click="text_7OnClick" class="text-protocol">《东江网用户协议》</text>
         <text class="text_6">和</text>
-        <text @click="text_9OnClick" class="text-strategy"
-          >《东江网隐私政策》</text
-        >
+        <text @click="text_9OnClick" class="text-strategy">《东江网隐私政策》</text>
       </view>
       <view class="justify-center copyright-c">
         <text>东江网</text>
         <text class="right">版权所有</text>
       </view>
-      <text class="copyright-e"
-        >Copyright 2022-2222 Dongjiang. All Rights Reserved</text
-      >
+      <text class="copyright-e">Copyright 2022-2222 Dongjiang. All Rights Reserved</text>
     </view>
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return { version: '当前版本 1.0.0', newVersion: '无新版' }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-    text_7OnClick() {
-      uni.navigateTo({ url: '/pages/yonghuxieyi/yonghuxieyi' })
-    },
-    text_9OnClick() {
-      uni.navigateTo({ url: '/pages/yinsicelve/yinsicelve' })
-    },
-  },
+const version = ref('当前版本 1.0.0')
+const newVersion = ref('无新版')
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
+}
+
+const text_7OnClick = () => {
+  uni.navigateTo({ url: '/pages/yonghuxieyi/yonghuxieyi' })
+}
+const text_9OnClick = () => {
+  uni.navigateTo({ url: '/pages/yinsicelve/yinsicelve' })
 }
 </script>
 

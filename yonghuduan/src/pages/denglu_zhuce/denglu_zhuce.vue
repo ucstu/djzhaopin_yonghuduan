@@ -8,7 +8,7 @@
       <text>下一步</text>
     </view>
     <view class="flex-row group">
-      <view class="section_1"> </view>
+      <view class="section_1"></view>
       <view class="group_1">
         <text class="text_3">同意</text>
         <text class="text_4">《东江用户协议》</text>
@@ -17,29 +17,19 @@
       </view>
     </view>
     <view class="flex-col items-center group_2">
-      <text class="text_7"
-        >客服（投诉）电话：4008 2082 02（工作日9：00-18：00）</text
-      >
+      <text class="text_7">客服（投诉）电话：4008 2082 02（工作日9：00-18：00）</text>
       <text class="text_8">违法和不良信息举报、未成年人投诉举报渠道同上</text>
       <text class="text_9">客服邮箱：cc@dongjiang 北京市人社局电话：12333</text>
-      <text class="text_10"
-        >营业执照|人力资源服务许可证|增值电信业务经营许可证</text
-      >
+      <text class="text_10">营业执照|人力资源服务许可证|增值电信业务经营许可证</text>
     </view>
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-export default {
-  data() {
-    return { phoneNumbeer: '请输入你的手机号' }
-  },
-  methods: {
-    view_1OnClick() {
-      uni.navigateTo({ url: '/pages/shuruyanzhengma/shuruyanzhengma' })
-    },
-  },
+<script lang="ts" setup>import { ref } from 'vue'
+
+const phoneNumbeer = ref('请输入你的手机号')
+const view_1OnClick = () => {
+  uni.navigateTo({ url: '/pages/shuruyanzhengma/shuruyanzhengma' })
 }
 </script>
 

@@ -24,16 +24,16 @@
         class="image_5"
       />
       <view class="flex-col group_6">
-        <text class="text_3"
-          >朗新科技股份有限公司（股票代码：300682）创立于2003年，<br
-        /></text>
-        <text class="text_4"
-          >公司总部位于无锡，在无锡、杭州、武汉、厦门、广州、重庆<br
-        /></text>
+        <text class="text_3">
+          朗新科技股份有限公司（股票代码：300682）创立于2003年，
+          <br />
+        </text>
+        <text class="text_4">
+          公司总部位于无锡，在无锡、杭州、武汉、厦门、广州、重庆
+          <br />
+        </text>
       </view>
-      <text class="text_5"
-        >和南宁设有七大研发中心.......................................</text
-      >
+      <text class="text_5">和南宁设有七大研发中心.......................................</text>
     </view>
     <view class="flex-col group_7">
       <image
@@ -64,33 +64,22 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {
-      logoAddress:
-        'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528791497523597.png',
-      name: 'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528791364444372.png',
-      cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
-      detailedAddress: '浙江-杭州-西湖区-三路90号东部',
-      companyFullName: '朗新科技集团股份有限公司',
-      legalPerson: '张三',
-      registeredCapital: '102，002.8276万(元)',
-      bodyType: '股份有限公司(台港澳与境内合资、上市)',
-      setUpTime: '2003-05-07',
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+const logoAddress = ref('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528791497523597.png')
+const name = ref('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528791364444372.png')
+const cityAndInfo = ref('杭州 | 上市公司 | 2000人以上 | 软件服务')
+const detailedAddress = ref('浙江-杭州-西湖区-三路90号东部')
+const companyFullName = ref('朗新科技集团股份有限公司')
+const legalPerson = ref('张三')
+const registeredCapital = ref('102，002.8276万(元)')
+const bodyType = ref('股份有限公司(台港澳与境内合资、上市)')
+const setUpTime = ref('2003-05-07')
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
 </script>
 

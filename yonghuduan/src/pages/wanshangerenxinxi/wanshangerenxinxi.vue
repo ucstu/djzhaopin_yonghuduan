@@ -57,35 +57,26 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {
-      userName: '请填写',
-      email: '请填写',
-      birthday: '请选择',
-      city: '请选择',
-      jobStatus: '请选择',
-    }
-  },
-  methods: {
-    imageOnClick() {
+    const  userName=ref( '请填写')
+    const  email=ref( '请填写')
+    const  birthday=ref( '请选择')
+    const  city=ref( '请选择')
+    const  jobStatus=ref( '请选择')
+
+    const imageOnClick=()=> {
+      // @ts-ignore
       uni.navigateBack()
-    },
-    view_11OnClick() {
+    }
+    const view_11OnClick=()=> {
       uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
-    },
-    view_2OnClick() {
+    }
+    const view_2OnClick=()=> {
       uni.navigateTo({ url: '/pages/wanshanjiaoyujingli/wanshanjiaoyujingli' })
-    },
-  },
-}
+    }
 </script>
 
 <style lang="scss" scoped>

@@ -25,8 +25,8 @@
           <text>{{ jobExpectation.city }}</text>
           <text class="text_10">{{ jobExpectation.expectedTime }}</text>
         </view>
-      </view></view
-    >
+      </view>
+    </view>
     <view @click="view_8OnClick" class="justify-center button">
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303746037457152.png"
@@ -47,49 +47,41 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { reactive, ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
+
+const jobExpectations = reactive([
+  {
+    name: '后段工程师',
+    salary: '8K-9K',
+    direction: 'JAVA',
+    city: '成都',
+    expectedTime: '3个月内入职',
   },
-  data() {
-    return {
-      jobExpectations: [
-        {
-          name: '后段工程师',
-          salary: '8K-9K',
-          direction: 'JAVA',
-          city: '成都',
-          expectedTime: '3个月内入职',
-        },
-        {
-          name: '前端工程师',
-          salary: '5K-9K',
-          direction: 'React',
-          city: '重庆',
-          expectedTime: '3个月内入职',
-        },
-      ],
-      entryTime: '随时入职',
-    }
+  {
+    name: '前端工程师',
+    salary: '5K-9K',
+    direction: 'React',
+    city: '重庆',
+    expectedTime: '3个月内入职',
   },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-    view_6OnClick() {
-      uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
-    },
-    view_7OnClick() {
-      uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
-    },
-    view_8OnClick() {
-      uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
-    },
-  },
+])
+const entryTime = ref('随时入职')
+
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
+}
+const view_6OnClick = () => {
+  uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
+}
+const view_7OnClick = () => {
+  uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
+}
+const view_8OnClick = () => {
+  uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
 }
 </script>
 

@@ -10,18 +10,10 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-export default {
-  data() {
-    return {}
-  },
-  methods: {
-    viewOnClick() {
+<script lang="ts" setup>
+const viewOnClick=()=> {
       uni.navigateTo({ url: '/pages/wanshangerenxinxi/wanshangerenxinxi' })
-    },
-  },
-}
+    }
 </script>
 
 <style lang="scss" scoped>

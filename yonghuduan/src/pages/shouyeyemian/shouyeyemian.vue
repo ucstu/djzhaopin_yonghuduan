@@ -13,10 +13,14 @@
         <view class="flex-row">
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254586402738.png"
-            @click="image_5OnClick" class="image" />
+            @click="image_5OnClick"
+            class="image"
+          />
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254587111646.png"
-            @click="image_6OnClick" class="image image_2" />
+            @click="image_6OnClick"
+            class="image image_2"
+          />
         </view>
       </view>
       <view class="justify-between group_2">
@@ -30,19 +34,22 @@
             <text @click="text_22OnClick">{{ city }}</text>
             <image
               src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475959311313713900.png"
-              class="image_3 image_4" />
+              class="image_3 image_4"
+            />
           </view>
           <view class="flex-row group_6">
             <text @click="text_23OnClick">筛选</text>
             <image
               src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475959311313713900.png"
-              class="image_3 image_5" />
+              class="image_3 image_5"
+            />
           </view>
         </view>
       </view>
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254587777410.png"
-        class="image_6" />
+        class="image_6"
+      />
     </view>
     <view class="flex-col list_1">
       <JobDetail @click="view_4OnClick" class="list-item_1" :key="i" v-for="(job, i) in jobs" />
@@ -51,25 +58,29 @@
       <view class="flex-col items-center group_15">
         <image
           src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274049751091.png"
-          class="image_12" />
+          class="image_12"
+        />
         <text class="text_52">首页</text>
       </view>
       <view class="flex-col items-center group_16">
         <image
           src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274047124255.png"
-          class="image_12" />
+          class="image_12"
+        />
         <text class="text_53">24H面试</text>
       </view>
       <view class="flex-col items-center group_17">
         <image
           src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274042906672.png"
-          class="image_12" />
-        <text>信息</text>
+          class="image_12"
+        />
+        <text>{{ city1 }}</text>
       </view>
       <view class="flex-col items-center group_18">
         <image
           src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274055908202.png"
-          class="image_12" />
+          class="image_12"
+        />
         <text>我的</text>
       </view>
     </view>
@@ -77,6 +88,7 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from '@vue/reactivity';
 import { reactive, ref } from 'vue'
 import JobDetail from '../../components/JobDetail/JobDetail.vue'
 
@@ -142,6 +154,10 @@ const expects = reactive([
 ])
 
 const city = ref('重庆')
+
+const city1 = computed(() => {
+  return city.value + '1'
+})
 
 const image_5OnClick = () => {
   uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })

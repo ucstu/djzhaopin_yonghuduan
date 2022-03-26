@@ -26,28 +26,20 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
+<script lang="ts" setup>
 import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+import { ref } from 'vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {
-      schoolName: '请填写',
-      education: '请选择',
-      subject: '请填写',
-      startTime: '入学时间',
-      overTime: '结束时间',
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+
+const schoolName = ref('请填写')
+const education = ref('请选择')
+const subject = ref('请填写')
+const startTime = ref('入学时间')
+const overTime = ref('结束时间')
+
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
 </script>
 

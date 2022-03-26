@@ -283,7 +283,7 @@
           <text>金融业</text>
         </view>
         <view class="flex-col items-center section_1">
-          <text>房地产 | 建筑 | </text>
+          <text>房地产 | 建筑 |</text>
           <text>物业</text>
         </view>
         <view class="flex-col items-center text-wrapper_61">
@@ -296,7 +296,7 @@
           <text>服务业</text>
         </view>
         <view class="flex-col items-center section_2">
-          <text>能源 | 矿产 | </text>
+          <text>能源 | 矿产 |</text>
           <text>环保</text>
         </view>
         <view class="flex-col items-center text-wrapper_64">
@@ -318,31 +318,23 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {
-      jobSubdivisionDirection: '不限',
-      expectedSalary: '不限',
-      workExperience: '在校/应届',
-      degreeRequired: '大专',
-      jobNature: '全职',
-      companySize: '少于15人',
-      financeStage: '未融资',
-      industryField: '电商平台',
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+
+const jobSubdivisionDirection = ref('不限')
+const expectedSalary = ref('不限')
+const workExperience = ref('在校/应届')
+const degreeRequired = ref('大专')
+const jobNature = ref('全职')
+const companySize = ref('少于15人')
+const financeStage = ref('未融资')
+const industryField = ref('电商平台')
+
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
 </script>
 

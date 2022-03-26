@@ -54,28 +54,18 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {
-      userName: '张三',
-      birthday: '1999.05.08',
-      pgoneNumber: '123*****789',
-      email: '1*******9@qq.com',
-      city: '重庆',
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+const userName = ref('张三')
+const birthday = ref('1999.05.08')
+const pgoneNumber = ref('123*****789')
+const email = ref('1*******9@qq.com')
+const city = ref('重庆')
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
 </script>
 

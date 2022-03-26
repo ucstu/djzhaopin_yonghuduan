@@ -37,29 +37,23 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return { job: '请选择', salary: '请选择', city: '请选择' }
-  },
-  methods: {
-    imageOnClick() {
+const job=ref( '请选择')
+ const salary=ref( '请选择')
+ const city=ref( '请选择')
+    const imageOnClick=()=> {
+      // @ts-ignore
       uni.navigateBack()
-    },
-    view_4OnClick() {
+    }
+    const view_4OnClick=()=> {
       uni.navigateTo({ url: '/pages/zhiweileixing/zhiweileixing' })
-    },
-    view_6OnClick() {
+    }
+    const view_6OnClick=()=> {
       uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
-    },
-  },
-}
+    }
 </script>
 
 <style lang="scss" scoped>
