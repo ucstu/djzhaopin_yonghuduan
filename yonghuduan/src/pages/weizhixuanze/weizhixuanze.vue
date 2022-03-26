@@ -10,16 +10,16 @@
       </view>
       <view class="flex-row equal-division">
         <view class="flex-col items-center list_1">
-          <text class="list-item_1" :key="i" v-for="(name, i) in areas">
+          <text class="list-item_1" :key="i" v-for="(area, i) in areas">
             {{
-              name.name
+              area.name
             }}
           </text>
         </view>
         <view class="flex-col items-center list_2">
-          <text class="list-item_2" :key="i" v-for="(name, i) in places">
+          <text class="list-item_2" :key="i" v-for="(place, i) in places">
             {{
-              name.name
+              place.name
             }}
           </text>
         </view>
@@ -37,7 +37,6 @@
 </template>
 
 <script lang="ts" setup>
-import * as Vue from 'vue'
 import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 import { reactive } from 'vue'
 const positions = reactive([
