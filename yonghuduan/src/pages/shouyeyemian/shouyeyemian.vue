@@ -228,7 +228,7 @@ const view_7OnClick = () => {
     }
   }
   .list_1 {
-    padding: 25rpx 0;
+    padding: 25rpx;
     .list-item_1 {
       margin-top: 20rpx;
     }

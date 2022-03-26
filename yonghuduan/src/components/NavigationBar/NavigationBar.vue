@@ -1,28 +1,50 @@
 <template>
   <view class="header justify-center component">
-    <image @click="imageOnClick" class="image" :src="left" />
+    <image @click="imageOnClick" class="image" :src="leftUrl" />
     <text class="text">{{ title }}</text>
     <text class="text_1">{{ right }}</text>
   </view>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, defineProps, toRef, computed } from 'vue';
 
+const props = defineProps({
+  left: {
+    type: String,
+    default: 'return',
+  },
+  title: {
+    type: String,
+    default: '',
+  },
+  right: {
+    type: String,
+    default: '',
+  },
+});
 
-      const left=ref( 'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716988161723.png')
-      const title=ref( '收藏职位')
-      const right=ref( '清空')
+const leftUrl = computed(() => {
+  return props.left === "return" ? 'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716988161723.png' : '';
+});
 
-    const imageOnClick=()=> {
-      // @ts-ignore
-      uni.navigateBack()
-    }
+const left = toRef(props, "left");
+const title = toRef(props, "title");
+const right = toRef(props, "right");
+
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
+}
 </script>
 
 <style lang="scss" scoped>
 .header {
-  position: relative;
+  position: fixed;
+  z-index: 10;
+  background-color: rgb(255, 255, 255);
+  width: 750rpx;
+  top: 0rpx;
   .image {
     position: absolute;
     left: 40rpx;
