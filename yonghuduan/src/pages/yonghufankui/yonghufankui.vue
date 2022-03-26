@@ -64,7 +64,7 @@ const opinion = ref('请写下您的宝贵意见，东江招聘致力于服务�
 const imageOnClick = () => {
   // @ts-ignore
   uni.navigateBack()
-},
+}
 </script>
 
 <style lang="scss" scoped>

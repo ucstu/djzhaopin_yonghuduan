@@ -59,7 +59,7 @@
             <text class="text_10">倒是负责制</text>
           </view>
           <text class="text_11">任职要求：</text>
-          <text class="text_12"></text>
+          <text class="text_12">
           1、熟悉HTML5、CSS3、JavaScript等基础技术，熟悉W3C标准及规范；
           <br />
           </text>
@@ -126,7 +126,8 @@ const jobName = ref(
   'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528786354168947.png'
 )
 const logoAddress = ref(
-  'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png')  personnelName: '张三·人事总监',
+  'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png')
+const personnelName=ref( '张三·人事总监')
 const activeTime = ref('两个月前活跃')
 const address = ref('重庆*九龙坡区')
 const recruitmentType = ref('在校/应届')

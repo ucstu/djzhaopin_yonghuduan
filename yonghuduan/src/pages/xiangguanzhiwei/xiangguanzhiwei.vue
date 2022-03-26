@@ -138,25 +138,25 @@ const searchContent = ref('请输入关键字')
 
 const textOnClick = () => {
   uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
-},
+}
 const text_1OnClick = () => {
   uni.navigateBack()
-},
+}
 const text_3OnClick = () => {
   uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-},
+}
 const view_8OnClick = () => {
   uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-},
+}
 const view_9OnClick = () => {
   uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-},
+}
 const view_10OnClick = () => {
   uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-},
+}
 const view_11OnClick = () => {
   uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-},
+}
 </script>
 
 <style lang="scss" scoped>
