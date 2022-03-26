@@ -23,27 +23,20 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-export default {
-  data() {
-    return {
-      logoAddress:
-        'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
-      name: '字节跳动',
-      cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
-      recruitmentPosition: '200',
-      benefitOne: '技能培训',
-      benefitTwo: '年薪双假',
-      benefitThree: '带薪年假',
-    }
-  },
-  methods: {
-    rootViewOnClick() {
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+      const logoAddress= ref('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png')
+      const name= ref( '字节跳动')
+      const cityAndInfo= ref( '杭州 | 上市公司 | 2000人以上 | 软件服务')
+      const recruitmentPosition= ref( '200')
+      const benefitOne= ref( '技能培训')
+      const benefitTwo= ref( '年薪双假')
+      const benefitThree= ref( '带薪年假')
+
+    const rootViewOnClick=()=> {
       uni.navigateTo({ url: '/pages/gongsijieshao/gongsijieshao' })
-    },
-  },
-}
+    }
 </script>
 
 <style lang="scss" scoped>

@@ -15,39 +15,30 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import JobDetail from '@/components/JobDetail/JobDetail.vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import JobDetail from '../../components/JobDetail/JobDetail.vue'
 
-export default {
-  components: {
-    JobDetail,
-  },
-  data() {
-    return {
-      salary: '4K - 8K',
-      releaseDate: '2月28日',
-      state: '待面试',
-      name: '前端开发实习生',
-      companyLogoAddress:
-        'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
-      areaAndRequirements: '江北区 | 在校/应届',
-      educationalRequirements: '本科',
-      companyName: '字节跳动',
-      companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
-      directionOne: '后台开发',
-      directionTwo: 'JAVA开发',
-    }
-  },
-  methods: {
-    view_4OnClick() {
+
+    const  salary=ref( '4K - 8K')
+    const  releaseDate=ref( '2月28日')
+    const  state=ref( '待面试')
+    const  name=ref( '前端开发实习生')
+    const  companyLogoAddress=ref(
+        'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png')
+    const  areaAndRequirements=ref( '江北区 | 在校/应届')
+    const  educationalRequirements=ref( '本科')
+    const  companyName=ref( '字节跳动')
+    const  companyInfo=ref( 'D轮及以上 | 2000人以上 | 内容资讯')
+    const  directionOne=ref( '后台开发')
+    const  directionTwo=ref( 'JAVA开发')
+
+    const view_4OnClick=()=> {
       uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-    },
-    view_11OnClick() {
+    }
+    const view_11OnClick=()=> {
       uni.navigateTo({ url: '/pages/liaotianyemian/liaotianyemian' })
-    },
-  },
-}
+    }
 </script>
 
 <style lang="scss" scoped>

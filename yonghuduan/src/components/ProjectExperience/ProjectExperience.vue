@@ -14,18 +14,15 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-export default {
-  data() {
-    return { project: 'LOL', date: '2020.02-2021.06', work: '完成召唤兽' }
-  },
-  methods: {
-    rootViewOnClick() {
+<script lang="ts" setup>import { ref } from 'vue'
+
+const project=ref( 'LOL')
+const date=ref( '2020.02-2021.06' )
+const work=ref( '完成召唤兽')
+
+    const rootViewOnClick=()=> {
       uni.navigateTo({ url: '/pages/xiangmujingli/xiangmujingli' })
-    },
-  },
-}
+    }
 </script>
 
 <style lang="scss" scoped>

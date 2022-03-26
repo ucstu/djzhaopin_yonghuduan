@@ -6,22 +6,18 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-export default {
-  data() {
-    return {
-      left: 'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716988161723.png',
-      title: '收藏职位',
-      right: '清空',
-    }
-  },
-  methods: {
-    imageOnClick() {
+<script lang="ts" setup>
+import { ref } from 'vue';
+
+
+      const left=ref( 'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716988161723.png')
+      const title=ref( '收藏职位')
+      const right=ref( '清空')
+
+    const imageOnClick=()=> {
+      // @ts-ignore
       uni.navigateBack()
-    },
-  },
-}
+    }
 </script>
 
 <style lang="scss" scoped>

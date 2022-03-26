@@ -38,7 +38,7 @@ const userName = ref('张三')
 const imageOnClick = () => {
   // @ts-ignore
   uni.navigateBack()
-},
+}
 </script>
 
 <style lang="scss" scoped>
