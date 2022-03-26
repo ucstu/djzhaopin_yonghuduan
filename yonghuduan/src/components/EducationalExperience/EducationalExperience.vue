@@ -12,22 +12,16 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-export default {
-  data() {
-    return {
-      school: '电子科技大学',
-      date: '2019.09 - 2022.06',
-      levelAndProfession: '本科 | 计算机科学与技术',
-    }
-  },
-  methods: {
-    rootViewOnClick() {
+<script lang="ts" setup>import { ref } from 'vue'
+
+
+    const  school= ref( '电子科技大学')
+    const  date= ref( '2019.09 - 2022.06')
+    const  levelAndProfession= ref( '本科 | 计算机科学与技术')
+
+    const rootViewOnClick=()=> {
       uni.navigateTo({ url: '/pages/jiaoyujingli/jiaoyujingli' })
-    },
-  },
-}
+    }
 </script>
 
 <style lang="scss" scoped>

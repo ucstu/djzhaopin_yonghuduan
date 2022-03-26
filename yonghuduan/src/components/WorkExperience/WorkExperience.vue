@@ -15,23 +15,17 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-export default {
-  data() {
-    return {
-      date: '2020.03 - 2021.03',
-      company: '命通科技',
-      direction: '后端工程师',
-      work: '开发后台',
-    }
-  },
-  methods: {
-    rootViewOnClick() {
+<script lang="ts" setup>import { ref } from 'vue'
+
+
+      const date= ref( '2020.03 - 2021.03')
+      const company= ref( '命通科技')
+      const direction= ref( '后端工程师')
+      const work= ref( '开发后台')
+
+    const rootViewOnClick=()=> {
       uni.navigateTo({ url: '/pages/gongzuojingli/gongzuojingli' })
-    },
-  },
-}
+    }
 </script>
 
 <style lang="scss" scoped>

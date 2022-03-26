@@ -14,26 +14,21 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-export default {
-  data() {
-    return {
-      time: '昨天',
-      avatarAddress:
-        'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481301635901980128.png',
-      messageCount:
-        'https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481301674203179834.png',
-      name: '张三',
-      message: '方便投递吗？',
-    }
-  },
-  methods: {
-    rootViewOnClick() {
+<script lang="ts" setup>
+import { ref } from 'vue';
+
+
+      const time=ref( '昨天')
+      const avatarAddress=ref(
+        'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481301635901980128.png')
+      const messageCount=ref(
+        'https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481301674203179834.png')
+      const name=ref( '张三')
+      const message=ref( '方便投递吗？')
+
+    const rootViewOnClick=()=> {
       uni.navigateTo({ url: '/pages/liaotianyemian/liaotianyemian' })
-    },
-  },
-}
+    }
 </script>
 
 <style lang="scss" scoped>

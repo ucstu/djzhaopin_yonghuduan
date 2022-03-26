@@ -18,24 +18,19 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-export default {
-  data() {
-    return {
-      name: '前段工程师',
-      salary: '8K-9K',
-      direction: 'React',
-      city: '重庆',
-      entryTime: '1个月内入职',
-    }
-  },
-  methods: {
-    rootViewOnClick() {
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+
+    const  name=ref( '前段工程师')
+    const  salary=ref( '8K-9K')
+    const  direction=ref( 'React')
+    const  city=ref( '重庆')
+    const  entryTime=ref( '1个月内入职')
+
+    const rootViewOnClick=()=> {
       uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
-    },
-  },
-}
+    }
 </script>
 
 <style lang="scss" scoped>
