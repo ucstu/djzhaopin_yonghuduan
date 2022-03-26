@@ -3,13 +3,18 @@
     <view class="section_1"></view>
     <view class="flex-col section_2">
       <view class="justify-between">
-        <view class="flex-row list">
-          <text class="list-item" :key="i" v-for="(name, i) in expects">
+        <scroll-view class="flex-row list">
+          <text
+            class="list-item"
+            :class="activeIndex === i ? 'active' : ''"
+            :key="i"
+            v-for="(name, i) in expects"
+          >
             {{
               name.name
             }}
           </text>
-        </view>
+        </scroll-view>
         <view class="flex-row">
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254586402738.png"
@@ -74,7 +79,7 @@
           src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274042906672.png"
           class="image_12"
         />
-        <text>{{ city1 }}</text>
+        <text>{{ city }}</text>
       </view>
       <view class="flex-col items-center group_18">
         <image
@@ -154,10 +159,7 @@ const expects = reactive([
 ])
 
 const city = ref('重庆')
-
-const city1 = computed(() => {
-  return city.value + '1'
-})
+const activeIndex = ref(0)
 
 const image_5OnClick = () => {
   uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
@@ -241,9 +243,12 @@ const view_7OnClick = () => {
     }
     .list {
       margin: 3rpx 0 9rpx;
+      .active {
+        font-size: 35rpx !important;
+      }
       .list-item {
         color: rgb(255, 255, 255);
-        font-size: 35rpx;
+        font-size: 25rpx;
         line-height: 32rpx;
         white-space: nowrap;
       }
