@@ -1,21 +1,24 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="职位详情" />
     <view class="justify-between group_1">
       <view class="flex-col">
         <image class="image_2" :src="jobName" />
         <view class="flex-row group_3">
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16476080199658875198.png"
-            class="image_3" />
+            class="image_3"
+          />
           <text class="text">{{ address }}</text>
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528785310356733.png"
-            class="image_4" />
+            class="image_4"
+          />
           <text class="text_1">{{ recruitmentType }}</text>
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528784209429852.png"
-            class="image_5" />
+            class="image_5"
+          />
           <text class="text_2">{{ education }}</text>
         </view>
       </view>
@@ -31,26 +34,30 @@
       </view>
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528783146914074.png"
-        class="image_7" />
+        class="image_7"
+      />
     </view>
     <view class="justify-between group_7">
       <view class="flex-row group_8">
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528781826385526.png"
-          class="image_8" />
+          class="image_8"
+        />
         <text class="text_6">{{ personnelName }}</text>
       </view>
       <view class="flex-row group_9">
         <text>{{ activeTime }}</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16476080199650559462.png"
-          class="image_9" />
+          class="image_9"
+        />
       </view>
     </view>
     <view class="flex-col group_10">
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528781687109636.png"
-        class="image_10" />
+        class="image_10"
+      />
       <view class="flex-col group_11">
         <view class="flex-col">
           <text class="text_8">职位类型：全职</text>
@@ -60,8 +67,8 @@
           </view>
           <text class="text_11">任职要求：</text>
           <text class="text_12">
-          1、熟悉HTML5、CSS3、JavaScript等基础技术，熟悉W3C标准及规范；
-          <br />
+            1、熟悉HTML5、CSS3、JavaScript等基础技术，熟悉W3C标准及规范；
+            <br />
           </text>
         </view>
         <text class="text_13">
@@ -93,21 +100,25 @@
     <view class="flex-col group_17">
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528781099944130.png"
-        class="image_10" />
+        class="image_10"
+      />
       <text class="text_22">工作时间：周末双休</text>
       <text class="text_23">上下班时间：09：00-18：00</text>
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528779846297628.png"
-        class="image_13" />
+        class="image_13"
+      />
     </view>
     <view class="flex-col group_18">
       <view class="flex-row group_19">
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528778823688360.png"
-          class="image_14" />
+          class="image_14"
+        />
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528778205473828.png"
-          class="image_15" />
+          class="image_15"
+        />
       </view>
       <view class="flex-col group_20">
         <text>·求职中如遇到招聘方扣押证件、有球提供担保或收取财物、强迫入股或集资、收取不正当</text>
@@ -127,7 +138,7 @@ const jobName = ref(
 )
 const logoAddress = ref(
   'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png')
-const personnelName=ref( '张三·人事总监')
+const personnelName = ref('张三·人事总监')
 const activeTime = ref('两个月前活跃')
 const address = ref('重庆*九龙坡区')
 const recruitmentType = ref('在校/应届')

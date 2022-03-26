@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="公司介绍" />
     <view class="flex-row group_1">
       <image class="image_2" :src="logoAddress" />
       <view class="flex-col group_2">

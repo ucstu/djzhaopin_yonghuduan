@@ -1,36 +1,6 @@
 <template>
   <view class="flex-col page">
     <view class="group"></view>
-    <view class="justify-between footer">
-      <view class="flex-col items-center group_1">
-        <image
-          src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274049751091.png"
-          class="image"
-        />
-        <text class="text">首页</text>
-      </view>
-      <view class="flex-col items-center group_2">
-        <image
-          src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274047124255.png"
-          class="image"
-        />
-        <text class="text_1">24H面试</text>
-      </view>
-      <view class="flex-col items-center group_3">
-        <image
-          src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274042906672.png"
-          class="image"
-        />
-        <text>信息</text>
-      </view>
-      <view class="flex-col items-center group_4">
-        <image
-          src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274055908202.png"
-          class="image"
-        />
-        <text>我的</text>
-      </view>
-    </view>
   </view>
 </template>
 
