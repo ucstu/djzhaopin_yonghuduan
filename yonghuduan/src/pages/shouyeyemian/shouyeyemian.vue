@@ -54,36 +54,6 @@
     <view class="flex-col list_1">
       <JobDetail @click="view_4OnClick" class="list-item_1" :key="i" v-for="(job, i) in jobs" />
     </view>
-    <view class="justify-between footer">
-      <view class="flex-col items-center group_15">
-        <image
-          src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274049751091.png"
-          class="image_12"
-        />
-        <text class="text_52">首页</text>
-      </view>
-      <view class="flex-col items-center group_16">
-        <image
-          src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274047124255.png"
-          class="image_12"
-        />
-        <text class="text_53">24H面试</text>
-      </view>
-      <view class="flex-col items-center group_17">
-        <image
-          src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274042906672.png"
-          class="image_12"
-        />
-        <text>消息</text>
-      </view>
-      <view class="flex-col items-center group_18">
-        <image
-          src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274055908202.png"
-          class="image_12"
-        />
-        <text>我的</text>
-      </view>
-    </view>
   </view>
 </template>
 
@@ -94,6 +64,8 @@ import { reactive, ref } from 'vue'
 import { useStore } from 'vuex';
 
 const store = useStore(key);
+console.log(store.state.menuButtonInfo);
+
 
 const jobs = reactive([
   {
