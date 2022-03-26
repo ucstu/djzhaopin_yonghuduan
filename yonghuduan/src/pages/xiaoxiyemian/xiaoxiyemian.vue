@@ -43,36 +43,6 @@
       <text class="text_5">▼</text>
     </view>
     <MailBar @click="view_3OnClick" class="group_3" />
-    <view class="justify-between footer">
-      <view class="flex-col items-center group_7">
-        <image
-          src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274049751091.png"
-          class="image_8"
-        />
-        <text class="text_9">首页</text>
-      </view>
-      <view class="flex-col items-center group_8">
-        <image
-          src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274047124255.png"
-          class="image_8"
-        />
-        <text class="text_10">24H面试</text>
-      </view>
-      <view class="flex-col items-center group_9">
-        <image
-          src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274042906672.png"
-          class="image_8"
-        />
-        <text>信息</text>
-      </view>
-      <view class="flex-col items-center group_10">
-        <image
-          src="https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292274055908202.png"
-          class="image_8"
-        />
-        <text>我的</text>
-      </view>
-    </view>
   </view>
 </template>
 
