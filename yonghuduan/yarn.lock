@@ -733,13 +733,6 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@types/vue@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@types/vue/-/vue-2.0.0.tgz#ec77b3d89591deb9ca5cb052368aa9c32be088e7"
-  integrity sha1-7Hez2JWR3rnKXLBSNoqpwyvgiOc=
-  dependencies:
-    vue "*"
-
 "@vitejs/plugin-legacy@^1.7.1":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-legacy/-/plugin-legacy-1.7.1.tgz#6236d2f5ea5f11f6406070bb69e700e781f86125"
@@ -2240,7 +2233,7 @@ vue-router@^4.0.14:
   dependencies:
     "@vue/devtools-api" "^6.0.0"
 
-vue@*, vue@^3.2.31:
+vue@^3.2.31:
   version "3.2.31"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.31.tgz#e0c49924335e9f188352816788a4cca10f817ce6"
   integrity sha512-odT3W2tcffTiQCy57nOT93INw1auq5lYLLYtWpPYQQYQOOdHiqFct9Xhna6GJ+pJQaF67yZABraH47oywkJgFw==
