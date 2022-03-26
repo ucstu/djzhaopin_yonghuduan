@@ -57,23 +57,14 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return { opinion: '请写下您的宝贵意见，东江招聘致力于服务好每一位' }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
-}
+<script lang="ts" setup>
+import { ref } from 'vue';
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+const opinion = ref('请写下您的宝贵意见，东江招聘致力于服务好每一位')
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
+},
 </script>
 
 <style lang="scss" scoped>

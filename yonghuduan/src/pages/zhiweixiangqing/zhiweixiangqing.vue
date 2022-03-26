@@ -7,18 +7,15 @@
         <view class="flex-row group_3">
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16476080199658875198.png"
-            class="image_3"
-          />
+            class="image_3" />
           <text class="text">{{ address }}</text>
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528785310356733.png"
-            class="image_4"
-          />
+            class="image_4" />
           <text class="text_1">{{ recruitmentType }}</text>
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528784209429852.png"
-            class="image_5"
-          />
+            class="image_5" />
           <text class="text_2">{{ education }}</text>
         </view>
       </view>
@@ -34,30 +31,26 @@
       </view>
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528783146914074.png"
-        class="image_7"
-      />
+        class="image_7" />
     </view>
     <view class="justify-between group_7">
       <view class="flex-row group_8">
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528781826385526.png"
-          class="image_8"
-        />
+          class="image_8" />
         <text class="text_6">{{ personnelName }}</text>
       </view>
       <view class="flex-row group_9">
         <text>{{ activeTime }}</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16476080199650559462.png"
-          class="image_9"
-        />
+          class="image_9" />
       </view>
     </view>
     <view class="flex-col group_10">
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528781687109636.png"
-        class="image_10"
-      />
+        class="image_10" />
       <view class="flex-col group_11">
         <view class="flex-col">
           <text class="text_8">职位类型：全职</text>
@@ -66,21 +59,25 @@
             <text class="text_10">倒是负责制</text>
           </view>
           <text class="text_11">任职要求：</text>
-          <text class="text_12"
-            >1、熟悉HTML5、CSS3、JavaScript等基础技术，熟悉W3C标准及规范；<br
-          /></text>
+          <text class="text_12"></text>
+          1、熟悉HTML5、CSS3、JavaScript等基础技术，熟悉W3C标准及规范；
+          <br />
+          </text>
         </view>
-        <text class="text_13"
-          >2、熟悉JQuery、Angularjs、React，vue等开发框架。熟悉常用数据结构；<br
-        /></text>
+        <text class="text_13">
+          2、熟悉JQuery、Angularjs、React，vue等开发框架。熟悉常用数据结构；
+          <br />
+        </text>
         <view class="flex-col">
-          <text class="text_14"
-            >3、对Web技术有浓厚兴趣，了解行业热门技术特点，有不断提升组件的学习<br
-          /></text>
+          <text class="text_14">
+            3、对Web技术有浓厚兴趣，了解行业热门技术特点，有不断提升组件的学习
+            <br />
+          </text>
           <text class="text_15">意识；</text>
-          <text class="text_16"
-            >4、良好的沟通能力和团队协作精神，严谨、踏实的工作态度与高质量意识，<br
-          /></text>
+          <text class="text_16">
+            4、良好的沟通能力和团队协作精神，严谨、踏实的工作态度与高质量意识，
+            <br />
+          </text>
           <text class="text_17">良好的抗压能力。</text>
         </view>
         <view class="flex-col items-center group_15">
@@ -96,68 +93,48 @@
     <view class="flex-col group_17">
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528781099944130.png"
-        class="image_10"
-      />
+        class="image_10" />
       <text class="text_22">工作时间：周末双休</text>
       <text class="text_23">上下班时间：09：00-18：00</text>
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528779846297628.png"
-        class="image_13"
-      />
+        class="image_13" />
     </view>
     <view class="flex-col group_18">
       <view class="flex-row group_19">
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528778823688360.png"
-          class="image_14"
-        />
+          class="image_14" />
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528778205473828.png"
-          class="image_15"
-        />
+          class="image_15" />
       </view>
       <view class="flex-col group_20">
-        <text
-          >·求职中如遇到招聘方扣押证件、有球提供担保或收取财物、强迫入股或集资、收取不正当</text
-        >
+        <text>·求职中如遇到招聘方扣押证件、有球提供担保或收取财物、强迫入股或集资、收取不正当</text>
         <text class="text_25">·利益或其他违法情形，请立即举报</text>
-        <text class="text_26"
-          >·如遇到岗位要求海外工作，请提高警惕，谨防诈骗</text
-        >
+        <text class="text_26">·如遇到岗位要求海外工作，请提高警惕，谨防诈骗</text>
       </view>
     </view>
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {
-      salary: '6K - 8K',
-      jobName:
-        'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528786354168947.png',
-      logoAddress:
-        'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
-      personnelName: '张三·人事总监',
-      activeTime: '两个月前活跃',
-      address: '重庆*九龙坡区',
-      recruitmentType: '在校/应届',
-      education: '本科',
-      name: '字节跳动',
-      cityAndInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
-    }
-  },
-  methods: {
-    view_5OnClick() {
-      uni.navigateTo({ url: '/pages/gongsijieshao/gongsijieshao' })
-    },
-  },
+<script lang="ts" setup>
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import { ref } from 'vue'
+const salary = ref('6K - 8K')
+const jobName = ref(
+  'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528786354168947.png'
+)
+const logoAddress = ref(
+  'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png')  personnelName: '张三·人事总监',
+const activeTime = ref('两个月前活跃')
+const address = ref('重庆*九龙坡区')
+const recruitmentType = ref('在校/应届')
+const education = ref('本科')
+const name = ref('字节跳动')
+const cityAndInfo = ref('D轮及以上 | 2000人以上 | 内容资讯')
+const view_5OnClick = () => {
+  uni.navigateTo({ url: '/pages/gongsijieshao/gongsijieshao' })
 }
 </script>
 

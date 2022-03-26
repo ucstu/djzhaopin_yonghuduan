@@ -46,30 +46,18 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {
-      projectName: '请填写',
-      projectDescribe: '请填写',
-      projectUrl: '项目链接',
-      workExperience: '不关联任何工作经历',
-      achievement: '请选择',
-      startTime: '开始时间',
-      overTime: '结束时间',
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+<script lang="ts" setup>
+import { ref } from 'vue';
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+const projectName = ref('请填写')
+const projectDescribe = ref('请填写')
+const projectUrl = ref('项目链接')
+const workExperience = ref('不关联任何工作经历')
+const achievement = ref('请选择')
+const startTime = ref('开始时间')
+const overTime = ref('结束时间')
+const imageOnClick = () => {
+  uni.navigateBack()
 }
 </script>
 

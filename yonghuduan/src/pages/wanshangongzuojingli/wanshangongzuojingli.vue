@@ -39,38 +39,29 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+const companyName = ref('请填写')
+const companyIndustry = ref('请选择')
+const positionType = ref('请选择')
+const startTime = ref('入职时间')
+const overTime = ref('至今')
 
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {
-      companyName: '请填写',
-      companyIndustry: '请选择',
-      positionType: '请选择',
-      startTime: '入职时间',
-      overTime: '至今',
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-    textOnClick() {
-      uni.navigateTo({ url: '/pages/shouyeyemian/shouyeyemian' })
-    },
-    view_9OnClick() {
-      uni.navigateTo({ url: '/pages/zhiweileixing/zhiweileixing' })
-    },
-    view_3OnClick() {
-      uni.navigateTo({ url: '/pages/shouyeyemian/shouyeyemian' })
-    },
-  },
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
+const textOnClick = () => {
+  uni.navigateTo({ url: '/pages/shouyeyemian/shouyeyemian' })
+}
+const view_9OnClick = () => {
+  uni.navigateTo({ url: '/pages/zhiweileixing/zhiweileixing' })
+}
+const view_3OnClick = () => {
+  uni.navigateTo({ url: '/pages/shouyeyemian/shouyeyemian' })
+}
+
 </script>
 
 <style lang="scss" scoped>

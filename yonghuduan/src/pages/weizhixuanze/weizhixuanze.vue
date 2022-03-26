@@ -3,25 +3,26 @@
     <NavigationBar class="top-group" />
     <view class="flex-row group">
       <view class="flex-col list">
-        <view
-          class="list-item flex-row group_1"
-          :key="i"
-          v-for="(position, i) in positions"
-        >
+        <view class="list-item flex-row group_1" :key="i" v-for="(position, i) in positions">
           <image class="image_1" :src="position.name" />
-          <view class="section_1"> </view> </view
-      ></view>
+          <view class="section_1"></view>
+        </view>
+      </view>
       <view class="flex-row equal-division">
         <view class="flex-col items-center list_1">
-          <text class="list-item_1" :key="i" v-for="(name, i) in areas">{{
-            name.name
-          }}</text></view
-        >
+          <text class="list-item_1" :key="i" v-for="(name, i) in areas">
+            {{
+              name.name
+            }}
+          </text>
+        </view>
         <view class="flex-col items-center list_2">
-          <text class="list-item_2" :key="i" v-for="(name, i) in places">{{
-            name.name
-          }}</text></view
-        >
+          <text class="list-item_2" :key="i" v-for="(name, i) in places">
+            {{
+              name.name
+            }}
+          </text>
+        </view>
       </view>
     </view>
     <view class="flex-row group_2">
@@ -35,63 +36,53 @@
   </view>
 </template>
 
-<script>
+<script lang="ts" setup>
 import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-
-export default {
-  components: {
-    NavigationBar,
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import { reactive } from 'vue'
+const positions = reactive([
+  {
+    name: 'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292187787194317.png',
   },
-  data() {
-    return {
-      positions: [
-        {
-          name: 'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292187787194317.png',
-        },
-        { name: '地铁' },
-      ],
-      areas: [
-        { name: '不限' },
-        { name: '渝北区' },
-        { name: '渝中区' },
-        { name: '江北区' },
-        { name: '九龙坡区' },
-        { name: '南岸区' },
-        { name: '沙坪坝区' },
-        { name: '巴南区' },
-        { name: '北碚区' },
-        { name: '永川区' },
-        { name: '大渡口区' },
-        { name: '江津区' },
-        { name: '双桥区' },
-        { name: '铜梁区' },
-        { name: '大足县' },
-        { name: '万州区' },
-        { name: '合川区' },
-        { name: '长寿区' },
-        { name: '垫江区' },
-      ],
-      places: [
-        { name: '不限' },
-        { name: '大竹林' },
-        { name: '双凤桥' },
-        { name: '冉家坝' },
-        { name: '两路' },
-        { name: '汽博中心' },
-        { name: '人和' },
-        { name: '红旗河沟' },
-        { name: '鸳鸯' },
-        { name: '龙溪' },
-        { name: '兴隆' },
-      ],
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+  { name: '地铁' },
+])
+const areas = reactive([
+  { name: '不限' },
+  { name: '渝北区' },
+  { name: '渝中区' },
+  { name: '江北区' },
+  { name: '九龙坡区' },
+  { name: '南岸区' },
+  { name: '沙坪坝区' },
+  { name: '巴南区' },
+  { name: '北碚区' },
+  { name: '永川区' },
+  { name: '大渡口区' },
+  { name: '江津区' },
+  { name: '双桥区' },
+  { name: '铜梁区' },
+  { name: '大足县' },
+  { name: '万州区' },
+  { name: '合川区' },
+  { name: '长寿区' },
+  { name: '垫江区' },
+])
+const places = reactive([
+  { name: '不限' },
+  { name: '大竹林' },
+  { name: '双凤桥' },
+  { name: '冉家坝' },
+  { name: '两路' },
+  { name: '汽博中心' },
+  { name: '人和' },
+  { name: '红旗河沟' },
+  { name: '鸳鸯' },
+  { name: '龙溪' },
+  { name: '兴隆' },
+])
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
 </script>
 

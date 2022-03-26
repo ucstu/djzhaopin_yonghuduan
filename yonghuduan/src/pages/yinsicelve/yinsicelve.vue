@@ -4,22 +4,11 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {}
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+<script lang="ts" setup>
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
 </script>
 

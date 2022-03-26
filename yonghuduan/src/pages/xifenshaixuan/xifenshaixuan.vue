@@ -160,29 +160,17 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {
-      systemEnvironment: 'Windows',
-      algorithmType: '回归算法',
-      applicationField: '搜索 | 推荐',
-      communicationProtocol: 'TCP | IP',
-      encryptionTechnology: 'IDS',
-      searchEngine: 'Lucene',
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-  },
+<script lang="ts" setup>
+import { ref } from 'vue';
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+const systemEnvironment = ref('Windows')
+const algorithmType = ref('回归算法')
+const applicationField = ref('搜索 | 推荐')
+const communicationProtocol = ref('TCP | IP')
+const encryptionTechnology = ref('IDS')
+const searchEngine = ref('Lucene')
+const imageOnClick = () => {
+  uni.navigateBack()
 }
 </script>
 

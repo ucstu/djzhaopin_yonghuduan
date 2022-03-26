@@ -57,124 +57,106 @@
       </view>
     </view>
     <view class="flex-row list">
-      <view
-        class="list-item flex-col items-center"
-        :key="i"
-        v-for="(direction, i) in directions"
-      >
+      <view class="list-item flex-col items-center" :key="i" v-for="(direction, i) in directions">
         <text class="text_10 text_11">{{ direction.name }}</text>
-      </view></view
-    >
+      </view>
+    </view>
     <view class="flex-col list_1">
-      <JobDetail
-        @click="view_8OnClick"
-        class="list-item_1"
-        :key="i"
-        v-for="(job, i) in jobs"
-    /></view>
+      <JobDetail @click="view_8OnClick" class="list-item_1" :key="i" v-for="(job, i) in jobs" />
+    </view>
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import JobDetail from '@/components/JobDetail/JobDetail.vue'
+<script lang="ts" setup>
+import { ref } from 'vue';
+import JobDetail from '../../components/JobDetail/JobDetail.vue'
+import { reactive } from 'vue'
+const directions = reactive([
+  { name: '不限' },
+  { name: 'C++' },
+  { name: 'JAVA' },
+  { name: 'C#' },
+  { name: 'PHP' },
+  { name: 'Html5' },
+])
+const jobs = reactive([
+  {
+    name: '前端开发实习生',
+    areaAndRequirements: '江北区 | 在校/应届',
+    educationalRequirements: '本科',
+    directionOne: '后台开发',
+    directionTwo: 'JAVA开发',
+    companyLogoAddress:
+      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
+    companyName: '字节跳动',
+    companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
+    salary: '4K - 8K',
+    releaseDate: '2月28日',
+  },
+  {
+    name: '前端开发实习生',
+    areaAndRequirements: '江北区 | 在校/应届',
+    educationalRequirements: '本科',
+    directionOne: '后台开发',
+    directionTwo: 'JAVA开发',
+    companyLogoAddress:
+      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
+    companyName: '字节跳动',
+    companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
+    salary: '4K - 8K',
+    releaseDate: '2月28日',
+  },
+  {
+    name: '前端开发实习生',
+    areaAndRequirements: '江北区 | 在校/应届',
+    educationalRequirements: '本科',
+    directionOne: '后台开发',
+    directionTwo: 'JAVA开发',
+    companyLogoAddress:
+      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
+    companyName: '字节跳动',
+    companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
+    salary: '4K - 8K',
+    releaseDate: '2月28日',
+  },
+  {
+    name: '前端开发实习生',
+    areaAndRequirements: '江北区 | 在校/应届',
+    educationalRequirements: '本科',
+    directionOne: '后台开发',
+    directionTwo: 'JAVA开发',
+    companyLogoAddress:
+      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
+    companyName: '字节跳动',
+    companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
+    salary: '4K - 8K',
+    releaseDate: '2月28日',
+  },
+])
+const city = ref('重庆')
+const searchContent = ref('请输入关键字')
 
-export default {
-  components: {
-    JobDetail,
-  },
-  data() {
-    return {
-      directions: [
-        { name: '不限' },
-        { name: 'C++' },
-        { name: 'JAVA' },
-        { name: 'C#' },
-        { name: 'PHP' },
-        { name: 'Html5' },
-      ],
-      jobs: [
-        {
-          name: '前端开发实习生',
-          areaAndRequirements: '江北区 | 在校/应届',
-          educationalRequirements: '本科',
-          directionOne: '后台开发',
-          directionTwo: 'JAVA开发',
-          companyLogoAddress:
-            'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
-          companyName: '字节跳动',
-          companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
-          salary: '4K - 8K',
-          releaseDate: '2月28日',
-        },
-        {
-          name: '前端开发实习生',
-          areaAndRequirements: '江北区 | 在校/应届',
-          educationalRequirements: '本科',
-          directionOne: '后台开发',
-          directionTwo: 'JAVA开发',
-          companyLogoAddress:
-            'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
-          companyName: '字节跳动',
-          companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
-          salary: '4K - 8K',
-          releaseDate: '2月28日',
-        },
-        {
-          name: '前端开发实习生',
-          areaAndRequirements: '江北区 | 在校/应届',
-          educationalRequirements: '本科',
-          directionOne: '后台开发',
-          directionTwo: 'JAVA开发',
-          companyLogoAddress:
-            'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
-          companyName: '字节跳动',
-          companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
-          salary: '4K - 8K',
-          releaseDate: '2月28日',
-        },
-        {
-          name: '前端开发实习生',
-          areaAndRequirements: '江北区 | 在校/应届',
-          educationalRequirements: '本科',
-          directionOne: '后台开发',
-          directionTwo: 'JAVA开发',
-          companyLogoAddress:
-            'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
-          companyName: '字节跳动',
-          companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
-          salary: '4K - 8K',
-          releaseDate: '2月28日',
-        },
-      ],
-      city: '重庆',
-      searchContent: '请输入关键字',
-    }
-  },
-  methods: {
-    textOnClick() {
-      uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
-    },
-    text_1OnClick() {
-      uni.navigateBack()
-    },
-    text_3OnClick() {
-      uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-    },
-    view_8OnClick() {
-      uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-    },
-    view_9OnClick() {
-      uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-    },
-    view_10OnClick() {
-      uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-    },
-    view_11OnClick() {
-      uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-    },
-  },
-}
+const textOnClick = () => {
+  uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
+},
+const text_1OnClick = () => {
+  uni.navigateBack()
+},
+const text_3OnClick = () => {
+  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
+},
+const view_8OnClick = () => {
+  uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
+},
+const view_9OnClick = () => {
+  uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
+},
+const view_10OnClick = () => {
+  uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
+},
+const view_11OnClick = () => {
+  uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
+},
 </script>
 
 <style lang="scss" scoped>

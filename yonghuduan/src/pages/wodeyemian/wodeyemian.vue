@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <view class="section_1"> </view>
+    <view class="section_1"></view>
     <view class="flex-col section_2">
       <view class="justify-between">
         <view class="flex-row group_1">
@@ -143,51 +143,43 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-export default {
-  data() {
-    return {
-      sendSum: '0',
-      collectSum: '0',
-      attendSum: '0',
-      interSum: '0',
-      userName: '张三',
-      basicInformation: '应届毕业生/18岁/本科',
-    }
-  },
-  methods: {
-    view_15OnClick() {
-      uni.navigateTo({ url: '/pages/bianjijianli/bianjijianli' })
-    },
-    view_30OnClick() {
-      uni.navigateTo({ url: '/pages/toudijilu/toudijilu' })
-    },
-    view_31OnClick() {
-      uni.navigateTo({ url: '/pages/shoucangzhiwei/shoucangzhiwei' })
-    },
-    view_32OnClick() {
-      uni.navigateTo({ url: '/pages/guanzhugongsi/guanzhugongsi' })
-    },
-    view_33OnClick() {
-      uni.navigateTo({ url: '/pages/daimianshi/daimianshi' })
-    },
-    view_18OnClick() {
-      uni.navigateTo({ url: '/pages/shangchuanjianli/shangchuanjianli' })
-    },
-    view_19OnClick() {
-      uni.navigateTo({ url: '/pages/qiuzhiyixiang/qiuzhiyixiang' })
-    },
-    view_20OnClick() {
-      uni.navigateTo({ url: '/pages/yonghufankui/yonghufankui' })
-    },
-    view_21OnClick() {
-      uni.navigateTo({ url: '/pages/yinsishezhi/yinsishezhi' })
-    },
-    view_22OnClick() {
-      uni.navigateTo({ url: '/pages/shezhiyemian/shezhiyemian' })
-    },
-  },
+<script lang="ts" setup>
+import { ref } from 'vue'
+const sendSum = ref('0')
+const collectSum = ref('0')
+const attendSum = ref('0')
+const interSum = ref('0')
+const userName = ref('张三')
+const basicInformation = ref('应届毕业生/18岁/本科')
+const view_15OnClick = () => {
+  uni.navigateTo({ url: '/pages/bianjijianli/bianjijianli' })
+}
+const view_30OnClick = () => {
+  uni.navigateTo({ url: '/pages/toudijilu/toudijilu' })
+}
+const view_31OnClick = () => {
+  uni.navigateTo({ url: '/pages/shoucangzhiwei/shoucangzhiwei' })
+}
+const view_32OnClick = () => {
+  uni.navigateTo({ url: '/pages/guanzhugongsi/guanzhugongsi' })
+}
+const view_33OnClick = () => {
+  uni.navigateTo({ url: '/pages/daimianshi/daimianshi' })
+}
+const view_18OnClick = () => {
+  uni.navigateTo({ url: '/pages/shangchuanjianli/shangchuanjianli' })
+}
+const view_19OnClick = () => {
+  uni.navigateTo({ url: '/pages/qiuzhiyixiang/qiuzhiyixiang' })
+}
+const view_20OnClick = () => {
+  uni.navigateTo({ url: '/pages/yonghufankui/yonghufankui' })
+}
+const view_21OnClick = () => {
+  uni.navigateTo({ url: '/pages/yinsishezhi/yinsishezhi' })
+}
+const view_22OnClick = () => {
+  uni.navigateTo({ url: '/pages/shezhiyemian/shezhiyemian' })
 }
 </script>
 
@@ -274,7 +266,7 @@ export default {
       .image-wrapper {
         padding: 90rpx 0 5rpx;
         border-radius: 60rpx;
-        background-image: url('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303726169734760.png');
+        background-image: url("https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303726169734760.png");
         background-size: 100% 100%;
         background-repeat: no-repeat;
         width: 120rpx;

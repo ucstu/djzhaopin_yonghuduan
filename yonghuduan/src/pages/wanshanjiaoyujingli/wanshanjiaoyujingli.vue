@@ -33,34 +33,24 @@
   </view>
 </template>
 
-<script>
-import * as Vue from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-
-export default {
-  components: {
-    NavigationBar,
-  },
-  data() {
-    return {
-      schoolName: '请填写',
-      subject: '请填写',
-      education: '请选择',
-      startTime: '开始时间',
-      overTime: '结束时间',
-    }
-  },
-  methods: {
-    imageOnClick() {
-      uni.navigateBack()
-    },
-    view_2OnClick() {
-      uni.navigateTo({
-        url: '/pages/wanshangongzuojingli/wanshangongzuojingli',
-      })
-    },
-  },
+<script lang="ts" setup>
+import { ref } from 'vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+const schoolName = ref('请填写')
+const subject = ref('请填写')
+const education = ref('请选择')
+const startTime = ref('开始时间')
+const overTime = ref('结束时间')
+const imageOnClick = () => {
+  // @ts-ignore
+  uni.navigateBack()
 }
+const view_2OnClick = () => {
+  uni.navigateTo({
+    url: '/pages/wanshangongzuojingli/wanshangongzuojingli',
+  })
+}
+
 </script>
 
 <style lang="scss" scoped>
