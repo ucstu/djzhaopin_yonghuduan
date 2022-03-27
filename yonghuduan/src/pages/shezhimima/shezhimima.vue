@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="设置密码"/>
     <view class="flex-col section_1">
       <text class="text_1">设置密码</text>
       <view class="flex-row group_1">

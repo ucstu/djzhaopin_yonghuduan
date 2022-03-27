@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="用户反馈"/>
     <view class="flex-col group_1">
       <text class="text_1">请选择反馈类型</text>
       <view class="flex-row group_2">

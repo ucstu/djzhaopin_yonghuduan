@@ -1,9 +1,14 @@
 <template>
   <view class="flex-col page">
-    <view class="section_1"></view>
+    <view class="section_1" :style="'height: '+navigationBarTop+'px'"></view>
     <view class="flex-col section_2">
-      <view class="justify-between">
-        <scroll-view class="flex-row list">
+      <view class="justify-between items-center" :style="'height: '+navigationBarHeight+'px'">
+        <scroll-view
+        class="flex-row list"
+        scroll-x="true"
+        scroll-left="120"
+        @click="scroll"
+        >
           <text
             class="list-item"
             :class="activeIndex === i ? 'active' : ''"
@@ -57,7 +62,7 @@
       />
     </view>
     <view class="flex-col list_1">
-      <JobDetail @click="view_4OnClick" class="list-item_1" :key="i" v-for="(job, i) in jobs" />
+      <JobDetail @click="view_4OnClick" class="list-item_1" :jobDetail="job" :key="i" v-for="(job, i) in jobs" />
     </view>
   </view>
 </template>
@@ -69,8 +74,12 @@ import { reactive, ref } from 'vue'
 import { useStore } from 'vuex';
 
 const store = useStore(key);
-console.log(store.state.menuButtonInfo);
+console.log(store.state);
 
+// @ts-ignore
+const navigationBarHeight = store.state.menuButtonInfo.height
+// @ts-ignore
+const navigationBarTop = store.state.menuButtonInfo.top
 
 const jobs = reactive([
   {
@@ -136,6 +145,7 @@ const expects = reactive([
 const city = ref('重庆')
 const activeIndex = ref(0)
 
+
 const image_5OnClick = () => {
   uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
 }
@@ -146,7 +156,7 @@ const text_22OnClick = () => {
   uni.navigateTo({ url: '/pages/weizhixuanze/weizhixuanze' })
 }
 const text_23OnClick = () => {
-  uni.navigateTo({ url: '/pages/xifenshaixuan/xifenshaixuan' })
+  uni.navigateTo({ url: '/pages/shaixuanyemian/shaixuanyemian' })
 }
 const view_4OnClick = () => {
   uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
@@ -174,9 +184,10 @@ const view_7OnClick = () => {
   }
   .section_2 {
     padding: 28rpx 20rpx 15rpx;
+    padding-top: 0rpx;
     background-color: rgb(37, 85, 212);
     .group_2 {
-      margin-top: 25rpx;
+      margin-top: 15rpx;
       .group_3 {
         color: rgb(255, 255, 255);
         font-size: 25rpx;
@@ -192,7 +203,7 @@ const view_7OnClick = () => {
       .group_4 {
         margin-top: 5rpx;
         color: rgb(255, 255, 255);
-        font-size: 18rpx;
+        font-size: 20rpx;
         line-height: 17rpx;
         white-space: nowrap;
         .group_6 {
@@ -205,8 +216,8 @@ const view_7OnClick = () => {
           margin: 7rpx 0 4rpx 3rpx;
         }
         .image_3 {
-          width: 7rpx;
-          height: 5rpx;
+          width: 10rpx;
+          height: 7rpx;
         }
       }
     }
@@ -220,11 +231,13 @@ const view_7OnClick = () => {
       margin: 3rpx 0 9rpx;
       .active {
         font-size: 35rpx !important;
+        color: rgb(255, 255, 255) !important;
       }
       .list-item {
-        color: rgb(255, 255, 255);
-        font-size: 25rpx;
+        color: rgb(209, 205, 205);
+        font-size: 28rpx;
         line-height: 32rpx;
+        margin-left: 12rpx;
         white-space: nowrap;
       }
     }
@@ -237,7 +250,7 @@ const view_7OnClick = () => {
     }
   }
   .list_1 {
-    padding: 25rpx;
+    padding: 15rpx 25rpx 0rpx;
     .list-item_1 {
       margin-top: 20rpx;
     }

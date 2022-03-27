@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="编辑教育经历"/>
     <view class="flex-col section_1">
       <text class="text_1">学校名称</text>
       <text class="text_2">{{ schoolName }}</text>
@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 import { ref } from 'vue'
 
 

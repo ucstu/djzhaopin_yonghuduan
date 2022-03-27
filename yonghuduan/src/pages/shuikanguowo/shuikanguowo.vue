@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="谁看过我"/>
     <view class="flex-col list">
       <CompanyDetail
         @click="view_2OnClick"

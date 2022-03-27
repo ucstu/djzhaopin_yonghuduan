@@ -1,49 +1,42 @@
 <template>
-  <view @click="rootViewOnClick" class="justify-between">
+  <view @click="rootViewOnClick" class="justify-between border">
     <view class="flex-col">
       <view class="flex-col group_2">
-        <text class="text">{{ name }}</text>
+        <text class="text">{{ props.jobDetail!.name }}</text>
         <view class="flex-row group_3">
-          <text>{{ areaAndRequirements }}</text>
-          <text class="text_2">{{ educationalRequirements }}</text>
+          <text>{{ props.jobDetail!.areaAndRequirements }}</text>
+          <text class="text_2">{{ props.jobDetail!.educationalRequirements }}</text>
         </view>
-        <view class="flex-row group_4">
+        <view class="flex-row group_4 items-center">
           <view class="flex-col text-wrapper">
-            <text class="text_3">{{ directionOne }}</text>
+            <text class="text_3">{{ props.jobDetail!.directionOne }}</text>
           </view>
           <view class="flex-col text-wrapper_1">
-            <text class="text_4">{{ directionTwo }}</text>
+            <text class="text_4">{{ props.jobDetail!.directionTwo }}</text>
           </view>
         </view>
       </view>
       <view class="flex-row group_5">
-        <image class="image" :src="companyLogoAddress" />
+        <image class="image" :src="props.jobDetail!.companyLogoAddress" />
         <view class="flex-col group_6">
-          <text class="text_5">{{ companyName }}</text>
-          <text class="text_6">{{ companyInfo }}</text>
+          <text class="text_5">{{ props.jobDetail!.companyName }}</text>
+          <text class="text_6">{{ props.jobDetail!.companyInfo }}</text>
         </view>
       </view>
     </view>
     <view class="flex-col items-end group_7">
-      <text class="text_7">{{ salary }}</text>
-      <text class="text_8">{{ releaseDate }}</text>
+      <text class="text_7">{{ props.jobDetail!.salary }}</text>
+      <text class="text_8">{{ props.jobDetail!.releaseDate }}</text>
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-
-const salary = ref('4K - 8K')
-const releaseDate = ref('2月28日')
-const name = ref('前端开发实习生')
-const companyLogoAddress = ref('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png')
-const areaAndRequirements = ref('江北区 | 在校/应届')
-const educationalRequirements = ref('本科')
-const companyName = ref('字节跳动')
-const companyInfo = ref('D轮及以上 | 2000人以上 | 内容资讯')
-const directionOne = ref('后台开发')
-const directionTwo = ref('JAVA开发')
+const props = defineProps({
+  jobDetail:{
+    type:Object
+  }
+})
 
 const rootViewOnClick = () => {
   uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
@@ -51,6 +44,10 @@ const rootViewOnClick = () => {
 </script>
 
 <style lang="scss" scoped>
+.border{
+  padding-left: 15rpx;
+  padding-right: 15rpx;
+}
 .group_7 {
   padding: 5rpx 0 3rpx;
   align-self: center;
@@ -64,7 +61,7 @@ const rootViewOnClick = () => {
   .text_8 {
     margin-top: 14rpx;
     color: rgb(163, 154, 154);
-    font-size: 16rpx;
+    font-size: 25rpx;
     line-height: 14rpx;
     white-space: nowrap;
   }
@@ -91,14 +88,14 @@ const rootViewOnClick = () => {
   .group_4 {
     margin-top: 7rpx;
     align-self: flex-start;
-    color: rgba(0, 0, 0, 0.3);
+    color: #130c0e;
     font-size: 16rpx;
     line-height: 15rpx;
     white-space: nowrap;
     .text-wrapper {
       padding: 6rpx 0 10rpx;
       background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
+      border-radius: 8rpx;
       overflow: hidden;
       height: 30rpx;
       .text_3 {

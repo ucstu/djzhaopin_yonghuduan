@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="我的查看"/>
     <view class="flex-col list">
       <JobDetail @click="view_2OnClick" class="list-item" :key="i" v-for="(myview, i) in myViews" />
     </view>

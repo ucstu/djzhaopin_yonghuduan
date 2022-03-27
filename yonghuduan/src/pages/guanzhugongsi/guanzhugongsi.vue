@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="关注公司"/>
     <view class="flex-col list">
       <CompanyPanel class="list-item" :key="i" v-for="(attentionCompany, i) in attentionCompanys" />
     </view>

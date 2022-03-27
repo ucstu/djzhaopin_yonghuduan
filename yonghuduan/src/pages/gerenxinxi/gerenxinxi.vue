@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="个人信息"/>
     <view class="justify-between group_1">
       <view class="flex-col group_2">
         <text class="text_1">头像</text>

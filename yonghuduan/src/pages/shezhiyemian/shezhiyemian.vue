@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="设置"/>
     <view @click="view_4OnClick" class="justify-between section_1">
       <text class="text_1">我的账户</text>
       <image

@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="隐私设置"/>
     <text class="text_1">匿名展示</text>
     <view class="justify-between group_1">
       <view class="flex-row">

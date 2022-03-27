@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" right="保存"/>
     <text class="text_1">选择职位细分标签</text>
     <text class="text_2">根据您选择的期望职位，选择一下职位细分标签</text>
     <view class="flex-col group_1">
@@ -170,6 +170,7 @@ const communicationProtocol = ref('TCP | IP')
 const encryptionTechnology = ref('IDS')
 const searchEngine = ref('Lucene')
 const imageOnClick = () => {
+  // @ts-ignore
   uni.navigateBack()
 }
 </script>

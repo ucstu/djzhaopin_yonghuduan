@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar class="top-group" />
+    <NavigationBar class="top-group" title="位置"/>
     <view class="flex-row group">
       <view class="flex-col list">
         <view class="list-item flex-row group_1" :key="i" v-for="(position, i) in positions">

@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="编辑项目经历"/>
     <view class="flex-col section_1">
       <text class="text_1">项目名称</text>
       <text class="text_2">{{ projectName }}</text>

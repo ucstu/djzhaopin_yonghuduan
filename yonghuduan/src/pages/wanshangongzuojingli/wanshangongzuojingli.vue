@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" right="跳过"/>
     <text class="text_1">请完善最近一份工作经历（3/3）</text>
     <view class="flex-col section_1">
       <text class="text_2">公司名称</text>

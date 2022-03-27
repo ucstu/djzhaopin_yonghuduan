@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="投递记录"/>
     <view class="justify-between group_1">
       <text class="text_1">待查看</text>
       <text class="text_2">已查看</text>

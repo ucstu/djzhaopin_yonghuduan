@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="通知设置"/>
     <view class="flex-col items-start bar-1">
       <text class="text">新消息通知</text>
     </view>

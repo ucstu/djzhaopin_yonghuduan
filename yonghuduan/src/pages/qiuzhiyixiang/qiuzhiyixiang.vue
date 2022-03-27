@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header"/>
     <text class="text_1">求职期望</text>
     <text class="text_2">每个求职意向都会有专属的职位推荐</text>
     <view class="flex-col list">

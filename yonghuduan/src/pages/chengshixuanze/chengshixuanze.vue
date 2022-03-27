@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar class="header" />
+    <NavigationBar class="header" title="选择城市"/>
     <view class="flex-row">
       <view class="flex-col list">
         <view class="list-item flex-row" :key="i" v-for="(province, i) in provinces">
