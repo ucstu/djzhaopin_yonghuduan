@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" title="投递记录"/>
+    <NavigationBar class="header" title="投递记录" />
     <view class="justify-between group_1">
       <text class="text_1">待查看</text>
       <text class="text_2">已查看</text>
@@ -9,7 +9,12 @@
       <text class="text_5">不合格</text>
     </view>
     <view class="flex-col list">
-      <JobPanel class="list-item" :key="i" v-for="(deliveryRecord, i) in deliveryRecords" />
+      <JobPanel
+        class="list-item"
+        :collectionPosition="deliveryRecord"
+        :key="i"
+        v-for="(deliveryRecord, i) in deliveryRecords"
+      />
     </view>
   </view>
 </template>
@@ -22,32 +27,36 @@ import { reactive } from 'vue';
 
 const deliveryRecords = reactive([
   {
-    name: '前端开发实习生',
-    areaAndRequirements: '江北区 | 在校/应届',
-    educationalRequirements: '本科',
-    directionOne: '后台开发',
-    directionTwo: 'JAVA开发',
-    companyLogoAddress:
-      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
-    companyName: '字节跳动',
-    companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
-    salary: '4K - 8K',
-    releaseDate: '2月28日',
-    state: '待查看',
+    jobDetail: {
+      name: '前端开发实习生',
+      areaAndRequirements: '江北区 | 在校/应届',
+      educationalRequirements: '本科',
+      directionOne: '后台开发',
+      directionTwo: 'JAVA开发',
+      companyLogoAddress:
+        'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
+      companyName: '字节跳动',
+      companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
+      salary: '4K - 8K',
+      releaseDate: '2月28日'
+    },
+    left: '待查看',
   },
   {
-    name: '前端开发实习生',
-    areaAndRequirements: '江北区 | 在校/应届',
-    educationalRequirements: '本科',
-    directionOne: '后台开发',
-    directionTwo: 'JAVA开发',
-    companyLogoAddress:
-      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
-    companyName: '字节跳动',
-    companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
-    salary: '4K - 8K',
-    releaseDate: '2月28日',
-    state: '待查看',
+    jobDetail: {
+      name: '前端开发实习生',
+      areaAndRequirements: '江北区 | 在校/应届',
+      educationalRequirements: '本科',
+      directionOne: '后台开发',
+      directionTwo: 'JAVA开发',
+      companyLogoAddress:
+        'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
+      companyName: '字节跳动',
+      companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
+      salary: '4K - 8K',
+      releaseDate: '2月28日'
+    },
+    left: '待查看',
   },
 ])
 

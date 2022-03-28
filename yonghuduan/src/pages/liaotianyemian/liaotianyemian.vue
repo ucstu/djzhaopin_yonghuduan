@@ -87,10 +87,10 @@
   </view>
 </template>
 
-<script lang="ts" setup>import { ref } from 'vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
 
-
-const jobName = ref('前端开发工程师')
+const jobName = ref('jsjsj')
 const personnelName = ref('张三')
 const companyAndJob = ref('字节跳动 · 人事总监')
 

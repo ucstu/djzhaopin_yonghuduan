@@ -1,22 +1,18 @@
 <template>
   <view @click="rootViewOnClick" class="flex-row component">
-    <image class="image" :src="logoAddress" />
+    <image class="image" :src="companyDetail!.logo" />
     <view class="flex-col group_1">
-      <text class="text">{{ name }}</text>
+      <text class="text">{{ companyDetail!.name }}</text>
       <view class="flex-row group_2">
         <text>在招职位</text>
-        <text class="text_2">{{ recruitmentPosition }}</text>
+        <text class="text_2">{{ companyDetail!.recruitmentPosition }}</text>
       </view>
-      <text class="text_3">{{ cityAndInfo }}</text>
+      <text class="text_3">{{ companyDetail!.city }} | {{ companyDetail!.financingStage }} | {{ companyDetail!.scale }}
+        |
+        {{ companyDetail!.comprehension }}</text>
       <view class="flex-row group_3">
-        <view class="left-text-wrapper flex-col items-center">
-          <text>{{ benefitOne }}</text>
-        </view>
-        <view class="left-text-wrapper flex-col items-center view_1">
-          <text>{{ benefitTwo }}</text>
-        </view>
-        <view class="flex-col items-center text-wrapper">
-          <text>{{ benefitThree }}</text>
+        <view class="left-text-wrapper flex-col items-center" v-for="(benefit, i) in companyDetail!.benefits" :key="i">
+          <text>{{ benefit }}</text>
         </view>
       </view>
     </view>
@@ -24,19 +20,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+defineProps({
+  companyDetail: {
+    type: Object
+  }
+})
 
-      const logoAddress= ref('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png')
-      const name= ref( '字节跳动')
-      const cityAndInfo= ref( '杭州 | 上市公司 | 2000人以上 | 软件服务')
-      const recruitmentPosition= ref( '200')
-      const benefitOne= ref( '技能培训')
-      const benefitTwo= ref( '年薪双假')
-      const benefitThree= ref( '带薪年假')
-
-    const rootViewOnClick=()=> {
-      uni.navigateTo({ url: '/pages/gongsijieshao/gongsijieshao' })
-    }
+const rootViewOnClick = () => {
+  uni.navigateTo({ url: '/pages/gongsijieshao/gongsijieshao' })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -95,6 +87,7 @@ import { ref } from 'vue'
         overflow: hidden;
         width: 120rpx;
         height: 30rpx;
+        margin-right: 5rpx;
       }
       .view_1 {
         margin-left: 18rpx;

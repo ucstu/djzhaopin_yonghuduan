@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar class="group" title="筛选"/>
+    <NavigationBar class="group" title="筛选" />
     <view class="group_1 flex-col view_1">
       <text class="text_1 text_2">职位细分方向</text>
       <view class="bottom-group flex-row">

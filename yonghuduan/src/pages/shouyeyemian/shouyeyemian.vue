@@ -1,14 +1,28 @@
 <template>
   <view class="flex-col page">
-    <view class="section_1" :style="'height: '+navigationBarTop+'px'"></view>
+    <!--  #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
+    <view class="section_1" :style="'height: ' + navigationBarTop + 'px'"></view>
     <view class="flex-col section_2">
-      <view class="justify-between items-center" :style="'height: '+navigationBarHeight+'px'">
+      <view class="justify-between items-center"
+      :style="'height: ' + navigationBarHeight + 'px; width: ' + navigationBarWidth + 'px'"
+      >
         <scroll-view
-        class="flex-row list"
-        scroll-x="true"
-        scroll-left="120"
         @click="scroll"
+        :scroll-x="true"
+        :style="'width: ' + expectationWidth + 'px'"
+        class="flex-row list"
         >
+    <!--  #endif -->
+    <!--  #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
+    <view class="section_1"></view>
+    <view class="flex-col section_2">
+      <view class="justify-between items-center">
+        <scroll-view
+        @click="scroll"
+        :scroll-x="true"
+        class="flex-row list"
+        >
+    <!--  #endif -->
           <text
             class="list-item"
             :class="activeIndex === i ? 'active' : ''"
@@ -62,7 +76,13 @@
       />
     </view>
     <view class="flex-col list_1">
-      <JobDetail @click="view_4OnClick" class="list-item_1" :jobDetail="job" :key="i" v-for="(job, i) in jobs" />
+      <JobDetail
+        @click="view_4OnClick"
+        class="list-item_1"
+        :jobDetail="jobDetail"
+        :key="i"
+        v-for="(jobDetail, i) in jobDetails"
+      />
     </view>
   </view>
 </template>
@@ -74,14 +94,19 @@ import { reactive, ref } from 'vue'
 import { useStore } from 'vuex';
 
 const store = useStore(key);
-console.log(store.state);
 
+/* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
 // @ts-ignore
 const navigationBarHeight = store.state.menuButtonInfo.height
 // @ts-ignore
 const navigationBarTop = store.state.menuButtonInfo.top
+// @ts-ignore
+const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(30)
+// @ts-ignore
+const expectationWidth =  store.state.menuButtonInfo.left - uni.upx2px(170)
+/* #endif */
 
-const jobs = reactive([
+const jobDetails = reactive([
   {
     name: '前端开发实习生',
     areaAndRequirements: '江北区 | 在校/应届',
@@ -96,8 +121,8 @@ const jobs = reactive([
     releaseDate: '2月28日',
   },
   {
-    name: '前端开发实习生',
-    areaAndRequirements: '江北区 | 在校/应届',
+    name: '前端开发实习生1',
+    areaAndRequirements: '江北区 |4545 在校/应届',
     educationalRequirements: '本科',
     directionOne: '后台开发',
     directionTwo: 'JAVA开发',
@@ -229,6 +254,8 @@ const view_7OnClick = () => {
     }
     .list {
       margin: 3rpx 0 9rpx;
+      overflow: hidden;
+      white-space: nowrap;
       .active {
         font-size: 35rpx !important;
         color: rgb(255, 255, 255) !important;
@@ -237,7 +264,7 @@ const view_7OnClick = () => {
         color: rgb(209, 205, 205);
         font-size: 28rpx;
         line-height: 32rpx;
-        margin-left: 12rpx;
+        margin-right: 12rpx;
         white-space: nowrap;
       }
     }

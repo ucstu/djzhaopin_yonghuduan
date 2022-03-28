@@ -5,13 +5,11 @@
       <view class="flex-row search">
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773197745663.png"
-          class="image"
-        />
+          class="image" />
         <view class="flex-row section_1">
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528771387958614.png"
-            class="image_1"
-          />
+            class="image_1" />
           <text class="text_1">{{ jobName }}</text>
         </view>
       </view>
@@ -26,36 +24,31 @@
         <text class="text_5">区域</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_3"
-        />
+          class="image_2 image_3" />
       </view>
       <view class="equal-division-item flex-row">
         <text class="text_6">要求</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_4"
-        />
+          class="image_2 image_4" />
       </view>
       <view class="flex-row equal-division-item_1">
         <text class="text_7">公司</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_5"
-        />
+          class="image_2 image_5" />
       </view>
       <view class="equal-division-item flex-row">
         <text class="text_8">福利</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_6"
-        />
+          class="image_2 image_6" />
       </view>
       <view class="justify-evenly group_5">
         <text>排序</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_7"
-        />
+          class="image_2 image_7" />
       </view>
     </view>
     <view class="flex-row group_6">
@@ -79,16 +72,11 @@
       </view>
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773723315322.png"
-        class="image_8"
-      />
+        class="image_8" />
     </view>
     <view class="flex-col list">
-      <CompanyDetail
-        @click="view_5OnClick"
-        class="list-item"
-        :key="i"
-        v-for="(attentionCompany, i) in attentionCompanys"
-      />
+      <CompanyDetail @click="view_5OnClick" class="list-item" :companyDetail="attentionCompany" :key="i"
+        v-for="(attentionCompany, i) in attentionCompanys" />
     </view>
   </view>
 </template>
@@ -97,48 +85,14 @@
 import { ref, reactive } from 'vue'
 import CompanyDetail from '../../components/CompanyDetail/CompanyDetail.vue'
 
-const attentionCompanys = reactive([
-  {
-    logoAddress:
-      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
-    name: '字节跳动',
-    recruitmentPosition: '200',
-    cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
-    benefitOne: '技能培训',
-    benefitTwo: '年薪双假',
-    benefitThree: '带薪年假',
-  },
-  {
-    logoAddress:
-      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
-    name: '字节跳动',
-    recruitmentPosition: '200',
-    cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
-    benefitOne: '技能培训',
-    benefitTwo: '年薪双假',
-    benefitThree: '带薪年假',
-  },
-  {
-    logoAddress:
-      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
-    name: '字节跳动',
-    recruitmentPosition: '200',
-    cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
-    benefitOne: '技能培训',
-    benefitTwo: '年薪双假',
-    benefitThree: '带薪年假',
-  },
-  {
-    logoAddress:
-      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
-    name: '字节跳动',
-    recruitmentPosition: '200',
-    cityAndInfo: '杭州 | 上市公司 | 2000人以上 | 软件服务',
-    benefitOne: '技能培训',
-    benefitTwo: '年薪双假',
-    benefitThree: '带薪年假',
-  },
-])
+let attentionCompanys = reactive([])
+uni.request({
+  url: 'http://127.0.0.1:4523/mock/743652/companies', //仅为示例，并非真实接口地址。
+  success: (res) => {
+    // @ts-ignore
+    attentionCompanys.push(...res.data)
+  }
+});
 const city = ref('重庆')
 const direction = ref('不限')
 const jobName = ref('请输入关键字')

@@ -2,40 +2,40 @@
   <view @click="rootViewOnClick" class="justify-between border">
     <view class="flex-col">
       <view class="flex-col group_2">
-        <text class="text">{{ props.jobDetail!.name }}</text>
+        <text class="text">{{ jobDetail!.name }}</text>
         <view class="flex-row group_3">
-          <text>{{ props.jobDetail!.areaAndRequirements }}</text>
-          <text class="text_2">{{ props.jobDetail!.educationalRequirements }}</text>
+          <text>{{ jobDetail!.areaAndRequirements }}</text>
+          <text class="text_2">{{ jobDetail!.educationalRequirements }}</text>
         </view>
         <view class="flex-row group_4 items-center">
           <view class="flex-col text-wrapper">
-            <text class="text_3">{{ props.jobDetail!.directionOne }}</text>
+            <text class="text_3">{{ jobDetail!.directionOne }}</text>
           </view>
           <view class="flex-col text-wrapper_1">
-            <text class="text_4">{{ props.jobDetail!.directionTwo }}</text>
+            <text class="text_4">{{ jobDetail!.directionTwo }}</text>
           </view>
         </view>
       </view>
       <view class="flex-row group_5">
-        <image class="image" :src="props.jobDetail!.companyLogoAddress" />
+        <image class="image" :src="jobDetail!.companyLogoAddress" />
         <view class="flex-col group_6">
-          <text class="text_5">{{ props.jobDetail!.companyName }}</text>
-          <text class="text_6">{{ props.jobDetail!.companyInfo }}</text>
+          <text class="text_5">{{ jobDetail!.companyName }}</text>
+          <text class="text_6">{{ jobDetail!.companyInfo }}</text>
         </view>
       </view>
     </view>
     <view class="flex-col items-end group_7">
-      <text class="text_7">{{ props.jobDetail!.salary }}</text>
-      <text class="text_8">{{ props.jobDetail!.releaseDate }}</text>
+      <text class="text_7">{{ jobDetail!.salary }}</text>
+      <text class="text_8">{{ jobDetail!.releaseDate }}</text>
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
-  jobDetail:{
-    type:Object
-  }
+defineProps({
+  jobDetail: {
+    type: Object
+  },
 })
 
 const rootViewOnClick = () => {
@@ -44,7 +44,7 @@ const rootViewOnClick = () => {
 </script>
 
 <style lang="scss" scoped>
-.border{
+.border {
   padding-left: 15rpx;
   padding-right: 15rpx;
 }
