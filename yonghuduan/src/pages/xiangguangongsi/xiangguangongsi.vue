@@ -1,19 +1,24 @@
 <template>
-  <view class="flex-row page">
-    <view class="flex-row group">
-      <text @click="textOnClick" class="text">{{ city }}</text>
-      <view class="flex-row search">
+  <view class="flex-row page" :style="'padding-top: ' + navigationBarTop + 'px'">
+    <view
+      class="items-center"
+      :style="'width: ' + navigationBarWidth + 'px; height: ' + navigationBarHeight + 'px'"
+    >
+      <view class="flex-row" style="width: 100%;">
+        <text @click="textOnClick" class="text">{{ city }}</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773197745663.png"
-          class="image" />
-        <view class="flex-row section_1">
+          class="image"
+        />
+        <view class="flex-row search">
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528771387958614.png"
-            class="image_1" />
-          <text class="text_1">{{ jobName }}</text>
+            class="image_1"
+          />
+          <text class="text_1">{{ searchContent }}</text>
         </view>
+        <text @click="text_1OnClick" class="text_2">取消</text>
       </view>
-      <text @click="text_1OnClick" class="text_2">取消</text>
     </view>
     <view class="justify-between group_1">
       <text @click="text_2OnClick">相关职位</text>
@@ -24,31 +29,36 @@
         <text class="text_5">区域</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_3" />
+          class="image_2 image_3"
+        />
       </view>
       <view class="equal-division-item flex-row">
         <text class="text_6">要求</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_4" />
+          class="image_2 image_4"
+        />
       </view>
       <view class="flex-row equal-division-item_1">
         <text class="text_7">公司</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_5" />
+          class="image_2 image_5"
+        />
       </view>
       <view class="equal-division-item flex-row">
         <text class="text_8">福利</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_6" />
+          class="image_2 image_6"
+        />
       </view>
       <view class="justify-evenly group_5">
         <text>排序</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_7" />
+          class="image_2 image_7"
+        />
       </view>
     </view>
     <view class="flex-row group_6">
@@ -72,30 +82,49 @@
       </view>
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773723315322.png"
-        class="image_8" />
+        class="image_8"
+      />
     </view>
     <view class="flex-col list">
-      <CompanyDetail @click="view_5OnClick" class="list-item" :companyDetail="attentionCompany" :key="i"
-        v-for="(attentionCompany, i) in attentionCompanys" />
+      <CompanyDetail
+        @click="view_5OnClick"
+        class="list-item"
+        :companyDetail="attentionCompany"
+        :key="i"
+        v-for="(attentionCompany, i) in attentionCompanies"
+      />
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
+import { useStore } from 'vuex';
 import CompanyDetail from '../../components/CompanyDetail/CompanyDetail.vue'
+import { key } from '../../stores';
 
-let attentionCompanys = reactive([])
+const store = useStore(key)
+
+/* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
+// @ts-ignore
+const navigationBarHeight = store.state.menuButtonInfo.height
+// @ts-ignore
+const navigationBarTop = store.state.menuButtonInfo.top
+// @ts-ignore
+const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(50)
+/* #endif */
+
+let attentionCompanies = reactive([])
 uni.request({
   url: 'http://127.0.0.1:4523/mock/743652/companies', //仅为示例，并非真实接口地址。
   success: (res) => {
     // @ts-ignore
-    attentionCompanys.push(...res.data)
+    attentionCompanies.push(...res.data)
   }
 });
 const city = ref('重庆')
 const direction = ref('不限')
-const jobName = ref('请输入关键字')
+const searchContent = ref('请输入关键字')
 const textOnClick = () => {
   uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
 }
@@ -122,65 +151,16 @@ const view_8OnClick = () => {
 
 <style lang="scss" scoped>
 .page {
-  padding: 46rpx 18rpx 515rpx 18rpx;
+  padding: 46rpx 39rpx 299rpx 40rpx;
   background-color: rgb(255, 255, 255);
   height: 1334rpx;
   width: 100%;
   overflow-y: auto;
   position: relative;
-  .group {
-    padding-left: 23rpx;
-    padding-right: 21rpx;
-    position: absolute;
-    left: 18rpx;
-    right: 18rpx;
-    top: 46rpx;
-    .text {
-      align-self: center;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      white-space: nowrap;
-    }
-    .search {
-      margin-left: 3rpx;
-      flex: 1 1 auto;
-      color: rgb(163, 154, 154);
-      font-size: 20rpx;
-      line-height: 19rpx;
-      white-space: nowrap;
-      .image {
-        align-self: center;
-        width: 15rpx;
-        height: 8rpx;
-      }
-      .section_1 {
-        margin-left: 20rpx;
-        padding: 11rpx 15rpx 12rpx;
-        flex: 1 1 auto;
-        background-color: rgb(229, 229, 229);
-        border-radius: 25rpx;
-        box-shadow: 0px 4rpx 4rpx rgba(0, 0, 0, 0.25);
-        height: 43rpx;
-        .image_1 {
-          width: 20rpx;
-          height: 20rpx;
-        }
-        .text_1 {
-          margin-left: 11rpx;
-        }
-      }
-    }
-    .text_2 {
-      margin-left: 21rpx;
-      align-self: center;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      white-space: nowrap;
-    }
-  }
   .group_1 {
+    margin-top: 39rpx;
+    padding-left: 90rpx;
+    padding-right: 85rpx;
     padding-left: 111rpx;
     padding-right: 106rpx;
     color: rgb(0, 0, 0);
@@ -197,7 +177,7 @@ const view_8OnClick = () => {
     position: absolute;
     left: 18rpx;
     right: 20rpx;
-    top: 163rpx;
+    top: 202rpx;
     .equal-division-item {
       color: rgb(0, 0, 0);
       font-size: 25rpx;
@@ -258,7 +238,7 @@ const view_8OnClick = () => {
     position: absolute;
     left: 50rpx;
     right: 40rpx;
-    top: 245rpx;
+    top: 284rpx;
     .text-wrapper {
       padding: 8rpx 0 8rpx;
       color: rgb(0, 0, 0);
@@ -349,12 +329,54 @@ const view_8OnClick = () => {
     position: absolute;
     left: 18rpx;
     right: 18rpx;
-    top: 303rpx;
+    top: 342rpx;
     .list-item {
       &:not(:first-of-type) {
         margin-top: 24rpx;
       }
     }
+  }
+  .text {
+    align-self: center;
+    color: rgb(0, 0, 0);
+    font-size: 25rpx;
+    line-height: 23rpx;
+    white-space: nowrap;
+  }
+  .image {
+    margin-left: 3rpx;
+    align-self: center;
+    width: 15rpx;
+    height: 8rpx;
+  }
+  .search {
+    margin-left: 20rpx;
+    padding: 11rpx 15rpx 12rpx;
+    flex: 1 1 auto;
+    color: rgb(163, 154, 154);
+    font-size: 20rpx;
+    line-height: 19rpx;
+    white-space: nowrap;
+    background-color: rgb(229, 229, 229);
+    border-radius: 25rpx;
+    box-shadow: 0px 4rpx 4rpx rgba(0, 0, 0, 0.25);
+    height: 43rpx;
+    position: relative;
+    .image_1 {
+      width: 20rpx;
+      height: 20rpx;
+    }
+    .text_1 {
+      margin-left: 11rpx;
+    }
+  }
+  .text_2 {
+    margin-left: 21rpx;
+    align-self: center;
+    color: rgb(0, 0, 0);
+    font-size: 25rpx;
+    line-height: 23rpx;
+    white-space: nowrap;
   }
 }
 </style>

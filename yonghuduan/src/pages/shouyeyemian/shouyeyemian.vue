@@ -4,87 +4,62 @@
     <view class="section_1" :style="'height: ' + navigationBarTop + 'px'"></view>
     <view class="flex-col section_2">
       <view class="justify-between items-center"
-      :style="'height: ' + navigationBarHeight + 'px; width: ' + navigationBarWidth + 'px'"
-      >
-        <scroll-view
-        @click="scroll"
-        :scroll-x="true"
-        :style="'width: ' + expectationWidth + 'px'"
-        class="flex-row list"
-        >
-    <!--  #endif -->
-    <!--  #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
-    <view class="section_1"></view>
-    <view class="flex-col section_2">
-      <view class="justify-between items-center">
-        <scroll-view
-        @click="scroll"
-        :scroll-x="true"
-        class="flex-row list"
-        >
-    <!--  #endif -->
-          <text
-            class="list-item"
-            :class="activeIndex === i ? 'active' : ''"
-            :key="i"
-            v-for="(name, i) in expects"
-          >
-            {{
-              name.name
-            }}
-          </text>
-        </scroll-view>
-        <view class="flex-row">
-          <image
-            src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254586402738.png"
-            @click="image_5OnClick"
-            class="image"
-          />
-          <image
-            src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254587111646.png"
-            @click="image_6OnClick"
-            class="image image_2"
-          />
-        </view>
-      </view>
-      <view class="justify-between group_2">
-        <view class="flex-row group_3">
-          <text>热门</text>
-          <text class="text_4">附近</text>
-          <text class="text_5">最新</text>
-        </view>
-        <view class="flex-row group_4">
-          <view class="flex-row">
-            <text @click="text_22OnClick">{{ city }}</text>
+        :style="'height: ' + navigationBarHeight + 'px; width: ' + navigationBarWidth + 'px'">
+        <scroll-view @click="scroll" :scroll-x="true" :style="'width: ' + expectationWidth + 'px'"
+          class="flex-row list">
+          <!--  #endif -->
+          <!--  #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
+          <view class="section_1"></view>
+          <view class="flex-col section_2">
+            <view class="justify-between items-center">
+              <scroll-view @click="scroll" :scroll-x="true" class="flex-row list">
+                <!--  #endif -->
+                <text class="list-item" :class="activeIndex === i ? 'active' : ''" :key="i"
+                  v-for="(name, i) in expects">
+                  {{
+                    name.name
+                  }}
+                </text>
+              </scroll-view>
+              <view class="flex-row">
+                <image
+                  src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254586402738.png"
+                  @click="image_5OnClick" class="image" />
+                <image
+                  src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254587111646.png"
+                  @click="image_6OnClick" class="image image_2" />
+              </view>
+            </view>
+            <view class="justify-between group_2">
+              <view class="flex-row group_3">
+                <text>热门</text>
+                <text class="text_4">附近</text>
+                <text class="text_5">最新</text>
+              </view>
+              <view class="flex-row group_4">
+                <view class="flex-row">
+                  <text @click="text_22OnClick">{{ city }}</text>
+                  <image
+                    src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475959311313713900.png"
+                    class="image_3 image_4" />
+                </view>
+                <view class="flex-row group_6">
+                  <text @click="text_23OnClick">筛选</text>
+                  <image
+                    src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475959311313713900.png"
+                    class="image_3 image_5" />
+                </view>
+              </view>
+            </view>
             <image
-              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475959311313713900.png"
-              class="image_3 image_4"
-            />
+              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254587777410.png"
+              class="image_6" />
           </view>
-          <view class="flex-row group_6">
-            <text @click="text_23OnClick">筛选</text>
-            <image
-              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475959311313713900.png"
-              class="image_3 image_5"
-            />
+          <view class="flex-col list_1">
+            <JobDetail @click="view_4OnClick" class="list-item_1" :jobDetail="jobDetail" :key="i"
+              v-for="(jobDetail, i) in jobDetails" />
           </view>
-        </view>
       </view>
-      <image
-        src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254587777410.png"
-        class="image_6"
-      />
-    </view>
-    <view class="flex-col list_1">
-      <JobDetail
-        @click="view_4OnClick"
-        class="list-item_1"
-        :jobDetail="jobDetail"
-        :key="i"
-        v-for="(jobDetail, i) in jobDetails"
-      />
-    </view>
-  </view>
 </template>
 
 <script lang="ts" setup>
@@ -103,7 +78,7 @@ const navigationBarTop = store.state.menuButtonInfo.top
 // @ts-ignore
 const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(30)
 // @ts-ignore
-const expectationWidth =  store.state.menuButtonInfo.left - uni.upx2px(170)
+const expectationWidth = store.state.menuButtonInfo.left - uni.upx2px(170)
 /* #endif */
 
 const jobDetails = reactive([

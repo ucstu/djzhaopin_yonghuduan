@@ -73,7 +73,7 @@ const view_3OnClick = () => {
 
 <style lang="scss" scoped>
 .page {
-  background-color: rgb(249, 249, 251);
+  background-color: rgb(255, 255, 255);
   height: 100%;
   width: 100%;
   overflow-y: auto;
@@ -109,7 +109,7 @@ const view_3OnClick = () => {
     margin-top: -75rpx;
     padding: 36rpx 0 10rpx;
     align-self: center;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(249, 249, 251);
     border-radius: 10rpx;
     overflow: hidden;
     width: 606rpx;

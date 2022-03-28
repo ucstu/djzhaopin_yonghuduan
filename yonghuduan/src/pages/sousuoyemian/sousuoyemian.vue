@@ -1,19 +1,26 @@
 <template>
-  <view class="flex-col page">
-    <view class="flex-row">
-      <text @click="textOnClick" class="text">{{ city }}</text>
-      <view class="flex-row search">
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773197745663.png"
-          class="image" />
-        <view class="flex-row section_1">
+  <view class="flex-col page" :style="'padding-top: ' + navigationBarTop + 'px'">
+    <view
+      class="items-center"
+      :style="'width: ' + navigationBarWidth + 'px; height: ' + navigationBarHeight + 'px'"
+    >
+      <view class="flex-row" style="width: 100%;">
+        <text @click="textOnClick" class="text">{{ city }}</text>
+        <view class="flex-row search">
           <image
-            src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528771387958614.png"
-            class="image_1" />
-          <text class="text_1">{{ searchContent }}</text>
+            src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773197745663.png"
+            class="image"
+          />
+          <view class="flex-row section_1">
+            <image
+              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528771387958614.png"
+              class="image_1"
+            />
+            <text class="text_1">{{ searchContent }}</text>
+          </view>
         </view>
+        <text @click="text_1OnClick" class="text_2">取消</text>
       </view>
-      <text @click="text_1OnClick" class="text_2">取消</text>
     </view>
     <view class="justify-between group_1">
       <text class="text_3">按职位类型搜索</text>
@@ -21,16 +28,22 @@
         <text>技术</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254581114841.png"
-          class="image_2" />
+          class="image_2"
+        />
       </view>
     </view>
     <view class="flex-col group_3">
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765056774629.png"
-        class="image_3" />
+        class="image_3"
+      />
       <view class="justify-between list">
-        <view @click="view_9OnClick" class="list-item flex-col items-center" :key="i"
-          v-for="(popularPosition, i) in popularPositions">
+        <view
+          @click="view_9OnClick"
+          class="list-item flex-col items-center"
+          :key="i"
+          v-for="(popularPosition, i) in popularPositions"
+        >
           <text class="text_5 text_6">{{ popularPosition.name }}</text>
         </view>
       </view>
@@ -38,10 +51,15 @@
     <view class="flex-col group_5">
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765055995713.png"
-        class="image_3" />
+        class="image_3"
+      />
       <view class="flex-row list_1">
-        <view @click="view_18OnClick" class="list-item_1 flex-col items-center" :key="i"
-          v-for="(popularCompany, i) in popularCompanys">
+        <view
+          @click="view_18OnClick"
+          class="list-item_1 flex-col items-center"
+          :key="i"
+          v-for="(popularCompany, i) in popularCompanys"
+        >
           <text class="text_11 text_12">{{ popularCompany.name }}</text>
         </view>
       </view>
@@ -49,8 +67,21 @@
   </view>
 </template>
 
-<script lang="ts" setup>import { reactive, ref } from 'vue'
+<script lang="ts" setup>
+import { reactive, ref } from 'vue'
+import { useStore } from 'vuex';
+import { key } from '../../stores';
 
+const store = useStore(key)
+
+/* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
+// @ts-ignore
+const navigationBarHeight = store.state.menuButtonInfo.height
+// @ts-ignore
+const navigationBarTop = store.state.menuButtonInfo.top
+// @ts-ignore
+const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(50)
+/* #endif */
 
 const popularPositions = reactive([
   { name: 'java' },
@@ -68,9 +99,7 @@ const popularCompanys = reactive([
   { name: '北京京东世纪贸易有限公司' },
   { name: '快手' },
   { name: '安居客' },
-  {
-    name: 'https://project-user-resource-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528867666609714.png',
-  },
+  { name: '小米集团' },
 ])
 const city = ref('重庆')
 const searchContent = ref('请输入关键字')

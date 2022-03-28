@@ -1,19 +1,24 @@
 <template>
-  <view class="flex-col page">
-    <view class="flex-row">
-      <text @click="textOnClick" class="text">{{ city }}</text>
-      <image
-        src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773197745663.png"
-        class="image"
-      />
-      <view class="flex-row search">
+  <view class="flex-col page" :style="'padding-top: ' + navigationBarTop + 'px'">
+    <view
+      class="items-center"
+      :style="'width: ' + navigationBarWidth + 'px; height: ' + navigationBarHeight + 'px'"
+    >
+      <view class="flex-row" style="width: 100%;">
+        <text @click="textOnClick" class="text">{{ city }}</text>
         <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528771387958614.png"
-          class="image_1"
+          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773197745663.png"
+          class="image"
         />
-        <text class="text_1">{{ searchContent }}</text>
+        <view class="flex-row search">
+          <image
+            src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528771387958614.png"
+            class="image_1"
+          />
+          <text class="text_1">{{ searchContent }}</text>
+        </view>
+        <text @click="text_1OnClick" class="text_2">取消</text>
       </view>
-      <text @click="text_1OnClick" class="text_2">取消</text>
     </view>
     <view class="justify-between group_1">
       <text>相关职位</text>
@@ -71,6 +76,20 @@
 import { ref } from 'vue';
 import JobDetail from '../../components/JobDetail/JobDetail.vue'
 import { reactive } from 'vue'
+import { useStore } from 'vuex';
+import { key } from '../../stores';
+
+const store = useStore(key)
+
+/* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
+// @ts-ignore
+const navigationBarHeight = store.state.menuButtonInfo.height
+// @ts-ignore
+const navigationBarTop = store.state.menuButtonInfo.top
+// @ts-ignore
+const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(50)
+/* #endif */
+
 const directions = reactive([
   { name: '不限' },
   { name: 'C++' },
@@ -140,6 +159,7 @@ const textOnClick = () => {
   uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
 }
 const text_1OnClick = () => {
+  // @ts-ignore
   uni.navigateBack()
 }
 const text_3OnClick = () => {
