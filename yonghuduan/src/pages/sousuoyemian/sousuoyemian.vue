@@ -44,7 +44,7 @@
           :key="i"
           v-for="(popularPosition, i) in popularPositions"
         >
-          <text class="text_5 text_6">{{ popularPosition.name }}</text>
+          <text class="text_5">{{ popularPosition.name }}</text>
         </view>
       </view>
     </view>
@@ -56,11 +56,11 @@
       <view class="flex-row list_1">
         <view
           @click="view_18OnClick"
-          class="list-item_1 flex-col items-center"
+          class="list-item flex-col items-center"
           :key="i"
-          v-for="(popularCompany, i) in popularCompanys"
+          v-for="(popularCompany, i) in popularCompanies"
         >
-          <text class="text_11 text_12">{{ popularCompany.name }}</text>
+          <text class="text_5">{{ popularCompany.name }}</text>
         </view>
       </view>
     </view>
@@ -87,9 +87,39 @@ const popularPositions = reactive([
   { name: 'java' },
   { name: 'ios' },
   { name: '前端' },
-  { name: null },
+  { name: '后端' },
+  { name: '运维' },
+  { name: '测试' },
+  { name: 'UI' },
+  { name: '产品' },
+  { name: '高级' },
+  { name: '项目经理' },
+  { name: '项目助理' },
+  { name: '项目主管' },
+  { name: '项目总监' },
+  { name: '项目经理' },
+  { name: '项目助理' },
+  { name: '项目主管' },
+  { name: '项目总监' },
+  { name: '项目经理' },
+  { name: '项目助理' },
+  { name: '项目主管' },
+  { name: '项目总监' },
+  { name: '项目经理' },
+  { name: '项目助理' },
+  { name: '项目主管' },
+  { name: '项目总监' },
+  { name: '项目经理' },
+  { name: '项目助理' },
+  { name: '项目主管' },
+  { name: '项目总监' },
+  { name: '项目经理' },
+  { name: '项目助理' },
+  { name: '项目主管' },
+  { name: '项目总监' },
+  { name: '项目经理' },
 ])
-const popularCompanys = reactive([
+const popularCompanies = reactive([
   { name: '字节跳动' },
   { name: '美团' },
   { name: '腾讯' },
@@ -109,7 +139,7 @@ const textOnClick = () => {
 }
 const text_1OnClick = () => {
   // @ts-ignore
-  uni.navigateBack()
+  uni.navigateBack({ delta: 100 })
 }
 const view_9OnClick = () => {
   uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
@@ -164,7 +194,7 @@ const image_4OnClick = () => {
   background-color: rgb(255, 255, 255);
   width: 100%;
   overflow-y: auto;
-  height: 100%;
+  height: auto;
   .group_1 {
     margin-top: 31rpx;
     .text_3 {
@@ -192,71 +222,47 @@ const image_4OnClick = () => {
     margin-top: 53rpx;
     .list {
       margin-top: 35rpx;
-      width: 585rpx;
+      width: 100%;
+      flex-wrap: wrap;
       .list-item {
-        padding: 13rpx 0 5rpx;
-        color: rgb(0, 0, 0);
-        font-size: 20rpx;
-        line-height: 19rpx;
-        white-space: nowrap;
-        background-color: rgb(249, 249, 251);
-        border-radius: 10rpx;
-        width: 75rpx;
-        height: 40rpx;
-        border: solid 2rpx rgb(163, 154, 154);
+        margin-bottom: 25rpx;
+        margin-left: 30rpx;
+        flex: none;
+
         .text_5 {
-          padding: 13rpx 0 9rpx;
           color: rgb(0, 0, 0);
-          font-size: 20rpx;
-          line-height: 14rpx;
-          white-space: nowrap;
+          font-size: 25rpx;
+          width: 100%;
+          height: 100%;
           background-color: rgb(249, 249, 251);
-          border-radius: 10rpx;
-          width: 75rpx;
-          height: 40rpx;
           border: solid 2rpx rgb(163, 154, 154);
-        }
-        .text_6 {
-          padding: initial;
-          color: initial;
-          font-size: initial;
-          line-height: initial;
-          white-space: initial;
-          background-color: initial;
-          border-radius: initial;
-          width: initial;
-          height: initial;
-          border: initial;
+          line-height: normal;
+          border-radius: 5rpx;
         }
       }
     }
   }
   .group_5 {
-    margin-top: 339rpx;
     .list_1 {
       margin-top: 35rpx;
-      height: 120rpx;
-      position: relative;
-      .list-item_1 {
-        padding: 10rpx 0 7rpx;
-        color: rgb(0, 0, 0);
-        font-size: 20rpx;
-        line-height: 18rpx;
-        white-space: nowrap;
-        background-color: rgb(249, 249, 251);
-        border-radius: 10rpx;
-        width: 110rpx;
-        position: absolute;
-        left: 0;
-        top: 0;
-        border: solid 2rpx rgb(163, 154, 154);
-        .text_11 {
-          margin-left: 31rpx;
-          margin-right: 17rpx;
-        }
-        .text_12 {
-          margin-left: initial;
-          margin-right: initial;
+      width: 100%;
+      flex-wrap: wrap;
+      .list-item {
+        margin-bottom: 25rpx;
+        margin-left: 30rpx;
+        padding: 13rpx 0 5rpx;
+        flex: none;
+
+        .text_5 {
+          color: rgb(0, 0, 0);
+          font-size: 30rpx;
+          width: 100%;
+          height: 100%;
+          box-sizing: content-box;
+          background-color: rgb(249, 249, 251);
+          border: solid 2rpx rgb(163, 154, 154);
+          line-height: normal;
+          border-radius: 5rpx;
         }
       }
     }
@@ -286,7 +292,7 @@ const image_4OnClick = () => {
       flex: 1 1 auto;
       border-radius: 25rpx;
       filter: drop-shadow(0px 4rpx 2rpx rgba(0, 0, 0, 0.25));
-      background-image: url("https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292187851976434.png");
+      background-color: rgb(229, 229, 229);
       background-size: 100% 100%;
       background-repeat: no-repeat;
       height: 43rpx;

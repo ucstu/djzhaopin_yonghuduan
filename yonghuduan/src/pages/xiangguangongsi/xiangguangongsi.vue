@@ -1,98 +1,9 @@
 <template>
-  <view class="flex-row page" :style="'padding-top: ' + navigationBarTop + 'px'">
-    <view
-      class="items-center"
-      :style="'width: ' + navigationBarWidth + 'px; height: ' + navigationBarHeight + 'px'"
-    >
-      <view class="flex-row" style="width: 100%;">
-        <text @click="textOnClick" class="text">{{ city }}</text>
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773197745663.png"
-          class="image"
-        />
-        <view class="flex-row search">
-          <image
-            src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528771387958614.png"
-            class="image_1"
-          />
-          <text class="text_1">{{ searchContent }}</text>
-        </view>
-        <text @click="text_1OnClick" class="text_2">取消</text>
-      </view>
-    </view>
-    <view class="justify-between group_1">
-      <text @click="text_2OnClick">相关职位</text>
-      <text>相关公司</text>
-    </view>
-    <view class="flex-row equal-division">
-      <view class="equal-division-item flex-row">
-        <text class="text_5">区域</text>
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_3"
-        />
-      </view>
-      <view class="equal-division-item flex-row">
-        <text class="text_6">要求</text>
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_4"
-        />
-      </view>
-      <view class="flex-row equal-division-item_1">
-        <text class="text_7">公司</text>
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_5"
-        />
-      </view>
-      <view class="equal-division-item flex-row">
-        <text class="text_8">福利</text>
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_6"
-        />
-      </view>
-      <view class="justify-evenly group_5">
-        <text>排序</text>
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image_2 image_7"
-        />
-      </view>
-    </view>
-    <view class="flex-row group_6">
-      <view class="flex-col items-center text-wrapper">
-        <text>{{ direction }}</text>
-      </view>
-      <view class="flex-col items-center text-wrapper_1">
-        <text>C++</text>
-      </view>
-      <view class="flex-col text-wrapper_2">
-        <text class="text_12">JAVA</text>
-      </view>
-      <view class="flex-col items-center text-wrapper_3">
-        <text>C#</text>
-      </view>
-      <view class="flex-col items-center text-wrapper_4">
-        <text>PHP</text>
-      </view>
-      <view class="flex-col text-wrapper_5">
-        <text class="text_15">Html5</text>
-      </view>
-      <image
-        src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773723315322.png"
-        class="image_8"
-      />
-    </view>
+  <view class="page">
+    <SearchAndFilter></SearchAndFilter>
     <view class="flex-col list">
-      <CompanyDetail
-        @click="view_5OnClick"
-        class="list-item"
-        :companyDetail="attentionCompany"
-        :key="i"
-        v-for="(attentionCompany, i) in attentionCompanies"
-      />
+      <CompanyDetail @click="view_5OnClick" class="list-item" :companyDetail="attentionCompany" :key="i"
+        v-for="(attentionCompany, i) in attentionCompanies" />
     </view>
   </view>
 </template>
@@ -102,17 +13,9 @@ import { ref, reactive } from 'vue'
 import { useStore } from 'vuex';
 import CompanyDetail from '../../components/CompanyDetail/CompanyDetail.vue'
 import { key } from '../../stores';
+import SearchAndFilter from '../../components/SearchAndFilter/SearchAndFilter.vue';
 
 const store = useStore(key)
-
-/* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-// @ts-ignore
-const navigationBarHeight = store.state.menuButtonInfo.height
-// @ts-ignore
-const navigationBarTop = store.state.menuButtonInfo.top
-// @ts-ignore
-const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(50)
-/* #endif */
 
 let attentionCompanies = reactive([])
 uni.request({
@@ -129,8 +32,9 @@ const textOnClick = () => {
   uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
 }
 const text_1OnClick = () => {
-  // @ts-ignore
-  uni.navigateBack()
+  uni.navigateBack({
+    delta: 100
+  })
 }
 const text_2OnClick = () => {
   uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
@@ -151,9 +55,9 @@ const view_8OnClick = () => {
 
 <style lang="scss" scoped>
 .page {
-  padding: 46rpx 39rpx 299rpx 40rpx;
+  padding: 0rpx 39rpx 299rpx 40rpx;
   background-color: rgb(255, 255, 255);
-  height: 1334rpx;
+  // height: 1334rpx;
   width: 100%;
   overflow-y: auto;
   position: relative;
