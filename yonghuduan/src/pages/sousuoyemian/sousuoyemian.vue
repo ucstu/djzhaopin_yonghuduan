@@ -250,7 +250,6 @@ const image_4OnClick = () => {
       .list-item {
         margin-bottom: 25rpx;
         margin-left: 30rpx;
-        padding: 13rpx 0 5rpx;
         flex: none;
 
         .text_5 {
@@ -258,7 +257,6 @@ const image_4OnClick = () => {
           font-size: 30rpx;
           width: 100%;
           height: 100%;
-          box-sizing: content-box;
           background-color: rgb(249, 249, 251);
           border: solid 2rpx rgb(163, 154, 154);
           line-height: normal;
