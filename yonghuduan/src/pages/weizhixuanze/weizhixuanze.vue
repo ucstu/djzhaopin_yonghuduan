@@ -1,35 +1,56 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar class="top-group" title="位置"/>
-    <view class="flex-row group">
-      <view class="flex-col list">
-        <view class="list-item flex-row group_1" :key="i" v-for="(position, i) in positions">
-          <image class="image_1" :src="position.name" />
-          <view class="section_1"></view>
+    <NavigationBar class="top-group" title="位置" />
+    <view class="flex-row groupAll">
+      <scroll-view class="flex-row groupLeft" :scroll-y="true" @click="scroll">
+        <view class="flex-col items-center">
+          <text
+            class="province"
+            :class="activeIndex == i ? 'active' : ''"
+            :key="i"
+            v-for="(area, i) in areas"
+          >
+            {{
+              area.name
+            }}
+          </text>
+          <image class />
         </view>
-      </view>
-      <view class="flex-row equal-division">
-        <view class="flex-col items-center list_1">
-          <text class="list-item_1" :key="i" v-for="(area, i) in areas">
+      </scroll-view>
+      <scroll-view class="flex-row groupCenter" :scroll-y="true" @click="scroll">
+        <view class="flex-col items-center cities">
+          <text
+            class="city"
+            :class="activeIndex == i ? 'active' : ''"
+            :key="i"
+            v-for="(area, i) in areas"
+          >
             {{
               area.name
             }}
           </text>
         </view>
-        <view class="flex-col items-center list_2">
-          <text class="list-item_2" :key="i" v-for="(place, i) in places">
+      </scroll-view>
+      <scroll-view class="flex-row groupRight" :scroll-y="true" @click="scroll">
+        <view class="flex-col items-center toponyms">
+          <text
+            class="toponym"
+            :class="activeIndex == i ? 'active' : ''"
+            :key="i"
+            v-for="(place, i) in places"
+          >
             {{
               place.name
             }}
           </text>
         </view>
-      </view>
+      </scroll-view>
     </view>
-    <view class="flex-row group_2">
-      <view class="flex-col items-center text-wrapper">
+    <view class="flex-row button">
+      <view class="flex-col items-center justify-center reset">
         <text>重置</text>
       </view>
-      <view class="flex-col items-center button">
+      <view class="flex-col items-center justify-center identify">
         <text>确定</text>
       </view>
     </view>
@@ -38,15 +59,62 @@
 
 <script lang="ts" setup>
 import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
-import { reactive } from 'vue'
-const positions = reactive([
-  {
-    name: 'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292187787194317.png',
-  },
-  { name: '地铁' },
-])
+import { reactive, ref } from 'vue'
+
+const activeIndex = ref(0)
+
 const areas = reactive([
   { name: '不限' },
+  { name: '渝北区' },
+  { name: '渝中区' },
+  { name: '江北区' },
+  { name: '九龙坡区' },
+  { name: '南岸区' },
+  { name: '沙坪坝区' },
+  { name: '巴南区' },
+  { name: '北碚区' },
+  { name: '永川区' },
+  { name: '大渡口区' },
+  { name: '江津区' },
+  { name: '双桥区' },
+  { name: '铜梁区' },
+  { name: '大足县' },
+  { name: '万州区' },
+  { name: '合川区' },
+  { name: '长寿区' },
+  { name: '垫江区' },
+  { name: '渝北区' },
+  { name: '渝中区' },
+  { name: '江北区' },
+  { name: '九龙坡区' },
+  { name: '南岸区' },
+  { name: '沙坪坝区' },
+  { name: '巴南区' },
+  { name: '北碚区' },
+  { name: '永川区' },
+  { name: '大渡口区' },
+  { name: '江津区' },
+  { name: '双桥区' },
+  { name: '铜梁区' },
+  { name: '大足县' },
+  { name: '万州区' },
+  { name: '合川区' },
+  { name: '长寿区' },
+  { name: '垫江区' },
+  { name: '南岸区' },
+  { name: '沙坪坝区' },
+  { name: '巴南区' },
+  { name: '北碚区' },
+  { name: '永川区' },
+  { name: '大渡口区' },
+  { name: '江津区' },
+  { name: '双桥区' },
+  { name: '铜梁区' },
+  { name: '大足县' },
+  { name: '万州区' },
+  { name: '合川区' },
+  { name: '长寿区' },
+  { name: '垫江区' },
   { name: '渝北区' },
   { name: '渝中区' },
   { name: '江北区' },
@@ -87,107 +155,72 @@ const imageOnClick = () => {
 
 <style lang="scss" scoped>
 .page {
+  margin-top: -50rpx;
   padding: 60rpx 0 21rpx;
   background-color: rgb(255, 255, 255);
   width: 100%;
-  overflow-y: auto;
-  height: 100%;
+  height: 1334rpx;
   .top-group {
     position: relative;
   }
-  .group {
-    margin-top: 19rpx;
-    .list {
-      padding: 20rpx 0 1005rpx;
-      background-color: rgb(248, 250, 251);
-      overflow: hidden;
-      height: 1129rpx;
-      .list-item {
-        align-self: center;
-        color: rgb(0, 0, 0);
+  .groupAll {
+    height: 1120rpx;
+    .active {
+      color: rgb(84, 188, 163);
+    }
+    .groupLeft {
+      width: 30%;
+      background-color: rgb(244, 250, 255);
+      overflow-y: hidden;
+      .province {
         font-size: 30rpx;
-        line-height: 28rpx;
-        white-space: nowrap;
-        &:last-of-type {
-          margin-top: 43rpx;
-        }
-        .image_1 {
-          margin-left: 55rpx;
-          width: 60rpx;
-          height: 35rpx;
-        }
-        .section_1 {
-          margin: 5rpx 0 5rpx 50rpx;
-          background-color: rgb(84, 188, 163);
-          border-radius: 5rpx;
-          width: 5rpx;
-          height: 25rpx;
-        }
-      }
-      .group_1 {
-        align-self: initial;
-        color: initial;
-        font-size: initial;
-        line-height: initial;
-        white-space: initial;
+        margin-top: 15rpx;
       }
     }
-    .equal-division {
-      margin-right: 20rpx;
-      flex: 1 1 auto;
-      .list_1 {
-        padding-top: 24rpx;
-        flex: 1 1 280rpx;
-        overflow: hidden;
-        height: 1129rpx;
-        .list-item_1 {
-          color: rgb(0, 0, 0);
+    .groupCenter {
+      width: 40%;
+      overflow-y: hidden;
+      .cities {
+        width: 50%;
+        .city {
           font-size: 30rpx;
-          line-height: 26rpx;
-          white-space: nowrap;
+          margin-top: 15rpx;
         }
       }
-      .list_2 {
-        padding: 24rpx 0 480rpx;
-        flex: 1 1 280rpx;
-        overflow: hidden;
-        height: 1129rpx;
-        .list-item_2 {
-          color: rgb(0, 0, 0);
+    }
+    .groupRight {
+      width: 40%;
+      overflow-y: hidden;
+      .toponyms {
+        width: 50%;
+        .toponym {
           font-size: 30rpx;
-          line-height: 26rpx;
-          white-space: nowrap;
+          margin-top: 15rpx;
         }
       }
     }
   }
-  .group_2 {
-    margin-top: 19rpx;
-    padding: 0 20rpx;
-    .text-wrapper {
-      padding: 16rpx 0 18rpx;
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 30rpx;
-      line-height: 27rpx;
-      white-space: nowrap;
+  .button {
+    width: 100%;
+    position: fixed;
+    bottom: 10rpx;
+    background-color: rgb(255, 255, 255);
+
+    .reset {
+      margin-left: 20rpx;
       background-color: rgb(229, 229, 229);
       border-radius: 5rpx;
-      overflow: hidden;
-      width: 250rpx;
+      width: 230rpx;
       height: 60rpx;
-    }
-    .button {
-      margin-left: 20rpx;
-      padding: 16rpx 0 18rpx;
-      flex: 1 1 auto;
-      color: rgb(255, 255, 255);
       font-size: 30rpx;
-      line-height: 28rpx;
-      white-space: nowrap;
-      background-color: rgb(35, 193, 158);
+    }
+    .identify {
+      margin-right: 20rpx;
+      margin-left: 20rpx;
+      background-color: rgb(84, 188, 163);
       border-radius: 5rpx;
-      overflow: hidden;
-      height: 60rpx;
+      font-size: 30rpx;
+      width: 460rpx;
     }
   }
 }
