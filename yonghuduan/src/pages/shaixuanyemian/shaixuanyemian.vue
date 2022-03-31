@@ -7,6 +7,7 @@
         <view class="items-center segments">
           <view
             class="segment"
+            :class="activeSegment === i ? 'active' : ''"
             v-for="(segmentDirect, i) in segmentDirects"
             :key="i"
           >{{ segmentDirect.value }}</view>
@@ -17,6 +18,7 @@
         <view class="items-center expects">
           <view
             class="expect"
+            :class="activeExpect === i ? 'active' : ''"
             v-for="(expectedSalary, i) in expectedSalaries"
             :key="i"
           >{{ expectedSalary.value }}</view>
@@ -27,6 +29,7 @@
         <view class="items-center works">
           <view
             class="work"
+            :class="activeWork === i ? 'active' : ''"
             v-for="(education, i) in workExperiences"
             :key="i"
           >{{ education.value }}</view>
@@ -37,6 +40,7 @@
         <view class="items-center requires">
           <view
             class="require"
+            :class="activeRequire === i ? 'active' : ''"
             v-for="(education, i) in degreeRequires"
             :key="i"
           >{{ education.value }}</view>
@@ -45,19 +49,34 @@
       <view class="flex-col job_nature">
         <text class="job">工作性质</text>
         <view class="items-center natures">
-          <view class="nature" v-for="(workPlace, i) in jobNatures" :key="i">{{ workPlace.value }}</view>
+          <view
+            class="nature"
+            :class="activeNature === i ? 'active' : ''"
+            v-for="(workPlace, i) in jobNatures"
+            :key="i"
+          >{{ workPlace.value }}</view>
         </view>
       </view>
       <view class="flex-col company_size">
         <text class="company">公司规模</text>
         <view class="items-center sizes">
-          <view class="size" v-for="(workPlace, i) in companySizes" :key="i">{{ workPlace.value }}</view>
+          <view
+            class="size"
+            :class="activeSize === i ? 'active' : ''"
+            v-for="(workPlace, i) in companySizes"
+            :key="i"
+          >{{ workPlace.value }}</view>
         </view>
       </view>
       <view class="flex-col finance_stage">
         <text class="finance">融资阶段</text>
         <view class="items-center stages">
-          <view class="stage" v-for="(workPlace, i) in financeStages" :key="i">{{ workPlace.value }}</view>
+          <view
+            class="stage"
+            :class="activeStage === i ? 'active' : ''"
+            v-for="(workPlace, i) in financeStages"
+            :key="i"
+          >{{ workPlace.value }}</view>
         </view>
       </view>
       <view class="flex-col industry_sector">
@@ -65,6 +84,7 @@
         <view class="items-center sectors">
           <view
             class="sector"
+            :class="activeSector === i ? 'active' : ''"
             v-for="(workPlace, i) in industrySectors"
             :key="i"
           >{{ workPlace.value }}</view>
@@ -463,18 +483,29 @@ const industrySectors = reactive([
   { value: '新能源汽车制造' },
 ])
 
-const imageOnClick = () => {
-  // @ts-ignore
-  uni.navigateBack()
-}
+const activeSegment = ref(0);
+const activeExpect = ref(0);
+const activeWork = ref(3);
+const activeRequire = ref(0);
+const activeNature = ref(0);
+const activeSize = ref(2);
+const activeStage = ref(5);
+const activeSector = ref(8);
 </script>
 
 <style lang="scss" scoped>
+@import "../../uni.scss";
+
 .page {
   background-color: rgb(255, 255, 255);
   width: 100%;
   .group {
     position: relative;
+  }
+  .active {
+    color: $app-color;
+    background-color: rgb(216, 245, 231) !important;
+    border: solid 0.5rpx rgb(84, 188, 163);
   }
   .search {
     width: 710rpx;

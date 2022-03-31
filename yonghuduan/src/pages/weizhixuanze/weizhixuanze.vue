@@ -1,8 +1,13 @@
 <template>
   <view class="flex-col page">
     <NavigationBar class="top-group" title="位置" />
-    <view class="flex-row groupAll">
-      <scroll-view class="flex-row groupLeft" :scroll-y="true" @scroll="scroll">
+    <view class="flex-row group_all">
+      <scroll-view
+        class="flex-row group_left"
+        :scroll-y="true"
+        @scroll="scroll"
+        style="height:1120rpx;"
+      >
         <view class="flex-col items-center provinces">
           <text
             class="province"
@@ -17,7 +22,7 @@
           <image class />
         </view>
       </scroll-view>
-      <scroll-view class="flex-row groupCenter" :scroll-y="true" @scroll="scroll">
+      <scroll-view class="flex-row group_center" :scroll-y="true" @scroll="scroll">
         <view class="flex-col items-center">
           <text
             class="city"
@@ -32,7 +37,7 @@
           <image class />
         </view>
       </scroll-view>
-      <scroll-view class="flex-row groupRight" :scroll-y="true" @scroll="scroll">
+      <scroll-view class="flex-row group_right" :scroll-y="true" @scroll="scroll">
         <view class="flex-col items-center">
           <text
             class="toponym"
@@ -44,33 +49,8 @@
               place.name
             }}
           </text>
-          <image class />
         </view>
       </scroll-view>
-      <!-- <view class="flex-row groupCenter">
-        <view class="flex-col items-center">
-          <text
-            class="city"
-            :class="activeIndex == i ? 'active' : ''"
-            :key="i"
-            v-for="(area, i) in areas"
-          >{{ area.name }}</text>
-        </view>
-      </view>
-      <view class="flex-row groupRight">
-        <view class="flex-col items-center">
-          <text
-            class="toponym"
-            :class="activeIndex == i ? 'active' : ''"
-            :key="i"
-            v-for="(place, i) in places"
-          >
-            {{
-              place.name
-            }}
-          </text>
-        </view>
-      </view>-->
     </view>
     <view class="flex-row button">
       <view class="flex-col items-center justify-center reset">
@@ -189,12 +169,12 @@ const imageOnClick = () => {
   .top-group {
     position: relative;
   }
-  .groupAll {
+  .group_all {
     height: 1120rpx;
     .active {
       color: rgb(84, 188, 163);
     }
-    .groupLeft {
+    .group_left {
       width: 30%;
       background-color: rgb(244, 250, 255);
       overflow-y: hidden;
@@ -207,7 +187,7 @@ const imageOnClick = () => {
       }
     }
 
-    .groupCenter {
+    .group_center {
       width: 35%;
       overflow-y: hidden;
       .city {
@@ -215,7 +195,7 @@ const imageOnClick = () => {
         margin-top: 15rpx;
       }
     }
-    .groupRight {
+    .group_right {
       width: 35%;
       overflow-y: hidden;
       .toponym {
@@ -227,7 +207,7 @@ const imageOnClick = () => {
   .button {
     width: 100%;
     position: fixed;
-    bottom: 10rpx;
+    bottom: 20rpx;
     background-color: rgb(255, 255, 255);
 
     .reset {

@@ -7,13 +7,13 @@
 			}
 		},
 		{
-			"path": "pages/shouyeyemian/shouyeyemian",
+			"path": "pages/weizhixuanze/weizhixuanze",
 			"style": {
 				"navigationStyle": "custom"
 			}
 		},
 		{
-			"path": "pages/weizhixuanze/weizhixuanze",
+			"path": "pages/shouyeyemian/shouyeyemian",
 			"style": {
 				"navigationStyle": "custom"
 			}
