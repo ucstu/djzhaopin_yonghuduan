@@ -2,8 +2,8 @@
   <view class="flex-col page">
     <NavigationBar class="top-group" title="位置" />
     <view class="flex-row groupAll">
-      <scroll-view class="flex-row groupLeft" :scroll-y="true" @click="scroll">
-        <view class="flex-col items-center">
+      <scroll-view class="flex-row groupLeft" :scroll-y="true" @scroll="scroll">
+        <view class="flex-col items-center provinces">
           <text
             class="province"
             :class="activeIndex == i ? 'active' : ''"
@@ -17,8 +17,8 @@
           <image class />
         </view>
       </scroll-view>
-      <scroll-view class="flex-row groupCenter" :scroll-y="true" @click="scroll">
-        <view class="flex-col items-center cities">
+      <scroll-view class="flex-row groupCenter" :scroll-y="true" @scroll="scroll">
+        <view class="flex-col items-center">
           <text
             class="city"
             :class="activeIndex == i ? 'active' : ''"
@@ -29,10 +29,36 @@
               area.name
             }}
           </text>
+          <image class />
         </view>
       </scroll-view>
-      <scroll-view class="flex-row groupRight" :scroll-y="true" @click="scroll">
-        <view class="flex-col items-center toponyms">
+      <scroll-view class="flex-row groupRight" :scroll-y="true" @scroll="scroll">
+        <view class="flex-col items-center">
+          <text
+            class="toponym"
+            :class="activeIndex == i ? 'active' : ''"
+            :key="i"
+            v-for="(place, i) in places"
+          >
+            {{
+              place.name
+            }}
+          </text>
+          <image class />
+        </view>
+      </scroll-view>
+      <!-- <view class="flex-row groupCenter">
+        <view class="flex-col items-center">
+          <text
+            class="city"
+            :class="activeIndex == i ? 'active' : ''"
+            :key="i"
+            v-for="(area, i) in areas"
+          >{{ area.name }}</text>
+        </view>
+      </view>
+      <view class="flex-row groupRight">
+        <view class="flex-col items-center">
           <text
             class="toponym"
             :class="activeIndex == i ? 'active' : ''"
@@ -44,7 +70,7 @@
             }}
           </text>
         </view>
-      </scroll-view>
+      </view>-->
     </view>
     <view class="flex-row button">
       <view class="flex-col items-center justify-center reset">
@@ -172,31 +198,29 @@ const imageOnClick = () => {
       width: 30%;
       background-color: rgb(244, 250, 255);
       overflow-y: hidden;
-      .province {
+      .provinces {
+        height: 1120rpx;
+        .province {
+          font-size: 30rpx;
+          margin-top: 15rpx;
+        }
+      }
+    }
+
+    .groupCenter {
+      width: 35%;
+      overflow-y: hidden;
+      .city {
         font-size: 30rpx;
         margin-top: 15rpx;
       }
     }
-    .groupCenter {
-      width: 40%;
-      overflow-y: hidden;
-      .cities {
-        width: 50%;
-        .city {
-          font-size: 30rpx;
-          margin-top: 15rpx;
-        }
-      }
-    }
     .groupRight {
-      width: 40%;
+      width: 35%;
       overflow-y: hidden;
-      .toponyms {
-        width: 50%;
-        .toponym {
-          font-size: 30rpx;
-          margin-top: 15rpx;
-        }
+      .toponym {
+        font-size: 30rpx;
+        margin-top: 15rpx;
       }
     }
   }

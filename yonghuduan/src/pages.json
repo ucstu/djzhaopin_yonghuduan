@@ -1,13 +1,19 @@
 {
 	"pages": [
 		{
-			"path": "pages/weizhixuanze/weizhixuanze",
+			"path": "pages/shaixuanyemian/shaixuanyemian",
 			"style": {
 				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path": "pages/shouyeyemian/shouyeyemian",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/weizhixuanze/weizhixuanze",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -266,12 +272,6 @@
 		},
 		{
 			"path": "pages/xifenshaixuan/xifenshaixuan",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/shaixuanyemian/shaixuanyemian",
 			"style": {
 				"navigationStyle": "custom"
 			}
