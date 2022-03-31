@@ -3,7 +3,7 @@
     <NavigationBar class="group" title="筛选" />
     <scroll-view class="flex-col search" :scroll-y="true" @scroll="scroll">
       <view class="flex-col segment_direct">
-        <view>
+        <view class="items-center justify-between">
           <text class="direct">职位细分方向</text>
           <text class="change" @click="Onclick">切换其他方向 ></text>
         </view>
@@ -502,8 +502,6 @@ const Onclick = () => {
 </script>
 
 <style lang="scss" scoped>
-@import "../../uni.scss";
-
 .page {
   background-color: rgb(255, 255, 255);
   width: 100%;
@@ -516,9 +514,8 @@ const Onclick = () => {
     border: solid 0.5rpx rgb(84, 188, 163);
   }
   .search {
-    width: 710rpx;
-    margin-left: 20rpx;
-    margin-right: 20rpx;
+    width: 720rpx;
+    margin-left: 15rpx;
     margin-top: 20rpx;
     height: 1120rpx;
     overflow: hidden;
@@ -528,7 +525,6 @@ const Onclick = () => {
         font-size: 35rpx;
       }
       .change {
-        float: right;
         margin-right: 20rpx;
         font-size: 25rpx;
         color: gray;
@@ -537,7 +533,7 @@ const Onclick = () => {
         flex-wrap: wrap;
         .segment {
           margin: 10rpx 10rpx;
-          width: 216rpx;
+          width: 220rpx;
           height: 70rpx;
           font-size: 30rpx;
           background-color: rgb(229, 229, 229);
@@ -557,7 +553,7 @@ const Onclick = () => {
         flex-wrap: wrap;
         .expect {
           margin: 10rpx 10rpx;
-          width: 216rpx;
+          width: 220rpx;
           height: 70rpx;
           font-size: 30rpx;
           background-color: rgb(229, 229, 229);
@@ -577,7 +573,7 @@ const Onclick = () => {
         flex-wrap: wrap;
         .work {
           margin: 10rpx 10rpx;
-          width: 216rpx;
+          width: 220rpx;
           height: 70rpx;
           font-size: 30rpx;
           background-color: rgb(229, 229, 229);
@@ -597,7 +593,7 @@ const Onclick = () => {
         flex-wrap: wrap;
         .require {
           margin: 10rpx 10rpx;
-          width: 216rpx;
+          width: 220rpx;
           height: 70rpx;
           font-size: 30rpx;
           background-color: rgb(229, 229, 229);
@@ -617,7 +613,7 @@ const Onclick = () => {
         flex-wrap: wrap;
         .nature {
           margin: 10rpx 10rpx;
-          width: 216rpx;
+          width: 220rpx;
           height: 70rpx;
           font-size: 30rpx;
           background-color: rgb(229, 229, 229);
@@ -637,7 +633,7 @@ const Onclick = () => {
         flex-wrap: wrap;
         .size {
           margin: 10rpx 10rpx;
-          width: 216rpx;
+          width: 220rpx;
           height: 70rpx;
           font-size: 30rpx;
           background-color: rgb(229, 229, 229);
@@ -657,7 +653,7 @@ const Onclick = () => {
         flex-wrap: wrap;
         .stage {
           margin: 10rpx 10rpx;
-          width: 216rpx;
+          width: 220rpx;
           height: 70rpx;
           font-size: 30rpx;
           background-color: rgb(229, 229, 229);
@@ -677,7 +673,7 @@ const Onclick = () => {
         flex-wrap: wrap;
         .sector {
           margin: 10rpx 10rpx;
-          width: 216rpx;
+          width: 220rpx;
           height: 70rpx;
           line-height: 70rpx;
           font-size: 30rpx;

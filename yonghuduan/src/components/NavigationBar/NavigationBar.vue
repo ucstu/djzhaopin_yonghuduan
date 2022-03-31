@@ -1,28 +1,25 @@
 <template>
-<!--  #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
+  <!--  #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
   <view :style="'height: ' + (navigationBarHeight + navigationBarTop) + 'px'"></view>
   <view
     class="header items-center component"
     :style="'padding-top: ' + navigationBarTop + 'px; height: ' + (navigationBarHeight + navigationBarTop) + 'px'"
   >
-    <view
-    class="justify-between items-center"
-    :style="'width: ' + navigationBarWidth + 'px'"
-    >
+    <view class="justify-between items-center" :style="'width: ' + navigationBarWidth + 'px'">
       <image @click="imageOnClick" class="image" :src="leftUrl" />
       <text class="text">{{ title }}</text>
       <text class="text_1">{{ right }}</text>
     </view>
   </view>
-<!-- #endif -->
-<!--  #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
+  <!-- #endif -->
+  <!--  #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
   <view style="height: 136rpx"></view>
   <view class="header justify-center component">
     <image @click="imageOnClick" class="image" :src="leftUrl" />
     <text class="text">{{ title }}</text>
     <text class="text_1">{{ right }}</text>
   </view>
-<!-- #endif -->
+  <!-- #endif -->
 </template>
 
 <script lang="ts" setup>
@@ -39,7 +36,7 @@ const navigationBarTop = store.state.menuButtonInfo.top
 // @ts-ignore
 const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(30)
 // @ts-ignore
-const expectationWidth =  store.state.menuButtonInfo.left - uni.upx2px(170)
+const expectationWidth = store.state.menuButtonInfo.left - uni.upx2px(170)
 /* #endif */
 
 const props = defineProps({
@@ -76,7 +73,7 @@ const imageOnClick = () => {
   top: 0rpx;
   .image {
     /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-    margin-left: 40rpx;
+    margin-left: 20rpx;
     /* #endif */
     /* #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
     position: absolute;

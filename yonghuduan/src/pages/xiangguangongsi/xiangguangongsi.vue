@@ -2,8 +2,13 @@
   <view class="page">
     <SearchAndFilter></SearchAndFilter>
     <view class="flex-col list">
-      <CompanyDetail @click="view_5OnClick" class="list-item" :companyDetail="attentionCompany" :key="i"
-        v-for="(attentionCompany, i) in attentionCompanies" />
+      <CompanyDetail
+        @click="view_5OnClick"
+        class="list-item"
+        :companyDetail="attentionCompany"
+        :key="i"
+        v-for="(attentionCompany, i) in attentionCompanies"
+      />
     </view>
   </view>
 </template>
@@ -55,10 +60,9 @@ const view_8OnClick = () => {
 
 <style lang="scss" scoped>
 .page {
-  padding: 0rpx 39rpx 299rpx 40rpx;
+  width: 710rpx;
+  margin-left: 20rpx;
   background-color: rgb(255, 255, 255);
-  // height: 1334rpx;
-  width: 100%;
   overflow-y: auto;
   position: relative;
   .group_1 {

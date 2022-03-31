@@ -63,11 +63,9 @@ const text_3OnClick = () => {
 
 <style lang="scss" scoped>
 .bar {
-    padding: 46rpx 18rpx 515rpx 18rpx;
     background-color: rgb(255 255 255);
-    height: 100%;
     width: 100%;
-    overflow-y: auto;
+    height: 180rpx;
     position: relative;
     .group {
         padding-right: 21rpx;
