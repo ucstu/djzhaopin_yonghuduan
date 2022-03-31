@@ -3,7 +3,10 @@
     <NavigationBar class="group" title="筛选" />
     <scroll-view class="flex-col search" :scroll-y="true" @scroll="scroll">
       <view class="flex-col segment_direct">
-        <text class="direct">职位细分方向</text>
+        <view>
+          <text class="direct">职位细分方向</text>
+          <text class="change" @click="Onclick">切换其他方向 ></text>
+        </view>
         <view class="items-center segments">
           <view
             class="segment"
@@ -491,6 +494,11 @@ const activeNature = ref(0);
 const activeSize = ref(2);
 const activeStage = ref(5);
 const activeSector = ref(8);
+
+const Onclick = () => {
+  uni.navigateTo({ url: '../../pages/qiuzhiqiwang/qiuzhiqiwang' })
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -518,6 +526,12 @@ const activeSector = ref(8);
       .direct {
         margin-left: 25rpx;
         font-size: 35rpx;
+      }
+      .change {
+        float: right;
+        margin-right: 20rpx;
+        font-size: 25rpx;
+        color: gray;
       }
       .segments {
         flex-wrap: wrap;
