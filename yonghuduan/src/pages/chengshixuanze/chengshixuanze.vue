@@ -1,27 +1,32 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar class="header" title="选择城市"/>
+    <NavigationBar class="header" title="选择城市" />
     <view class="flex-row">
-      <view class="flex-col list">
-        <view class="list-item flex-row" :key="i" v-for="(province, i) in provinces">
-          <image class="image_1" :src="province.name" />
-          <view class="section_2"></view>
+      <scroll-view class="group-left" :scroll-y="true" @scroll="scroll">
+        <view>
+          <view
+            class="justify-center province"
+            :class="provinceIndexOf === i ? 'active' : ''"
+            v-for="(province, i) in provinces"
+            :key="i"
+          >{{ province }}</view>
         </view>
-      </view>
-      <view class="flex-col group_2">
-        <text class="text_7">热门城市</text>
-        <view class="flex-row list_1">
-          <view class="list-item_1 flex-col items-center" :key="i" v-for="(city, i) in citys">
-            <text>{{ city.name }}</text>
-          </view>
+      </scroll-view>
+      <view class="group-right">
+        <view class="flex-row cities">
+          <view
+            class="justify-center items-center city"
+            v-for="(city, j) in cities"
+            :key="j"
+          >{{ city }}</view>
         </view>
       </view>
     </view>
-    <view class="flex-row group_3">
-      <view class="flex-col items-center text-wrapper_12">
+    <view class="flex-row button">
+      <view class="flex-col items-center justify-center reset">
         <text>重置</text>
       </view>
-      <view class="flex-col items-center text-wrapper_13">
+      <view class="flex-col items-center justify-center identify">
         <text>确定</text>
       </view>
     </view>
@@ -29,128 +34,120 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { ref, reactive } from 'vue'
 import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
 
 const provinces = reactive([
-  {
-    name: 'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481292195202550038.png',
-  },
-  { name: '直辖市' },
-  { name: '河北' },
-  { name: '山西' },
-  { name: '内蒙' },
-  { name: '辽宁' },
-  { name: '吉林' },
+  '常用',
+  '直辖市',
+  '河北',
+  '山西',
+  '内蒙',
+  '辽宁',
+  '吉林',
+  '直辖市',
+  '河北',
+  '山西',
+  '内蒙',
+  '辽宁',
+  '吉林',
+  '直辖市',
+  '河北',
+  '山西',
+  '内蒙',
+  '辽宁',
+  '吉林',
+  '直辖市',
+  '河北',
+  '山西',
+  '内蒙',
+  '辽宁',
+  '吉林',
+  '直辖市',
+  '河北',
+  '山西',
+  '内蒙',
+  '辽宁',
+  '吉林',
 ])
-const citys = reactive([
-  { name: '北京' },
-  { name: '上海' },
-  { name: '深圳' },
-  { name: '广州' },
-  { name: '杭州' },
-  { name: '成都' },
-  { name: '武汉' },
-  { name: '西安' },
-  { name: '南京' },
-  { name: '长沙' },
-  { name: '郑州' },
-  { name: '重庆' },
+const cities = reactive([
+  '北京',
+  '上海',
+  '深圳',
+  '广州',
+  '杭州',
+  '成都',
+  '武汉',
+  '西安',
+  '南京',
+  '长沙',
+  '郑州',
+  '重庆',
 ])
 const imageOnClick = () => {
   // @ts-ignore
   uni.navigateBack()
 }
+
+const provinceIndexOf = ref(0)
+
 </script>
 
 <style lang="scss" scoped>
 .page {
-  padding-bottom: 20rpx;
-  background-color: rgb(255, 255, 255);
-  width: 100%;
-  overflow-y: auto;
-  height: 100%;
+  width: 710rpx;
+  height: 1255rpx;
   .header {
     position: relative;
   }
-  .group_3 {
-    margin-top: 20rpx;
-    padding: 0 20rpx;
-    .text-wrapper_12 {
-      padding: 16rpx 0 18rpx;
-      color: rgba(0, 0, 0, 0.6);
+  .active {
+    font-weight: bold;
+  }
+  .group-left {
+    width: 30%;
+    height: 1130rpx;
+    background-color: rgb(244, 243, 243);
+    border-radius: 5rpx;
+    overflow-y: hidden;
+    .province {
+      margin-top: 10rpx;
       font-size: 30rpx;
-      line-height: 27rpx;
-      white-space: nowrap;
+    }
+  }
+  .group-right {
+    width: 70%;
+    height: 1130rpx;
+    .cities {
+      margin-left: 20rpx;
+      flex-wrap: wrap;
+      .city {
+        width: 139rpx;
+        height: 60rpx;
+        margin-left: 15rpx;
+        border: solid 2rpx rgb(241, 242, 241);
+        border-radius: 5rpx;
+        font-size: 30rpx;
+      }
+    }
+  }
+  .button {
+    position: fixed;
+    bottom: 20rpx;
+    background-color: rgb(255, 255, 255);
+
+    .reset {
       background-color: rgb(229, 229, 229);
       border-radius: 5rpx;
-      overflow: hidden;
-      width: 250rpx;
+      width: 230rpx;
       height: 60rpx;
+      font-size: 30rpx;
     }
-    .text-wrapper_13 {
+    .identify {
       margin-left: 20rpx;
-      padding: 16rpx 0 18rpx;
-      flex: 1 1 auto;
-      color: rgb(255, 255, 255);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      white-space: nowrap;
-      background-color: rgb(35, 193, 158);
+      background-color: rgb(84, 188, 163);
       border-radius: 5rpx;
-      overflow: hidden;
-      height: 60rpx;
-    }
-  }
-  .list {
-    padding-bottom: 630rpx;
-    .list-item {
-      padding: 20rpx 0 24rpx;
-      background-color: rgb(248, 250, 251);
-      overflow: hidden;
-      height: 79rpx;
-      .image_1 {
-        margin-left: 55rpx;
-        width: 60rpx;
-        height: 35rpx;
-      }
-      .section_2 {
-        margin: 5rpx 0 5rpx 50rpx;
-        background-color: rgb(84, 188, 163);
-        border-radius: 5rpx;
-        width: 5rpx;
-        height: 25rpx;
-      }
-    }
-  }
-  .group_2 {
-    margin: 43rpx 40rpx 0;
-    flex: 1 1 auto;
-    .text_7 {
-      color: rgb(0, 0, 0);
       font-size: 30rpx;
-      line-height: 28rpx;
-      white-space: nowrap;
-    }
-    .list_1 {
-      margin-top: 26rpx;
-      height: 260rpx;
-      position: relative;
-      .list-item_1 {
-        padding: 12rpx 0;
-        color: rgb(0, 0, 0);
-        font-size: 25rpx;
-        line-height: 23rpx;
-        white-space: nowrap;
-        border-radius: 5rpx;
-        overflow: hidden;
-        width: 120rpx;
-        height: 50rpx;
-        position: absolute;
-        left: 0;
-        top: 0;
-        border: solid 2rpx rgb(210, 210, 210);
-      }
+      width: 460rpx;
     }
   }
 }
