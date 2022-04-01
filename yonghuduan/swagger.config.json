@@ -1,0 +1,5 @@
+{
+    "url": "https://www.ucstu.com/projects/djzhaopin/swagger.json",
+    "dir": "./services",
+    "prefix": "/v1"
+}
