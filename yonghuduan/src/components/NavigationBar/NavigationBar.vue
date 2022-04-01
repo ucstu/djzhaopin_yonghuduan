@@ -73,7 +73,7 @@ const imageOnClick = () => {
   top: 0rpx;
   .image {
     /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-    margin-left: 20rpx;
+    margin-left: 30rpx;
     /* #endif */
     /* #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
     position: absolute;

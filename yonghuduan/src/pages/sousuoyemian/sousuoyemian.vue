@@ -24,7 +24,7 @@
     </view>
     <view class="justify-between group_1">
       <text class="text_3">按职位类型搜索</text>
-      <view class="flex-row group_2">
+      <view class="flex-row group_2" @click="text_2OnClick">
         <text>技术</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254581114841.png"
@@ -33,30 +33,24 @@
       </view>
     </view>
     <view class="flex-col group_3">
-      <image
-        src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765056774629.png"
-        class="image_3"
-      />
-      <view class="justify-between list">
+      <text class="hot">热门搜索</text>
+      <view class="flex-row list">
         <view
           @click="view_9OnClick"
-          class="list-item flex-col items-center"
+          class="list-item"
           :key="i"
           v-for="(popularPosition, i) in popularPositions"
         >
-          <text class="text_5">{{ popularPosition.name }}</text>
+          <text class="items-center text_5">{{ popularPosition.name }}</text>
         </view>
       </view>
     </view>
     <view class="flex-col group_5">
-      <image
-        src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765055995713.png"
-        class="image_3"
-      />
+      <text class="hot">热门公司</text>
       <view class="flex-row list_1">
         <view
           @click="view_18OnClick"
-          class="list-item flex-col items-center"
+          class="list-item"
           :key="i"
           v-for="(popularCompany, i) in popularCompanies"
         >
@@ -141,60 +135,28 @@ const text_1OnClick = () => {
   // @ts-ignore
   uni.navigateBack({ delta: 100 })
 }
+const text_2OnClick = () => {
+  uni.navigateTo({ url: '/pages/zhiweileixing/zhiweileixing' })
+}
 const view_9OnClick = () => {
   uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
 }
-const view_10OnClick = () => {
-  uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
-}
-const view_11OnClick = () => {
-  uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
-}
-const view_16OnClick = () => {
-  uni.navigateTo({ url: '/pages/index/index' })
-}
-const view_17OnClick = () => {
-  uni.navigateTo({ url: '/pages/xiangguanzhiwei/xiangguanzhiwei' })
-}
 const view_18OnClick = () => {
-  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-}
-const view_19OnClick = () => {
-  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-}
-const view_20OnClick = () => {
-  uni.navigateTo({ url: '/pages/guanzhugongsi/guanzhugongsi' })
-}
-const view_21OnClick = () => {
-  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-}
-const view_22OnClick = () => {
-  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-}
-const view_23OnClick = () => {
-  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-}
-const view_24OnClick = () => {
-  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-}
-const view_25OnClick = () => {
-  uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
-}
-const view_26OnClick = () => {
-  uni.navigateTo({ url: '/pages/banbengengxin/banbengengxin' })
-}
-const image_4OnClick = () => {
   uni.navigateTo({ url: '/pages/xiangguangongsi/xiangguangongsi' })
 }
 </script>
 
 <style lang="scss" scoped>
 .page {
-  padding: 46rpx 39rpx 500rpx 40rpx;
+  margin-left: 20rpx;
   background-color: rgb(255, 255, 255);
-  width: 100%;
+  width: 710rpx;
   overflow-y: auto;
   height: auto;
+  .hot {
+    font-weight: bold;
+    font-size: 35rpx;
+  }
   .group_1 {
     margin-top: 31rpx;
     .text_3 {
@@ -219,48 +181,45 @@ const image_4OnClick = () => {
     }
   }
   .group_3 {
-    margin-top: 53rpx;
+    margin-top: 50rpx;
     .list {
-      margin-top: 35rpx;
-      width: 100%;
+      margin-top: 20rpx;
+      width: 710rpx;
       flex-wrap: wrap;
       .list-item {
-        margin-bottom: 25rpx;
-        margin-left: 30rpx;
+        margin-bottom: 15rpx;
+        margin-left: 15rpx;
+        height: 60rpx;
+        border: solid 2rpx rgb(230, 230, 230);
+        border-radius: 5rpx;
         flex: none;
 
         .text_5 {
-          color: rgb(0, 0, 0);
           font-size: 25rpx;
-          width: 100%;
-          height: 100%;
-          background-color: rgb(249, 249, 251);
-          border: solid 2rpx rgb(163, 154, 154);
-          line-height: normal;
-          border-radius: 5rpx;
+          margin-left: 15rpx;
+          margin-right: 15rpx;
         }
       }
     }
   }
   .group_5 {
+    margin-top: 30rpx;
     .list_1 {
-      margin-top: 35rpx;
-      width: 100%;
+      margin-top: 20rpx;
+      width: 710rpx;
       flex-wrap: wrap;
       .list-item {
-        margin-bottom: 25rpx;
-        margin-left: 30rpx;
+        margin-bottom: 15rpx;
+        margin-left: 15rpx;
+        height: 60rpx;
+        border: solid 2rpx rgb(230, 230, 230);
+        border-radius: 5rpx;
         flex: none;
 
         .text_5 {
-          color: rgb(0, 0, 0);
-          font-size: 30rpx;
-          width: 100%;
-          height: 100%;
-          background-color: rgb(249, 249, 251);
-          border: solid 2rpx rgb(163, 154, 154);
-          line-height: normal;
-          border-radius: 5rpx;
+          font-size: 25rpx;
+          margin-left: 15rpx;
+          margin-right: 15rpx;
         }
       }
     }
