@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" title="编辑项目经历"/>
+    <NavigationBar class="header" title="编辑项目经历" />
     <view class="flex-col section_1">
       <text class="text_1">项目名称</text>
       <text class="text_2">{{ projectName }}</text>
@@ -57,6 +57,7 @@ const achievement = ref('请选择')
 const startTime = ref('开始时间')
 const overTime = ref('结束时间')
 const imageOnClick = () => {
+  // @ts-ignore
   uni.navigateBack()
 }
 </script>

@@ -60,7 +60,7 @@ const view_8OnClick = () => {
 
 <style lang="scss" scoped>
 .page {
-  width: 710rpx;
+  width: 690rpx;
   margin-left: 20rpx;
   background-color: rgb(255, 255, 255);
   overflow-y: auto;
