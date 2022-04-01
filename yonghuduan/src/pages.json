@@ -1,6 +1,12 @@
 {
 	"pages": [
 		{
+			"path": "pages/sousuoyemian/sousuoyemian",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/chengshixuanze/chengshixuanze",
 			"style": {
 				"navigationStyle": "custom"
@@ -38,12 +44,6 @@
 		},
 		{
 			"path": "pages/weizhixuanze/weizhixuanze",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/sousuoyemian/sousuoyemian",
 			"style": {
 				"navigationStyle": "custom"
 			}
