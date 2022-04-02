@@ -1,7 +1,19 @@
 {
 	"pages": [
 		{
+			"path": "pages/zhiweileixing/zhiweileixing",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/sousuoyemian/sousuoyemian",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/xiangguangongsi/xiangguangongsi",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -14,12 +26,6 @@
 		},
 		{
 			"path": "pages/shouyeyemian/shouyeyemian",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/xiangguangongsi/xiangguangongsi",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -98,12 +104,6 @@
 		},
 		{
 			"path": "pages/yonghufankui/yonghufankui",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/zhiweileixing/zhiweileixing",
 			"style": {
 				"navigationStyle": "custom"
 			}

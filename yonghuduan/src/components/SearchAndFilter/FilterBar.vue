@@ -3,41 +3,35 @@
         <view class="flex-row equal">
             <view class="items-center justify-center equalDiv">
                 <text class="text">区域</text>
-                <image
-                    class="image"
-                    src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-                />
+                <image class="image"
+                    src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png" />
             </view>
             <view class="items-center justify-center equalDiv">
                 <text class="text">要求</text>
                 <image
                     src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-                    class="image"
-                />
+                    class="image" />
             </view>
             <view class="items-center justify-center equalDiv">
                 <text class="text">公司</text>
                 <image
                     src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-                    class="image"
-                />
+                    class="image" />
             </view>
             <view class="items-center justify-center equalDiv">
                 <text class="text">福利</text>
                 <image
                     src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-                    class="image"
-                />
+                    class="image" />
             </view>
             <view class="items-center justify-center equalDiv">
                 <text class="text">排序</text>
                 <image
                     src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-                    class="image"
-                />
+                    class="image" />
             </view>
         </view>
-        <view class="flex-row items-center filter">
+        <view class="flex-row items-center filter" @click="showOver">
             <scroll-view class="sift_group" :scroll-x="true" @scroll="scroll">
                 <view class="flex-row items-center">
                     <view class="justify-center sift" v-for="(sift, i) in sifts" :key="i">
@@ -48,18 +42,13 @@
             <view class="justify-center image_sifts">
                 <image
                     src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773723315322.png"
-                    class="sifts"
-                />
+                    class="sifts" />
             </view>
         </view>
-        <view class="flex-row over-sifts" v-show="false">
+        <view class="flex-row over-sifts" v-show="true">
             <scroll-view class :scroll-y="true" @scroll="scroll">
                 <view class="flex-row items-center over-sift">
-                    <view
-                        class="justify-center over-s"
-                        v-for="(sift, i) in sifts"
-                        :key="i"
-                    >{{ sift }}</view>
+                    <view class="justify-center over-s" v-for="(sift, i) in sifts" :key="i">{{ sift }}</view>
                 </view>
             </scroll-view>
         </view>
@@ -68,6 +57,7 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
+
 const sifts = reactive([
     '不限',
     'C++',
@@ -123,6 +113,9 @@ const sifts = reactive([
     'Vue',
 ])
 
+const showOver = () => {
+    return 0
+}
 
 
 </script>

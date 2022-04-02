@@ -2,34 +2,30 @@
   <view class="page">
     <SearchAndFilter></SearchAndFilter>
     <view class="flex-col list">
-      <CompanyDetail
-        @click="view_5OnClick"
-        class="list-item"
-        :companyDetail="attentionCompany"
-        :key="i"
-        v-for="(attentionCompany, i) in attentionCompanies"
-      />
+      <CompanyDetail @click="view_5OnClick" class="list-item" :companyDetail="attentionCompany" :key="i"
+        v-for="(attentionCompany, i) in attentionCompanies" />
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
-import { useStore } from 'vuex';
-import CompanyDetail from '../../components/CompanyDetail/CompanyDetail.vue'
+import { ref, reactive } from 'vue';
 import { key } from '../../stores';
+import { useStore } from 'vuex';
+import { getCompanyinfos, postCompanyinfos } from '../../services/services';
+import CompanyDetail from '../../components/CompanyDetail/CompanyDetail.vue'
 import SearchAndFilter from '../../components/SearchAndFilter/SearchAndFilter.vue';
+import { 公司信息 } from '../../services/types';
 
 const store = useStore(key)
 
-let attentionCompanies = reactive([])
-uni.request({
-  url: 'http://127.0.0.1:4523/mock/743652/companies', //仅为示例，并非真实接口地址。
-  success: (res) => {
-    // @ts-ignore
-    attentionCompanies.push(...res.data)
-  }
-});
+let attentionCompanies: 公司信息[] = reactive([])
+
+getCompanyinfos().then(res => {
+  attentionCompanies = res.data
+})
+
+
 const city = ref('重庆')
 const direction = ref('不限')
 const searchContent = ref('请输入关键字')
