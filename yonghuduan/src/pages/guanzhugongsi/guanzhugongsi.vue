@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar class="header" title="关注公司"/>
+    <NavigationBar class="header" title="关注公司" />
     <view class="flex-col list">
       <CompanyPanel class="list-item" :key="i" v-for="(attentionCompany, i) in attentionCompanys" />
     </view>
@@ -8,9 +8,9 @@
 </template>
 
 <script lang="ts" setup>
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
-import CompanyDetail from '../../components/CompanyDetail/CompanyDetail.vue'
-import CompanyPanel from '../../components/CompanyPanel/CompanyPanel.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+import CompanyDetail from '@/components/CompanyDetail/CompanyDetail.vue'
+import CompanyPanel from '@/components/CompanyPanel/CompanyPanel.vue'
 import { reactive } from 'vue'
 
 const attentionCompanys = reactive([

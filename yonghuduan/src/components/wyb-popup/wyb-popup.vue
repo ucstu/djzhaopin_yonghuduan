@@ -1,62 +1,87 @@
 <template>
 	<view v-if="isShow">
-		<view @tap.stop.prevent @touchmove.stop.prevent class="wyb-popup-box" :style="{
-			transitionDuration: duration + 'ms',
-			opacity: contentOpacity || (type === 'center' ? 0 : 1),
-			transform: contentTransform || autoTransform,
-			zIndex: zIndex,
-			borderTopRightRadius: type === 'center' || type === 'bottom' || type === 'left' ? radius + 'px' : 0,
-			borderTopLeftRadius: type === 'center' || type === 'bottom' || type === 'right' ? radius + 'px' : 0,
-			borderBottomRightRadius: type === 'center' || type === 'top' || type === 'left' ? radius + 'px' : 0,
-			borderBottomLeftRadius: type === 'center' || type === 'top' || type === 'right' ? radius + 'px' : 0,
-			width: autoWidth,
-			height: 'calc(' + autoHeight + ' - ' + marginTop + 'px)',
-			minWidth: width + 'rpx',
-			minHeight: height + 'rpx',
-			top: sizeChange && type === 'center' ? winReTop : autoTop,
-			bottom: autoBottom,
-			left: autoLeft,
-			right: autoRight,
-			marginTop: marginTop + 'px',
-			backgroundColor: bgColor
-		}">
-			<view class="wyb-popup-close" v-if="showCloseIcon" :style="{
-				width: closeIcon ? closeIconSize + 'rpx' : 'auto',
-				height: closeIcon ? closeIconSize + 'rpx' : 'auto',
-				top: closeIconPos === 'top-right' || closeIconPos === 'top-left' ? vertOffset + 'rpx' : 'auto',
-				bottom: closeIconPos === 'bottom-right' || closeIconPos === 'bottom-left' ? vertOffset + 'rpx' : 'auto',
-				left: closeIconPos === 'bottom-left' || closeIconPos === 'top-left' ? horiOffset + 'rpx' : 'auto',
-				right: closeIconPos === 'bottom-right' || closeIconPos === 'top-right' ? horiOffset + 'rpx' : 'auto'
-			}">
-				<image class="wyb-popup-custom-close" v-if="showCloseIcon && closeIcon" :src="closeIcon" @tap="hide"
+		<view
+			@tap.stop.prevent
+			@touchmove.stop.prevent
+			class="wyb-popup-box"
+			:style="{
+				transitionDuration: duration + 'ms',
+				opacity: contentOpacity || (type === 'center' ? 0 : 1),
+				transform: contentTransform || autoTransform,
+				zIndex: zIndex,
+				borderTopRightRadius: type === 'center' || type === 'bottom' || type === 'left' ? radius + 'px' : 0,
+				borderTopLeftRadius: type === 'center' || type === 'bottom' || type === 'right' ? radius + 'px' : 0,
+				borderBottomRightRadius: type === 'center' || type === 'top' || type === 'left' ? radius + 'px' : 0,
+				borderBottomLeftRadius: type === 'center' || type === 'top' || type === 'right' ? radius + 'px' : 0,
+				width: autoWidth,
+				height: 'calc(' + autoHeight + ' - ' + marginTop + 'px)',
+				minWidth: width + 'rpx',
+				minHeight: height + 'rpx',
+				top: sizeChange && type === 'center' ? winReTop : autoTop,
+				bottom: autoBottom,
+				left: autoLeft,
+				right: autoRight,
+				marginTop: marginTop + 'px',
+				backgroundColor: bgColor
+			}"
+		>
+			<view
+				class="wyb-popup-close"
+				v-if="showCloseIcon"
+				:style="{
+					width: closeIcon ? closeIconSize + 'rpx' : 'auto',
+					height: closeIcon ? closeIconSize + 'rpx' : 'auto',
+					top: closeIconPos === 'top-right' || closeIconPos === 'top-left' ? vertOffset + 'rpx' : 'auto',
+					bottom: closeIconPos === 'bottom-right' || closeIconPos === 'bottom-left' ? vertOffset + 'rpx' : 'auto',
+					left: closeIconPos === 'bottom-left' || closeIconPos === 'top-left' ? horiOffset + 'rpx' : 'auto',
+					right: closeIconPos === 'bottom-right' || closeIconPos === 'top-right' ? horiOffset + 'rpx' : 'auto'
+				}"
+			>
+				<image
+					class="wyb-popup-custom-close"
+					v-if="showCloseIcon && closeIcon"
+					:src="closeIcon"
+					@tap="hide"
 					:style="{
 						width: closeIconSize + 'rpx',
 						height: closeIconSize + 'rpx'
-					}" />
+					}"
+				/>
 				<view v-if="showCloseIcon && !closeIcon" class="iconfont icon-close" @tap="hide" />
 			</view>
 
-			<scroll-view class="wyb-popup-container" :style="{
-				width: autoWidth,
-				height: autoHeight
-			}" :enable-flex="true" :scroll-y="scrollY" :scroll-x="scrollX">
+			<scroll-view
+				class="wyb-popup-container"
+				:style="{
+					width: autoWidth,
+					height: autoHeight
+				}"
+				:enable-flex="true"
+				:scroll-y="scrollY"
+				:scroll-x="scrollX"
+			>
 				<view class="wyb-popup-slot">
 					<slot></slot>
 				</view>
 			</scroll-view>
 		</view>
-		<view class="wyb-popup-mask" @tap.stop="close" @touchmove.stop.prevent :style="{
-			opacity: maskOpacity,
-			transitionDuration: duration + 'ms',
-			marginTop: marginTop + 'px',
-			height: 'calc(' + autoHeight + ' - ' + marginTop + 'px)',
-			backgroundColor: 'rgba(0, 0, 0, ' + maskAlpha + ')',
-			zIndex: zIndex - 1
-		}" />
+		<view
+			class="wyb-popup-mask"
+			@tap.stop="close"
+			@touchmove.stop.prevent
+			:style="{
+				opacity: maskOpacity,
+				transitionDuration: duration + 'ms',
+				marginTop: marginTop + 'px',
+				height: 'calc(' + autoHeight + ' - ' + marginTop + 'px)',
+				backgroundColor: 'rgba(0, 0, 0, ' + maskAlpha + ')',
+				zIndex: zIndex - 1
+			}"
+		/>
 	</view>
 </template>
 
-<script>
+<script lang="ts">
 export default {
 	data() {
 		return {

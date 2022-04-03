@@ -2,20 +2,25 @@
   <view class="page">
     <SearchAndFilter></SearchAndFilter>
     <view class="flex-col list">
-      <CompanyDetail @click="view_5OnClick" class="list-item" :companyDetail="attentionCompany" :key="i"
-        v-for="(attentionCompany, i) in attentionCompanies" />
+      <CompanyDetail
+        @click="view_5OnClick"
+        class="list-item"
+        :companyDetail="attentionCompany"
+        :key="i"
+        v-for="(attentionCompany, i) in attentionCompanies"
+      />
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue';
-import { key } from '../../stores';
+import { key } from '@/stores';
 import { useStore } from 'vuex';
-import { getCompanyinfos, postCompanyinfos } from '../../services/services';
-import CompanyDetail from '../../components/CompanyDetail/CompanyDetail.vue'
-import SearchAndFilter from '../../components/SearchAndFilter/SearchAndFilter.vue';
-import { 公司信息 } from '../../services/types';
+import { getCompanyinfos, postCompanyinfos } from '@/services/services';
+import CompanyDetail from '@/components/CompanyDetail/CompanyDetail.vue'
+import SearchAndFilter from '@/components/SearchAndFilter/SearchAndFilter.vue';
+import { 公司信息 } from '@/services/types';
 
 const store = useStore(key)
 

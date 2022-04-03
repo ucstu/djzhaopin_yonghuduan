@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" title="设置"/>
+    <NavigationBar class="header" title="设置" />
     <view @click="view_4OnClick" class="justify-between section_1">
       <text class="text_1">我的账户</text>
       <image
@@ -57,7 +57,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
 const newVersion = ref('1.0.0')
 

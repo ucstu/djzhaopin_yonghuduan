@@ -25,7 +25,7 @@
 <script lang="ts" setup>
 import { defineProps, computed } from 'vue';
 import { useStore } from 'vuex';
-import { key } from '../../stores';
+import { key } from '@/stores';
 const store = useStore(key);
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */

@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" title="设置密码"/>
+    <NavigationBar class="header" title="设置密码" />
     <view class="flex-col section_1">
       <text class="text_1">设置密码</text>
       <view class="flex-row group_1">
@@ -23,7 +23,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
 
 const confirmPassword = ref('请再次输入密码')

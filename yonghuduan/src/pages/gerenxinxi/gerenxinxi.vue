@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" title="个人信息"/>
+    <NavigationBar class="header" title="个人信息" />
     <view class="justify-between group_1">
       <view class="flex-col group_2">
         <text class="text_1">头像</text>
@@ -56,7 +56,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
 const userName = ref('张三')
 const birthday = ref('1999.05.08')

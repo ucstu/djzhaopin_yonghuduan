@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" title="通知设置"/>
+    <NavigationBar class="header" title="通知设置" />
     <view class="flex-col items-start bar-1">
       <text class="text">新消息通知</text>
     </view>
@@ -22,7 +22,8 @@
         <text class="text-disturb-time">{{ noDisturbTime }}</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478529383962808577.png"
-          class="image-right" />
+          class="image-right"
+        />
       </view>
     </view>
   </view>
@@ -30,7 +31,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
 const noDisturbTime = ref('22：00-7：00')
 

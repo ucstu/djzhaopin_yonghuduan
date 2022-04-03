@@ -48,7 +48,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import MailBar from '../../components/MailBar/MailBar.vue'
+import MailBar from '@/components/MailBar/MailBar.vue'
 const time = ref('昨天')
 const avatarAddress = ref(
   'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481301635901980128.png')

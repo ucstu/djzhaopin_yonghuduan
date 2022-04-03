@@ -3,14 +3,14 @@
     <NavigationBar />
     <text class="text">请输入验证码</text>
     <view class="group">
-      <text class="text_1">4位验证码已发送至: </text>
+      <text class="text_1">4位验证码已发送至:</text>
       <text class="text_2">{{ phonceNumber }}</text>
     </view>
     <view class="justify-evenly group_1">
-      <view class="section_1"> </view>
-      <view class="section_2"> </view>
-      <view class="section_2"> </view>
-      <view class="section_2"> </view>
+      <view class="section_1"></view>
+      <view class="section_2"></view>
+      <view class="section_2"></view>
+      <view class="section_2"></view>
     </view>
     <text class="text_3">重新发送验证码</text>
   </view>
@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
 const phonceNumber = ref('180******64')
 

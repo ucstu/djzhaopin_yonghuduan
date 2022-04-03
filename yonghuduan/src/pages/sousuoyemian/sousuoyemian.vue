@@ -64,7 +64,7 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import { useStore } from 'vuex';
-import { key } from '../../stores';
+import { key } from '@/stores';
 
 const store = useStore(key)
 

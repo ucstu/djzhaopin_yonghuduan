@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" right="保存"/>
+    <NavigationBar class="header" right="保存" />
     <text class="text_2">个人优势</text>
     <view class="flex-col group_1">
       <text>写下你最擅长的事情，展示你的特别之处，分享你在</text>
@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
 const personalAdvantage = ref('你可以通过描述你的岗位来突出你真正擅长的东西。')
 const imageOnClick = () => {

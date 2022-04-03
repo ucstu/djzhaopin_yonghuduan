@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" title="我的账户"/>
+    <NavigationBar class="header" title="我的账户" />
     <view class="justify-between section_1">
       <text class="text_1">手机号</text>
       <view class="flex-row group_1">
@@ -18,7 +18,7 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
 const phoneNumber = ref('173****6235')
 const imageOnClick = () => {

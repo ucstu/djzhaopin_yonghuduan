@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" title="在线简历"/>
+    <NavigationBar class="header" title="在线简历" />
     <view class="justify-between group_1">
       <view class="flex-col group_2">
         <view class="flex-row group_3">
@@ -122,11 +122,11 @@
 </template>
 
 <script lang="ts" setup>
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
-import JobExpectation from '../../components/JobExpectation/JobExpectation.vue'
-import WorkExperience from '../../components/WorkExperience/WorkExperience.vue'
-import EducationalExperience from '../../components/EducationalExperience/EducationalExperience.vue'
-import ProjectExperience from '../../components/ProjectExperience/ProjectExperience.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+import JobExpectation from '@/components/JobExpectation/JobExpectation.vue'
+import WorkExperience from '@/components/WorkExperience/WorkExperience.vue'
+import EducationalExperience from '@/components/EducationalExperience/EducationalExperience.vue'
+import ProjectExperience from '@/components/ProjectExperience/ProjectExperience.vue'
 import { reactive, ref } from 'vue'
 
 

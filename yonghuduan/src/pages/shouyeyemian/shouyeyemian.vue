@@ -63,8 +63,8 @@
 </template>
 
 <script lang="ts" setup>
-import JobDetail from '../../components/JobDetail/JobDetail.vue'
-import { key } from '../../stores';
+import JobDetail from '@/components/JobDetail/JobDetail.vue'
+import { key } from '@/stores';
 import { reactive, ref } from 'vue'
 import { useStore } from 'vuex';
 

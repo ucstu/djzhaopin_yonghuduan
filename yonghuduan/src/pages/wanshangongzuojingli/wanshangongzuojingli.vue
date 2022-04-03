@@ -41,7 +41,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 const companyName = ref('请填写')
 const companyIndustry = ref('请选择')
 const positionType = ref('请选择')

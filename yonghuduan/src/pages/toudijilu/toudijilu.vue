@@ -20,8 +20,8 @@
 </template>
 
 <script lang="ts" setup>
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
-import JobPanel from '../../components/JobPanel/JobPanel.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+import JobPanel from '@/components/JobPanel/JobPanel.vue'
 import { reactive } from 'vue';
 
 

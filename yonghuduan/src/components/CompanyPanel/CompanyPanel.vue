@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import CompanyDetail from '../../components/CompanyDetail/CompanyDetail.vue'
+import CompanyDetail from '@/components/CompanyDetail/CompanyDetail.vue'
 
 
       const logoAddress=ref('https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png')

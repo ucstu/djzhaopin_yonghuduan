@@ -404,7 +404,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
 const segmentDirects = reactive([
   { value: '不限' },
@@ -496,7 +496,7 @@ const activeStage = ref(5);
 const activeSector = ref(8);
 
 const Onclick = () => {
-  uni.navigateTo({ url: '../../pages/qiuzhiqiwang/qiuzhiqiwang' })
+  uni.navigateTo({ url: '@/pages/qiuzhiqiwang/qiuzhiqiwang' })
 }
 
 </script>

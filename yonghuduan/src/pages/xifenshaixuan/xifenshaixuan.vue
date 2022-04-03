@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" right="保存"/>
+    <NavigationBar class="header" right="保存" />
     <text class="text_1">选择职位细分标签</text>
     <text class="text_2">根据您选择的期望职位，选择一下职位细分标签</text>
     <view class="flex-col group_1">
@@ -162,7 +162,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 const systemEnvironment = ref('Windows')
 const algorithmType = ref('回归算法')
 const applicationField = ref('搜索 | 推荐')

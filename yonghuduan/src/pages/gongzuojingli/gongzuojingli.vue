@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" title="工作经历"/>
+    <NavigationBar class="header" title="工作经历" />
     <view class="flex-col section_1">
       <text class="text_1">公司名称</text>
       <text class="text_2">{{ companyName }}</text>
@@ -48,7 +48,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
 const companyName = ref('请填写')
 const department = ref('请填写')

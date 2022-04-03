@@ -16,7 +16,7 @@
             v-for="(area, i) in areas"
           >
             {{
-              area.name
+            area.name
             }}
           </text>
           <image class />
@@ -31,7 +31,7 @@
             v-for="(area, i) in areas"
           >
             {{
-              area.name
+            area.name
             }}
           </text>
           <image class />
@@ -46,7 +46,7 @@
             v-for="(place, i) in places"
           >
             {{
-              place.name
+            place.name
             }}
           </text>
         </view>
@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts" setup>
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 import { reactive, ref } from 'vue'
 
 const activeIndex = ref(0)

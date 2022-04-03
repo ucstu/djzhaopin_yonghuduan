@@ -1,11 +1,11 @@
 <template>
   <view class="flex-col items-start page">
-    <NavigationBar class="header" title="隐私政策"/>
+    <NavigationBar class="header" title="隐私政策" />
   </view>
 </template>
 
 <script lang="ts" setup>
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 const imageOnClick = () => {
   // @ts-ignore
   uni.navigateBack()

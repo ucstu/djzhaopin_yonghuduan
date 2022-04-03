@@ -35,7 +35,7 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
 const provinces = reactive([
   '常用',

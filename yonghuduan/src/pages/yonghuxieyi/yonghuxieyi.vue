@@ -1,12 +1,12 @@
 <template>
   <view class="flex-col items-start page">
-    <NavigationBar class="header" title="用户协议"/>
+    <NavigationBar class="header" title="用户协议" />
   </view>
 </template>
 
 <script lang="ts" setup>
 import * as Vue from 'vue'
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 import { ref } from 'vue';
 const imageOnClick = () => {
   // @ts-ignore

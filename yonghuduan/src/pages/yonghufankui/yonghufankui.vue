@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row page">
-    <NavigationBar class="header" title="用户反馈"/>
+    <NavigationBar class="header" title="用户反馈" />
     <view class="flex-col group_1">
       <text class="text_1">请选择反馈类型</text>
       <view class="flex-row group_2">
@@ -59,7 +59,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 const opinion = ref('请写下您的宝贵意见，东江招聘致力于服务好每一位')
 const imageOnClick = () => {
   // @ts-ignore

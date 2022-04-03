@@ -14,8 +14,8 @@
 </template>
 
 <script lang="ts" setup>
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
-import CompanyDetail from '../../components/CompanyDetail/CompanyDetail.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+import CompanyDetail from '@/components/CompanyDetail/CompanyDetail.vue'
 import { reactive } from 'vue';
 
 

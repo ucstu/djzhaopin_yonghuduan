@@ -32,7 +32,7 @@
       </view>
     </view>
     <view class="items-center justify-center button">
-      <image class="image" src="../../static/icons/add-circle.png" />
+      <image class="image" src="@/static/icons/add-circle.png" />
       <text class="add">添加求职期望</text>
     </view>
     <view class="items-center justify-between entry_time">
@@ -44,7 +44,7 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
 
 const jobExpectations = reactive([

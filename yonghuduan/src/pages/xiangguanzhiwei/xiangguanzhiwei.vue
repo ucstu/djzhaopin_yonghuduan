@@ -16,9 +16,9 @@
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
 import { useStore } from 'vuex';
-import JobDetail from '../../components/JobDetail/JobDetail.vue';
-import { key } from '../../stores';
-import SearchAndFilter from '../../components/SearchAndFilter/SearchAndFilter.vue';
+import JobDetail from '@/components/JobDetail/JobDetail.vue';
+import { key } from '@/stores';
+import SearchAndFilter from '@/components/SearchAndFilter/SearchAndFilter.vue';
 
 const store = useStore(key)
 

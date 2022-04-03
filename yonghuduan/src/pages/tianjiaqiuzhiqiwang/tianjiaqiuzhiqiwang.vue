@@ -8,7 +8,8 @@
         <text class="text_3">{{ jobExpectation }}</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716985504722.png"
-          class="image_1" />
+          class="image_1"
+        />
       </view>
     </view>
     <view class="section_1 flex-col">
@@ -17,7 +18,8 @@
         <text>{{ cityExpectation }}</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716985504722.png"
-          class="image_1" />
+          class="image_1"
+        />
       </view>
     </view>
     <view class="section_1 flex-col">
@@ -26,7 +28,8 @@
         <text>{{ salaryExpectation }}</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716985504722.png"
-          class="image_1" />
+          class="image_1"
+        />
       </view>
     </view>
     <view class="flex-col items-center button">
@@ -37,7 +40,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
 
 const jobExpectation = ref('请选择')

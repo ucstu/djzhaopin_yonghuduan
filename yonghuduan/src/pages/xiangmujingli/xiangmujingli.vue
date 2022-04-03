@@ -48,7 +48,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 const projectName = ref('请填写')
 const projectDescribe = ref('请填写')
 const projectUrl = ref('项目链接')

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import JobDetail from '../../components/JobDetail/JobDetail.vue'
+import JobDetail from '@/components/JobDetail/JobDetail.vue'
 
 defineProps({
   collectionPosition: {

@@ -31,7 +31,7 @@
 import { ref, reactive } from 'vue'
 import { useStore } from 'vuex';
 import JobDetail from '../JobDetail/JobDetail.vue';
-import { key } from '../../stores';
+import { key } from '@/stores';
 
 const store = useStore(key)
 

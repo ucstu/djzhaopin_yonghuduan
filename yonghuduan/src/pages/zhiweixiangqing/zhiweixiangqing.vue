@@ -130,7 +130,7 @@
 </template>
 
 <script lang="ts" setup>
-import NavigationBar from '../../components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 import { ref } from 'vue'
 const salary = ref('6K - 8K')
 const jobName = ref(
