@@ -10,6 +10,24 @@ import { Http } from "./httpRequest";
 import {
   GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
   HR信息,
+  公司信息,
+  关注记录,
+  地区信息,
+  城市信息,
+  工作经历,
+  投递记录,
+  收藏记录,
+  教育经历,
+  查看记录,
+  求职期望,
+  消息记录,
+  用户信息,
+  筛选信息,
+  细分标签,
+  职位信息,
+  职位类型,
+  账号信息,
+  项目经历,
 } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
