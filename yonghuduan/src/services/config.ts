@@ -11,35 +11,9 @@ import Axios, {
 } from "axios";
 //@ts-ignore
 import qs from "qs";
-import settle from 'axios/lib/core/settle';
-import buildURL from 'axios/lib/helpers/buildURL';
-
-Axios.defaults.adapter = function (config) { //自己定义个适配器，用来适配uniapp的语法
-  return new Promise((resolve, reject) => {
-    uni.request({
-      method: config.method.toUpperCase(),
-      url: config.baseURL + buildURL(config.url, config.params, config.paramsSerializer),
-      header: config.headers,
-      data: config.data,
-      dataType: config.dataType,
-      responseType: config.responseType,
-      sslVerify: config.sslVerify,
-      complete: function complete(response) {
-        response = {
-          data: response.data,
-          status: response.statusCode,
-          errMsg: response.errMsg,
-          header: response.header,
-          config: config
-        };
-        settle(resolve, reject, response);
-      }
-    })
-  })
-}
 
 const baseConfig: AxiosRequestConfig = {
-  baseURL: import.meta.env.VITE_BASE_URL || "", // <--- Add your base url
+  baseURL: import.meta.env.VITE_BASE_URL as string || "", // <--- Add your base url
   headers: {
     "Content-Encoding": "UTF-8",
     Accept: "application/json",

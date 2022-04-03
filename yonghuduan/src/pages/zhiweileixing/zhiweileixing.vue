@@ -80,7 +80,7 @@ const activePositionIndex = ref(0)
 
 const fields = reactive<职位类型>([])
 const directions = computed(() => fields[activeFieldIndex.value].directions)
-const positions = computed(() => directions.value[activeDirectionIndex.value].postitions)
+const positions = computed(() => directions.value[activeDirectionIndex.value].positions)
 
 getPositiontypes().then(res => {
   fields.push(...res.data)
@@ -99,7 +99,7 @@ const positionNames = computed(() => {
   let result = []
   for (const searchType of fields) {
     for (const direction of searchType.directions) {
-      for (const position of direction.postitions) {
+      for (const position of direction.positions) {
         result.push(position)
       }
     }

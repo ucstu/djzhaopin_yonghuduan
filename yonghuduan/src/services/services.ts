@@ -10,24 +10,6 @@ import { Http } from "./httpRequest";
 import {
   GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
   HR信息,
-  公司信息,
-  关注记录,
-  地区信息,
-  城市信息,
-  工作经历,
-  投递记录,
-  收藏记录,
-  教育经历,
-  查看记录,
-  求职期望,
-  消息记录,
-  用户信息,
-  筛选信息,
-  细分标签,
-  职位信息,
-  职位类型,
-  账号信息,
-  项目经历,
 } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -1242,6 +1224,42 @@ postAccounts.key = "/accounts";
 
 /**
  *
+ * 上传头像
+ */
+export const postAvatars = (
+  requestBody: {
+    /**
+     *
+     * 头像
+     * - Format: binary
+     */
+    avatar?: string;
+  },
+  configOverride?: AxiosRequestConfig
+): Promise<
+  SwaggerResponse<{
+    /**
+     *
+     * 头像地址
+     *
+     */
+    url: string;
+  }>
+> => {
+  return Http.postRequest(
+    postAvatars.key,
+    undefined,
+    objToForm(requestBody),
+    undefined,
+    overrideConfig(_CONSTANT1, configOverride)
+  );
+};
+
+/** Key is end point string without base url */
+postAvatars.key = "/avatars";
+
+/**
+ *
  * 增加公司信息
  */
 export const postCompanyinfos = (
@@ -1288,43 +1306,39 @@ postCompanyinfosCompanyinfoidPositioninfos.key =
 
 /**
  *
- * 增加HR信息
+ * 上传文件
  */
-export const postHrinfos = (
-  requestBody: HR信息,
+export const postFiles = (
+  requestBody: {
+    /**
+     *
+     * 文件
+     * - Format: binary
+     */
+    file?: string;
+  },
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<HR信息>> => {
+): Promise<
+  SwaggerResponse<{
+    /**
+     *
+     * 文件ID
+     *
+     */
+    fileId: string;
+  }>
+> => {
   return Http.postRequest(
-    postHrinfos.key,
+    postFiles.key,
     undefined,
-    requestBody,
+    objToForm(requestBody),
     undefined,
-    overrideConfig(_CONSTANT0, configOverride)
+    overrideConfig(_CONSTANT1, configOverride)
   );
 };
 
 /** Key is end point string without base url */
-postHrinfos.key = "/hrinfos";
-
-/**
- *
- * 增加用户信息
- */
-export const postUserinfos = (
-  requestBody: 用户信息,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<用户信息>> => {
-  return Http.postRequest(
-    postUserinfos.key,
-    undefined,
-    requestBody,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/** Key is end point string without base url */
-postUserinfos.key = "/userinfos";
+postFiles.key = "/files";
 
 /**
  *
@@ -1580,6 +1594,40 @@ putAccounts.key = "/accounts";
 
 /**
  *
+ * 设置密码
+ */
+export const putAcocuntsAccountid = (
+  accountid: string,
+  requestBody: {
+    /**
+     *
+     * 密码
+     *
+     */
+    password: string;
+    /**
+     *
+     * 验证码
+     *
+     */
+    verificationCode: number;
+  },
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<账号信息>> => {
+  return Http.putRequest(
+    template(putAcocuntsAccountid.key, { accountid }),
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/** Key is end point string without base url */
+putAcocuntsAccountid.key = "/acocunts/{accountid}";
+
+/**
+ *
  * 修改公司信息
  */
 export const putCompanyinfosCompanyinfoid = (
@@ -1636,42 +1684,6 @@ export const putCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
 /** Key is end point string without base url */
 putCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key =
   "/companyinfos/{companyinfoid}/positioninfos/{positioninfoid}";
-
-/**
- *
- * 上传文件
- */
-export const putFiles = (
-  requestBody: {
-    /**
-     *
-     * 文件
-     * - Format: binary
-     */
-    file?: string;
-  },
-  configOverride?: AxiosRequestConfig
-): Promise<
-  SwaggerResponse<{
-    /**
-     *
-     * 文件ID
-     *
-     */
-    fileId: string;
-  }>
-> => {
-  return Http.putRequest(
-    putFiles.key,
-    undefined,
-    objToForm(requestBody),
-    undefined,
-    overrideConfig(_CONSTANT1, configOverride)
-  );
-};
-
-/** Key is end point string without base url */
-putFiles.key = "/files";
 
 /**
  *

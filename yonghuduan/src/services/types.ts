@@ -695,16 +695,16 @@ export interface 细分标签 {
   labelClassifications: {
     /**
      *
-     * 细分标签
-     *
-     */
-    " subdivisionLabels": string[];
-    /**
-     *
      * 分类名
      *
      */
     classificationName: string;
+    /**
+     *
+     * 细分标签
+     *
+     */
+    subdivisionLabels: string[];
   }[];
 }
 
@@ -850,7 +850,7 @@ export type 职位类型 = {
      * 职位
      *
      */
-    postitions: string[];
+    positions: string[];
   }[];
   /**
    *
