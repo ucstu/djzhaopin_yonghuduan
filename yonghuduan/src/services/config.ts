@@ -13,7 +13,7 @@ import Axios, {
 import qs from "qs";
 
 const baseConfig: AxiosRequestConfig = {
-  baseURL: import.meta.env.VITE_BASE_URL as string || "", // <--- Add your base url
+  baseURL: (import.meta.env.VITE_BASE_URL as string) || "", // <--- Add your base url
   headers: {
     "Content-Encoding": "UTF-8",
     Accept: "application/json",
@@ -100,6 +100,6 @@ class RequestError extends Error {
 
 export type Security = any[] | undefined;
 
-export interface SwaggerResponse<R> extends AxiosResponse<R> { }
+export interface SwaggerResponse<R> extends AxiosResponse<R> {}
 
 export { getAxiosInstance, RequestError };

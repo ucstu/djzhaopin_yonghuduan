@@ -265,7 +265,7 @@ export type 地区信息 = {
  *
  */
 
-export interface 城市信息 {
+export type 城市信息 = {
   /**
    *
    * 城市
@@ -274,11 +274,11 @@ export interface 城市信息 {
   citys: string[];
   /**
    *
-   * 省份名
+   * 省名
    *
    */
   provinceName: string;
-}
+}[];
 
 export interface 工作经历 {
   /**
