@@ -1,13 +1,13 @@
 {
 	"pages": [
 		{
-			"path": "pages/zhiweileixing/zhiweileixing",
+			"path": "pages/chengshixuanze/chengshixuanze",
 			"style": {
 				"navigationStyle": "custom"
 			}
 		},
 		{
-			"path": "pages/chengshixuanze/chengshixuanze",
+			"path": "pages/zhiweileixing/zhiweileixing",
 			"style": {
 				"navigationStyle": "custom"
 			}

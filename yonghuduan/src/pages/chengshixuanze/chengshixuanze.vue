@@ -3,100 +3,79 @@
     <NavigationBar class="header" title="选择城市" />
     <view class="flex-row">
       <scroll-view class="group-left" :scroll-y="true" @scroll="scroll">
-        <view>
+        <view class="flex-col province-name">
           <view
             class="justify-center province"
             :class="provinceIndexOf === i ? 'active' : ''"
             v-for="(province, i) in provinces"
+            @click="provinceIndex(i)"
             :key="i"
-          >{{ province }}</view>
+          >{{ province.provinceName }}</view>
         </view>
       </scroll-view>
       <view class="group-right">
+        <text class="hot-cities" v-if="provinceIndexOf === 0">热门城市</text>
         <view class="flex-row cities">
           <view
             class="justify-center items-center city"
-            v-for="(city, j) in cities"
-            :key="j"
+            v-for="(city, i) in cities"
+            :key="i"
           >{{ city }}</view>
         </view>
-      </view>
-    </view>
-    <view class="flex-row button">
-      <view class="flex-col items-center justify-center reset">
-        <text>重置</text>
-      </view>
-      <view class="flex-col items-center justify-center identify">
-        <text>确定</text>
       </view>
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+import { getCityinfos } from '@/services/services';
 
 const provinces = reactive([
-  '常用',
-  '直辖市',
-  '河北',
-  '山西',
-  '内蒙',
-  '辽宁',
-  '吉林',
-  '直辖市',
-  '河北',
-  '山西',
-  '内蒙',
-  '辽宁',
-  '吉林',
-  '直辖市',
-  '河北',
-  '山西',
-  '内蒙',
-  '辽宁',
-  '吉林',
-  '直辖市',
-  '河北',
-  '山西',
-  '内蒙',
-  '辽宁',
-  '吉林',
-  '直辖市',
-  '河北',
-  '山西',
-  '内蒙',
-  '辽宁',
-  '吉林',
+  {
+    provinceName: '常用',
+    citys: [
+      '北京',
+      '上海',
+      '广州',
+      '深圳',
+      '杭州',
+      '南京',
+      '成都',
+      '武汉',
+      '西安',
+      '重庆',
+      '郑州',
+      '长沙',
+    ]
+  },
 ])
-const cities = reactive([
-  '北京',
-  '上海',
-  '深圳',
-  '广州',
-  '杭州',
-  '成都',
-  '武汉',
-  '西安',
-  '南京',
-  '长沙',
-  '郑州',
-  '重庆',
-])
+const cities = computed(() => provinces[provinceIndexOf.value].citys)
+getCityinfos().then(res => {
+  provinces.push(...res.data)
+})
+
+const provinceIndexOf = ref(0)
+const provinceIndex = (index) => {
+  provinceIndexOf.value = index
+  console.log(cities);
+
+}
+
 const imageOnClick = () => {
   // @ts-ignore
   uni.navigateBack()
 }
 
-const provinceIndexOf = ref(0)
 
 </script>
 
 <style lang="scss" scoped>
 .page {
   width: 710rpx;
-  height: 1255rpx;
+  height: 1320rpx;
+  margin-left: 20rpx;
   .header {
     position: relative;
   }
@@ -104,29 +83,41 @@ const provinceIndexOf = ref(0)
     font-weight: bold;
   }
   .group-left {
-    width: 30%;
-    height: 1130rpx;
+    width: 220rpx;
+    height: 1190rpx;
     background-color: rgb(244, 243, 243);
     border-radius: 5rpx;
     overflow-y: hidden;
-    .province {
-      margin-top: 10rpx;
-      font-size: 30rpx;
+    .province-name {
+      margin-left: 20rpx;
+      width: 170rpx;
+      .province {
+        margin-top: 15rpx;
+        font-size: 28rpx;
+        white-space: nowrap;
+      }
     }
   }
   .group-right {
-    width: 70%;
-    height: 1130rpx;
+    width: 480rpx;
+    height: 1190rpx;
+    .hot-cities {
+      margin-left: 20rpx;
+      margin-top: 20rpx;
+      font-size: 28rpx;
+      font-weight: bold;
+    }
     .cities {
       margin-left: 20rpx;
       flex-wrap: wrap;
       .city {
         width: 139rpx;
         height: 60rpx;
+        margin-top: 15rpx;
         margin-left: 15rpx;
         border: solid 2rpx rgb(241, 242, 241);
         border-radius: 5rpx;
-        font-size: 30rpx;
+        font-size: 28rpx;
       }
     }
   }
