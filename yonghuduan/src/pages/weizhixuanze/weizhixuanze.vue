@@ -2,36 +2,18 @@
   <view class="flex-col page">
     <NavigationBar class="top-group" title="位置" />
     <view class="flex-row group_all">
-      <scroll-view
-        class="flex-row group_left"
-        :scroll-y="true"
-        @scroll="scroll"
-        style="height:1120rpx;"
-      >
-        <view class="flex-col items-center provinces">
-          <text
-            class="province"
-            :class="activeIndex == i ? 'active' : ''"
-            :key="i"
-            v-for="(area, i) in areas"
-          >
-            {{
-            area.name
-            }}
-          </text>
-          <image class />
-        </view>
-      </scroll-view>
+      <view class="justify-center group_left">商圈</view>
       <scroll-view class="flex-row group_center" :scroll-y="true" @scroll="scroll">
         <view class="flex-col items-center">
           <text
             class="city"
-            :class="activeIndex == i ? 'active' : ''"
+            :class="countriesIndex == i ? 'active' : ''"
+            @click="countriesIndex = i; areasIndex = 0"
             :key="i"
-            v-for="(area, i) in areas"
+            v-for="(country, i) in countries"
           >
             {{
-            area.name
+              country.countyName
             }}
           </text>
           <image class />
@@ -41,12 +23,13 @@
         <view class="flex-col items-center">
           <text
             class="toponym"
-            :class="activeIndex == i ? 'active' : ''"
+            :class="areasIndex == i ? 'active' : ''"
+            @click="areasIndex = i"
             :key="i"
-            v-for="(place, i) in places"
+            v-for="(area, i) in areas"
           >
             {{
-            place.name
+              area
             }}
           </text>
         </view>
@@ -65,98 +48,20 @@
 
 <script lang="ts" setup>
 import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-import { reactive, ref } from 'vue'
+import { getRegionalinfos } from '@/services/services';
+import { AreaInformations } from '@/services/types';
+import { reactive, ref, computed } from 'vue'
 
-const activeIndex = ref(0)
+const countriesIndex = ref(0)
+const areasIndex = ref(0)
 
-const areas = reactive([
-  { name: '不限' },
-  { name: '渝北区' },
-  { name: '渝中区' },
-  { name: '江北区' },
-  { name: '九龙坡区' },
-  { name: '南岸区' },
-  { name: '沙坪坝区' },
-  { name: '巴南区' },
-  { name: '北碚区' },
-  { name: '永川区' },
-  { name: '大渡口区' },
-  { name: '江津区' },
-  { name: '双桥区' },
-  { name: '铜梁区' },
-  { name: '大足县' },
-  { name: '万州区' },
-  { name: '合川区' },
-  { name: '长寿区' },
-  { name: '垫江区' },
-  { name: '渝北区' },
-  { name: '渝中区' },
-  { name: '江北区' },
-  { name: '九龙坡区' },
-  { name: '南岸区' },
-  { name: '沙坪坝区' },
-  { name: '巴南区' },
-  { name: '北碚区' },
-  { name: '永川区' },
-  { name: '大渡口区' },
-  { name: '江津区' },
-  { name: '双桥区' },
-  { name: '铜梁区' },
-  { name: '大足县' },
-  { name: '万州区' },
-  { name: '合川区' },
-  { name: '长寿区' },
-  { name: '垫江区' },
-  { name: '南岸区' },
-  { name: '沙坪坝区' },
-  { name: '巴南区' },
-  { name: '北碚区' },
-  { name: '永川区' },
-  { name: '大渡口区' },
-  { name: '江津区' },
-  { name: '双桥区' },
-  { name: '铜梁区' },
-  { name: '大足县' },
-  { name: '万州区' },
-  { name: '合川区' },
-  { name: '长寿区' },
-  { name: '垫江区' },
-  { name: '渝北区' },
-  { name: '渝中区' },
-  { name: '江北区' },
-  { name: '九龙坡区' },
-  { name: '南岸区' },
-  { name: '沙坪坝区' },
-  { name: '巴南区' },
-  { name: '北碚区' },
-  { name: '永川区' },
-  { name: '大渡口区' },
-  { name: '江津区' },
-  { name: '双桥区' },
-  { name: '铜梁区' },
-  { name: '大足县' },
-  { name: '万州区' },
-  { name: '合川区' },
-  { name: '长寿区' },
-  { name: '垫江区' },
-])
-const places = reactive([
-  { name: '不限' },
-  { name: '大竹林' },
-  { name: '双凤桥' },
-  { name: '冉家坝' },
-  { name: '两路' },
-  { name: '汽博中心' },
-  { name: '人和' },
-  { name: '红旗河沟' },
-  { name: '鸳鸯' },
-  { name: '龙溪' },
-  { name: '兴隆' },
-])
-const imageOnClick = () => {
-  // @ts-ignore
-  uni.navigateBack()
-}
+const countries = reactive<AreaInformations>([])
+getRegionalinfos().then(res => {
+  countries.push(...res.data)
+})
+const areas = computed(() => {
+  return countries[countriesIndex.value].areas
+})
 </script>
 
 <style lang="scss" scoped>
