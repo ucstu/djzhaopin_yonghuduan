@@ -1,13 +1,13 @@
 {
 	"pages": [
 		{
-			"path": "pages/shaixuanyemian/shaixuanyemian",
+			"path": "pages/weizhixuanze/weizhixuanze",
 			"style": {
 				"navigationStyle": "custom"
 			}
 		},
 		{
-			"path": "pages/weizhixuanze/weizhixuanze",
+			"path": "pages/shaixuanyemian/shaixuanyemian",
 			"style": {
 				"navigationStyle": "custom"
 			}
