@@ -48,7 +48,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-import { getRegionalinfos } from '@/services/services';
+import { getAreaInformations } from '@/services/services';
 import { AreaInformations } from '@/services/types';
 import { reactive, ref, computed } from 'vue'
 
@@ -56,7 +56,7 @@ const countriesIndex = ref(0)
 const areasIndex = ref(0)
 
 const countries = reactive<AreaInformations>([])
-getRegionalinfos().then(res => {
+getAreaInformations("重庆").then(res => {
   countries.push(...res.data)
 })
 const areas = computed(() => {

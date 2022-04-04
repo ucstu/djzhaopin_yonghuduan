@@ -4,6 +4,27 @@
  * @version 5
  */
 
+export interface DeleteAccountsAccountidQueryParams {
+  /**
+   *
+   * 手机号码
+   */
+  phoneNumber: string;
+  /**
+   *
+   * 验证码
+   */
+  verificationCode: string;
+}
+
+export interface GetAreaInformationsQueryParams {
+  /**
+   *
+   * 城市
+   */
+  city: string;
+}
+
 export interface GetCompanyinfosCompanyinfoidPositioninfosQueryParams {
   /**
    *
@@ -142,12 +163,6 @@ export interface AccountInformation {
   verificationCode: string;
 }
 
-/**
- *
- * 区县
- *
- */
-
 export type AreaInformations = {
   /**
    *
@@ -184,12 +199,6 @@ export interface AttentionRecord {
    */
   userId: string;
 }
-
-/**
- *
- * 省份
- *
- */
 
 export type CityInformations = {
   /**
@@ -446,7 +455,7 @@ export interface FilterInformation {
    * 行业领域
    *
    */
-  IndustryField: string;
+  IndustryField: string[];
   /**
    *
    * 工作性质
@@ -695,12 +704,6 @@ export interface JobInformation {
    */
   workingYears: "0" | "1" | "2" | "3" | "4" | "5";
 }
-
-/**
- *
- * 领域
- *
- */
 
 export type JobTypes = {
   /**

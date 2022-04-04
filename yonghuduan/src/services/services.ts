@@ -8,26 +8,28 @@ import { AxiosRequestConfig } from "axios";
 import { SwaggerResponse } from "./config";
 import { Http } from "./httpRequest";
 import {
+  DeleteAccountsAccountidQueryParams,
   GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
-  MessageRecord,
-  InspectionRecord,
-  DirectionTags,
-  WorkExperience,
-  JobTypes,
-  AttentionRecord,
+  GetAreaInformationsQueryParams,
+  AccountInformation,
   HRInformation,
-  DeliveryRecord,
-  ProjectExperience,
-  CompanyInformation,
   CityInformations,
   FilterInformation,
+  JobExpectation,
+  ProjectExperience,
+  JobTypes,
+  DirectionTags,
+  CompanyInformation,
   GarnerRecord,
+  MessageRecord,
+  AttentionRecord,
+  DeliveryRecord,
   UserInformation,
   JobInformation,
   AreaInformations,
-  JobExpectation,
+  WorkExperience,
   EducationExperience,
-  AccountInformation,
+  InspectionRecord,
 } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -79,26 +81,13 @@ export const deleteAccountsAccountid = (
    * 账号ID
    */
   accountid: string,
-  requestBody: {
-    /**
-     *
-     * 手机号
-     *
-     */
-    phoneNumber: string;
-    /**
-     *
-     * 验证码
-     *
-     */
-    verificationCode: string;
-  },
+  queryParams: DeleteAccountsAccountidQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<AccountInformation>> => {
   return Http.deleteRequest(
     template(deleteAccountsAccountid.key, { accountid }),
+    queryParams,
     undefined,
-    requestBody,
     undefined,
     overrideConfig(_CONSTANT0, configOverride)
   );
@@ -406,6 +395,26 @@ deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid.key =
 
 /**
  *
+ * 查询地区信息
+ */
+export const getAreaInformations = (
+  queryParams: GetAreaInformationsQueryParams,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<AreaInformations>> => {
+  return Http.getRequest(
+    getAreaInformations.key,
+    queryParams,
+    undefined,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/** Key is end point string without base url */
+getAreaInformations.key = "/areaInformations";
+
+/**
+ *
  * 查询城市信息
  */
 export const getCityinfos = (
@@ -656,33 +665,6 @@ export const getRecommendations = (
 
 /** Key is end point string without base url */
 getRecommendations.key = "/recommendations";
-
-/**
- *
- * 查询地区信息
- */
-export const getRegionalinfos = (
-  requestBody: {
-    /**
-     *
-     * 所在城市
-     *
-     */
-    city: string;
-  },
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<AreaInformations>> => {
-  return Http.getRequest(
-    getRegionalinfos.key,
-    undefined,
-    requestBody,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/** Key is end point string without base url */
-getRegionalinfos.key = "/regionalinfos";
 
 /**
  *
@@ -1354,6 +1336,12 @@ export const postFiles = (
      *
      */
     fileId: string;
+    /**
+     *
+     * 文件地址
+     *
+     */
+    url: string;
   }>
 > => {
   return Http.postRequest(
