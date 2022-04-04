@@ -9,25 +9,25 @@ import { SwaggerResponse } from "./config";
 import { Http } from "./httpRequest";
 import {
   GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
-  HR信息,
-  公司信息,
-  关注记录,
-  地区信息,
-  城市信息,
-  工作经历,
-  投递记录,
-  收藏记录,
-  教育经历,
-  查看记录,
-  求职期望,
-  消息记录,
-  用户信息,
-  筛选信息,
-  细分标签,
-  职位信息,
-  职位类型,
-  账号信息,
-  项目经历,
+  MessageRecord,
+  InspectionRecord,
+  DirectionTags,
+  WorkExperience,
+  JobTypes,
+  AttentionRecord,
+  HRInformation,
+  DeliveryRecord,
+  ProjectExperience,
+  CompanyInformation,
+  CityInformations,
+  FilterInformation,
+  GarnerRecord,
+  UserInformation,
+  JobInformation,
+  AreaInformations,
+  JobExpectation,
+  EducationExperience,
+  AccountInformation,
 } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -94,7 +94,7 @@ export const deleteAccountsAccountid = (
     verificationCode: string;
   },
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<账号信息>> => {
+): Promise<SwaggerResponse<AccountInformation>> => {
   return Http.deleteRequest(
     template(deleteAccountsAccountid.key, { accountid }),
     undefined,
@@ -123,7 +123,7 @@ export const deleteCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
    */
   positioninfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<职位信息>> => {
+): Promise<SwaggerResponse<JobInformation>> => {
   return Http.deleteRequest(
     template(deleteCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key, {
       companyinfoid,
@@ -156,7 +156,7 @@ export const deleteUserinfosUserinfoidAttentionrecordsAttentionrecordid = (
    */
   attentionrecordid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<关注记录>> => {
+): Promise<SwaggerResponse<AttentionRecord>> => {
   return Http.deleteRequest(
     template(deleteUserinfosUserinfoidAttentionrecordsAttentionrecordid.key, {
       userinfoid,
@@ -189,7 +189,7 @@ export const deleteUserinfosUserinfoidDeliveryrecordsDeliveryrecordid = (
    */
   deliveryrecordid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<投递记录>> => {
+): Promise<SwaggerResponse<DeliveryRecord>> => {
   return Http.deleteRequest(
     template(deleteUserinfosUserinfoidDeliveryrecordsDeliveryrecordid.key, {
       userinfoid,
@@ -222,7 +222,7 @@ export const deleteUserinfosUserinfoidEduexperiencesEduexperienceid = (
    */
   eduexperienceid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<教育经历>> => {
+): Promise<SwaggerResponse<EducationExperience>> => {
   return Http.deleteRequest(
     template(deleteUserinfosUserinfoidEduexperiencesEduexperienceid.key, {
       userinfoid,
@@ -255,7 +255,7 @@ export const deleteUserinfosUserinfoidGarnerrecordsGarnerrecordid = (
    */
   garnerrecordid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<收藏记录>> => {
+): Promise<SwaggerResponse<GarnerRecord>> => {
   return Http.deleteRequest(
     template(deleteUserinfosUserinfoidGarnerrecordsGarnerrecordid.key, {
       userinfoid,
@@ -288,7 +288,7 @@ export const deleteUserinfosUserinfoidInspectionrecordsInspectionrecordid = (
    */
   inspectionrecordid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<查看记录>> => {
+): Promise<SwaggerResponse<InspectionRecord>> => {
   return Http.deleteRequest(
     template(deleteUserinfosUserinfoidInspectionrecordsInspectionrecordid.key, {
       userinfoid,
@@ -321,7 +321,7 @@ export const deleteUserinfosUserinfoidJobexpectationsJobexpectationid = (
    */
   jobexpectationid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<求职期望>> => {
+): Promise<SwaggerResponse<JobExpectation>> => {
   return Http.deleteRequest(
     template(deleteUserinfosUserinfoidJobexpectationsJobexpectationid.key, {
       userinfoid,
@@ -354,7 +354,7 @@ export const deleteUserinfosUserinfoidProjectexperiencesProjectexperienceid = (
    */
   projectexperienceid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<项目经历>> => {
+): Promise<SwaggerResponse<ProjectExperience>> => {
   return Http.deleteRequest(
     template(
       deleteUserinfosUserinfoidProjectexperiencesProjectexperienceid.key,
@@ -387,7 +387,7 @@ export const deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid = (
    */
   workexperienceid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<工作经历>> => {
+): Promise<SwaggerResponse<WorkExperience>> => {
   return Http.deleteRequest(
     template(deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid.key, {
       userinfoid,
@@ -410,7 +410,7 @@ deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid.key =
  */
 export const getCityinfos = (
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<城市信息>> => {
+): Promise<SwaggerResponse<CityInformations>> => {
   return Http.getRequest(
     getCityinfos.key,
     undefined,
@@ -429,7 +429,7 @@ getCityinfos.key = "/cityinfos";
  */
 export const getCompanyinfos = (
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<公司信息[]>> => {
+): Promise<SwaggerResponse<CompanyInformation[]>> => {
   return Http.getRequest(
     getCompanyinfos.key,
     undefined,
@@ -453,7 +453,7 @@ export const getCompanyinfosCompanyinfoid = (
    */
   companyinfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<公司信息>> => {
+): Promise<SwaggerResponse<CompanyInformation>> => {
   return Http.getRequest(
     template(getCompanyinfosCompanyinfoid.key, { companyinfoid }),
     undefined,
@@ -478,7 +478,7 @@ export const getCompanyinfosCompanyinfoidPositioninfos = (
   companyinfoid: string,
   queryParams: GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<职位信息[]>> => {
+): Promise<SwaggerResponse<JobInformation[]>> => {
   return Http.getRequest(
     template(getCompanyinfosCompanyinfoidPositioninfos.key, { companyinfoid }),
     queryParams,
@@ -508,7 +508,7 @@ export const getCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
    */
   positioninfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<职位信息>> => {
+): Promise<SwaggerResponse<JobInformation>> => {
   return Http.getRequest(
     template(getCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key, {
       companyinfoid,
@@ -531,7 +531,7 @@ getCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key =
  */
 export const getFilterinfos = (
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<筛选信息>> => {
+): Promise<SwaggerResponse<FilterInformation>> => {
   return Http.getRequest(
     getFilterinfos.key,
     undefined,
@@ -555,7 +555,7 @@ export const getHrinfosHrinfoid = (
    */
   hrinfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<HR信息>> => {
+): Promise<SwaggerResponse<HRInformation>> => {
   return Http.getRequest(
     template(getHrinfosHrinfoid.key, { hrinfoid }),
     undefined,
@@ -574,7 +574,7 @@ getHrinfosHrinfoid.key = "/hrinfos/{hrinfoid}";
  */
 export const getMessages = (
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<消息记录[]>> => {
+): Promise<SwaggerResponse<MessageRecord[]>> => {
   return Http.getRequest(
     getMessages.key,
     undefined,
@@ -621,7 +621,7 @@ getNewversion.key = "/newversion";
  */
 export const getPositiontypes = (
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<职位类型>> => {
+): Promise<SwaggerResponse<JobTypes>> => {
   return Http.getRequest(
     getPositiontypes.key,
     undefined,
@@ -641,7 +641,9 @@ getPositiontypes.key = "/positiontypes";
 export const getRecommendations = (
   configOverride?: AxiosRequestConfig
 ): Promise<
-  SwaggerResponse<{ jobExpectation: 求职期望; userInfo: 用户信息 }>
+  SwaggerResponse<
+    { jobExpectation: JobExpectation; userInfo: UserInformation }[]
+  >
 > => {
   return Http.getRequest(
     getRecommendations.key,
@@ -660,12 +662,20 @@ getRecommendations.key = "/recommendations";
  * 查询地区信息
  */
 export const getRegionalinfos = (
+  requestBody: {
+    /**
+     *
+     * 所在城市
+     *
+     */
+    city: string;
+  },
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<地区信息>> => {
+): Promise<SwaggerResponse<AreaInformations>> => {
   return Http.getRequest(
     getRegionalinfos.key,
     undefined,
-    undefined,
+    requestBody,
     undefined,
     overrideConfig(_CONSTANT0, configOverride)
   );
@@ -680,7 +690,7 @@ getRegionalinfos.key = "/regionalinfos";
  */
 export const getSubdivisionlabels = (
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<细分标签>> => {
+): Promise<SwaggerResponse<DirectionTags>> => {
   return Http.getRequest(
     getSubdivisionlabels.key,
     undefined,
@@ -699,7 +709,7 @@ getSubdivisionlabels.key = "/subdivisionlabels";
  */
 export const getUserinfos = (
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<用户信息[]>> => {
+): Promise<SwaggerResponse<UserInformation[]>> => {
   return Http.getRequest(
     getUserinfos.key,
     undefined,
@@ -723,7 +733,7 @@ export const getUserinfosUserinfoid = (
    */
   userinfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<用户信息>> => {
+): Promise<SwaggerResponse<UserInformation>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoid.key, { userinfoid }),
     undefined,
@@ -747,7 +757,7 @@ export const getUserinfosUserinfoidAttentionrecords = (
    */
   userinfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<关注记录[]>> => {
+): Promise<SwaggerResponse<AttentionRecord[]>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidAttentionrecords.key, { userinfoid }),
     undefined,
@@ -777,7 +787,7 @@ export const getUserinfosUserinfoidAttentionrecordsAttentionrecordid = (
    */
   attentionrecordid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<关注记录>> => {
+): Promise<SwaggerResponse<AttentionRecord>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidAttentionrecordsAttentionrecordid.key, {
       userinfoid,
@@ -805,7 +815,7 @@ export const getUserinfosUserinfoidDeliveryrecords = (
    */
   userinfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<投递记录[]>> => {
+): Promise<SwaggerResponse<DeliveryRecord[]>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidDeliveryrecords.key, { userinfoid }),
     undefined,
@@ -835,7 +845,7 @@ export const getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid = (
    */
   deliveryrecordid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<投递记录>> => {
+): Promise<SwaggerResponse<DeliveryRecord>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid.key, {
       userinfoid,
@@ -863,7 +873,7 @@ export const getUserinfosUserinfoidEduexperiences = (
    */
   userinfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<教育经历[]>> => {
+): Promise<SwaggerResponse<EducationExperience[]>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidEduexperiences.key, { userinfoid }),
     undefined,
@@ -893,7 +903,7 @@ export const getUserinfosUserinfoidEduexperiencesEduexperienceid = (
    */
   eduexperienceid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<教育经历>> => {
+): Promise<SwaggerResponse<EducationExperience>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidEduexperiencesEduexperienceid.key, {
       userinfoid,
@@ -921,7 +931,7 @@ export const getUserinfosUserinfoidGarnerrecords = (
    */
   userinfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<收藏记录[]>> => {
+): Promise<SwaggerResponse<GarnerRecord[]>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidGarnerrecords.key, { userinfoid }),
     undefined,
@@ -951,7 +961,7 @@ export const getUserinfosUserinfoidGarnerrecordsGarnerrecordid = (
    */
   garnerrecordid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<收藏记录>> => {
+): Promise<SwaggerResponse<GarnerRecord>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidGarnerrecordsGarnerrecordid.key, {
       userinfoid,
@@ -979,7 +989,7 @@ export const getUserinfosUserinfoidInspectionrecords = (
    */
   userinfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<查看记录[]>> => {
+): Promise<SwaggerResponse<InspectionRecord[]>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidInspectionrecords.key, { userinfoid }),
     undefined,
@@ -1009,7 +1019,7 @@ export const getUserinfosUserinfoidInspectionrecordsInspectionrecordid = (
    */
   inspectionrecordid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<查看记录>> => {
+): Promise<SwaggerResponse<InspectionRecord>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidInspectionrecordsInspectionrecordid.key, {
       userinfoid,
@@ -1037,7 +1047,7 @@ export const getUserinfosUserinfoidJobexpectations = (
    */
   userinfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<求职期望[]>> => {
+): Promise<SwaggerResponse<JobExpectation[]>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidJobexpectations.key, { userinfoid }),
     undefined,
@@ -1067,7 +1077,7 @@ export const getUserinfosUserinfoidJobexpectationsJobexpectationid = (
    */
   jobexpectationid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<求职期望>> => {
+): Promise<SwaggerResponse<JobExpectation>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidJobexpectationsJobexpectationid.key, {
       userinfoid,
@@ -1095,7 +1105,7 @@ export const getUserinfosUserinfoidProjectexperiences = (
    */
   userinfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<项目经历[]>> => {
+): Promise<SwaggerResponse<ProjectExperience[]>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidProjectexperiences.key, { userinfoid }),
     undefined,
@@ -1125,7 +1135,7 @@ export const getUserinfosUserinfoidProjectexperiencesProjectexperienceid = (
    */
   projectexperienceid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<项目经历>> => {
+): Promise<SwaggerResponse<ProjectExperience>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidProjectexperiencesProjectexperienceid.key, {
       userinfoid,
@@ -1153,7 +1163,7 @@ export const getUserinfosUserinfoidWorkexperiences = (
    */
   userinfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<工作经历[]>> => {
+): Promise<SwaggerResponse<WorkExperience[]>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidWorkexperiences.key, { userinfoid }),
     undefined,
@@ -1183,7 +1193,7 @@ export const getUserinfosUserinfoidWorkexperiencesWorkexperienceid = (
    */
   workexperienceid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<工作经历>> => {
+): Promise<SwaggerResponse<WorkExperience>> => {
   return Http.getRequest(
     template(getUserinfosUserinfoidWorkexperiencesWorkexperienceid.key, {
       userinfoid,
@@ -1281,9 +1291,9 @@ postAvatars.key = "/avatars";
  * 增加公司信息
  */
 export const postCompanyinfos = (
-  requestBody: 公司信息,
+  requestBody: CompanyInformation,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<公司信息>> => {
+): Promise<SwaggerResponse<CompanyInformation>> => {
   return Http.postRequest(
     postCompanyinfos.key,
     undefined,
@@ -1306,9 +1316,9 @@ export const postCompanyinfosCompanyinfoidPositioninfos = (
    * 公司信息ID
    */
   companyinfoid: string,
-  requestBody: 职位信息,
+  requestBody: JobInformation,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<职位信息>> => {
+): Promise<SwaggerResponse<JobInformation>> => {
   return Http.postRequest(
     template(postCompanyinfosCompanyinfoidPositioninfos.key, { companyinfoid }),
     undefined,
@@ -1368,9 +1378,9 @@ export const postUserinfosUserinfoidAttentionrecords = (
    * 用户信息ID
    */
   userinfoid: string,
-  requestBody: 关注记录,
+  requestBody: AttentionRecord,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<关注记录>> => {
+): Promise<SwaggerResponse<AttentionRecord>> => {
   return Http.postRequest(
     template(postUserinfosUserinfoidAttentionrecords.key, { userinfoid }),
     undefined,
@@ -1394,9 +1404,9 @@ export const postUserinfosUserinfoidDeliveryrecords = (
    * 用户信息ID
    */
   userinfoid: string,
-  requestBody: 投递记录,
+  requestBody: DeliveryRecord,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<投递记录>> => {
+): Promise<SwaggerResponse<DeliveryRecord>> => {
   return Http.postRequest(
     template(postUserinfosUserinfoidDeliveryrecords.key, { userinfoid }),
     undefined,
@@ -1420,9 +1430,9 @@ export const postUserinfosUserinfoidEduexperiences = (
    * 用户信息ID
    */
   userinfoid: string,
-  requestBody: 教育经历,
+  requestBody: EducationExperience,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<教育经历>> => {
+): Promise<SwaggerResponse<EducationExperience>> => {
   return Http.postRequest(
     template(postUserinfosUserinfoidEduexperiences.key, { userinfoid }),
     undefined,
@@ -1446,9 +1456,9 @@ export const postUserinfosUserinfoidGarnerrecords = (
    * 用户信息ID
    */
   userinfoid: string,
-  requestBody: 收藏记录,
+  requestBody: GarnerRecord,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<收藏记录>> => {
+): Promise<SwaggerResponse<GarnerRecord>> => {
   return Http.postRequest(
     template(postUserinfosUserinfoidGarnerrecords.key, { userinfoid }),
     undefined,
@@ -1472,9 +1482,9 @@ export const postUserinfosUserinfoidInspectionrecords = (
    * 用户信息ID
    */
   userinfoid: string,
-  requestBody: 查看记录,
+  requestBody: InspectionRecord,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<查看记录>> => {
+): Promise<SwaggerResponse<InspectionRecord>> => {
   return Http.postRequest(
     template(postUserinfosUserinfoidInspectionrecords.key, { userinfoid }),
     undefined,
@@ -1498,9 +1508,9 @@ export const postUserinfosUserinfoidJobexpectations = (
    * 用户信息ID
    */
   userinfoid: string,
-  requestBody: 求职期望,
+  requestBody: JobExpectation,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<求职期望>> => {
+): Promise<SwaggerResponse<JobExpectation>> => {
   return Http.postRequest(
     template(postUserinfosUserinfoidJobexpectations.key, { userinfoid }),
     undefined,
@@ -1524,9 +1534,9 @@ export const postUserinfosUserinfoidProjectexperiences = (
    * 用户信息ID
    */
   userinfoid: string,
-  requestBody: 项目经历,
+  requestBody: ProjectExperience,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<项目经历>> => {
+): Promise<SwaggerResponse<ProjectExperience>> => {
   return Http.postRequest(
     template(postUserinfosUserinfoidProjectexperiences.key, { userinfoid }),
     undefined,
@@ -1550,9 +1560,9 @@ export const postUserinfosUserinfoidWorkexperiences = (
    * 用户信息ID
    */
   userinfoid: string,
-  requestBody: 工作经历,
+  requestBody: WorkExperience,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<工作经历>> => {
+): Promise<SwaggerResponse<WorkExperience>> => {
   return Http.postRequest(
     template(postUserinfosUserinfoidWorkexperiences.key, { userinfoid }),
     undefined,
@@ -1589,7 +1599,7 @@ export const putAccounts = (
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
-    accountInfo: 账号信息;
+    accountInfo: AccountInformation;
     /**
      *
      * TOKEN
@@ -1631,7 +1641,7 @@ export const putAcocuntsAccountid = (
     verificationCode: number;
   },
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<账号信息>> => {
+): Promise<SwaggerResponse<AccountInformation>> => {
   return Http.putRequest(
     template(putAcocuntsAccountid.key, { accountid }),
     undefined,
@@ -1654,9 +1664,9 @@ export const putCompanyinfosCompanyinfoid = (
    * 公司信息ID
    */
   companyinfoid: string,
-  requestBody: 公司信息,
+  requestBody: CompanyInformation,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<公司信息>> => {
+): Promise<SwaggerResponse<CompanyInformation>> => {
   return Http.putRequest(
     template(putCompanyinfosCompanyinfoid.key, { companyinfoid }),
     undefined,
@@ -1684,9 +1694,9 @@ export const putCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
    * 职位信息ID
    */
   positioninfoid: string,
-  requestBody: 职位信息,
+  requestBody: JobInformation,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<职位信息>> => {
+): Promise<SwaggerResponse<JobInformation>> => {
   return Http.putRequest(
     template(putCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key, {
       companyinfoid,
@@ -1713,9 +1723,9 @@ export const putHrinfosHrinfoid = (
    * HR信息ID
    */
   hrinfoid: string,
-  requestBody: HR信息,
+  requestBody: HRInformation,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<HR信息>> => {
+): Promise<SwaggerResponse<HRInformation>> => {
   return Http.putRequest(
     template(putHrinfosHrinfoid.key, { hrinfoid }),
     undefined,
@@ -1738,9 +1748,9 @@ export const putUserinfosUserinfoid = (
    * 用户信息ID
    */
   userinfoid: string,
-  requestBody: 用户信息,
+  requestBody: UserInformation,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<用户信息>> => {
+): Promise<SwaggerResponse<UserInformation>> => {
   return Http.putRequest(
     template(putUserinfosUserinfoid.key, { userinfoid }),
     undefined,
@@ -1768,9 +1778,9 @@ export const putUserinfosUserinfoidAttentionrecordsAttentionrecordid = (
    * 关注记录ID
    */
   attentionrecordid: string,
-  requestBody: 关注记录,
+  requestBody: AttentionRecord,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<关注记录>> => {
+): Promise<SwaggerResponse<AttentionRecord>> => {
   return Http.putRequest(
     template(putUserinfosUserinfoidAttentionrecordsAttentionrecordid.key, {
       userinfoid,
@@ -1802,9 +1812,9 @@ export const putUserinfosUserinfoidDeliveryrecordsDeliveryrecordid = (
    * 投递记录ID
    */
   deliveryrecordid: string,
-  requestBody: 投递记录,
+  requestBody: DeliveryRecord,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<投递记录>> => {
+): Promise<SwaggerResponse<DeliveryRecord>> => {
   return Http.putRequest(
     template(putUserinfosUserinfoidDeliveryrecordsDeliveryrecordid.key, {
       userinfoid,
@@ -1836,9 +1846,9 @@ export const putUserinfosUserinfoidEduexperiencesEduexperienceid = (
    * 教育经历ID
    */
   eduexperienceid: string,
-  requestBody: 教育经历,
+  requestBody: EducationExperience,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<教育经历>> => {
+): Promise<SwaggerResponse<EducationExperience>> => {
   return Http.putRequest(
     template(putUserinfosUserinfoidEduexperiencesEduexperienceid.key, {
       userinfoid,
@@ -1870,9 +1880,9 @@ export const putUserinfosUserinfoidGarnerrecordsGarnerrecordid = (
    * 收藏记录ID
    */
   garnerrecordid: string,
-  requestBody: 收藏记录,
+  requestBody: GarnerRecord,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<收藏记录>> => {
+): Promise<SwaggerResponse<GarnerRecord>> => {
   return Http.putRequest(
     template(putUserinfosUserinfoidGarnerrecordsGarnerrecordid.key, {
       userinfoid,
@@ -1904,9 +1914,9 @@ export const putUserinfosUserinfoidInspectionrecordsInspectionrecordid = (
    * 查看记录ID
    */
   inspectionrecordid: string,
-  requestBody: 查看记录,
+  requestBody: InspectionRecord,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<查看记录>> => {
+): Promise<SwaggerResponse<InspectionRecord>> => {
   return Http.putRequest(
     template(putUserinfosUserinfoidInspectionrecordsInspectionrecordid.key, {
       userinfoid,
@@ -1938,9 +1948,9 @@ export const putUserinfosUserinfoidJobexpectationsJobexpectationid = (
    * 求职期望ID
    */
   jobexpectationid: string,
-  requestBody: 求职期望,
+  requestBody: JobExpectation,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<求职期望>> => {
+): Promise<SwaggerResponse<JobExpectation>> => {
   return Http.putRequest(
     template(putUserinfosUserinfoidJobexpectationsJobexpectationid.key, {
       userinfoid,
@@ -1972,9 +1982,9 @@ export const putUserinfosUserinfoidProjectexperiencesProjectexperienceid = (
    * 项目经历ID
    */
   projectexperienceid: string,
-  requestBody: 项目经历,
+  requestBody: ProjectExperience,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<项目经历>> => {
+): Promise<SwaggerResponse<ProjectExperience>> => {
   return Http.putRequest(
     template(putUserinfosUserinfoidProjectexperiencesProjectexperienceid.key, {
       userinfoid,
@@ -2006,9 +2016,9 @@ export const putUserinfosUserinfoidWorkexperiencesWorkexperienceid = (
    * 工作经历ID
    */
   workexperienceid: string,
-  requestBody: 工作经历,
+  requestBody: WorkExperience,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<工作经历>> => {
+): Promise<SwaggerResponse<WorkExperience>> => {
   return Http.putRequest(
     template(putUserinfosUserinfoidWorkexperiencesWorkexperienceid.key, {
       userinfoid,

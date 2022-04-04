@@ -67,7 +67,7 @@ export interface GetCompanyinfosCompanyinfoidPositioninfosQueryParams {
   workingyears?: string;
 }
 
-export interface HR信息 {
+export interface HRInformation {
   /**
    *
    * 邮箱
@@ -108,7 +108,105 @@ export interface HR信息 {
   post: string;
 }
 
-export interface 公司信息 {
+export interface AccountInformation {
+  /**
+   *
+   * 账号ID
+   *
+   */
+  accountId: string;
+  /**
+   *
+   * 账号类型
+   *
+   * {1:用户,2:HR}
+   */
+  accountType: "1" | "2";
+  /**
+   *
+   * 信息ID
+   *
+   */
+  infoId: string;
+  /**
+   *
+   * 手机号码
+   *
+   */
+  phoneNumber: string;
+  /**
+   *
+   * 验证码
+   *
+   */
+  verificationCode: string;
+}
+
+/**
+ *
+ * 区县
+ *
+ */
+
+export type AreaInformations = {
+  /**
+   *
+   * 地域
+   *
+   */
+  areas: string[];
+  /**
+   *
+   * 区县名
+   *
+   */
+  countyName: string;
+}[];
+
+export interface AttentionRecord {
+  /**
+   *
+   * 关注记录ID
+   *
+   * 增加可以留“”
+   */
+  attentionRecordId: string;
+  /**
+   *
+   * 公司ID
+   *
+   */
+  companyId: string;
+  /**
+   *
+   * 用户ID
+   *
+   */
+  userId: string;
+}
+
+/**
+ *
+ * 省份
+ *
+ */
+
+export type CityInformations = {
+  /**
+   *
+   * 城市
+   *
+   */
+  cities: string[];
+  /**
+   *
+   * 省名
+   *
+   */
+  provinceName: string;
+}[];
+
+export interface CompanyInformation {
   /**
    *
    * 信息
@@ -216,124 +314,7 @@ export interface 公司信息 {
   scale: "1" | "2" | "3" | "4" | "5" | "6";
 }
 
-export interface 关注记录 {
-  /**
-   *
-   * 关注记录ID
-   *
-   * 增加可以留“”
-   */
-  attentionRecordId: string;
-  /**
-   *
-   * 公司ID
-   *
-   */
-  companyId: string;
-  /**
-   *
-   * 用户ID
-   *
-   */
-  userId: string;
-}
-
-/**
- *
- * 区县
- *
- */
-
-export type 地区信息 = {
-  /**
-   *
-   * 地域
-   *
-   */
-  areas: string[];
-  /**
-   *
-   * 区县名
-   *
-   */
-  countyName: string;
-}[];
-
-/**
- *
- * 省份
- *
- */
-
-export type 城市信息 = {
-  /**
-   *
-   * 城市
-   *
-   */
-  citys: string[];
-  /**
-   *
-   * 省名
-   *
-   */
-  provinceName: string;
-}[];
-
-export interface 工作经历 {
-  /**
-   *
-   * 所属部门
-   *
-   */
-  Department: string;
-  /**
-   *
-   * 公司领域
-   *
-   */
-  companyIndustry: string;
-  /**
-   *
-   * 公司名称
-   *
-   */
-  corporateName: string;
-  /**
-   *
-   * 离职时间
-   *
-   */
-  endTime: string;
-  /**
-   *
-   * 工作内容
-   *
-   */
-  jobContent: string;
-  /**
-   *
-   * 职位类型
-   *
-   * {1:全职,2:兼职,3:实习}
-   */
-  positionType: "1" | "2" | "3";
-  /**
-   *
-   * 就职时间
-   *
-   */
-  startTime: string;
-  /**
-   *
-   * 工作经历ID
-   *
-   * 增加可以留“”
-   */
-  workExperienceId: string;
-}
-
-export interface 投递记录 {
+export interface DeliveryRecord {
   /**
    *
    * 投递记录ID
@@ -368,29 +349,22 @@ export interface 投递记录 {
   userId: string;
 }
 
-export interface 收藏记录 {
+export type DirectionTags = {
   /**
    *
-   * 收藏记录ID
+   * 分类名
    *
-   * 增加可以留“”
    */
-  garnerRecordId: string;
+  classificationName: string;
   /**
    *
-   * 职位信息ID
+   * 细分标签
    *
    */
-  jobInformationId: string;
-  /**
-   *
-   * 用户ID
-   *
-   */
-  userId: string;
-}
+  subdivisionLabels: string[];
+}[];
 
-export interface 教育经历 {
+export interface EducationExperience {
   /**
    *
    * 入学时间
@@ -431,216 +405,42 @@ export interface 教育经历 {
   schoolName: string;
 }
 
-export interface 查看记录 {
+export interface ErrorInformation {
   /**
    *
-   * 从ID
+   * 错误代码
    *
+   * {1001:请求有误,1002:没有权限,1003:禁止访问,2001:验证码错误}
    */
-  from: string;
+  eno: "1001" | "1002" | "1003" | "2001";
   /**
    *
-   * 查看记录ID
+   * 错误消息
    *
-   * 增加可以留“”
    */
-  inspectionId: string;
+  msg: string;
   /**
    *
-   * 到ID
+   * 错误内容
    *
    */
-  to: string;
+  err?: {
+    /**
+     *
+     * 错误消息
+     *
+     */
+    msg: string;
+    /**
+     *
+     * 参数名
+     *
+     */
+    name: string;
+  }[];
 }
 
-export interface 求职期望 {
-  /**
-   *
-   * 上限薪资
-   *
-   * 单位K
-   */
-  ceilingSalary: number;
-  /**
-   *
-   * 期望城市
-   *
-   */
-  city: string;
-  /**
-   *
-   * 细分标签
-   *
-   */
-  directionTags: string[];
-  /**
-   *
-   * 求职期望ID
-   *
-   * 增加可以留“”
-   */
-  jobExpectationId: string;
-  /**
-   *
-   * 职位类型
-   *
-   * {1:全职,2:兼职,3:实习}
-   */
-  positionType: "1" | "2" | "3";
-  /**
-   *
-   * 起始薪资
-   *
-   * 单位K
-   */
-  startingSalary: number;
-}
-
-export interface 消息记录 {
-  /**
-   *
-   * 消息内容
-   *
-   */
-  content: string;
-  /**
-   *
-   * 来源用户ID
-   *
-   */
-  field4: string;
-  /**
-   *
-   * 消息记录ID
-   *
-   * 增加可以留“”
-   */
-  messageRecordId: string;
-  /**
-   *
-   * 去向用户ID
-   *
-   */
-  to: string;
-  /**
-   *
-   * 消息类型
-   *
-   * {1:文字,2:图片,3:语音,4:文件}
-   */
-  type: "1" | "2" | "3" | "4";
-}
-
-export interface 用户信息 {
-  /**
-   *
-   * 年龄
-   *
-   */
-  age: number;
-  /**
-   *
-   * 头像
-   *
-   */
-  avatar: string;
-  /**
-   *
-   * 所在城市
-   *
-   */
-  city: string;
-  /**
-   *
-   * 生日
-   *
-   */
-  dateOfBirth: string;
-  /**
-   *
-   * 学历
-   *
-   * {1:大专,2:本科,3:硕士,4:博士}
-   */
-  education: "1" | "2" | "3" | "4";
-  /**
-   *
-   * 邮箱
-   *
-   */
-  email: string;
-  /**
-   *
-   * 姓
-   *
-   */
-  firstName: string;
-  /**
-   *
-   * 求职状态
-   *
-   * {1:随时入职,2:2周内入职,3:1月内入职}
-   */
-  jobStatus: "1" | "2" | "3";
-  /**
-   *
-   * 名
-   *
-   */
-  lastName: string;
-  /**
-   *
-   * 个人优势
-   *
-   */
-  personalAdvantage: string;
-  /**
-   *
-   * 电话号码
-   *
-   */
-  phoneNumber: string;
-  /**
-   *
-   * 图片作品
-   *
-   */
-  pictureWorks: string[];
-  /**
-   *
-   * 隐私设置
-   *
-   * {1:实名,2:匿名}
-   */
-  privacySettings: "1" | "2";
-  /**
-   *
-   * 性别
-   *
-   */
-  sex: string;
-  /**
-   *
-   * 社交主页
-   *
-   */
-  socialHomepage: string;
-  /**
-   *
-   * 用户ID
-   *
-   * 增加可以留“”
-   */
-  userId: string;
-  /**
-   *
-   * 工作年限
-   *
-   */
-  workingYears: number;
-}
-
-export interface 筛选信息 {
+export interface FilterInformation {
   /**
    *
    * 行业领域
@@ -691,24 +491,94 @@ export interface 筛选信息 {
   workExperience: string[];
 }
 
-export interface 细分标签 {
-  labelClassifications: {
-    /**
-     *
-     * 分类名
-     *
-     */
-    classificationName: string;
-    /**
-     *
-     * 细分标签
-     *
-     */
-    subdivisionLabels: string[];
-  }[];
+export interface GarnerRecord {
+  /**
+   *
+   * 收藏记录ID
+   *
+   * 增加可以留“”
+   */
+  garnerRecordId: string;
+  /**
+   *
+   * 职位信息ID
+   *
+   */
+  jobInformationId: string;
+  /**
+   *
+   * 用户ID
+   *
+   */
+  userId: string;
 }
 
-export interface 职位信息 {
+export interface InspectionRecord {
+  /**
+   *
+   * 从ID
+   *
+   */
+  from: string;
+  /**
+   *
+   * 查看记录ID
+   *
+   * 增加可以留“”
+   */
+  inspectionRecordId: string;
+  /**
+   *
+   * 到ID
+   *
+   */
+  to: string;
+}
+
+export interface JobExpectation {
+  /**
+   *
+   * 上限薪资
+   *
+   * 单位K
+   */
+  ceilingSalary: number;
+  /**
+   *
+   * 期望城市
+   *
+   */
+  city: string;
+  /**
+   *
+   * 细分标签
+   *
+   */
+  directionTags: string[];
+  /**
+   *
+   * 求职期望ID
+   *
+   * 增加可以留“”
+   */
+  jobExpectationId: string;
+  /**
+   *
+   * 职位类型
+   *
+   * {1:全职,2:兼职,3:实习}
+   */
+  positionType: "1" | "2" | "3";
+  /**
+   *
+   * 起始薪资
+   *
+   * 单位K
+   */
+  startingSalary: number;
+}
+
+export interface JobInformation {
   /**
    *
    * 上限薪资
@@ -832,7 +702,7 @@ export interface 职位信息 {
  *
  */
 
-export type 职位类型 = {
+export type JobTypes = {
   /**
    *
    * 方向
@@ -860,76 +730,42 @@ export type 职位类型 = {
   fieldName: string;
 }[];
 
-export interface 账号信息 {
+export interface MessageRecord {
   /**
    *
-   * 账号ID
+   * 消息内容
    *
    */
-  accountId: string;
+  content: string;
   /**
    *
-   * 账号类型
+   * 来源用户ID
    *
-   * {1:用户,2:HR}
    */
-  accountType: "1" | "2";
+  from: string;
   /**
    *
-   * 信息ID
+   * 消息记录ID
    *
+   * 增加可以留“”
    */
-  infoId: string;
+  messageRecordId: string;
   /**
    *
-   * 手机号码
+   * 去向用户ID
    *
    */
-  phoneNumber: string;
+  to: string;
   /**
    *
-   * 验证码
+   * 消息类型
    *
+   * {1:文字,2:图片,3:语音,4:文件}
    */
-  verificationCode: string;
+  type: "1" | "2" | "3" | "4";
 }
 
-export interface 错误信息 {
-  /**
-   *
-   * 错误代码
-   *
-   * {1001:请求有误,1002:没有权限,1003:禁止访问,2001:验证码错误}
-   */
-  eno: "1001" | "1002" | "1003" | "2001";
-  /**
-   *
-   * 错误消息
-   *
-   */
-  msg: string;
-  /**
-   *
-   * 错误内容
-   *
-   */
-  err?: {
-    /**
-     *
-     * 错误消息
-     *
-     */
-    msg: string;
-    /**
-     *
-     * 参数名
-     *
-     */
-    name: string;
-  }[];
-}
-
-export interface 项目经历 {
+export interface ProjectExperience {
   /**
    *
    * 我的成就
@@ -977,6 +813,168 @@ export interface 项目经历 {
    *
    * 工作经历ID
    *
+   */
+  workExperienceId: string;
+}
+
+export interface UserInformation {
+  /**
+   *
+   * 年龄
+   *
+   */
+  age: number;
+  /**
+   *
+   * 头像
+   *
+   */
+  avatar: string;
+  /**
+   *
+   * 所在城市
+   *
+   */
+  city: string;
+  /**
+   *
+   * 生日
+   *
+   */
+  dateOfBirth: string;
+  /**
+   *
+   * 学历
+   *
+   * {1:大专,2:本科,3:硕士,4:博士}
+   */
+  education: "1" | "2" | "3" | "4";
+  /**
+   *
+   * 邮箱
+   *
+   */
+  email: string;
+  /**
+   *
+   * 姓
+   *
+   */
+  firstName: string;
+  /**
+   *
+   * 求职状态
+   *
+   * {1:随时入职,2:2周内入职,3:1月内入职}
+   */
+  jobStatus: "1" | "2" | "3";
+  /**
+   *
+   * 名
+   *
+   */
+  lastName: string;
+  /**
+   *
+   * 个人优势
+   *
+   */
+  personalAdvantage: string;
+  /**
+   *
+   * 电话号码
+   *
+   */
+  phoneNumber: string;
+  /**
+   *
+   * 图片作品
+   *
+   */
+  pictureWorks: string[];
+  /**
+   *
+   * 隐私设置
+   *
+   * {1:实名,2:匿名}
+   */
+  privacySettings: "1" | "2";
+  /**
+   *
+   * 性别
+   *
+   */
+  sex: string;
+  /**
+   *
+   * 社交主页
+   *
+   */
+  socialHomepage: string;
+  /**
+   *
+   * 用户ID
+   *
+   * 增加可以留“”
+   */
+  userId: string;
+  /**
+   *
+   * 工作年限
+   *
+   */
+  workingYears: number;
+}
+
+export interface WorkExperience {
+  /**
+   *
+   * 所属部门
+   *
+   */
+  Department: string;
+  /**
+   *
+   * 公司领域
+   *
+   */
+  companyIndustry: string;
+  /**
+   *
+   * 公司名称
+   *
+   */
+  corporateName: string;
+  /**
+   *
+   * 离职时间
+   *
+   */
+  endTime: string;
+  /**
+   *
+   * 工作内容
+   *
+   */
+  jobContent: string;
+  /**
+   *
+   * 职位类型
+   *
+   * {1:全职,2:兼职,3:实习}
+   */
+  positionType: "1" | "2" | "3";
+  /**
+   *
+   * 就职时间
+   *
+   */
+  startTime: string;
+  /**
+   *
+   * 工作经历ID
+   *
+   * 增加可以留“”
    */
   workExperienceId: string;
 }

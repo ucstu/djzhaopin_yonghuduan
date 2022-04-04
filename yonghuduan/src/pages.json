@@ -1,6 +1,12 @@
 {
 	"pages": [
 		{
+			"path": "pages/weizhixuanze/weizhixuanze",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/chengshixuanze/chengshixuanze",
 			"style": {
 				"navigationStyle": "custom"
@@ -44,12 +50,6 @@
 		},
 		{
 			"path": "pages/qiuzhiyixiang/qiuzhiyixiang",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/weizhixuanze/weizhixuanze",
 			"style": {
 				"navigationStyle": "custom"
 			}
