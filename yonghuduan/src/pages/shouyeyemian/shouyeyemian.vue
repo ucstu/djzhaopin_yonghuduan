@@ -14,7 +14,7 @@
             <view class="justify-between items-center">
               <scroll-view @click="scroll" :scroll-x="true" class="flex-row list">
                 <!--  #endif -->
-                <text class="list-item" :class="activeIndex === i ? 'active' : ''" :key="i"
+                <text class="list-item" :class="activeIndex === i ? 'active' : ''" :key="i" @click="activeIndex = i"
                   v-for="(name, i) in expects">
                   {{
                     name.name
@@ -32,9 +32,12 @@
             </view>
             <view class="justify-between group_2">
               <view class="flex-row group_3">
-                <text>热门</text>
-                <text class="text_4">附近</text>
-                <text class="text_5">最新</text>
+                <text :class="showFirst === 'true' ? 'active' : ''"
+                  @click="showFirst = 'true'; showSecond = 'false'; showThird = 'false'">热门</text>
+                <text class="text_4" :class="showSecond === 'true' ? 'active' : ''"
+                  @click="showFirst = 'false'; showSecond = 'true'; showThird = 'false'">附近</text>
+                <text class="text_5" :class="showThird === 'true' ? 'active' : ''"
+                  @click="showFirst = 'false'; showSecond = 'false'; showThird = 'true'">最新</text>
               </view>
               <view class="flex-row group_4">
                 <view class="flex-row">
@@ -95,46 +98,8 @@ const jobDetails = reactive([
     salary: '4K - 8K',
     releaseDate: '2月28日',
   },
-  {
-    name: '前端开发实习生1',
-    areaAndRequirements: '江北区 |4545 在校/应届',
-    educationalRequirements: '本科',
-    directionOne: '后台开发',
-    directionTwo: 'JAVA开发',
-    companyLogoAddress:
-      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
-    companyName: '字节跳动',
-    companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
-    salary: '4K - 8K',
-    releaseDate: '2月28日',
-  },
-  {
-    name: '前端开发实习生',
-    areaAndRequirements: '江北区 | 在校/应届',
-    educationalRequirements: '本科',
-    directionOne: '后台开发',
-    directionTwo: 'JAVA开发',
-    companyLogoAddress:
-      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
-    companyName: '字节跳动',
-    companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
-    salary: '4K - 8K',
-    releaseDate: '2月28日',
-  },
-  {
-    name: '前端开发实习生',
-    areaAndRequirements: '江北区 | 在校/应届',
-    educationalRequirements: '本科',
-    directionOne: '后台开发',
-    directionTwo: 'JAVA开发',
-    companyLogoAddress:
-      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
-    companyName: '字节跳动',
-    companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
-    salary: '4K - 8K',
-    releaseDate: '2月28日',
-  },
 ])
+
 
 const expects = reactive([
   { name: '前端工程师' },
@@ -144,7 +109,9 @@ const expects = reactive([
 
 const city = ref('重庆')
 const activeIndex = ref(0)
-
+const showFirst = ref('true')
+const showSecond = ref('false')
+const showThird = ref('false')
 
 const image_5OnClick = () => {
   uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
@@ -189,10 +156,13 @@ const view_7OnClick = () => {
     .group_2 {
       margin-top: 15rpx;
       .group_3 {
-        color: rgb(255, 255, 255);
+        color: rgb(209, 205, 205);
         font-size: 25rpx;
         line-height: 23rpx;
         white-space: nowrap;
+        .active {
+          color: rgb(255, 255, 255);
+        }
         .text_4 {
           margin-left: 32rpx;
         }

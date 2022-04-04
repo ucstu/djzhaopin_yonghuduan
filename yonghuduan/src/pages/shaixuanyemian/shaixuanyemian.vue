@@ -123,8 +123,8 @@ getFilterinfos().then(res => {
   industrySectors.splice(0, industrySectors.length, ...res.data.IndustryField)
 })
 
-const activeSalary = ref('') // 期望薪资
-const activeSalaryOf = (index) => {
+const activeSalary = ref() // 期望薪资
+const activeSalaryOf = (index: number) => {
   if (activeSalary.value === index) {
     activeSalary.value = 0
   } else {
@@ -133,7 +133,7 @@ const activeSalaryOf = (index) => {
 }
 
 const activeExpect = ref([]) // 工作经验
-const activeExpectOf = (index) => {
+const activeExpectOf = (index: number) => {
   let num = ''
   if (activeExpect.value.includes(index)) {
     activeExpect.value.sort((a, b) => a - b)
