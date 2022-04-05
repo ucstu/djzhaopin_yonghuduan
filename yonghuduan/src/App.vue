@@ -79,6 +79,11 @@ text {
   justify-content: space-between;
 }
 
+.items-stretch {
+  display: flex;
+  align-items: stretch;
+}
+
 .items-start {
   display: flex;
   align-items: flex-start;

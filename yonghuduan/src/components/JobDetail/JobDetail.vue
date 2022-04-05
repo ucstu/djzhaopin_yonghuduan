@@ -1,32 +1,33 @@
 <template>
   <view @click="rootViewOnClick" class="justify-between border">
-    <view class="flex-col">
-      <view class="flex-col group_2">
-        <text class="text">{{ jobDetail!.name }}</text>
-        <view class="flex-row group_3">
-          <text>{{ jobDetail!.areaAndRequirements }}</text>
-          <text class="text_2">{{ jobDetail!.educationalRequirements }}</text>
+    <view class="flex-col group-1">
+      <view class="flex-col job-infos">
+        <text class="name">{{ jobDetail!.name }}</text>
+        <view class="flex-row area-educate">
+          <text class="area">{{ jobDetail!.workArea }}</text>
+          <text class="educate">{{ jobDetail!.education }}</text>
         </view>
-        <view class="flex-row group_4 items-center">
-          <view class="flex-col text-wrapper">
-            <text class="text_3">{{ jobDetail!.directionOne }}</text>
-          </view>
-          <view class="flex-col text-wrapper_1">
-            <text class="text_4">{{ jobDetail!.directionTwo }}</text>
+        <view class="flex-row items-center directions">
+          <view
+            class="flex-col text-wrapper tags"
+            v-for="(directionTag, i) in jobDetail!.directionTags"
+            :key="i"
+          >
+            <text class="tag">{{ directionTag }}</text>
           </view>
         </view>
       </view>
-      <view class="flex-row group_5">
-        <image class="image" :src="jobDetail!.companyLogoAddress" />
-        <view class="flex-col group_6">
-          <text class="text_5">{{ jobDetail!.companyName }}</text>
-          <text class="text_6">{{ jobDetail!.companyInfo }}</text>
+      <view class="flex-row company-infos">
+        <image class="company-logo" :src="jobDetail!.companyLogoAddress" />
+        <view class="flex-col name-info">
+          <text class="company-name">{{ jobDetail!.companyName }}</text>
+          <text class="company-info">{{ jobDetail!.companyInfo }}</text>
         </view>
       </view>
     </view>
-    <view class="flex-col items-end group_7">
-      <text class="text_7">{{ jobDetail!.salary }}</text>
-      <text class="text_8">{{ jobDetail!.releaseDate }}</text>
+    <view class="flex-col items-end group-2">
+      <text class="salary">{{ jobDetail!.startingSalary }}-{{ jobDetail!.ceilingSalary }}</text>
+      <text class="date">{{ jobDetail!.releaseDate }}</text>
     </view>
   </view>
 </template>
@@ -45,100 +46,67 @@ const rootViewOnClick = () => {
 
 <style lang="scss" scoped>
 .border {
-  padding-left: 15rpx;
-  padding-right: 15rpx;
-}
-.group_7 {
-  padding: 5rpx 0 3rpx;
-  align-self: center;
-  height: 54rpx;
-  .text_7 {
-    color: rgb(0, 0, 0);
-    font-size: 25rpx;
-    line-height: 18rpx;
-    white-space: nowrap;
-  }
-  .text_8 {
-    margin-top: 14rpx;
-    color: rgb(163, 154, 154);
-    font-size: 25rpx;
-    line-height: 14rpx;
-    white-space: nowrap;
-  }
-}
-.group_2 {
-  align-self: flex-start;
-  .text {
-    color: rgb(0, 0, 0);
-    font-size: 25rpx;
-    line-height: 23rpx;
-    white-space: nowrap;
-  }
-  .group_3 {
-    margin-top: 12rpx;
-    color: rgb(163, 154, 154);
-    font-size: 16rpx;
-    line-height: 15rpx;
-    white-space: nowrap;
-    .text_2 {
-      margin-left: 4rpx;
-      margin-right: 13rpx;
-    }
-  }
-  .group_4 {
-    margin-top: 7rpx;
-    align-self: flex-start;
-    color: #130c0e;
-    font-size: 16rpx;
-    line-height: 15rpx;
-    white-space: nowrap;
-    .text-wrapper {
-      padding: 6rpx 0 10rpx;
-      background-color: rgb(229, 229, 229);
-      border-radius: 8rpx;
-      overflow: hidden;
-      height: 30rpx;
-      .text_3 {
-        margin-left: 9rpx;
-        margin-right: 5rpx;
+  .group-1 {
+    width: 550rpx;
+    .job-infos {
+      width: 550rpx;
+      .name {
+        font-size: 28rpx;
+        font-weight: bold;
+      }
+      .area-educate {
+        .area {
+          font-size: 24rpx;
+        }
+        .educate {
+          padding-left: 20rpx;
+          font-size: 24rpx;
+        }
+      }
+      .directions {
+        width: 550rpx;
+        overflow: hidden;
+        white-space: nowrap;
+        .tags {
+          border-radius: 5rpx;
+          background-color: rgb(240, 240, 240);
+          margin-right: 15rpx;
+          .tag {
+            font-size: 20rpx;
+            padding: 5rpx 10rpx;
+          }
+        }
       }
     }
-    .text-wrapper_1 {
-      margin-left: 10rpx;
-      padding: 7rpx 0 9rpx;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
-      height: 30rpx;
-      .text_4 {
-        margin-left: 5rpx;
-        margin-right: 2rpx;
+    .company-infos {
+      width: 550rpx;
+      .company-logo {
+        width: 150rpx;
+        height: 100rpx;
+      }
+      .name-info {
+        width: 400rpx;
+        .company-name {
+          padding-top: 15rpx;
+          font-size: 24rpx;
+        }
+        .company-info {
+          padding-top: 10rpx;
+          font-size: 24rpx;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
   }
-}
-.group_5 {
-  padding-top: 8rpx;
-  .image {
-    border-radius: 5rpx;
-    width: 101rpx;
-    height: 68rpx;
-  }
-  .group_6 {
-    margin-left: 11rpx;
-    align-self: center;
-    .text_5 {
-      color: rgb(0, 0, 0);
-      font-size: 20rpx;
-      line-height: 18rpx;
-      white-space: nowrap;
+  .group-2 {
+    width: 140rpx;
+    .salary {
+      font-size: 24rpx;
     }
-    .text_6 {
-      margin-top: 12rpx;
-      color: rgba(163, 154, 154, 0.7);
-      font-size: 16rpx;
-      line-height: 16rpx;
-      white-space: nowrap;
+    .date {
+      font-size: 24rpx;
     }
   }
 }

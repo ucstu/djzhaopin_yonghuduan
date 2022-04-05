@@ -3,32 +3,38 @@
         <view class="flex-row equal">
             <view class="items-center justify-center equalDiv">
                 <text class="text">区域</text>
-                <image class="image"
-                    src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png" />
+                <image
+                    class="image"
+                    src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
+                />
             </view>
             <view class="items-center justify-center equalDiv">
                 <text class="text">要求</text>
                 <image
                     src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-                    class="image" />
+                    class="image"
+                />
             </view>
             <view class="items-center justify-center equalDiv">
                 <text class="text">公司</text>
                 <image
                     src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-                    class="image" />
+                    class="image"
+                />
             </view>
             <view class="items-center justify-center equalDiv">
                 <text class="text">福利</text>
                 <image
                     src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-                    class="image" />
+                    class="image"
+                />
             </view>
             <view class="items-center justify-center equalDiv">
                 <text class="text">排序</text>
                 <image
                     src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-                    class="image" />
+                    class="image"
+                />
             </view>
         </view>
         <view class="flex-row items-center filter" @click="showOver">
@@ -40,17 +46,8 @@
                 </view>
             </scroll-view>
             <view class="justify-center image_sifts">
-                <image
-                    src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773723315322.png"
-                    class="sifts" />
+                <image src="@/static/icons/menu.png" class="sifts" />
             </view>
-        </view>
-        <view class="flex-row over-sifts" v-show="true">
-            <scroll-view class :scroll-y="true" @scroll="scroll">
-                <view class="flex-row items-center over-sift">
-                    <view class="justify-center over-s" v-for="(sift, i) in sifts" :key="i">{{ sift }}</view>
-                </view>
-            </scroll-view>
         </view>
     </view>
 </template>
@@ -156,22 +153,7 @@ const showOver = () => {
             width: 70rpx;
             .sifts {
                 width: 42rpx;
-                height: 33rpx;
-            }
-        }
-    }
-    .over-sifts {
-        height: 700rpx;
-        overflow-y: hidden;
-        .over-sift {
-            flex-wrap: wrap;
-            .over-s {
-                margin-left: 15rpx;
-                margin-top: 15rpx;
-                width: 215rpx;
-                height: 60rpx;
-                border: solid 2rpx rgb(241, 239, 239);
-                font-size: 30rpx;
+                height: 40rpx;
             }
         }
     }

@@ -1,6 +1,12 @@
 {
 	"pages": [
 		{
+			"path": "pages/xiangguanzhiwei/xiangguanzhiwei",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/xiangguangongsi/xiangguangongsi",
 			"style": {
 				"navigationStyle": "custom"
@@ -278,12 +284,6 @@
 		},
 		{
 			"path": "pages/xifenshaixuan/xifenshaixuan",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/xiangguanzhiwei/xiangguanzhiwei",
 			"style": {
 				"navigationStyle": "custom"
 			}
