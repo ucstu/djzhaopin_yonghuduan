@@ -68,12 +68,17 @@ import { getCompanyinfosCompanyinfoidPositioninfosPositioninfoid, getCompanyinfo
 import { CompanyInformation } from '@/services/types';
 
 let jobInformation = ref<CompanyInformation>({})
-getCompanyinfosCompanyinfoidPositioninfosPositioninfoid().then(res => {
+getCompanyinfosCompanyinfoidPositioninfosPositioninfoid(
+  { companyinfoid: 'asd165a1d56a' },
+  { positioninfoid: 'adjalkdlak' }
+).then(res => {
   jobInformation.value = res.data;
   console.log(jobInformation);
 })
 let companyInformation = ref<CompanyInformation>({})
-getCompanyinfosCompanyinfoid().then(res => {
+getCompanyinfosCompanyinfoid(
+  { companyinfoid: 'asd165a1d56a' }
+).then(res => {
   companyInformation.value = res.data;
 })
 
@@ -150,6 +155,7 @@ const toCompanyIn = () => {
     margin-top: 30rpx;
     .description {
       font-size: 25rpx;
+      color: rgb(176, 176, 176);
     }
   }
 }

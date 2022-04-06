@@ -603,6 +603,11 @@
     "@dcloudio/uni-cli-shared" "3.0.0-alpha-3040320220325003"
     debug "^4.3.3"
 
+"@dcloudio/uni-ui@^1.4.13":
+  version "1.4.13"
+  resolved "https://registry.yarnpkg.com/@dcloudio/uni-ui/-/uni-ui-1.4.13.tgz#825395a97f3317ae027a8cb7a6b156e515aef0a1"
+  integrity sha512-I+tmp0HulCRf2Lf0AyREH8C93PAAhcc8pbLm/KRChKRPCf+kyAUtyCYYsPDVDC2DElFXcNw67TH/zd+BWSkQDQ==
+
 "@dcloudio/vite-plugin-uni@^3.0.0-alpha-3040220220310005":
   version "3.0.0-alpha-3040320220325003"
   resolved "https://registry.yarnpkg.com/@dcloudio/vite-plugin-uni/-/vite-plugin-uni-3.0.0-alpha-3040320220325003.tgz#2db480fb64a319ca945c569ee1f8d7441ad819a5"

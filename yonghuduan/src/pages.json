@@ -1,6 +1,12 @@
 {
 	"pages": [
 		{
+			"path": "pages/gongsijieshao/gongsijieshao",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/zhiweixiangqing/zhiweixiangqing",
 			"style": {
 				"navigationStyle": "custom"
@@ -277,12 +283,6 @@
 			}
 		},
 		{
-			"path": "pages/gongsijieshao/gongsijieshao",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
 			"path": "pages/xifenshaixuan/xifenshaixuan",
 			"style": {
 				"navigationStyle": "custom"
@@ -313,5 +313,11 @@
 				"text": "我的"
 			}
 		]
+	},
+	"esaycom": {
+		"autoscan": true,
+		"custom": {
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
 	}
 }
