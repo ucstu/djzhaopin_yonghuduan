@@ -1,13 +1,25 @@
 {
 	"pages": [
 		{
-			"path": "pages/gongsijieshao/gongsijieshao",
+			"path": "pages/shangchuanjianli/shangchuanjianli",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/wodeyemian/wodeyemian",
 			"style": {
 				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path": "pages/zhiweixiangqing/zhiweixiangqing",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/gongsijieshao/gongsijieshao",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -133,12 +145,6 @@
 			}
 		},
 		{
-			"path": "pages/shangchuanjianli/shangchuanjianli",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
 			"path": "pages/daimianshi/daimianshi",
 			"style": {
 				"navigationStyle": "custom"
@@ -194,12 +200,6 @@
 		},
 		{
 			"path": "pages/gerenxinxi/gerenxinxi",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/wodeyemian/wodeyemian",
 			"style": {
 				"navigationStyle": "custom"
 			}

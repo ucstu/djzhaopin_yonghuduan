@@ -2,9 +2,11 @@
   <view class="flex-col page">
     <NavigationBar class="header" title="职位详情" />
     <view class="jobInformation">
-      <view class="flex-row justify-between name-salary">
-        <text class="name">{{ jobInformation.name }}</text>
-        <text class="salary">{{ jobInformation.startingSalary }}-{{ jobInformation.ceilingSalary }}</text>
+      <view class="flex-row name-salary">
+        <view class="name">{{ jobInformation.name }}</view>
+        <view
+          class="justify-end salary"
+        >{{ jobInformation.startingSalary }}-{{ jobInformation.ceilingSalary }}</view>
       </view>
       <view class="flex-row area-require">
         <view class="items-center" style="margin-right: 25rpx;">
@@ -109,12 +111,13 @@ const toCompanyIn = () => {
     .name-salary {
       margin-top: 30rpx;
       .name {
+        width: 500rpx;
         font-weight: 600;
         font-size: 40rpx;
-        white-space: 15px;
         padding-left: 10rpx;
       }
       .salary {
+        width: 200rpx;
         font-size: 30rpx;
         color: rgb(84, 188, 163);
       }
