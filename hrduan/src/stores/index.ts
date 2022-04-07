@@ -3,9 +3,7 @@ import { createStore, Store } from 'vuex'
 import VuexPersister from 'vuex-persister'
 import { HRInformation, AccountInformation, CompanyInformation } from '../services/types'
 
-const vuexPersister = new VuexPersister<State>({
-    // ...your options
-})
+const vuexPersister = new VuexPersister<State>({})
 
 export interface State {
     token: String,
@@ -13,6 +11,7 @@ export interface State {
     hrInfo: HRInformation,
     companyInfo: CompanyInformation
 }
+
 export const key: InjectionKey<Store<State>> = Symbol()
 
 export const store = createStore<State>({
@@ -23,21 +22,21 @@ export const store = createStore<State>({
         companyInfo: {} as CompanyInformation
     }),
     mutations: {
-        setToken(state, token) {
+        setToken(state: State, token: State['token']) {
             state.token = token
         },
-        setAccountInfo(state, accountInfo) {
+        setAccountInfo(state: State, accountInfo: State['accountInfo']) {
             state.accountInfo = accountInfo
         },
-        setHrInfo(state, hrInfo) {
+        setHrInfo(state: State, hrInfo: State['hrInfo']) {
             state.hrInfo = hrInfo
         },
-        setCompanyInfo(state, companyInfo) {
+        setCompanyInfo(state: State, companyInfo: State['companyInfo']) {
             state.companyInfo = companyInfo
         },
     },
     modules: {
 
     },
-    plugins: [vuexPersister.persist] // integrate the plugin
+    plugins: [vuexPersister.persist]
 })

@@ -10,8 +10,7 @@
                 <span>02</span>
                 <span class="info">完善公司信息</span>
             </div>
-        </div>
-    </div>
+        </div>   </div>
 </template>
 
 <script setup lang="ts">
@@ -19,41 +18,48 @@
 
 </script>
 
-<style scoped lang="scss">
-$font-colors: #00b38a;
+<style scoped lang="scss">$font-colors: #00b38a;
+
 .state {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 55px;
+
     .left {
         display: flex;
         flex-direction: column;
         margin-right: 70px;
         font-size: 20px;
         color: $font-colors;
+
         span {
             text-align: center;
         }
+
         .info {
             margin-top: 10px;
             font-size: 10px;
         }
     }
+
     .line {
         height: 1px;
         width: 10vw;
         background-color: rgb(0, 0, 0, 0.2);
         margin-right: 70px;
     }
+
     .right {
         display: flex;
         flex-direction: column;
         font-size: 20px;
         color: $font-colors;
+
         span {
             text-align: center;
         }
+
         .info {
             margin-top: 10px;
             font-size: 10px;

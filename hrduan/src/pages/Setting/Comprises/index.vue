@@ -1,10 +1,9 @@
 <template>
-    <div>发布信息</div>
-    <Tag />
+    <div>常用语</div>
 </template>
 
 <script setup lang="ts">
-import Tag from '../home/tag.vue'
+
 </script>
 
 <style lang="scss" scoped>

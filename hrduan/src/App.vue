@@ -7,24 +7,93 @@
 </script>
 
 <style lang="scss">
-* {
-  margin: 0;
-  padding: 0;
-}
+/************************************************************
+** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
+** 否则页面将无法正常显示                                  **
+************************************************************/
+
 html {
   font-size: 16px;
 }
-html,
+
 body {
-  width: 100%;
-  height: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    "Microsoft Yahei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+view,
+image,
+text {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
 #app {
-  height: 100%;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
 }
-.fel_rol {
+
+.flex-row {
   display: flex;
   flex-direction: row;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.justify-start {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
+.justify-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.justify-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.justify-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.items-stretch {
+  display: flex;
+  align-items: stretch;
+}
+
+.items-start {
+  display: flex;
+  align-items: flex-start;
+}
+
+.items-center {
+  display: flex;
+  align-items: center;
+}
+
+.items-end {
+  display: flex;
+  align-items: flex-end;
 }
 </style>
