@@ -13,6 +13,7 @@
       <view class="section_2"></view>
     </view>
     <text class="text_3">重新发送验证码</text>
+    <button @click="getPhoneNum">点击获取手机号</button>
   </view>
 </template>
 
@@ -21,10 +22,16 @@ import { ref } from 'vue'
 import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
 const phonceNumber = ref('180******64')
+const getPhoneNum = () => {
+  uni.getStorage({
+    key: 'tel',
+    success: (res) => {
+      console.log(res.data);
 
-const imageOnClick = () => {
-  // @ts-ignore
-  uni.navigateBack()
+    },
+    fail: (error) => { }
+  })
+
 }
 </script>
 

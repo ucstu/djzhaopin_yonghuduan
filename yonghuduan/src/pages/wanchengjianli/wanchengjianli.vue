@@ -2,18 +2,17 @@
   <view class="flex-col page">
     <image
       src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716980208668.png"
-      class="image"
-    />
-    <view @click="viewOnClick" class="flex-col items-center button">
+      class="image" />
+    <view @click="viewOnClick" class="justify-center items-center button">
       <text>完善简历信息</text>
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
-const viewOnClick=()=> {
-      uni.navigateTo({ url: '/pages/wanshangerenxinxi/wanshangerenxinxi' })
-    }
+const viewOnClick = () => {
+  uni.navigateTo({ url: '/pages/wanshangerenxinxi/wanshangerenxinxi' })
+}
 </script>
 
 <style lang="scss" scoped>
