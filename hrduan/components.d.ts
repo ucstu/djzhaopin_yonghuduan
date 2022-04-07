@@ -18,6 +18,7 @@ declare module 'vue' {
     ElTag: typeof import('element-plus/es')['ElTag']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Setting: typeof import('./src/components/Setting.vue')['default']
+    SettingHeader: typeof import('./src/components/SettingHeader.vue')['default']
   }
 }
 

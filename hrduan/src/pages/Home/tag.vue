@@ -11,25 +11,14 @@
         />
         <el-button v-else class="button-new-tag ml-1" size="small" @click="showInput">+ New Tag</el-button>-->
         <div v-for="(item, index) in dynamicTags" :key="item.label">
-            <el-check-tag
-                :checked="item.checked"
-                @click="onChange(index)"
-                ref="checkTagRef"
-            >{{ item.label }}</el-check-tag>
+            <el-check-tag :checked="item.checked" @click="onChange(index)" ref="checkTagRef">{{ item.label }}
+            </el-check-tag>
         </div>
         <div v-for="item in dynamicTags">{{ item }}</div>
         <div v-for="tag, index in dynamicTags" :key="tag.id">
-            <el-tag
-                v-if="tag.checked"
-                class="mx-1"
-                closable
-                :disable-transitions="false"
-                effect="plain"
-                type="info"
-                @close="handleClose(index)"
-            >{{ tag.label }}</el-tag>
-        </div>
-    </div>
+            <el-tag v-if="tag.checked" class="mx-1" closable :disable-transitions="false" effect="plain" type="info"
+                @close="handleClose(index)">{{ tag.label }}</el-tag>
+        </div>   </div>
 </template>
 <script lang="ts" setup>
 import { ElMessage } from 'element-plus'
@@ -42,14 +31,13 @@ const onChange = (index: number) => {
     let tag = false
     let idx
     console.log(dynamicTags.value);
-    debugger
     dynamicTags.value.every((item, key) => {
 
         if (item.checked) {
             tag = true
             idx = key
         }
-        return false
+        return true
     })
     console.log(tag);
     if (tag) {
@@ -107,8 +95,7 @@ const handleClose = (index: number) => {
 //     inputValue.value = ''
 // }
 </script>
-<style scoped lang="scss">
-.tag {
+<style scoped lang="scss">.tag {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     padding: 20px;

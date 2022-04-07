@@ -3,42 +3,26 @@
         <state />
         <div class="company">
             <div class="left">
-                <el-form
-                    :model="formCompany"
-                    label-width="120px"
-                    :rules="rule"
-                    ref="formRef"
-                    style="max-width: 500px"
-                >
+                <el-form :model="formCompany" label-width="120px" :rules="rule" ref="formRef" style="max-width: 500px">
                     <el-form-item label="公司名称">
                         <span>{{ route.params.companyName }}</span>
                     </el-form-item>
-                    <el-form-item
-                        label="公司简称"
-                        prop="name"
-                        :rules="[
-                            {
-                                required: true,
-                                message: '此项不能为空',
-                                trigger: 'blur'
-                            }
-                        ]"
-                    >
+                    <el-form-item label="公司简称" prop="name" :rules="[
+                        {
+                            required: true,
+                            message: '此项不能为空',
+                            trigger: 'blur'
+                        }
+                    ]">
                         <el-input v-model="formCompany.name" />
                         <span>公司简称让牛人快速找到你，可以是全称简写/知名产品/知名品牌关键字，提交后不能修改</span>
                     </el-form-item>
                     <el-form-item label="公司logo">
                         <div class="avatar">
-                            <el-upload
-                                :show-file-list="false"
-                                :on-success="handleAvatarSuccess"
-                                :before-upload="beforeAvatarUpload"
-                                :on-error="handleAvatarError"
-                                name="avatar"
-                                ref="uploadRef"
-                                class="avatar-uploader"
-                                action="http://127.0.0.1:4523/mock/743652/avatars"
-                            >
+                            <el-upload :show-file-list="false" :on-success="handleAvatarSuccess"
+                                :before-upload="beforeAvatarUpload" :on-error="handleAvatarError" name="avatar"
+                                ref="uploadRef" class="avatar-uploader"
+                                action="http://127.0.0.1:4523/mock/743652/avatars">
                                 <img v-if="imageUrl" :src="formCompany.logo" class="avatar" />
                                 <el-icon v-else class="avatar-uploader-icon" :size="30">
                                     <Plus />
@@ -76,12 +60,7 @@
                         </el-dialog>
                     </el-form-item>-->
                     <el-form-item label="所在城市">
-                        <el-cascader
-                            v-model="value"
-                            :options="options"
-                            @change="handleChange"
-                            placeholder="请选择"
-                        />
+                        <el-cascader v-model="value" :options="options" @change="handleChange" placeholder="请选择" />
                     </el-form-item>
                     <el-form-item label="公司规模" prop="name">
                         <el-select v-model="formCompany.scale" placeholder="请选择">
@@ -106,20 +85,9 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="公司福利">
-                        <el-select
-                            v-model="value"
-                            multiple
-                            filterable
-                            allow-create
-                            default-first-option
-                            :reserve-keyword="false"
-                            placeholder="选择公司福利"
-                        >
-                            <el-option
-                                v-for="item in options"
-                                :key="item.value"
-                                :value="item.value"
-                            />
+                        <el-select v-model="value" multiple filterable allow-create default-first-option
+                            :reserve-keyword="false" placeholder="选择公司福利">
+                            <el-option v-for="item in options" :key="item.value" :value="item.value" />
                         </el-select>
                     </el-form-item>
                     <div class="bottom-btn">
@@ -132,16 +100,15 @@
                 <span class="company-title">我的公司</span>
                 <div class="my-company">
                     <img
-                        :src="imageUrl || 'https://tse4-mm.cn.bing.net/th/id/OIP-C.W3zARu1eQ44qyPGNAj0GPgAAAA?w=172&h=180&c=7&r=0&o=5&dpr=2&pid=1.7'"
-                    />
+                        :src="imageUrl || 'https://tse4-mm.cn.bing.net/th/id/OIP-C.W3zARu1eQ44qyPGNAj0GPgAAAA?w=172&h=180&c=7&r=0&o=5&dpr=2&pid=1.7'" />
                     <div class="infos">
                         <span class="infos-top">{{ formCompany.name || '公司简称' }}</span>
                         <div class="infos-bottom">
                             <span>{{ formCompany.comprehension || "公司行业" }}</span>
                             <i>/</i>
-                            <span>{{ scaleMap[Number(formCompany.scale) - 1] || "公司规模" }}</span>
+                            <span>{{ scaleMap[Number(formCompany.scale)] || "公司规模" }}</span>
                             <i>/</i>
-                            <span>{{ financingStageMap[Number(formCompany.financingStage) - 1] || "发展阶段" }}</span>
+                            <span>{{ financingStageMap[Number(formCompany.financingStage)] || "发展阶段" }}</span>
                         </div>
                     </div>
                 </div>
@@ -153,9 +120,7 @@
                                 <div class="car-company">
                                     <img :src="formInstance[item - 1].logo" />
                                     <div class="infos">
-                                        <span
-                                            class="infos-top"
-                                        >{{ formInstance[item - 1].name || '公司简称' }}</span>
+                                        <span class="infos-top">{{ formInstance[item - 1].name || '公司简称' }}</span>
                                         <div class="infos-bottom">
                                             <span>{{ formInstance[item - 1].industry || "公司行业" }}</span>
                                             <i>/</i>
@@ -170,8 +135,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div>   </div>
 </template>
 
 <script setup lang="ts">
@@ -224,8 +188,8 @@ const formCompany = reactive<CompanyInformation>({
 //     console.log(route.params.companyName);
 
 // })
-const financingStageMap = ['未融资', '天使轮', 'A轮', 'B轮', 'C轮', 'D轮及以上', '上市公司', '不需要融资']
-const scaleMap = ['少于15人', '15-50人', '50-150人', '150-500人', '500-2000人', '2000人以上']
+const financingStageMap = ['', '未融资', '天使轮', 'A轮', 'B轮', 'C轮', 'D轮及以上', '上市公司', '不需要融资']
+const scaleMap = ['', '少于15人', '15-50人', '50-150人', '150-500人', '500-2000人', '2000人以上']
 interface companyInfo {
     logo: string,
     name: string,
@@ -233,7 +197,6 @@ interface companyInfo {
     industry: string,
     size: string,
 }
-
 const formInstance = reactive<companyInfo[]>([
     {
         logo: 'https://tse1-mm.cn.bing.net/th/id/R-C.f6ea7adbf0fd0e4b2f3299308aa92471?rik=YzXBT59%2bWCTZBQ&riu=http%3a%2f%2fwww.gaoruiad.com%2fuploads%2fimage%2f20190621%2f20190621181458_89994.jpg&ehk=vb99sP9BQF%2fKTXBJ6pul4F95H53QX22GJ36iRya2OQs%3d&risl=&pid=ImgRaw&r=0',
@@ -304,30 +267,34 @@ const handleChange = (value: any) => {
 }
 const confirmCompany = (formEl: FormInstance | undefined) => {
     console.log(formEl);
-    formEl?.validate((valid) => {
+    if (!formEl) return
+    formEl.validate((valid) => {
         if (valid) {
             postCompanyinfos(formCompany).then(res => {
                 ElMessage.success('恭喜您，公司创建成功')
                 dialogFormVisible.value = false
                 store.commit('setCompanyInfo', res.data)
                 router.push('/publishpost')
-
-            })
+            }).catch(reject => {
+                console.error(reject);
+            }
+            )
         }
     })
 }
 </script>
 
-<style scoped lang="scss">
-a {
+<style scoped lang="scss">a {
     text-decoration: none;
     color: rgb(0, 0, 0, 0.8);
     margin-left: 15px;
     font-size: 10px;
 }
+
 a:hover {
     color: #999;
 }
+
 .company {
     display: flex;
     justify-content: space-around;
@@ -336,14 +303,17 @@ a:hover {
     .hidden {
         display: none;
     }
+
     .left {
         .el-form {
             display: flex;
             flex-direction: column;
+
             span {
                 font-size: 8px;
                 color: #999;
             }
+
             .el-form-item {
                 .select {
                     border: solid 1px #dcdfe6;
@@ -360,11 +330,13 @@ a:hover {
                         color: #ababb2;
                         margin-right: 117px;
                     }
+
                     img {
                         height: 16px;
                         width: 16px;
                     }
                 }
+
                 .addbutton {
                     color: #999;
                     cursor: pointer;
@@ -374,10 +346,12 @@ a:hover {
                     width: 80px;
                     text-align: center;
                 }
+
                 .bottom-btn {
                     display: flex;
                 }
             }
+
             .avatar {
                 display: flex;
                 flex-wrap: nowrap;
@@ -386,12 +360,14 @@ a:hover {
                     border: solid 1px #dcdfe6;
                     padding: 20px;
                 }
+
                 span {
                     margin-left: 15px;
                     font-size: 8px;
                     color: #999;
                 }
             }
+
             .el-button {
                 height: 42px;
                 width: 150px;
@@ -399,10 +375,12 @@ a:hover {
             }
         }
     }
+
     .right {
         .company-title {
             font-size: 14px;
         }
+
         .my-company {
             display: flex;
             flex-wrap: nowrap;
@@ -413,30 +391,37 @@ a:hover {
             margin-top: 8px;
             width: 20vw;
             height: 120px;
+
             img {
                 width: 5vw;
                 height: 9vh;
                 object-fit: cover;
                 object-position: top;
             }
+
             .infos {
                 display: flex;
                 flex-direction: column;
+
                 .infos-top {
                     font-size: 14px;
                     color: rgb(0, 0, 0, 0.8);
                 }
+
                 .infos-bottom {
                     font-size: 10px;
                     color: #999;
                 }
             }
         }
+
         .example {
             margin-top: 20px;
             font-size: 14px;
+
             .ex-company {
                 margin-top: 8px;
+
                 .el-carousel {
                     .el-carousel__item {
                         color: #475669;
@@ -447,6 +432,7 @@ a:hover {
                         text-align: center;
                         border-radius: 4px;
                         height: 122px;
+
                         .car-company {
                             background-image: url("https://upfile2.asqql.com/upfile/hdimg/wmtp/wmtp/2017-9/4/102028SKGil0okze.jpg");
                             border: solid 1px rgb(0, 179, 139);
@@ -456,6 +442,7 @@ a:hover {
                             align-items: center;
                             width: 20vw;
                             height: 120px;
+
                             img {
                                 width: 5vw;
                                 height: 9vh;
@@ -463,14 +450,17 @@ a:hover {
                                 object-position: top;
                                 border-radius: 5px;
                             }
+
                             .infos {
                                 z-index: 100;
+
                                 .infos-top {
                                     display: flex;
                                     font-size: 14px;
                                     height: 20px;
                                     color: rgb(0, 0, 0, 0.8);
                                 }
+
                                 .infos-bottom {
                                     font-size: 10px;
                                     color: #999;

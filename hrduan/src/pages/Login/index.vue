@@ -1,36 +1,19 @@
 <template>
     <div class="page">
         <div class="image-wrapper">
-            <img
-                src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/62345e1d5a7e3f0310ddcb3c/623446ec62a7d9001102351f/16484562558205956397.png"
-                class="image"
-            />
+            <img src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/62345e1d5a7e3f0310ddcb3c/623446ec62a7d9001102351f/16484562558205956397.png"
+                class="image" />
         </div>
         <div class="alin">
             <div class="center">
-                <el-form
-                    ref="ruleFormRef"
-                    :model="ruleForm"
-                    status-icon
-                    :rules="rules"
-                    label-width="120px"
-                    class="demo-ruleForm"
-                >
+                <el-form ref="ruleFormRef" :model="ruleForm" status-icon :rules="rules" label-width="120px"
+                    class="demo-ruleForm">
                     <el-form-item label="用户名" prop="user">
-                        <el-input
-                            v-model="ruleForm.phoneNumber"
-                            type="text"
-                            autocomplete="off"
-                            placeholder="请输入用户名"
-                        />
+                        <el-input v-model="ruleForm.phoneNumber" type="text" autocomplete="off" placeholder="请输入用户名" />
                     </el-form-item>
                     <el-form-item label="密码" prop="pass">
-                        <el-input
-                            v-model="ruleForm.verificationCode"
-                            type="password"
-                            autocomplete="off"
-                            placeholder="请输入密码"
-                        />
+                        <el-input v-model="ruleForm.verificationCode" type="password" autocomplete="off"
+                            placeholder="请输入密码" />
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="submitForm(ruleFormRef)">登录</el-button>
@@ -41,8 +24,7 @@
                 </el-form>
             </div>
         </div>
-        <div class="footer"></div>
-    </div>
+        <div class="footer"></div>   </div>
 </template>
 
 <script lang="ts" setup>
@@ -57,6 +39,8 @@ const store = useStore(key);
 const validatePass = (rule: any, value: any, callback: any) => {
     if (value === '') {
         callback(new Error('请输入密码'))
+        console.log(1111111);
+
     } else {
         if (ruleForm.phoneNumber !== '') {
             if (!ruleFormRef.value) return
@@ -99,8 +83,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
     })
 }
 </script>
-<style scoped lang="scss">
-a {
+<style scoped lang="scss">a {
     text-decoration: none;
     color: rgb(0, 179, 139);
 }
@@ -125,12 +108,14 @@ a {
             margin-left: 20vw;
         }
     }
+
     .alin {
         display: flex;
         // margin: auto;
         justify-content: center;
         // z-index: 1;
         margin-top: -10vh;
+
         .center {
             display: flex;
             flex-direction: column;
@@ -141,11 +126,13 @@ a {
             border-radius: 5px;
             height: 240px;
             width: 30vw;
+
             .el-form {
                 margin-right: 18%;
             }
         }
     }
+
     .footer {
         height: 500px;
     }

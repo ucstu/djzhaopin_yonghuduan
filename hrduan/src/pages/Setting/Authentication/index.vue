@@ -1,5 +1,5 @@
 <template>
-    <div></div>
+    <div>身份认证</div>
 </template>
 
 <script setup lang="ts">

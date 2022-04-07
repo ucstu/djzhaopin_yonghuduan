@@ -4,33 +4,19 @@ import { key } from '../../stores';
 import { useStore } from 'vuex';
 <template>
     <div>
-        <state />
+        <State />
         <form action="#" class="over">
             <div class="left">
-                <el-form
-                    label-width="120px"
-                    :model="formLabelAlign"
-                    style="max-width: 500px"
-                    :rules="rule"
-                    ref="formRef"
-                >
+                <el-form label-width="120px" :model="formLabelAlign" style="max-width: 500px" :rules="rule"
+                    ref="formRef">
                     <el-form-item label="头像" prop="name">
                         <div class="avatar">
-                            <el-upload
-                                :show-file-list="false"
-                                :on-success="handleAvatarSuccess"
-                                :before-upload="beforeAvatarUpload"
-                                :on-error="handleAvatarError"
-                                name="avatar"
-                                ref="uploadRef"
-                                class="avatar-uploader"
-                                action="http://127.0.0.1:4523/mock/743652/avatars"
-                            >
-                                <img
-                                    v-if="imageUrl"
-                                    :src="imageUrl ? imageUrl : formLabelAlign.avatar"
-                                    class="avatar"
-                                />
+                            <el-upload :show-file-list="false" :on-success="handleAvatarSuccess"
+                                :before-upload="beforeAvatarUpload" :on-error="handleAvatarError" name="avatar"
+                                ref="uploadRef" class="avatar-uploader"
+                                action="http://127.0.0.1:4523/mock/743652/avatars">
+                                <img v-if="imageUrl" :src="imageUrl ? imageUrl : formLabelAlign.avatar"
+                                    class="avatar" />
                                 <el-icon v-else class="avatar-uploader-icon" :size="30">
                                     <Plus />
                                 </el-icon>
@@ -48,41 +34,29 @@ import { useStore } from 'vuex';
                         <el-input placeholder="请填写当前公司的任职职位" v-model="formLabelAlign.post" />
                     </el-form-item>
                     <el-form-item label="公司全称" prop="name">
-                        <el-input
-                            placeholder="请填写与营业执照名称/劳动合同/公司发票抬头一致的公司全称"
-                            v-model="formLabelAlign.fullName"
-                        />
+                        <el-input placeholder="请填写与营业执照名称/劳动合同/公司发票抬头一致的公司全称" v-model="formLabelAlign.fullName" />
                     </el-form-item>
-                    <el-form-item
-                        label="接受简历邮箱"
-                        prop="acceptEmail"
-                        :rules="[
-                            {
-                                required: true,
-                                message: '此项不能为空',
-                                trigger: 'blur',
-                            },
-                            {
-                                type: 'email',
-                                message: '请输入正确的邮箱地址',
-                                trigger: ['blur', 'change'],
-                            },
-                        ]"
-                    >
-                        <el-input
-                            placeholder="请填写常用邮箱，支持招聘设置中修改"
-                            v-model="formLabelAlign.acceptEmail"
-                        />
+                    <el-form-item label="接受简历邮箱" prop="acceptEmail" :rules="[
+                        {
+                            required: true,
+                            message: '此项不能为空',
+                            trigger: 'blur',
+                        },
+                        {
+                            type: 'email',
+                            message: '请输入正确的邮箱地址',
+                            trigger: ['blur', 'change'],
+                        },
+                    ]">
+                        <el-input placeholder="请填写常用邮箱，支持招聘设置中修改" v-model="formLabelAlign.acceptEmail" />
                     </el-form-item>
                     <el-button type="primary" @click="confirmPerson(formRef)">下一步</el-button>
                 </el-form>
             </div>
             <div class="right">
                 <div class="top">
-                    <img
-                        :src="imageUrl || 'https://tse4-mm.cn.bing.net/th/id/OIP-C.W3zARu1eQ44qyPGNAj0GPgAAAA?w=172&h=180&c=7&r=0&o=5&dpr=2&pid=1.7'"
-                        class="avatar"
-                    />
+                    <img :src="imageUrl || 'https://tse4-mm.cn.bing.net/th/id/OIP-C.W3zARu1eQ44qyPGNAj0GPgAAAA?w=172&h=180&c=7&r=0&o=5&dpr=2&pid=1.7'"
+                        class="avatar" />
                     <span>{{ formLabelAlign.name || "姓名" }}</span>
                     <span>{{ formLabelAlign.post || "职位" }}</span>
                 </div>
@@ -92,8 +66,7 @@ import { useStore } from 'vuex';
                     <span>{{ formLabelAlign.acceptEmail || "邮箱" }}</span>
                 </div>
             </div>
-        </form>
-    </div>
+        </form>   </div>
 </template>
 
 <script setup lang="ts">
@@ -104,7 +77,7 @@ import type { UploadProps, FormInstance } from 'element-plus'
 import { postCompanyinfos, putHrinfosHrinfoid } from '../../services/services';
 import { useStore } from 'vuex';
 import { key } from '../../stores';
-import state from './state.vue';
+import State from './state.vue';
 import router from '../../router'
 const formRef = ref<FormInstance>()
 const uploadRef = ref<UploadProps>()
@@ -169,20 +142,22 @@ const confirmPerson = (formEl: FormInstance | undefined) => {
 }
 </script>
 
-<style scoped lang="scss">
-a {
+<style scoped lang="scss">a {
     text-decoration: none;
     display: block;
     width: 150px;
 }
+
 .over {
     display: flex;
     justify-content: space-around;
     margin-top: 40px;
+
     .left {
         .el-form {
             display: flex;
             flex-direction: column;
+
             .avatar {
                 display: flex;
                 flex-wrap: nowrap;
@@ -192,17 +167,20 @@ a {
                     height: 75px;
                     border-radius: 50%;
                 }
+
                 .avatar-uploader-icon {
                     border: solid 1px #dcdfe6;
                     border-radius: 50%;
                     padding: 20px;
                 }
+
                 span {
                     margin-left: 15px;
                     font-size: 8px;
                     color: #999;
                 }
             }
+
             .el-button {
                 height: 42px;
                 width: 150px;
@@ -210,6 +188,7 @@ a {
             }
         }
     }
+
     .right {
         box-sizing: border-box;
         width: 235px;
@@ -228,29 +207,34 @@ a {
             align-items: center;
             justify-content: center;
             flex-direction: column;
+
             img {
                 margin: 20px 0 10px 0;
                 width: 75px;
                 height: 75px;
                 border-radius: 50%;
             }
+
             :nth-child(3) {
                 margin: 5px 0;
                 font-size: 10px;
                 color: #999;
             }
         }
+
         .line {
             height: 1px;
             width: 225px;
             background-color: rgb(0, 0, 0, 0.05);
             margin: 15px 5px;
         }
+
         .bottom {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+
             span {
                 font-size: 10px;
                 color: #999;

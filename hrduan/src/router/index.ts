@@ -1,50 +1,78 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import Home from '../pages/Home/index.vue'
 import Login from "../pages/Login/index.vue"
-import Enroll from '../pages/enroll/index.vue'
-import Home from '../pages/home/index.vue'
-import HomePerson from '../pages/home/person.vue'
-import HomeCompany from '../pages/home/company.vue'
-import PublishPost from '../pages/publishPost/index.vue'
-const routes: RouteRecordRaw[] = [
+import Enroll from '../pages/Enroll/index.vue'
+import HomePerson from '../pages/Home/person.vue'
+import HomeCompany from '../pages/Home/company.vue'
+import PublishJob from '../pages/PublishJob/index.vue'
+
+const routes: Array<RouteRecordRaw> = [
     {
         path: "/",
         redirect: "/login"
     },
     {
-        path: "/login",
+        path: "/Login",
         component: Login
     },
     {
-        path: "/enroll",
+        path: "/Enroll",
         component: Enroll
     },
     {
-        path: "/home/",
+        path: "/Home/",
         component: Home,
-        redirect: "/home/person",
+        redirect: "/Home/Person",
         children: [
             {
-                name: "company",
-                path: "company/:companyName",
+                name: "Company",
+                path: "Company/:companyName",
                 component: HomeCompany
 
             },
             {
-                name: "person",
-                path: "person",
+                name: "Person",
+                path: "Person",
                 component: HomePerson
             }
         ]
     },
     {
-        path: "/publishpost",
-        component: PublishPost
+        path: "/PublishJob",
+        component: PublishJob
 
+    },
+    {
+        path: "/Setting/",
+        redirect: "/Setting/PersonInfo",
+        children: [
+            {
+                name: "PersonInfo",
+                path: "PersonInfo",
+                component: () => import("../pages/Setting/PersonInfo/index.vue")
+            },
+            {
+                name: "Authentication",
+                path: "Authentication",
+                component: () => import("../pages/Setting/Authentication/index.vue")
+            },
+            {
+                name: "Comprises",
+                path: "Comprises",
+                component: () => import("../pages/Setting/Comprises/index.vue")
+            },
+            {
+                name: "Other",
+                path: "Other",
+                component: () => import("../pages/Setting/Other/index.vue")
+            }
+        ]
     }
-
 ]
+
 const router = createRouter({
     history: createWebHashHistory(),
     routes
 })
+
 export default router
