@@ -1,6 +1,12 @@
 {
 	"pages": [
 		{
+			"path": "pages/yonghufankui/yonghufankui",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/shangchuanjianli/shangchuanjianli",
 			"style": {
 				"navigationStyle": "custom"
@@ -128,12 +134,6 @@
 		},
 		{
 			"path": "pages/yinsishezhi/yinsishezhi",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/yonghufankui/yonghufankui",
 			"style": {
 				"navigationStyle": "custom"
 			}
