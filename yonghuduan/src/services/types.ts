@@ -104,6 +104,12 @@ export interface HRInformation {
   avatar: string;
   /**
    *
+   * 创建时间
+   *
+   */
+  createdAt: string;
+  /**
+   *
    * HRID
    *
    * 增加可以留“”
@@ -127,6 +133,12 @@ export interface HRInformation {
    *
    */
   post: string;
+  /**
+   *
+   * 更新时间
+   *
+   */
+  updatedAt: string;
 }
 
 export interface AccountInformation {
@@ -145,6 +157,12 @@ export interface AccountInformation {
   accountType: "1" | "2";
   /**
    *
+   * 创建时间
+   *
+   */
+  createdAt: string;
+  /**
+   *
    * 信息ID
    *
    */
@@ -157,10 +175,10 @@ export interface AccountInformation {
   phoneNumber: string;
   /**
    *
-   * 验证码
+   * 更新时间
    *
    */
-  verificationCode: string;
+  updatedAt: string;
 }
 
 export type AreaInformations = {
@@ -192,6 +210,18 @@ export interface AttentionRecord {
    *
    */
   companyId: string;
+  /**
+   *
+   * 创建时间
+   *
+   */
+  createdAt: string;
+  /**
+   *
+   * 更新时间
+   *
+   */
+  updatedAt: string;
   /**
    *
    * 用户ID
@@ -253,6 +283,12 @@ export interface CompanyInformation {
    *
    */
   comprehension: string;
+  /**
+   *
+   * 创建时间
+   *
+   */
+  createdAt: string;
   /**
    *
    * 成立时间
@@ -321,9 +357,21 @@ export interface CompanyInformation {
    * {1:少于15人,2:15-50人,3:50-150人,4:150-500人,5:500-2000人,6:2000以上}
    */
   scale: "1" | "2" | "3" | "4" | "5" | "6";
+  /**
+   *
+   * 更新时间
+   *
+   */
+  updatedAt: string;
 }
 
 export interface DeliveryRecord {
+  /**
+   *
+   * 创建时间
+   *
+   */
+  createdAt: string;
   /**
    *
    * 投递记录ID
@@ -350,6 +398,12 @@ export interface DeliveryRecord {
    * {1:待查看,2:已查看,3:通过筛选,4:约面试,5:不合适}
    */
   state: "1" | "2" | "3" | "4" | "5";
+  /**
+   *
+   * 更新时间
+   *
+   */
+  updatedAt: string;
   /**
    *
    * 用户ID
@@ -388,6 +442,12 @@ export interface EducationExperience {
   araduationTime: string;
   /**
    *
+   * 创建时间
+   *
+   */
+  createdAt: string;
+  /**
+   *
    * 学历层次
    *
    * {1:大专,2:本科,3:硕士,4:博士}
@@ -412,6 +472,12 @@ export interface EducationExperience {
    *
    */
   schoolName: string;
+  /**
+   *
+   * 更新时间
+   *
+   */
+  updatedAt: string;
 }
 
 export interface ErrorInformation {
@@ -503,6 +569,12 @@ export interface FilterInformation {
 export interface GarnerRecord {
   /**
    *
+   * 创建时间
+   *
+   */
+  createdAt: string;
+  /**
+   *
    * 收藏记录ID
    *
    * 增加可以留“”
@@ -516,6 +588,12 @@ export interface GarnerRecord {
   jobInformationId: string;
   /**
    *
+   * 更新时间
+   *
+   */
+  updatedAt: string;
+  /**
+   *
    * 用户ID
    *
    */
@@ -523,6 +601,12 @@ export interface GarnerRecord {
 }
 
 export interface InspectionRecord {
+  /**
+   *
+   * 创建时间
+   *
+   */
+  createdAt: string;
   /**
    *
    * 从ID
@@ -542,6 +626,12 @@ export interface InspectionRecord {
    *
    */
   to: string;
+  /**
+   *
+   * 更新时间
+   *
+   */
+  updatedAt: string;
 }
 
 export interface JobExpectation {
@@ -558,6 +648,12 @@ export interface JobExpectation {
    *
    */
   city: string;
+  /**
+   *
+   * 创建时间
+   *
+   */
+  createdAt: string;
   /**
    *
    * 细分标签
@@ -585,6 +681,12 @@ export interface JobExpectation {
    * 单位K
    */
   startingSalary: number;
+  /**
+   *
+   * 更新时间
+   *
+   */
+  updatedAt: string;
 }
 
 export interface JobInformation {
@@ -601,6 +703,12 @@ export interface JobInformation {
    *
    */
   companyId: string;
+  /**
+   *
+   * 创建时间
+   *
+   */
+  createdAt: string;
   /**
    *
    * 所属部门
@@ -673,6 +781,12 @@ export interface JobInformation {
   startingSalary: number;
   /**
    *
+   * 更新时间
+   *
+   */
+  updatedAt: string;
+  /**
+   *
    * 工作地区
    *
    */
@@ -742,6 +856,12 @@ export interface MessageRecord {
   content: string;
   /**
    *
+   * 创建时间
+   *
+   */
+  createdAt: string;
+  /**
+   *
    * 来源用户ID
    *
    */
@@ -766,6 +886,12 @@ export interface MessageRecord {
    * {1:文字,2:图片,3:语音,4:文件}
    */
   type: "1" | "2" | "3" | "4";
+  /**
+   *
+   * 更新时间
+   *
+   */
+  updatedAt: string;
 }
 
 export interface ProjectExperience {
@@ -818,6 +944,18 @@ export interface ProjectExperience {
    *
    */
   workExperienceId: string;
+  /**
+   *
+   * 创建时间
+   *
+   */
+  createdAt?: string;
+  /**
+   *
+   * 更新时间
+   *
+   */
+  updatedAt?: string;
 }
 
 export interface UserInformation {
@@ -841,6 +979,12 @@ export interface UserInformation {
   city: string;
   /**
    *
+   * 创建时间
+   *
+   */
+  createdAt: string;
+  /**
+   *
    * 生日
    *
    */
@@ -858,6 +1002,7 @@ export interface UserInformation {
    *
    */
   email: string;
+  field4: string;
   /**
    *
    * 姓
@@ -916,6 +1061,12 @@ export interface UserInformation {
   socialHomepage: string;
   /**
    *
+   * 更新时间
+   *
+   */
+  updatedAt: string;
+  /**
+   *
    * 用户ID
    *
    * 增加可以留“”
@@ -950,6 +1101,12 @@ export interface WorkExperience {
   corporateName: string;
   /**
    *
+   * 创建时间
+   *
+   */
+  createdAt: string;
+  /**
+   *
    * 离职时间
    *
    */
@@ -973,6 +1130,12 @@ export interface WorkExperience {
    *
    */
   startTime: string;
+  /**
+   *
+   * 更新时间
+   *
+   */
+  updatedAt: string;
   /**
    *
    * 工作经历ID
