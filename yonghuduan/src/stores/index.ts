@@ -12,8 +12,9 @@ export const store = createStore<State>({
     state: () => ({
         systemInfo: uni.getSystemInfoSync(),
         /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-        menuButtonInfo: uni.getMenuButtonBoundingClientRect()
+        menuButtonInfo: uni.getMenuButtonBoundingClientRect(),
         /* #endif */
+
     }),
     modules: {
 

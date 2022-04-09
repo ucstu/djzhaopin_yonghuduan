@@ -118,7 +118,6 @@ const  nextClick = () => {
       startSchool: startSchool.value,
       endSchool: endSchool.value,
     }
-  console.log(educationInfo.schoolName);
   uni.setStorage({
     key: 'education',
     data: educationInfo,
@@ -129,6 +128,7 @@ const  nextClick = () => {
       console.log(error.errMsg);
     }
   })
+  uni.navigateTo({ url: '/pages/wanshangongzuojingli/wanshangongzuojingli' })
 }
 </script>
 

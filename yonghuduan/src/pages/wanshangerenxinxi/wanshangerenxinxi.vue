@@ -121,15 +121,12 @@ const nextClick = () => {
       console.log(error.errMsg);
     }
   })
-  uni.navigateTo({ url: '/pages/wanshanjiaoyujingli/wanshanjiaoyujingli' })
+  uni.navigateTo({ url: '@/pages/wanshanjiaoyujingli/wanshanjiaoyujingli' })
 }
 
 
 const choseCity = () => {
   uni.navigateTo({ url: '/pages/chengshixuanze/chengshixuanze' })
-}
-const view_2OnClick = () => {
-  uni.navigateTo({ url: '/pages/wanshanjiaoyujingli/wanshanjiaoyujingli' })
 }
 </script>
 
