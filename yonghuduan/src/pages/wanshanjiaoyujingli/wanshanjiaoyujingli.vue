@@ -1,34 +1,54 @@
 <template>
   <view class="flex-col page">
     <NavigationBar />
-    <text class="text">请完善教育经历（2/3）</text>
-    <view class="section_1 flex-col view">
-      <text class="text_1">学校名称</text>
-      <text class="text_3">{{ schoolName }}</text>
-    </view>
-    <view class="flex-col section_2">
-      <text class="text_5">学历</text>
-      <view class="justify-between group">
-        <text class="text_6">{{ education }}</text>
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716985504722.png"
-          class="image_1"
-        />
+    <view class="flex-col group-all">
+      <text class="self-info">请完善教育经历（2/3）</text>
+      <view class="group-self">
+        <text class="text">学校名称</text>
+        <input class="input" type="text" placeholder="请输入" v-model="schoolName" />
       </view>
-    </view>
-    <view class="section_1 flex-col view_1">
-      <text class="text_1">专业名称</text>
-      <text class="text_3">{{ subject }}</text>
-    </view>
-    <view class="flex-col section_3">
-      <text class="text_9">在校时间</text>
-      <view class="justify-between group_1">
-        <text>{{ startTime }}</text>
-        <text class="text_11">{{ overTime }}</text>
+      <view class="group-self">
+        <text class="text">学历</text>
+        <view class="flex-row justify-between items-center" @click="showEducation">
+          <input class="input" placeholder="请填写" v-model="education" />
+          <image class="image" src="@/static/icons/arrow-right.png" />
+        </view>
       </view>
+      <view class="group-self ">
+        <text class="text">专业名称</text>
+        <input class="input" type="text" placeholder="请输入" v-model="subject" />
+      </view>
+      <view class="group-self">
+        <text class="text">在校时间</text>
+        <view class="flex-row " @click="showSchool">
+          <view class="justify-center items-center schoolTime">
+            <text>{{startSchool}}</text>
+          </view>
+          <view class="justify-center items-center schoolTime">
+            <text>{{endSchool}}</text>
+          </view>
+        </view>
+      </view>
+      <wybPopup :showCloseIcon="true" :height="400" :radius="10" mode="size-auto" type="bottom" ref="popup">
+        <picker-view v-if="isShowEd" class="picker-view" @change="edChange">
+          <picker-view-column class="item">
+            <view v-for="(educate,i) in educationValue" :key="i">{{educate}}</view>
+          </picker-view-column>
+        </picker-view>
+        <picker-view v-if="isShowSchool" :value="value" class="picker-view" @change="schoolChange">
+          <picker-view-column class="item" >
+            <view style="font-weight: 600;" v-for="(start,i) in startYears" :key="i">{{start}}</view>
+          </picker-view-column>
+          <picker-view-column class="item">
+            <view style="font-weight: 600;" v-for="(end,i) in endYears" :key="i">{{end}}</view>
+          </picker-view-column>
+        </picker-view>
+      </wybPopup>
     </view>
-    <view @click="view_2OnClick" class="flex-col items-center button">
-      <text>下一步</text>
+    <view class="justify-center next-click">
+      <view class="justify-center items-center next-box" @click="nextClick">
+        <text>下一步</text>
+      </view>
     </view>
   </view>
 </template>
@@ -36,137 +56,146 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-const schoolName = ref('请填写')
-const subject = ref('请填写')
-const education = ref('请选择')
-const startTime = ref('开始时间')
-const overTime = ref('结束时间')
-const imageOnClick = () => {
-  // @ts-ignore
-  uni.navigateBack()
-}
-const view_2OnClick = () => {
-  uni.navigateTo({
-    url: '/pages/wanshangongzuojingli/wanshangongzuojingli',
-  })
+import wybPopup from '@/components/wyb-popup/wyb-popup.vue';
+
+const schoolName = ref('')
+const education = ref('')
+const subject = ref('')
+const startSchool = ref('入学时间')
+const endSchool = ref('毕业时间')
+const educationValue = ref([
+  '初中',
+  '高中',
+  '中专',
+  '大专',
+  '本科',
+  '硕士',
+  '博士',
+])
+const edChange = (e) => {
+  let val = e.detail.value
+  education.value = educationValue.value[val[0]]
+  console.log(education.value);
+
 }
 
+const date = new Date()
+const startYears = ref([])
+const endYears = ref([])
+let year = date.getFullYear()
+const value = ref([year-2, year])
+for (let i = 1970; i <= year; i++) {
+  startYears.value.push(i-2)
+  endYears.value.push(i)
+}
+
+const popup = ref()
+
+const isShowEd = ref(false)
+const isShowSchool = ref(false)
+const showEducation = () => {
+  isShowEd.value = true
+  isShowSchool.value = false
+  popup.value.show()
+}
+const showSchool = () => {
+  isShowEd.value = false
+  isShowSchool.value = true
+  popup.value.show()
+}
+
+const schoolChange = (e) => {
+  let val = e.detail.value
+  startSchool.value = startYears.value[val[0]]
+  endSchool.value = endYears.value[val[1]]
+}
+// 下一步
+const  nextClick = () => {
+  let educationInfo ={
+      schoolName: schoolName.value,
+      education: education.value,
+      subject: subject.value,
+      startSchool: startSchool.value,
+      endSchool: endSchool.value,
+    }
+  console.log(educationInfo.schoolName);
+  uni.setStorage({
+    key: 'education',
+    data: educationInfo,
+    success: (result) => {
+      console.log(result);
+    },
+    fail: (error) => {
+      console.log(error.errMsg);
+    }
+  })
+}
 </script>
 
 <style lang="scss" scoped>
 .page {
-  padding-bottom: 50rpx;
-  background-color: rgb(255, 255, 255);
-  width: 100%;
-  overflow-y: auto;
-  height: 100%;
-  .text {
-    margin-left: 32rpx;
-    margin-top: 49rpx;
-    color: rgb(0, 0, 0);
-    font-size: 35rpx;
-    line-height: 33rpx;
-    white-space: nowrap;
-  }
-  .section_1 {
-    padding: 23rpx 21rpx 24rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    border: solid 2rpx rgba(210, 210, 210, 0.5);
-    .text_1 {
-      color: rgba(0, 0, 0, 0.5);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-    .text_3 {
-      margin-top: 26rpx;
-      color: rgba(0, 0, 0, 0.25);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      letter-spacing: 5rpx;
-      white-space: nowrap;
-    }
-  }
-  .view {
-    margin: 44rpx 20rpx 0;
-  }
-  .section_2 {
-    margin: 18rpx 20rpx 0;
-    padding: 23rpx 0 21rpx 21rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    border: solid 2rpx rgba(210, 210, 210, 0.5);
-    .text_5 {
-      color: rgba(0, 0, 0, 0.5);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-    .group {
-      margin-top: 26rpx;
-      color: rgba(0, 0, 0, 0.25);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      letter-spacing: 5rpx;
-      white-space: nowrap;
-      .text_6 {
-        margin-bottom: 3rpx;
-      }
-      .image_1 {
-        margin-right: 16rpx;
-        width: 15rpx;
-        height: 24rpx;
-      }
-    }
-  }
-  .view_1 {
-    margin: 18rpx 20rpx 0;
-  }
-  .section_3 {
-    margin: 18rpx 20rpx 0;
-    padding: 23rpx 0 24rpx 21rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    border: solid 2rpx rgba(210, 210, 210, 0.5);
-    .text_9 {
-      color: rgba(0, 0, 0, 0.5);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-    .group_1 {
-      margin-top: 26rpx;
-      padding: 0 100rpx;
-      color: rgba(0, 0, 0, 0.25);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      letter-spacing: 5rpx;
-      white-space: nowrap;
-      .text_11 {
-        margin-right: 11rpx;
-      }
-    }
-  }
-  .button {
-    margin-top: 404rpx;
-    padding: 25rpx 0 29rpx;
-    align-self: center;
-    color: rgb(255, 255, 255);
-    font-size: 30rpx;
-    line-height: 28rpx;
-    white-space: nowrap;
+  .active {
     background-color: rgb(35, 193, 158);
-    border-radius: 15rpx;
-    overflow: hidden;
-    width: 550rpx;
+  }
+  .group-all {
+    width: 710rpx;
+    margin-left: 20rpx;
+    .self-info {
+      font-size: 30rpx;
+      font-weight: 600;
+    }
+    .group-self {
+      height: 120rpx;
+      margin-top: 20rpx;
+      line-height: 60rpx;
+      border: 2rpx solid rgb(230, 230, 230);
+      .text {
+        font-size: 30rpx;
+        padding-left: 20rpx;
+      }
+      .sex {
+        font-size: 25rpx;
+        margin-right: 15rpx;
+        border: 2rpx solid rgb(230, 230, 230);
+        padding: 3rpx 40rpx;
+      }
+      .schoolTime {
+        width: 50%;
+        font-size: 25rpx;
+      }
+    }
+  }
+  .picker-view {
+    width: 750rpx;
+    height: 400rpx;
+    margin-top: 20rpx;
+    .item {
+      height: 300rpx;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 30rpx;
+      color: black;
+    }
+  }
+  .next-click {
+    width: 100%;
     height: 80rpx;
+    position: fixed;
+    bottom: 40rpx;
+    .next-box {
+      width: 70%;
+      background-color: rgb(35, 193, 158);
+      font-size: 30rpx;
+    }
+  }
+  .image {
+    width: 35rpx;
+    height: 35rpx;
+  }
+  .input {
+    margin-left: 20rpx;
+    font-size: 27rpx;
   }
 }
 </style>

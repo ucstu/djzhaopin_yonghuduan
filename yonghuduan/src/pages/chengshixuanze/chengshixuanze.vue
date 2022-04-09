@@ -4,23 +4,16 @@
     <view class="flex-row">
       <scroll-view class="group-left" :scroll-y="true" @scroll="scroll">
         <view class="flex-col province-name">
-          <view
-            class="justify-center province"
-            :class="provinceIndexOf === i ? 'active' : ''"
-            v-for="(province, i) in provinces"
-            @click="provinceIndex(i)"
-            :key="i"
-          >{{ province.provinceName }}</view>
+          <view class="justify-center province" :class="provinceIndexOf === i ? 'active' : ''"
+            v-for="(province, i) in provinces" @click="provinceIndex(i)" :key="i">{{ province.provinceName }}</view>
         </view>
       </scroll-view>
       <view class="group-right">
         <text class="hot-cities" v-if="provinceIndexOf === 0">热门城市</text>
         <view class="flex-row cities">
-          <view
-            class="justify-center items-center city"
-            v-for="(city, i) in cities"
-            :key="i"
-          >{{ city }}</view>
+          <view class="justify-center items-center city" @click="cityIndex(i)" v-for="(city, i) in cities" :key="i">{{
+            city
+          }}</view>
         </view>
       </view>
     </view>
@@ -35,7 +28,7 @@ import { getCityinfos } from '@/services/services';
 const provinces = reactive([
   {
     provinceName: '常用',
-    citys: [
+    cities: [
       '北京',
       '上海',
       '广州',
@@ -51,16 +44,22 @@ const provinces = reactive([
     ]
   },
 ])
-const cities = computed(() => provinces[provinceIndexOf.value].citys)
 getCityinfos().then(res => {
   provinces.push(...res.data)
 })
+const cities = computed(() => provinces[provinceIndexOf.value].cities)
 
 const provinceIndexOf = ref(0)
 const provinceIndex = (index) => {
   provinceIndexOf.value = index
   console.log(cities);
 
+}
+
+const cityIndex = (index) => {
+  let city = cities.value[index]
+  console.log(city);
+  uni.navigateBack()
 }
 
 const imageOnClick = () => {

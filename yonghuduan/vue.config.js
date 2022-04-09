@@ -5,5 +5,6 @@ module.exports = {
                 additionalData: `@import "~@/uni.scss";`
             }
         }
-    }
+    },
+    transpileDependencies: ['@dcloudio/uni-ui']
 }
