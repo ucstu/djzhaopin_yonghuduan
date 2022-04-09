@@ -3,12 +3,24 @@
         <div class="left">
             <span>We</span>
             <span class="red">❤</span>
-            <span>You</span>
+            <span>{{ store.state.companyInfo.fullName || "You" }}</span>
         </div>
         <div class="right">
-            <img src="../assets/pub.png" alt="">
-            <img :src="avatar" alt="网络异常">
-            <span>{{ name }}</span>
+            <router-link to="/PublishJob">
+                <img src="../assets/pub.png">
+            </router-link>
+            <img :src="avatar">
+            <div class="dropdown">
+                <span class="user">{{ name || "HR" }}</span>
+                <ul class="dropdown-content">
+                    <li>
+                        <a href="#">账号设置</a>
+                    </li>
+                    <li>
+                        <a href="#">退出</a>
+                    </li>
+                </ul>
+            </div>
         </div>   </div>
 </template>
 
@@ -20,7 +32,6 @@ const store = useStore(key)
 const { name, avatar } = store.state.hrInfo
 onMounted(() => {
     console.log(store.state);
-
 })
 </script>
 
@@ -55,6 +66,59 @@ onMounted(() => {
             height: 30px;
             border-radius: 50%;
             margin: auto 10px auto 20px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 85px;
+            cursor: pointer;
+
+            .user {
+                padding-left: 30px;
+            }
+
+            a {
+                text-decoration: none;
+
+                color: rgb(255, 255, 255);
+            }
+
+            a:hover {
+                color: rgb(176, 163, 192);
+            }
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            width: 60px;
+            top: 30px;
+            left: -6px;
+            font-size: 14px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            padding: 12px 16px;
+            border-radius: 0;
+            height: 55px;
+            list-style: none;
+
+            :nth-child(1) {
+                text-align: center;
+                width: 60px;
+                margin-top: 1px;
+            }
+
+            :nth-child(2) {
+                margin-top: 15px;
+                text-align: center;
+                position: absolute;
+                left: 10px;
+            }
+        }
+
+        .dropdown:hover .dropdown-content {
+            background-color: rgb(51, 51, 51);
+            display: block;
         }
 
         span {

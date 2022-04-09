@@ -2,8 +2,8 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Home from '../pages/Home/index.vue'
 import Login from "../pages/Login/index.vue"
 import Enroll from '../pages/Enroll/index.vue'
-import HomePerson from '../pages/Home/person.vue'
-import HomeCompany from '../pages/Home/company.vue'
+import HomePerson from '../pages/Home/Person.vue'
+import HomeCompany from '../pages/Home/Company.vue'
 import PublishJob from '../pages/PublishJob/index.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -45,6 +45,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: "/Setting/",
         redirect: "/Setting/PersonInfo",
+        component: () => import("../components/Setting.vue"),
         children: [
             {
                 name: "PersonInfo",
@@ -57,6 +58,11 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import("../pages/Setting/Authentication/index.vue")
             },
             {
+                name: "Execution",
+                path: "Execution",
+                component: () => import("../pages/Setting/Authentication/Execution.vue")
+            },
+            {
                 name: "Comprises",
                 path: "Comprises",
                 component: () => import("../pages/Setting/Comprises/index.vue")
@@ -67,6 +73,10 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import("../pages/Setting/Other/index.vue")
             }
         ]
+    },
+    {
+        path: "/System/",
+        component: () => import("../components/System.vue"),
     }
 ]
 

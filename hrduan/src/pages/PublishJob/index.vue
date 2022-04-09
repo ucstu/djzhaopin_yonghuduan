@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import Tag from '@/pages/Home/tag.vue'
+import Tag from '@/pages/Home/Tag.vue'
 </script>
 
 <style lang="scss" scoped>

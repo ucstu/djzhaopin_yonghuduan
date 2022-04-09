@@ -25,7 +25,6 @@ import { ElMessage } from 'element-plus'
 import { ref } from 'vue'
 import type { ElCheckTag } from 'element-plus'
 const dynamicTags = ref([{ id: 1, label: 'Tag 1', checked: false }, { id: 2, label: 'Tag 2', checked: false }, { id: 3, label: 'Tag 3', checked: false }])
-const buttomTags = ref([])
 const checkTagRef = ref<InstanceType<typeof ElCheckTag>>()
 const onChange = (index: number) => {
     let tag = false
