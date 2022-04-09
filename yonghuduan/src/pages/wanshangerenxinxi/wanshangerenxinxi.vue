@@ -105,15 +105,17 @@ const nextClick = () => {
   } else if (isActiveMo.value === true) {
     sex.value = sexMo.value
   }
-  let information = {
-    userName: inputName,
-    birthday: birthday,
-    sex: sex,
-    email: emailValue
+  let userInfo = {
+    userName: inputName.value,
+    birthday: birthday.value,
+    sex: sex.value,
+    email: emailValue.value
   }
+  console.log(userInfo);
+
   uni.setStorage({
-    key: 'key',
-    data: information,
+    key: 'userInfo',
+    data: userInfo,
     success: (result) => {
       console.log(result);
     },
@@ -121,7 +123,7 @@ const nextClick = () => {
       console.log(error.errMsg);
     }
   })
-  uni.navigateTo({ url: '@/pages/wanshanjiaoyujingli/wanshanjiaoyujingli' })
+  uni.navigateTo({ url: '/pages/wanshanjiaoyujingli/wanshanjiaoyujingli' })
 }
 
 

@@ -1,55 +1,75 @@
 <template>
-  <view class="flex-row page">
+  <view class="flex-col page">
     <NavigationBar class="header" title="个人信息" />
-    <view class="justify-between group_1">
-      <view class="flex-col group_2">
-        <text class="text_1">头像</text>
-        <text class="text_2">上传真实头像投递成功几率更大哦~</text>
+    <view class="flex-col justify-center group-all">
+      <view class="justify-between group-box">
+          <text class="portrait">头像</text>
+          <image
+          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303732403472501.png"
+          class="photo"
+          />
       </view>
-      <image
-        src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303732403472501.png"
-        class="image_1"
-      />
-    </view>
-    <view class="flex-col section_1">
-      <text class="text_3">姓名</text>
-      <text class="text_4">{{ userName }}</text>
-    </view>
-    <view class="flex-col section_2">
-      <text class="text_5">出生日期</text>
-      <text class="text_6">{{ birthday }}</text>
-    </view>
-    <view class="justify-between section_3">
-      <text class="text_7">性别</text>
-      <view class="flex-row group_3">
-        <view class="flex-col items-center text-wrapper">
-          <text>男</text>
+      <view class="flex-col group-box">
+        <text class="caption">姓名</text>
+        <input class="userValue" v-model="userName"/>
+      </view>
+      <view class="flex-col group-box">
+        <text class="caption">出生日期</text>
+        <input class="userValue" v-model="birthday" @click="showDate"/>
+      </view>
+      <view class="justify-between items-center group-box">
+        <text class="caption">性别</text>
+        <view class="flex-row sex-box">
+          <view
+          class="flex-col items-center sex-wrapper"
+          :class="isActiveMan ? 'active' : ''"
+          @click="isActiveMan = !isActiveMan;isActiveWo =!isActiveWo">
+            <text >男</text>
+          </view>
+          <view
+          class="flex-col items-center sex-wrapper"
+          :class="isActiveWo ? 'active' : ''"
+          @click="isActiveWo =!isActiveWo;isActiveMan = !isActiveMan">
+            <text >女</text>
+          </view>
         </view>
-        <view class="flex-col items-center text-wrapper_1">
-          <text>女</text>
+      </view>
+      <view class="flex-col group-box">
+        <text class="caption">所在城市</text>
+        <view class="justify-between group_4">
+          <text class="userValue">{{ city }}</text>
+          <image
+            src="@/static/icons/arrow-right.png"
+            class="image"
+          />
         </view>
       </view>
-    </view>
-    <view class="flex-col section_4">
-      <text class="text_10">所在城市</text>
-      <view class="justify-between group_4">
-        <text>{{ city }}</text>
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716985504722.png"
-          class="image_2"
-        />
+      <view class="flex-col group-box">
+        <text class="caption">手机号码</text>
+        <input class="userValue" v-model="phoneNumber"/>
       </view>
-    </view>
-    <view class="flex-col section_5">
-      <text class="text_12">手机号码</text>
-      <text class="text_13">{{ pgoneNumber }}</text>
-    </view>
-    <view class="flex-col section_6">
-      <text class="text_14">邮箱</text>
-      <text class="text_15">{{ email }}</text>
-    </view>
-    <view class="flex-col items-center button">
-      <text>保存</text>
+      <view class="flex-col group-box">
+        <text class="caption">邮箱</text>
+        <input class="userValue" v-model="email"/>
+      </view>
+      <view class="justify-center button-box">
+        <view class="flex-col justify-center items-center button" @click="saveInfos">
+          <text>保存</text>
+        </view>
+      </view>
+      <wybPopup :showCloseIcon="true" :height="400" :radius="10" mode="size-auto" type="bottom" ref="popup">
+        <picker-view :value="value" @change="bindChange" class="picker-view">
+          <picker-view-column>
+            <view class="item" v-for="(item, index) in years" :key="index">{{ item }}年</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view class="item" v-for="(item, index) in months" :key="index">{{ item }}月</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view class="item" v-for="(item, index) in days" :key="index">{{ item }}日</view>
+          </picker-view-column>
+        </picker-view>
+      </wybPopup>
     </view>
   </view>
 </template>
@@ -57,260 +77,151 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+import wybPopup from '@/components/wyb-popup/wyb-popup.vue';
 
-const userName = ref('张三')
-const birthday = ref('1999.05.08')
-const pgoneNumber = ref('123*****789')
-const email = ref('1*******9@qq.com')
+const userInfos = uni.getStorageSync('userInfo')
+const userPhone = uni.getStorageSync('tel')
+
+const userName = ref('')     //userInfos.userName
+const phoneNumber = ref('')  //userPhone
+const email = ref('')        //userInfos.email
+let birthday = ref('')
 const city = ref('重庆')
-const imageOnClick = () => {
-  // @ts-ignore
-  uni.navigateBack()
+const sexMan = ref('男')
+const sexWo = ref('女')
+const sex = ref('')
+
+userName.value = userInfos.userName
+phoneNumber.value = userPhone
+email.value = userInfos.email
+sex.value = userInfos.sex
+const isActiveMan = ref(false)
+const isActiveWo = ref(false)
+
+if(sex.value === sexMan.value){
+  isActiveMan.value = true
+}else if(sex.value === sexWo.value){
+  isActiveWo.value = true
+}
+
+// 选择出生日期
+const date = new Date()
+const years = ref([])
+let year = date.getFullYear()
+const months = ref([])
+let month = date.getMonth() + 1
+const days = ref([])
+let day = date.getDate()
+birthday.value = userInfos.birthday
+const popup = ref()
+const showDate = () => {
+  popup.value.show()
+}
+for (let i = 1970; i <= date.getFullYear(); i++) {
+  years.value.push(i)
+}
+for (let i = 1; i <= 12; i++) {
+  months.value.push(i)
+}
+for (let i = 1; i <= 31; i++) {
+  days.value.push(i)
+}
+const value = ref([9999, month - 1, day - 1])
+const bindChange = (e) => {
+  let val = e.detail.value
+  year = years.value[val[0]]
+  month = months.value[val[1]]
+  day = days.value[val[2]]
+  birthday.value = year + '-' + month + '-' + day
+}
+
+// 本地存储用户基本信息
+const saveInfos = () => {
+  if(isActiveMan.value === true){
+    sex.value = sexMan.value
+  }else if(isActiveWo.value === true){
+    sex.value = sexWo.value
+  }
+  let userInfos = {
+    userName: userName.value,
+    birthday: birthday.value,
+    sex: sex.value,
+    email: email.value
+  }
+  uni.setStorageSync('userInfo', userInfos)
+  uni.setStorageSync('tel', phoneNumber.value)
 }
 </script>
 
 <style lang="scss" scoped>
 .page {
-  padding-bottom: 50rpx;
-  background-color: rgb(255, 255, 255);
-  height: 1334rpx;
   width: 100%;
+  height: auto;
   overflow-y: auto;
-  position: relative;
-  .header {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-  }
-  .group_1 {
-    padding-left: 22rpx;
-    padding-right: 20rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    top: 133rpx;
-    .group_2 {
-      align-self: center;
-      .text_1 {
-        color: rgb(0, 0, 0);
-        font-size: 30rpx;
-        line-height: 28rpx;
-        white-space: nowrap;
-      }
-      .text_2 {
-        margin-top: 33rpx;
-        color: rgb(248, 193, 103);
-        font-size: 25rpx;
-        line-height: 23rpx;
-        white-space: nowrap;
-      }
-    }
-    .image_1 {
-      border-radius: 60rpx;
-      width: 120rpx;
-      height: 120rpx;
-    }
-  }
-  .section_1 {
-    padding: 25rpx 21rpx 22rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    top: 275rpx;
-    border: solid 2rpx rgba(210, 210, 210, 0.5);
-    .text_3 {
-      color: rgba(0, 0, 0, 0.5);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      letter-spacing: 5rpx;
-      white-space: nowrap;
-    }
-    .text_4 {
-      margin-top: 26rpx;
-      color: rgb(0, 0, 0);
-      font-size: 30rpx;
-      line-height: 27rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-  }
-  .section_2 {
-    padding: 25rpx 23rpx 25rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    top: 420rpx;
-    border: solid 2rpx rgba(210, 210, 210, 0.5);
-    .text_5 {
-      color: rgba(0, 0, 0, 0.5);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      letter-spacing: 5rpx;
-      white-space: nowrap;
-    }
-    .text_6 {
-      margin-top: 29rpx;
-      color: rgb(0, 0, 0);
-      font-size: 30rpx;
-      line-height: 22rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-  }
-  .section_3 {
-    padding: 43rpx 21rpx 28rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    top: 565rpx;
-    border: solid 2rpx rgba(210, 210, 210, 0.5);
-    .text_7 {
-      margin-top: 7rpx;
-      color: rgba(0, 0, 0, 0.5);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      letter-spacing: 5rpx;
-      white-space: nowrap;
-    }
-    .group_3 {
-      margin-right: 15rpx;
-      .text-wrapper {
-        padding: 11rpx 0 11rpx;
-        color: rgb(6, 192, 150);
-        font-size: 30rpx;
-        line-height: 26rpx;
-        letter-spacing: 6rpx;
-        white-space: nowrap;
-        background-color: rgba(35, 193, 158, 0.22);
-        border-radius: 5rpx;
-        width: 150rpx;
-        height: 50rpx;
-        border: solid 2rpx rgb(35, 193, 158);
-      }
-      .text-wrapper_1 {
-        margin-left: 18rpx;
-        padding: 12rpx 0 12rpx;
-        color: rgb(0, 0, 0);
-        font-size: 25rpx;
-        line-height: 23rpx;
-        letter-spacing: 5rpx;
-        white-space: nowrap;
-        border-radius: 5rpx;
-        width: 150rpx;
-        height: 50rpx;
-        border: solid 2rpx rgba(163, 154, 154, 0.5);
-      }
-    }
-  }
-  .section_4 {
-    padding: 25rpx 0 21rpx 21rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    bottom: 499rpx;
-    border: solid 2rpx rgba(210, 210, 210, 0.5);
-    .text_10 {
-      color: rgba(0, 0, 0, 0.5);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      letter-spacing: 5rpx;
-      white-space: nowrap;
-    }
-    .group_4 {
-      margin-top: 26rpx;
-      color: rgb(0, 0, 0);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-      .image_2 {
-        margin-right: 16rpx;
-        margin-top: 3rpx;
-        width: 15rpx;
-        height: 24rpx;
-      }
-    }
-  }
-  .section_5 {
-    padding: 25rpx 21rpx 25rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    bottom: 354rpx;
-    border: solid 2rpx rgba(210, 210, 210, 0.5);
-    .text_12 {
-      color: rgba(0, 0, 0, 0.5);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      letter-spacing: 5rpx;
-      white-space: nowrap;
-    }
-    .text_13 {
-      margin-top: 31rpx;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 18rpx;
-      letter-spacing: 5rpx;
-      white-space: nowrap;
-    }
-  }
-  .section_6 {
-    padding: 25rpx 22rpx 17rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    bottom: 209rpx;
-    border: solid 2rpx rgba(210, 210, 210, 0.5);
-    .text_14 {
-      color: rgba(0, 0, 0, 0.5);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      letter-spacing: 5rpx;
-      white-space: nowrap;
-    }
-    .text_15 {
-      margin-top: 29rpx;
-      color: rgb(0, 0, 0);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-  }
-  .button {
-    padding: 25rpx 0 29rpx;
-    color: rgb(255, 255, 255);
-    font-size: 30rpx;
-    line-height: 28rpx;
-    white-space: nowrap;
+  .active {
     background-color: rgb(35, 193, 158);
-    border-radius: 15rpx;
-    overflow: hidden;
-    width: 550rpx;
-    height: 80rpx;
-    position: absolute;
-    bottom: 50rpx;
-    left: 50%;
-    transform: translateX(-50%);
+  }
+  .group-all {
+    .group-box {
+      width: 710rpx;
+      margin-left: 20rpx;
+      margin-top: 20rpx;
+      height: 120rpx;
+      border: 2rpx solid rgba(210, 210, 210, 0.50);
+      line-height: 60rpx;
+      .portrait {
+        padding-left: 20rpx;
+        font-size: 30rpx;
+      }
+      .caption {
+        padding-left: 20rpx;
+        font-size: 25rpx;
+      }
+      .userValue {
+        padding-left: 20rpx;
+        font-size: 30rpx;
+      }
+      .sex-box {
+        width: auto;
+        height: auto;
+        .sex-wrapper {
+          font-size: 30rpx;
+          padding: 3rpx 35rpx;
+          margin-right: 25rpx;
+          border: 2rpx solid rgba(210, 210, 210, 0.50);
+        }
+      }
+    }
+    .button-box {
+      width: 100%;
+      .button {
+        position: fixed;
+        bottom: 50rpx;
+        width: 500rpx;
+        height: 80rpx;
+        background-color: rgb(35, 193, 158);
+      }
+    }
+  }
+  .image {
+    width: 35rpx;
+    height: 35rpx;
+  }
+  .photo {
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 100%;
+  }
+  .picker-view {
+    width: 750rpx;
+    height: 400rpx;
+    margin-top: 20rpx;
+    .item {
+      height: 300rpx;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
   }
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <view class="flex-col page">
     <view class="group-top">
-      <view class="flex-row userInfos">
+      <view class="flex-row userInfos" @click="toSelfInfo">
         <image class="avatar" :src="userInfos.avatar" />
         <view class="flex-col userInfo">
-          <text class="name">{{ fullName }}</text>
+          <text class="name">{{ userInfo.userName }}</text>
           <text class="age-educate">{{ userInfos.age }}/{{ userInfos.education }}</text>
         </view>
       </view>
@@ -77,6 +77,10 @@ getUserinfosUserinfoid().then(res => {
   userInfos.value = res.data
 })
 
+const userInfo = uni.getStorageSync('userInfo')
+console.log(userInfo);
+
+
 const fullName = computed(() => {
   return userInfos.value.firstName + userInfos.value.lastName
 })
@@ -86,7 +90,7 @@ const sendSum = ref('0')
 const collectSum = ref('0')
 const attendSum = ref('0')
 const interSum = ref('0')
-const view_15OnClick = () => {
+const toSelfInfo = () => {
   uni.navigateTo({ url: '/pages/bianjijianli/bianjijianli' })
 }
 const onClick_1 = () => {
