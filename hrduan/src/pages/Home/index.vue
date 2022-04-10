@@ -6,7 +6,7 @@
                 <span class="user">{{ store.state.hrInfo.name || 'HR' }}</span>
                 <ul class="dropdown-content">
                     <li>
-                        <a href="#">账号设置</a>
+                        <router-link to="/Setting/PersonInfo">账号设置</router-link>
                     </li>
                     <li>
                         <a href="#">退出</a>

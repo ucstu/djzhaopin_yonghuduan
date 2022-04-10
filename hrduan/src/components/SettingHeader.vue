@@ -11,7 +11,9 @@
             </router-link>
             <img :src="avatar">
             <div class="dropdown">
-                <span class="user">{{ name || "HR" }}</span>
+                <div class="user">
+                    <span>{{ name || "HR" }}</span>
+                </div>
                 <ul class="dropdown-content">
                     <li>
                         <a href="#">账号设置</a>
@@ -30,9 +32,6 @@ import { useStore } from 'vuex'
 import { onMounted } from 'vue';
 const store = useStore(key)
 const { name, avatar } = store.state.hrInfo
-onMounted(() => {
-    console.log(store.state);
-})
 </script>
 
 <style scoped lang="scss">.top {
@@ -75,7 +74,14 @@ onMounted(() => {
             cursor: pointer;
 
             .user {
-                padding-left: 30px;
+                text-align: center;
+                padding-left: 18px;
+
+                span {
+                    display: block;
+                    width: 60px;
+                    height: 60px;
+                }
             }
 
             a {
@@ -101,6 +107,7 @@ onMounted(() => {
             border-radius: 0;
             height: 55px;
             list-style: none;
+            transform: matrix();
 
             :nth-child(1) {
                 text-align: center;

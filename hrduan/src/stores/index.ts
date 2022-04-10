@@ -9,7 +9,8 @@ export interface State {
     token: String,
     accountInfo: AccountInformation,
     hrInfo: HRInformation,
-    companyInfo: CompanyInformation
+    companyInfo: CompanyInformation,
+    comprise: Array<String>
 }
 
 export const key: InjectionKey<Store<State>> = Symbol()
@@ -19,9 +20,11 @@ export const store = createStore<State>({
         token: '',
         accountInfo: {} as AccountInformation,
         hrInfo: {} as HRInformation,
-        companyInfo: {} as CompanyInformation
+        companyInfo: {} as CompanyInformation,
+        comprise: []
     }),
     mutations: {
+        setPrise(state: State, payload: State['comprise']) { state.comprise = payload },
         setToken(state: State, token: State['token']) {
             state.token = token
         },

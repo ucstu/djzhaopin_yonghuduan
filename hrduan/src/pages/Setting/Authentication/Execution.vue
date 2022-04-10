@@ -93,6 +93,8 @@ const companyForm = reactive<CompanyInformation>({
     recruitmentPosition: 5,
     scale: '1',
     registeredCapital: '',
+    createdAt: '',
+    updatedAt: '',
 })
 onMounted(() => {
     personForm.name = store.state.hrInfo.name
@@ -102,18 +104,18 @@ onMounted(() => {
     companyForm.registeredCapital = store.state.companyInfo.registeredCapital
     companyForm.organizatioType = store.state.companyInfo.organizatioType
 })
-const confirmPerson = (formEl: FormInstance | undefined) => {
-    if (!formEl) return
-    formEl.validate(
-        async (valid, fields) => {
-            if (valid) {
-                const res = await putHrinfosHrinfoid(store.state.accountInfo.infoId, personForm)
-                store.commit('setHrInfo', res.data)
-            } else {
-                ElMessage.error('请填写完整信息')
-            }
-        })
-}
+// const confirmPerson = (formEl: FormInstance | undefined) => {
+//     if (!formEl) return
+//     formEl.validate(
+//         async (valid, fields) => {
+//             if (valid) {
+//                 const res = await putHrinfosHrinfoid(store.state.accountInfo.infoId, personForm)
+//                 store.commit('setHrInfo', res.data)
+//             } else {
+//                 ElMessage.error('请填写完整信息')
+//             }
+//         })
+// }
 const confirmCompany = (formEl: FormInstance | undefined) => {
     console.log(formEl);
     if (!formEl) return

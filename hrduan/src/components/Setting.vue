@@ -35,9 +35,6 @@
 </template>
 
 <script setup lang="ts">
-import settingheaderVue from './SettingHeader.vue';
-import { nextTick, ref, provide } from 'vue';
-
 </script>
 
 <style scoped lang="scss">.outer {
@@ -46,7 +43,7 @@ import { nextTick, ref, provide } from 'vue';
 
     .sidebar {
         flex: 0 0 300px;
-        height: 100vh;
+        height: 95vh;
         background: #fff9f9;
         align-items: center;
         position: relative;

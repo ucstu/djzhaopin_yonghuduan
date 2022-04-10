@@ -10,11 +10,17 @@
             @blur="handleInputConfirm"
         />
         <el-button v-else class="button-new-tag ml-1" size="small" @click="showInput">+ New Tag</el-button>-->
-        <div v-for="(item, index) in dynamicTags" :key="item.label">
-            <el-check-tag :checked="item.checked" @click="onChange(index)" ref="checkTagRef">{{ item.label }}
-            </el-check-tag>
+        <span>{{ fieldName }}</span>
+        <div v-for="item in directions" :key="item.directionName">
+            <div class="tag-list">
+                <div>{{ item.directionName }}</div>
+                <div v-for="(position) in item.postitions" :key="position.id" class="tag-item">
+                    <el-check-tag :checked="position.checked" @click="onChange(position.id)" ref="checkTagRef">
+                        {{ position.label }}
+                    </el-check-tag>
+                </div>
+            </div>
         </div>
-        <div v-for="item in dynamicTags">{{ item }}</div>
         <div v-for="tag, index in dynamicTags" :key="tag.id">
             <el-tag v-if="tag.checked" class="mx-1" closable :disable-transitions="false" effect="plain" type="info"
                 @close="handleClose(index)">{{ tag.label }}</el-tag>
@@ -22,34 +28,93 @@
 </template>
 <script lang="ts" setup>
 import { ElMessage } from 'element-plus'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import type { ElCheckTag } from 'element-plus'
-const dynamicTags = ref([{ id: 1, label: 'Tag 1', checked: false }, { id: 2, label: 'Tag 2', checked: false }, { id: 3, label: 'Tag 3', checked: false }])
+import { getPositiontypes } from '@/services/services';
+import { nanoid } from 'nanoid'
+interface Tag {
+    id: string
+    label: string
+    checked: boolean
+}
+const fieldName = ref()
+const dynamicTags = ref<Tag[]>([{ id: "1", label: 'Tag 1', checked: false }, { id: "2", label: 'Tag 2', checked: false }, { id: "3", label: 'Tag 3', checked: false }])
 const checkTagRef = ref<InstanceType<typeof ElCheckTag>>()
-const onChange = (index: number) => {
-    let tag = false
-    let idx
-    console.log(dynamicTags.value);
-    dynamicTags.value.every((item, key) => {
-
-        if (item.checked) {
-            tag = true
-            idx = key
-        }
-        return true
-    })
-    console.log(tag);
-    if (tag) {
-        if (idx === index) {
-            dynamicTags.value[index].checked = false
+const directions = ref([{ directionName: '', postitions: [] }])
+onMounted(() => {
+    getPositiontypes().then(res => {
+        console.log(res);
+        if (res.status === 200) {
+            fieldName.value = res.data[0].fieldName
+            directions.value = res.data[0].directions.map((item) => {
+                return {
+                    directionName: item.directionName,
+                    postitions: item.postitions.map((item: Object) => {
+                        return {
+                            id: nanoid(),
+                            label: item,
+                            checked: false
+                        }
+                    })
+                }
+            })
+            console.log(directions.value);
+            dynamicTags.value = directions.value.reduce((prev, cur) => {
+                return prev.concat(cur.postitions)
+            }, [])
         } else {
-            ElMessage.warning('对不起，不能选择多个标签')
+            ElMessage.error('请检查网络')
         }
-    } else {
-        console.log(1111);
+    })
+})
+const onChange = (id: string) => {
 
-        dynamicTags.value[index].checked = true
+    const tag = dynamicTags.value.find((item) => item.id === id)
+    if (tag) {
+        tag.checked = !tag.checked
     }
+    let checkedTags = false
+    dynamicTags.value.every((item) => {
+        if (item.checked) {
+            checkedTags = true
+            if (checkedTags) {
+                if (id === item.id) {
+                    item.checked = !item.checked
+                } else {
+                    ElMessage.warning('对不起，不能选择多个标签')
+                }
+            }
+            return true
+        } else {
+            return false
+        }
+    })
+
+}
+// const onChange = (index: number) => {
+//     let tag = false
+//     let idx
+//     dynamicTags.value.every((item, key) => {
+
+//         if (item.checked) {
+//             tag = true
+//             idx = key
+//         }
+//         return true
+//     })
+//     if (tag) {
+//         if (idx === index) {
+//             dynamicTags.value[index].checked = false
+//         } else {
+//             ElMessage.warning('对不起，不能选择多个标签')
+//         }
+//     } else {
+//         dynamicTags.value[index].checked = true
+//     }
+// }
+
+const handleClose = (index: number) => {
+    dynamicTags.value[index].checked = !dynamicTags.value[index].checked
 }
 // const selectedList = ref(dynamicTags.value.filter((v) => v.checked));
 // const onChange = (v: any) => {
@@ -63,9 +128,6 @@ const onChange = (index: number) => {
 //     }
 //     console.log(v);
 // };
-const handleClose = (index: number) => {
-    dynamicTags.value[index].checked = !dynamicTags.value[index].checked
-}
 // const showTag = (item: any) => {
 //     console.log(buttomTags.value.length);
 //     if (buttomTags.value.length >= 1) {
@@ -83,7 +145,6 @@ const handleClose = (index: number) => {
 //         InputRef.value!.input!.focus()
 //     })
 // }
-
 // const handleInputConfirm = () => {
 //     if (inputValue.value) {
 //         console.log(inputValue);
@@ -102,5 +163,15 @@ const handleClose = (index: number) => {
     width: 80%;
     margin: 0 auto;
     background-color: rgb(255, 255, 255);
+
+    .tag-list {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
+
+        .tag-item {
+            margin-right: 10px;
+        }
+    }
 }
 </style>
