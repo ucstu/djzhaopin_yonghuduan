@@ -1,15 +1,19 @@
 <template>
-  <view class="flex-row page">
+  <view class="flex-col page">
     <NavigationBar class="header" right="保存" />
-    <text class="text_2">个人优势</text>
-    <view class="flex-col group_1">
-      <text>写下你最擅长的事情，展示你的特别之处，分享你在</text>
-      <text>工作中取得的成绩</text>
+    <view class="flex-col group-1">
+      <text class="text-title">个人优势</text>
+      <text class="title">展示你的特别之处，分享你在工作中取得的成绩</text>
     </view>
-    <view class="flex-col section_1">
-      <text class="text_5">个人优势主要是关于你的能力，特长和成就</text>
-      <text class="text_6">{{ personalAdvantage }}</text>
-      <text class="text_7">也可以简单的说说你的求职目标</text>
+    <view class="group-2">
+      <view class="text-input">
+        <textarea
+          class="input"
+          placeholder="请填写你的特点与优势，或你的求职目标"
+          :maxlength="-1"
+          :v-model="inputValue"
+        />
+      </view>
     </view>
   </view>
 </template>
@@ -18,79 +22,44 @@
 import { ref } from 'vue'
 import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 
-const personalAdvantage = ref('你可以通过描述你的岗位来突出你真正擅长的东西。')
-const imageOnClick = () => {
-  // @ts-ignore
-  uni.navigateBack()
-}
+const inputValue = ref('')
 </script>
 
 <style lang="scss" scoped>
 .page {
-  padding-bottom: 604rpx;
-  background-color: rgb(255, 255, 255);
-  height: 1334rpx;
-  width: 100%;
-  overflow-y: auto;
-  position: relative;
-  .header {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-  }
-  .text_2 {
-    color: rgb(0, 0, 0);
-    font-size: 30rpx;
-    line-height: 28rpx;
-    letter-spacing: 6rpx;
-    white-space: nowrap;
-    position: absolute;
-    left: 41rpx;
-    top: 128rpx;
-  }
-  .group_1 {
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 25rpx;
-    line-height: 30rpx;
-    letter-spacing: 5rpx;
-    white-space: nowrap;
-    position: absolute;
-    left: 41rpx;
-    right: 20rpx;
-    top: 176rpx;
-  }
-  .section_1 {
-    padding: 21rpx 20rpx 341rpx;
-    background-color: rgba(229, 229, 229, 0.5);
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 450rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    top: 280rpx;
-    .text_5 {
-      color: rgba(0, 0, 0, 0.5);
-      font-size: 20rpx;
-      line-height: 19rpx;
-      letter-spacing: 4rpx;
-      white-space: nowrap;
+  .group-1 {
+    width: 690rpx;
+    height: auto;
+    margin-left: 30rpx;
+    line-height: 50rpx;
+    .text-title {
+      font-size: 35rpx;
+      font-weight: 400;
     }
-    .text_6 {
-      margin-top: 22rpx;
+    .title {
+      font-size: 30rpx;
       color: rgba(0, 0, 0, 0.5);
-      font-size: 20rpx;
-      line-height: 24rpx;
-      letter-spacing: 4rpx;
-      white-space: nowrap;
+      white-space: normal;
+      line-height: 40rpx;
     }
-    .text_7 {
-      color: rgba(0, 0, 0, 0.5);
-      font-size: 20rpx;
-      line-height: 24rpx;
-      letter-spacing: 4rpx;
-      white-space: nowrap;
+  }
+  .group-2 {
+    width: 710rpx;
+    height: auto;
+    margin-left: 20rpx;
+    margin-top: 30rpx;
+    .text-input {
+      width: 100%;
+      height: 500rpx;
+      background-color: rgba(229, 229, 229, 0.5);
+      border-radius: 10rpx;
+      overflow: hidden;
+      .input {
+        height: 450rpx;
+        font-size: 28rpx;
+        line-height: 50rpx;
+        padding-left: 20rpx;
+      }
     }
   }
 }

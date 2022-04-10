@@ -7,7 +7,19 @@
 	},
 	"pages": [
 		{
+			"path": "pages/gongzuojingli/gongzuojingli",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/bianjijianli/bianjijianli",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/gerenyoushi/gerenyoushi",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -236,18 +248,6 @@
 		},
 		{
 			"path": "pages/jiaoyujingli/jiaoyujingli",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/gongzuojingli/gongzuojingli",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/gerenyoushi/gerenyoushi",
 			"style": {
 				"navigationStyle": "custom"
 			}

@@ -150,6 +150,7 @@ const saveInfos = () => {
   }
   uni.setStorageSync('userInfo', userInfos)
   uni.setStorageSync('tel', phoneNumber.value)
+  uni.navigateBack({ delta: 1 })
 }
 </script>
 
