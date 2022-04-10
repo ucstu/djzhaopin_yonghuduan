@@ -1,262 +1,182 @@
 <template>
   <view class="flex-row page">
     <NavigationBar class="header" title="编辑项目经历" />
-    <view class="flex-col section_1">
-      <text class="text_1">项目名称</text>
-      <text class="text_2">{{ projectName }}</text>
-    </view>
-    <view class="flex-col section_2">
-      <text class="text_3">是否关联工作经历</text>
-      <view class="justify-between group_1">
-        <text>{{ workExperience }}</text>
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716985504722.png"
-          class="image_1"
-        />
+    <view class="group-all">
+      <view class="group-box">
+        <text class="text-title">项目名称</text>
+        <input class="text-input" type="text" placeholder="请填写" v-model="projectName" />
+      </view>
+      <view class="group-box">
+        <text class="text-title">项目描述</text>
+        <input class="text-input" type="text" placeholder="请填写" v-model="projectDescribe" />
+      </view>
+      <view class="group-box">
+        <text class="text-title">你的成就</text>
+        <input class="text-input" type="text" placeholder="请填写" v-model="achievement" />
+      </view>
+      <view class="group-box">
+        <text class="text-title">项目时间</text>
+        <view class="flex-row justify-between" @click="showTime">
+          <view class="justify-center items-center" style="width: 50%">
+            <text style="font-size: 28rpx">{{ startTime }}</text>
+          </view>
+          <view class="justify-center items-center" style="width: 50%">
+            <text style="font-size: 28rpx">{{ overTime }}</text>
+          </view>
+        </view>
+      </view>
+      <view class="group-box">
+        <text class="text-title">项目链接</text>
+        <input class="text-input" type="text" placeholder="请填写(选填)" />
+      </view>
+      <view class="justify-center group-button">
+        <view class="justify-center items-center button-box">
+          <text>保存</text>
+        </view>
       </view>
     </view>
-    <view class="flex-col section_3">
-      <text class="text_5">项目描述</text>
-      <text class="text_6">{{ projectDescribe }}</text>
-    </view>
-    <view class="flex-col section_4">
-      <text class="text_7">你的成就</text>
-      <view class="justify-between group_2">
-        <text>{{ achievement }}</text>
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716985504722.png"
-          class="image_1"
-        />
+    <WybPopup
+      ref="popup"
+      type="bottom"
+      height="300"
+      radius="6"
+      mode="size-auto"
+      :showCloseIcon="false"
+    >
+      <view class="flex-row">
+        <view
+          class="flex-col justify-center items-center"
+          style="width: 50%;"
+          @click="start = true; end = false"
+        >
+          <text>开始时间</text>
+          <text style="font-size: 25rpx;" :class="start ? 'active' : ''">{{ startTime }}</text>
+        </view>
+        <view
+          class="flex-col justify-center items-center"
+          style="width: 50%;"
+          @click="end = true; start = false"
+        >
+          <text>结束时间</text>
+          <text style="font-size: 25rpx;" :class="end ? 'active' : ''">{{ overTime }}</text>
+        </view>
       </view>
-    </view>
-    <view class="flex-col section_5">
-      <text class="text_9">项目时间</text>
-      <view class="justify-between group_3">
-        <text>{{ startTime }}</text>
-        <text class="text_11">{{ overTime }}</text>
-      </view>
-    </view>
-    <view class="flex-col section_6">
-      <text class="text_12">{{ projectUrl }}</text>
-      <text class="text_13">请填写（选填）</text>
-    </view>
-    <view class="flex-col items-center button">
-      <text>保存</text>
-    </view>
+      <picker-view v-if="start" :value="value1" @change="bindChange" class="picker-view">
+        <picker-view-column>
+          <view class="item" v-for="(item, i) in years" :key="i">{{ item }}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class="item" v-for="(item, i) in months" :key="i">{{ item }}</view>
+        </picker-view-column>
+      </picker-view>
+      <picker-view v-if="end" :value="value2" @change="bindChange" class="picker-view">
+        <picker-view-column>
+          <view class="item" v-for="(item, i) in years" :key="i">{{ item }}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view class="item" v-for="(item, i) in months" :key="i">{{ item }}</view>
+        </picker-view-column>
+      </picker-view>
+    </WybPopup>
   </view>
 </template>
 
 <script lang="ts" setup>
+
 import { ref } from 'vue';
 import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-const projectName = ref('请填写')
-const projectDescribe = ref('请填写')
-const projectUrl = ref('项目链接')
-const workExperience = ref('不关联任何工作经历')
-const achievement = ref('请选择')
-const startTime = ref('开始时间')
-const overTime = ref('结束时间')
-const imageOnClick = () => {
-  // @ts-ignore
-  uni.navigateBack()
+import wybPopup from '@/components/wyb-popup/wyb-popup.vue';
+import WybPopup from '@/components/wyb-popup/wyb-popup.vue';
+
+const projectName = ref('')
+const projectDescribe = ref('')
+const achievement = ref('')
+let startTime = ref('开始时间')
+let overTime = ref('结束时间')
+const projectUrl = ref('')
+
+const start = ref(true)
+const end = ref(false)
+
+const popup = ref()
+const showTime = () => {
+  popup.value.show()
+}
+const date = new Date()
+const years = []
+const months = []
+let year = date.getFullYear()
+let month = date.getMonth() + 1
+for (let i = 1960; i <= year; i++) {
+  years.push(i)
+}
+for (let i = 1; i <= 12; i++) {
+  months.push(i)
+}
+const value1 = [year[0], month[0]]
+const value2 = [year, month - 1]
+const bindChange = (e) => {
+  let val = e.detail.value
+  year = years[val[0]]
+  month = months[val[1]]
+  if (start.value) {
+    startTime.value = `${year}年${month}月`
+  } else {
+    overTime.value = `${year}年${month}月`
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .page {
-  padding-bottom: 50rpx;
-  background-color: rgb(255, 255, 255);
-  height: 1334rpx;
-  width: 100%;
-  overflow-y: auto;
-  position: relative;
-  .header {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
+  .active {
+    color: rgb(35, 193, 158);
   }
-  .section_1 {
-    padding: 23rpx 21rpx 22rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    top: 130rpx;
-    border: solid 2rpx rgb(210, 210, 210);
-    .text_1 {
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
+  .group-all {
+    width: 710rpx;
+    height: auto;
+    margin-left: 20rpx;
+    margin-top: 120rpx;
+    .group-box {
+      width: 100%;
+      height: 130rpx;
+      border: solid 2rpx rgb(210, 210, 210);
+      border-radius: 10rpx;
+      margin-top: 20rpx;
+      line-height: 60rpx;
+      .text-title {
+        font-size: 30rpx;
+        padding-left: 20rpx;
+      }
+      .text-input {
+        font-size: 28rpx;
+        padding-left: 20rpx;
+      }
     }
-    .text_2 {
-      margin-top: 24rpx;
-      color: rgba(0, 0, 0, 0.25);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-  }
-  .section_2 {
-    padding: 23rpx 0 21rpx 21rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    top: 275rpx;
-    border: solid 2rpx rgb(210, 210, 210);
-    .text_3 {
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-    .group_1 {
-      margin-top: 24rpx;
-      color: rgb(0, 0, 0);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-  }
-  .section_3 {
-    padding: 23rpx 21rpx 22rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    top: 420rpx;
-    border: solid 2rpx rgb(210, 210, 210);
-    .text_5 {
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-    .text_6 {
-      margin-top: 24rpx;
-      color: rgba(0, 0, 0, 0.25);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-  }
-  .section_4 {
-    padding: 23rpx 0 21rpx 20rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    top: 565rpx;
-    border: solid 2rpx rgb(210, 210, 210);
-    .text_7 {
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-    .group_2 {
-      margin-top: 24rpx;
-      color: rgba(0, 0, 0, 0.25);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-  }
-  .section_5 {
-    padding: 23rpx 0 14rpx 21rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    bottom: 499rpx;
-    border: solid 2rpx rgb(210, 210, 210);
-    .text_9 {
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 30rpx;
-      line-height: 27rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-    .group_3 {
-      margin-top: 32rpx;
-      padding: 0 89rpx;
-      color: rgba(0, 0, 0, 0.25);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-      .text_11 {
-        margin-right: 11rpx;
+    .group-button {
+      width: 100%;
+      height: 80rpx;
+      position: fixed;
+      bottom: 40rpx;
+      .button-box {
+        width: 500rpx;
+        background-color: rgb(35, 193, 158);
+        font-size: 30rpx;
+        color: #fff;
+        border-radius: 10rpx;
       }
     }
   }
-  .section_6 {
-    padding: 23rpx 21rpx 21rpx;
-    border-radius: 5rpx;
-    overflow: hidden;
-    height: 125rpx;
-    position: absolute;
-    left: 20rpx;
-    right: 20rpx;
-    bottom: 354rpx;
-    border: solid 2rpx rgb(210, 210, 210);
-    .text_12 {
-      color: rgba(0, 0, 0, 0.6);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
-    .text_13 {
-      margin-top: 24rpx;
-      color: rgba(0, 0, 0, 0.25);
-      font-size: 30rpx;
-      line-height: 29rpx;
-      letter-spacing: 6rpx;
-      white-space: nowrap;
-    }
+  .picker-view {
+    width: 750rpx;
+    height: 600rpx;
+    margin-top: 20rpx;
   }
-  .button {
-    padding: 25rpx 0 29rpx;
-    color: rgb(255, 255, 255);
-    font-size: 30rpx;
-    line-height: 28rpx;
-    white-space: nowrap;
-    background-color: rgb(35, 193, 158);
-    border-radius: 15rpx;
-    overflow: hidden;
-    width: 550rpx;
-    height: 80rpx;
-    position: absolute;
-    bottom: 50rpx;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .image_1 {
-    margin-right: 16rpx;
-    margin-top: 3rpx;
-    width: 15rpx;
-    height: 24rpx;
+  .item {
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 }
 </style>
