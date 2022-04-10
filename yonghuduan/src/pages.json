@@ -1,11 +1,53 @@
 {
-	"esaycom": {
-		"autoscan": true,
-		"custom": {
-			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
-		}
-	},
 	"pages": [
+		{
+			"path": "pages/tongzhishezhi/tongzhishezhi",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/shezhimima/shezhimima",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/wodeyemian/wodeyemian",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/yinsishezhi/yinsishezhi",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/tupianzuopin/tupianzuopin",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/jiaoyujingli/jiaoyujingli",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/xiangmujingli/xiangmujingli",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/gongzuojingli/gongzuojingli",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
 		{
 			"path": "pages/bianjijianli/bianjijianli",
 			"style": {
@@ -13,7 +55,7 @@
 			}
 		},
 		{
-			"path": "pages/wodeyemian/wodeyemian",
+			"path": "pages/gerenyoushi/gerenyoushi",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -68,12 +110,6 @@
 		},
 		{
 			"path": "pages/shuruyanzhengma/shuruyanzhengma",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/yinsishezhi/yinsishezhi",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -169,18 +205,6 @@
 			}
 		},
 		{
-			"path": "pages/tongzhishezhi/tongzhishezhi",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/shezhimima/shezhimima",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
 			"path": "pages/wodezhanghu/wodezhanghu",
 			"style": {
 				"navigationStyle": "custom"
@@ -217,37 +241,7 @@
 			}
 		},
 		{
-			"path": "pages/tupianzuopin/tupianzuopin",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
 			"path": "pages/shejiaozhuye/shejiaozhuye",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/xiangmujingli/xiangmujingli",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/jiaoyujingli/jiaoyujingli",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/gongzuojingli/gongzuojingli",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/gerenyoushi/gerenyoushi",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -301,6 +295,12 @@
 			}
 		}
 	],
+	"esaycom": {
+		"autoscan": true,
+		"custom": {
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
+	},
 	"globalStyle": {},
 	"tabBar": {
 		"color": "#7A7E83",

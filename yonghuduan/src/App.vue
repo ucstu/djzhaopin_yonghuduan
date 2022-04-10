@@ -1,6 +1,15 @@
 <script lang="ts" setup>
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
+import { useStore } from 'vuex';
+import { key } from './stores';
+
+const store = useStore(key);
+
 onLaunch(() => {
+  store.commit("setSystemInfo", uni.getSystemInfoSync());
+  /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
+  store.commit("setMenuButtonInfo", uni.getMenuButtonBoundingClientRect())
+  /* #endif */
 })
 onShow(() => {
 })

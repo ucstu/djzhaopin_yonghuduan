@@ -2,15 +2,58 @@
   <view class="flex-col page">
     <NavigationBar class="header" title="在线简历" />
     <view class="flex-col group-all">
-      <view>
+      <view class="flex-col group-user">
+        <view class="flex-row justify-between user-box">
+          <view class="flex-col" @click="changeInfo">
+            <view class="flex-row items-center user">
+              <text
+                class="text-top"
+                style="font-size: 40rpx; font-weight: 600"
+              >{{ userInfos.userName }}</text>
+              <image class="image" src="@/static/icons/edit.png" />
+            </view>
+            <view>
+              <text>{{ education.schoolName }}/{{ }}/{{ education.education }}</text>
+            </view>
+          </view>
+          <view class="image-box">
+            <image
+              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303732403472501.png"
+              class="photo"
+            />
+            <image class="sex-image" v-if="true" src="@/static/icons/man.png" />
+            <image class="sex-image" v-if="false" src="@/static/icons/woman.png" />
+          </view>
+        </view>
+        <view class="flex-col exceptWork">
+          <text class="text-top">求职期望</text>
+        </view>
+      </view>
+      <view class="group-box">
+        <view class="flex-row items-center justify-between">
+          <text class="text-top">个人优势</text>
+          <image class="image" src="@/static/icons/edit.png" />
+        </view>
         <view>
-          <view class="flex-row">
-            <text>{{userName}}</text>
-            <image class="image" src="@/static/icons/edit.png"/>
-          </view>
-          <view>
-            <text>{{}}/{{}}/{{}}</text>
-          </view>
+          <text>{{ personalAdvantage }}</text>
+        </view>
+      </view>
+      <view class="group-box">
+        <view class="flex-row items-center justify-between">
+          <text class="text-top">工作经历</text>
+          <image class="image" src="@/static/icons/add-circle.png" />
+        </view>
+      </view>
+      <view class="group-box">
+        <view class="flex-row items-center justify-between">
+          <text class="text-top">教育经历</text>
+          <image class="image" src="@/static/icons/add-circle.png" />
+        </view>
+      </view>
+      <view class="group-box">
+        <view class="flex-row items-center justify-between">
+          <text class="text-top">项目经历</text>
+          <image class="image" src="@/static/icons/add-circle.png" />
         </view>
       </view>
     </view>
@@ -24,8 +67,6 @@ import WorkExperience from '@/components/WorkExperience/WorkExperience.vue'
 import EducationalExperience from '@/components/EducationalExperience/EducationalExperience.vue'
 import ProjectExperience from '@/components/ProjectExperience/ProjectExperience.vue'
 import { reactive, ref } from 'vue'
-
-
 
 const jobExpectations = reactive([
   {
@@ -74,10 +115,17 @@ const projectExperiences = reactive([
   { project: 'LOL', date: '2020.02-2021.06', work: '完成召唤兽' },
 ])
 const personalAdvantage = ref('能吃苦，能加班，身体挺好！')
-const socialUrl = ref('https://blog.ucstu.com')
-const basicInformation = ref('应届毕业生/18岁/本科')
-const userName = ref('张三')
 
+const userInfos = uni.getStorageSync('userInfo')
+const education = uni.getStorageSync('education')
+console.log(userInfos);
+const date = new Date()
+const year = date.getFullYear()
+console.log(year);
+
+const changeInfo = () => {
+  uni.navigateTo({ url: '/pages/gerenxinxi/gerenxinxi' })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -86,10 +134,45 @@ const userName = ref('张三')
     width: 710rpx;
     height: auto;
     margin-left: 20rpx;
+    .group-user {
+      height: auto;
+      line-height: 60rpx;
+      border-bottom: 1px solid rgb(230, 230, 230);
+      .user-box {
+        height: 120rpx;
+      }
+      .image-box {
+        .image {
+          width: 50rpx;
+          height: 50rpx;
+        }
+        .sex-image {
+          position: absolute;
+          top: 220rpx;
+          right: 30rpx;
+          width: 25rpx;
+          height: 25rpx;
+        }
+      }
+    }
+    .group-box {
+      height: auto;
+      border-bottom: 1px solid rgb(230, 230, 230);
+      line-height: 80rpx;
+    }
+  }
+  .text-top {
+    font-size: 35rpx;
+    font-weight: 600;
   }
   .image {
     width: 50rpx;
     height: 50rpx;
+  }
+  .photo {
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 100%;
   }
 }
 </style>

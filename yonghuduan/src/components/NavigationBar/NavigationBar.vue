@@ -8,7 +8,7 @@
     <view class="justify-between items-center" :style="'width: ' + navigationBarWidth + 'px'">
       <image @click="imageOnClick" class="image" :src="leftUrl" />
       <text class="text">{{ title }}</text>
-      <text class="text_1">{{ right }}</text>
+      <text class="text_1" @click="saveInfo">{{ right }}</text>
     </view>
   </view>
   <!-- #endif -->
@@ -17,13 +17,13 @@
   <view class="header justify-center component">
     <image @click="imageOnClick" class="image" :src="leftUrl" />
     <text class="text">{{ title }}</text>
-    <text class="text_1">{{ right }}</text>
+    <text class="text_1" @click="saveInfo">{{ right }}</text>
   </view>
   <!-- #endif -->
 </template>
 
 <script lang="ts" setup>
-import { defineProps, computed } from 'vue';
+import { defineProps, computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import { key } from '@/stores';
 const store = useStore(key);
@@ -57,6 +57,15 @@ const props = defineProps({
 const leftUrl = computed(() => {
   return props.left === "return" ? 'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303716988161723.png' : '';
 });
+
+const saveInfo = () => {
+  // if (props.right === '保存') {
+  //   uni.setStorage({
+  //     key: 'advantage',
+  //     data: inputValue.value,
+  //   })
+  // }
+}
 
 const imageOnClick = () => {
   // @ts-ignore
