@@ -4,7 +4,8 @@ import VuexPersister from 'vuex-persister'
 
 export interface State {
     systemInfo: Object,
-    menuButtonInfo?: Object
+    menuButtonInfo: Object,
+    accountInfo: Object,
 }
 
 export const key: InjectionKey<Store<State>> = Symbol()
@@ -27,6 +28,7 @@ export const store = createStore<State>({
     state: () => ({
         systemInfo: {},
         menuButtonInfo: {},
+        accountInfo: {},
     }),
     mutations: {
         setSystemInfo(state, systemInfo) {
@@ -34,6 +36,9 @@ export const store = createStore<State>({
         },
         setMenuButtonInfo(state, menuButtonInfo) {
             state.menuButtonInfo = menuButtonInfo
+        },
+        setAccountInfo(state, accountInfo) {
+            state.accountInfo = accountInfo
         }
     },
     modules: {

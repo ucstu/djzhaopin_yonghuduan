@@ -1,11 +1,11 @@
 {
-	"esaycom": {
-		"autoscan": true,
-		"custom": {
-			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
-		}
-	},
 	"pages": [
+		{
+			"path": "pages/tongzhishezhi/tongzhishezhi",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
 		{
 			"path": "pages/shezhimima/shezhimima",
 			"style": {
@@ -205,12 +205,6 @@
 			}
 		},
 		{
-			"path": "pages/tongzhishezhi/tongzhishezhi",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
 			"path": "pages/wodezhanghu/wodezhanghu",
 			"style": {
 				"navigationStyle": "custom"
@@ -301,6 +295,12 @@
 			}
 		}
 	],
+	"esaycom": {
+		"autoscan": true,
+		"custom": {
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
+	},
 	"globalStyle": {},
 	"tabBar": {
 		"color": "#7A7E83",
