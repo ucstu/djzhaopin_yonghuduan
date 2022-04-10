@@ -7,6 +7,24 @@
 	},
 	"pages": [
 		{
+			"path": "pages/yinsishezhi/yinsishezhi",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/wodeyemian/wodeyemian",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/tupianzuopin/tupianzuopin",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/jiaoyujingli/jiaoyujingli",
 			"style": {
 				"navigationStyle": "custom"
@@ -32,12 +50,6 @@
 		},
 		{
 			"path": "pages/gerenyoushi/gerenyoushi",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/wodeyemian/wodeyemian",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -92,12 +104,6 @@
 		},
 		{
 			"path": "pages/shuruyanzhengma/shuruyanzhengma",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/yinsishezhi/yinsishezhi",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -236,12 +242,6 @@
 		},
 		{
 			"path": "pages/toudijilu/toudijilu",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/tupianzuopin/tupianzuopin",
 			"style": {
 				"navigationStyle": "custom"
 			}
