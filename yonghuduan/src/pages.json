@@ -7,6 +7,12 @@
 	},
 	"pages": [
 		{
+			"path": "pages/jiaoyujingli/jiaoyujingli",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/xiangmujingli/xiangmujingli",
 			"style": {
 				"navigationStyle": "custom"
@@ -242,12 +248,6 @@
 		},
 		{
 			"path": "pages/shejiaozhuye/shejiaozhuye",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/jiaoyujingli/jiaoyujingli",
 			"style": {
 				"navigationStyle": "custom"
 			}

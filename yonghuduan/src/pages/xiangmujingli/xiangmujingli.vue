@@ -86,7 +86,6 @@
 import { ref } from 'vue';
 import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
 import wybPopup from '@/components/wyb-popup/wyb-popup.vue';
-import WybPopup from '@/components/wyb-popup/wyb-popup.vue';
 
 const projectName = ref('')
 const projectDescribe = ref('')
