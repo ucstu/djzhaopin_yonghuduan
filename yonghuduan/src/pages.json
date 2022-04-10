@@ -7,13 +7,19 @@
 	},
 	"pages": [
 		{
-			"path": "pages/yinsishezhi/yinsishezhi",
+			"path": "pages/shezhimima/shezhimima",
 			"style": {
 				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path": "pages/wodeyemian/wodeyemian",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/yinsishezhi/yinsishezhi",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -200,12 +206,6 @@
 		},
 		{
 			"path": "pages/tongzhishezhi/tongzhishezhi",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/shezhimima/shezhimima",
 			"style": {
 				"navigationStyle": "custom"
 			}
