@@ -2,9 +2,9 @@
   <view class="flex-col page">
     <NavigationBar class="header" title="关注公司" />
     <view class="flex-col list">
-      <CompanyPanel class="list-item" :key="i" v-for="(attentionCompany, i) in attentionCompanys" />
-    </view>
-  </view>
+      <CompanyPanel class="list-item" :key="i" :attentionCompany="attentionCompany"
+        v-for="(attentionCompany, i) in attentionCompanies" />
+    </view>  </view>
 </template>
 
 <script lang="ts" setup>
@@ -13,9 +13,9 @@ import CompanyDetail from '@/components/CompanyDetail/CompanyDetail.vue'
 import CompanyPanel from '@/components/CompanyPanel/CompanyPanel.vue'
 import { reactive } from 'vue'
 
-const attentionCompanys = reactive([
+const attentionCompanies = reactive([
   {
-    logoAddress:
+    logo:
       'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
     name: '字节跳动',
     recruitmentPosition: '200',
@@ -26,7 +26,7 @@ const attentionCompanys = reactive([
     unfollow: '取消关注',
   },
   {
-    logoAddress:
+    logo:
       'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png',
     name: '字节跳动',
     recruitmentPosition: '200',
@@ -55,22 +55,24 @@ const view_13OnClick = () => {
 }
 </script>
 
-<style lang="scss" scoped>
-.page {
+<style lang="scss" scoped>.page {
   padding-bottom: 1204rpx;
   background-color: rgb(255, 255, 255);
   width: 100%;
   overflow-y: auto;
   height: 100%;
   position: relative;
+
   .header {
     position: relative;
   }
+
   .list {
     position: absolute;
     left: 40rpx;
     right: 40rpx;
     top: 130rpx;
+
     .list-item {
       &:last-of-type {
         margin-top: 18rpx;

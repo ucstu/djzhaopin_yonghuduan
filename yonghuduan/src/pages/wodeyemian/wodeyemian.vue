@@ -63,8 +63,7 @@
         </view>
         <image class="arrow-right" src="@/static/icons/arrow-right.png" />
       </view>
-    </view>
-  </view>
+    </view>  </view>
 </template>
 
 <script lang="ts" setup>
@@ -122,31 +121,36 @@ const onClick_9 = () => {
 }
 </script>
 
-<style lang="scss" scoped>
-.page {
+<style lang="scss" scoped>.page {
   width: 750rpx;
   height: auto;
+
   .group-top {
     height: 430rpx;
     background-color: rgb(35, 193, 158);
+
     .userInfos {
       width: 650rpx;
       margin-top: 150rpx;
       margin-left: 50rpx;
+
       .avatar {
         width: 120rpx;
         height: 120rpx;
         border-radius: 100%;
       }
+
       .userInfo {
         padding-left: 30rpx;
         line-height: 50rpx;
+
         .age-educate {
           font-size: 25rpx;
           white-space: 15rpx;
         }
       }
     }
+
     .applyInfos {
       width: 650rpx;
       height: 100rpx;
@@ -155,25 +159,30 @@ const onClick_9 = () => {
       font-size: 25rpx;
     }
   }
+
   .group-button {
     width: 710rpx;
     margin-top: 30rpx;
     margin-left: 20rpx;
+
     .set {
       width: 690rpx;
       height: 100rpx;
       padding-left: 10rpx;
       font-size: 30rpx;
       border-bottom: 2rpx solid rgb(200, 200, 200);
+
       .interval {
         padding-left: 25rpx;
       }
     }
   }
+
   .arrow-right {
     width: 25rpx;
     height: 25rpx;
   }
+
   .image {
     width: 50rpx;
     height: 50rpx;

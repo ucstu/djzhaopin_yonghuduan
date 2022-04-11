@@ -1,7 +1,7 @@
 {
 	"pages": [
 		{
-			"path": "pages/shezhiyemian/shezhiyemian",
+			"path": "pages/wodeyemian/wodeyemian",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -13,13 +13,13 @@
 			}
 		},
 		{
-			"path": "pages/shezhimima/shezhimima",
+			"path": "pages/shezhiyemian/shezhiyemian",
 			"style": {
 				"navigationStyle": "custom"
 			}
 		},
 		{
-			"path": "pages/wodeyemian/wodeyemian",
+			"path": "pages/shezhimima/shezhimima",
 			"style": {
 				"navigationStyle": "custom"
 			}
