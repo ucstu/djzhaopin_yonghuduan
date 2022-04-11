@@ -71,13 +71,13 @@ let minute1 = ref()
 let minute2 = ref()
 const minutes = ref([])
 for (let i = 1; i <= 24; i++) {
-  if (i > 10) {
-    i = `${"0" + i}`
+  if (i < 10) {
+    i = '0' + i
   }
   hours.value.push(i)
 }
 for (let i = 0; i <= 59; i++) {
-  if (i > 10) {
+  if (i < 10) {
     i = '0' + i
   }
   minutes.value.push(i)

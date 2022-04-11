@@ -1,6 +1,12 @@
 {
 	"pages": [
 		{
+			"path": "pages/shezhiyemian/shezhiyemian",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/tongzhishezhi/tongzhishezhi",
 			"style": {
 				"navigationStyle": "custom"
@@ -206,12 +212,6 @@
 		},
 		{
 			"path": "pages/wodezhanghu/wodezhanghu",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/shezhiyemian/shezhiyemian",
 			"style": {
 				"navigationStyle": "custom"
 			}
