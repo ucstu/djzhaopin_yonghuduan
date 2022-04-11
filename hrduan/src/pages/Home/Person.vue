@@ -1,16 +1,12 @@
-
-import { key } from '../../stores';
-
-import { useStore } from 'vuex';
 <template>
     <div>
-        <State />
         <form action="#" class="over">
             <div class="left">
                 <el-form label-width="120px" :model="formLabelAlign" style="max-width: 500px" :rules="rule"
                     ref="formRef">
                     <el-form-item label="头像" prop="name">
-                        <div class="avatar">
+                        <!-- <el-input :input-style="{ display: 'none' }" v-model="formLabelAlign.avatar" /> -->
+                        <div class=" avatar">
                             <el-upload :show-file-list="false" :on-success="handleAvatarSuccess"
                                 :before-upload="beforeAvatarUpload" :on-error="handleAvatarError" name="avatar"
                                 ref="uploadRef" class="avatar-uploader"
@@ -77,7 +73,7 @@ import type { UploadProps, FormInstance } from 'element-plus'
 import { postCompanyinfos, putHrinfosHrinfoid } from '../../services/services';
 import { useStore } from 'vuex';
 import { key } from '../../stores';
-import State from './state.vue';
+import State from './State.vue';
 import router from '../../router'
 const formRef = ref<FormInstance>()
 const uploadRef = ref<UploadProps>()
@@ -99,6 +95,7 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
     uploadFile
 ) => {
     imageUrl.value = response.url
+
 }
 const handleAvatarError: UploadProps['onError'] = (
     err,
@@ -130,15 +127,16 @@ const rule = reactive({
 })
 const confirmPerson = (formEl: FormInstance | undefined) => {
     if (!formEl) return
-    console.log(formEl);
-    formEl.validate((valid) => {
-        if (valid) {
-            putHrinfosHrinfoid(store.state.accountInfo.infoId, formLabelAlign).then((res) => {
+    formEl.validate(
+        async (valid, fields) => {
+            if (valid) {
+                const res = await putHrinfosHrinfoid(store.state.accountInfo.infoId, formLabelAlign)
                 store.commit('setHrInfo', res.data)
-            })
-            router.push({ name: 'company', params: { companyName: formLabelAlign.fullName } })
-        }
-    })
+                router.push({ name: 'Company', params: { companyName: formLabelAlign.fullName } })
+            } else {
+                ElMessage.error('请填写完整信息')
+            }
+        })
 }
 </script>
 

@@ -139,13 +139,13 @@
 </template>
 
 <script setup lang="ts">
-import state from './state.vue';
+import State from './State.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { Plus } from '@element-plus/icons-vue'
 import { useStore } from 'vuex';
 import { key } from '../../stores';
 import { ElMessage, FormInstance, UploadProps } from 'element-plus';
-import { getCityinfos, postCompanyinfos } from '../../services/services';
+import { postCompanyinfos } from '../../services/services';
 import { CompanyInformation } from '../../services/types';
 import { useRoute } from "vue-router";
 import router from '../../router';
@@ -274,7 +274,7 @@ const confirmCompany = (formEl: FormInstance | undefined) => {
                 ElMessage.success('恭喜您，公司创建成功')
                 dialogFormVisible.value = false
                 store.commit('setCompanyInfo', res.data)
-                router.push('/publishpost')
+                router.push('/PublishJob')
             }).catch(reject => {
                 console.error(reject);
             }

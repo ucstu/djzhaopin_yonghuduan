@@ -40,7 +40,6 @@ const validatePass = (rule: any, value: any, callback: any) => {
     if (value === '') {
         callback(new Error('请输入密码'))
         console.log(1111111);
-
     } else {
         if (ruleForm.phoneNumber !== '') {
             if (!ruleFormRef.value) return

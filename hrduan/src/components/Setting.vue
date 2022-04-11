@@ -6,48 +6,47 @@
                 <span>招聘设置</span>
             </div>
             <div class="list">
-
                 <div>
-                    <a href="#/setting/info">
+                    <router-link to="/setting/personInfo">
                         <span>个人信息</span>
-                    </a>
+                    </router-link>
                 </div>
                 <div>
-                    <a href="#/setting/company">
+                    <router-link to="/setting/Authentication">
                         <span>身份认证</span>
-                    </a>
+                    </router-link>
                 </div>
                 <div>
-                    <a href="#/setting/password">
+                    <router-link to="/setting/Comprises">
                         <span>常用语</span>
-                    </a>
+                    </router-link>
                 </div>
                 <div>
-                    <span>其它设置</span>
+                    <router-link to="/setting/Other">
+                        <span>其它设置</span>
+                    </router-link>
                 </div>
-
+            </div>
+            <div class="line">
             </div>
         </div>
 
-        <router-view />
-    </div>
-    <div class="footer">footer</div>
+        <router-view />   </div>
 </template>
 
 <script setup lang="ts">
-import settingHeaderVue from './SettingHeader.vue';
 </script>
 
 <style scoped lang="scss">.outer {
     display: flex;
-    border: 1px solid red;
     flex-direction: row;
 
     .sidebar {
         flex: 0 0 300px;
-        height: 100vh;
+        height: 95vh;
         background: #fff9f9;
         align-items: center;
+        position: relative;
 
         .title {
             font-size: 16px;
@@ -69,6 +68,10 @@ import settingHeaderVue from './SettingHeader.vue';
                 color: rgb(0, 139, 179)
             }
 
+            a::selection {
+                color: rgb(0, 139, 179)
+            }
+
             div {
                 list-style: none;
                 margin-top: 40px;
@@ -78,16 +81,16 @@ import settingHeaderVue from './SettingHeader.vue';
 
     .line {
         height: 70vh;
-        margin: 10vh auto;
         width: 1px;
         background-color: rgb(0, 0, 0, 0.5);
+        position: absolute;
+        right: 0px;
+        top: 11%;
     }
 
     .content {
         flex: 1;
         background: #ffffff;
     }
-
-
 }
 </style >

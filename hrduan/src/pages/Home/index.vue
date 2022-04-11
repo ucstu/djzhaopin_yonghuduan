@@ -6,7 +6,7 @@
                 <span class="user">{{ store.state.hrInfo.name || 'HR' }}</span>
                 <ul class="dropdown-content">
                     <li>
-                        <a href="#">账号设置</a>
+                        <router-link to="/Setting/PersonInfo">账号设置</router-link>
                     </li>
                     <li>
                         <a href="#">退出</a>
@@ -29,8 +29,7 @@
         </div>
         <div class="bottom">
             <div></div>
-        </div>
-    </div>
+        </div>   </div>
 </template>
 
 <script lang="ts" setup>
@@ -52,39 +51,47 @@ const store = useStore(key)
 
 </script>
 
-<style lang="scss" scoped>
-$hd-height: 27.5px;
+<style lang="scss" scoped>$hd-height: 27.5px;
+
 li {
     list-style: none;
 }
+
 a {
     text-decoration: none;
 
     color: rgb(255, 255, 255);
 }
+
 a:hover {
     color: rgb(176, 163, 192);
 }
+
 .layout {
     display: flex;
     min-height: 100%;
     flex-direction: column;
+
     .header {
         display: flex;
         justify-content: space-around;
         background-color: rgb(51, 51, 51);
         height: $hd-height;
+
         span {
             cursor: pointer;
         }
+
         .dropdown {
             position: relative;
             display: inline-block;
             width: 85px;
+
             .user {
                 padding-left: 30px;
             }
         }
+
         .dropdown-content {
             display: none;
             position: absolute;
@@ -92,53 +99,66 @@ a:hover {
             font-size: 14px;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             padding: 12px 16px;
+            top: 9px;
+
             :nth-child(1) {
                 text-align: center;
             }
+
             :nth-child(2) {
                 margin-top: 15px;
                 text-align: center;
             }
         }
+
         .dropdown:hover .dropdown-content {
             background-color: rgb(51, 51, 51);
             display: block;
         }
+
         span {
             color: rgb(255, 255, 255);
             line-height: $hd-height;
             font-size: 14px;
         }
+
         .user:hover {
             color: rgb(0, 179, 179);
             cursor: pointer;
         }
     }
+
     .main {
         flex: auto;
+
         .above {
             display: flex;
             flex-direction: column;
+
             .top {
                 display: flex;
                 flex-direction: row;
+
                 img {
                     margin-left: 15vw;
                     height: 50px;
                     width: auto;
                 }
+
                 .line {
                     margin: 10px 0 5px 2vw;
                     width: 1px;
                     height: 30px;
                     background-color: rgba(0, 0, 0, 0.1);
                 }
+
                 span {
                     line-height: 50px;
                     margin-left: 2vw;
                     color: rgb(0, 179, 179);
                 }
             }
+
             .back {
                 background-image: url("../../assets/background1.png");
                 height: 165px;
@@ -146,6 +166,7 @@ a:hover {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
                 span {
                     color: rgb(255, 255, 255);
                     font-size: 30px;
@@ -154,8 +175,10 @@ a:hover {
             }
         }
     }
+
     .bottom {
         height: 2rem;
+
         div {
             height: 1px;
             width: 100%;

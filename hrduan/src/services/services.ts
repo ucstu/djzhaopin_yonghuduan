@@ -8,28 +8,28 @@ import { AxiosRequestConfig } from "axios";
 import { SwaggerResponse } from "./config";
 import { Http } from "./httpRequest";
 import {
-  DeleteAccountsAccountidQueryParams,
   GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
+  DeleteAccountsAccountidQueryParams,
   GetAreaInformationsQueryParams,
-  AccountInformation,
   HRInformation,
   CityInformations,
-  FilterInformation,
-  JobExpectation,
-  ProjectExperience,
-  JobTypes,
-  DirectionTags,
+  InspectionRecord,
   CompanyInformation,
-  GarnerRecord,
-  MessageRecord,
+  JobTypes,
   AttentionRecord,
-  DeliveryRecord,
-  UserInformation,
+  MessageRecord,
+  ProjectExperience,
+  EducationExperience,
   JobInformation,
+  JobExpectation,
+  FilterInformation,
   AreaInformations,
   WorkExperience,
-  EducationExperience,
-  InspectionRecord,
+  GarnerRecord,
+  DirectionTags,
+  AccountInformation,
+  UserInformation,
+  DeliveryRecord,
 } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -1207,6 +1207,12 @@ export const postAccounts = (
     accountType: "1" | "2";
     /**
      *
+     * 密码
+     *
+     */
+    password: string;
+    /**
+     *
      * 手机号码
      *
      */
@@ -1572,17 +1578,16 @@ export const putAccounts = (
   requestBody: {
     /**
      *
+     * 密码
+     *
+     */
+    password: string;
+    /**
+     *
      * 手机号码
      *
      */
     phoneNumber: string;
-    /**
-     *
-     * 验证码
-     *
-     * 短信验证码
-     */
-    verificationCode: string;
   },
   configOverride?: AxiosRequestConfig
 ): Promise<
@@ -1610,7 +1615,7 @@ putAccounts.key = "/accounts";
 
 /**
  *
- * 设置密码
+ * 修改密码
  */
 export const putAcocuntsAccountid = (
   accountid: string,
