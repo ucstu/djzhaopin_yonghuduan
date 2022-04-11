@@ -39,6 +39,8 @@ declare module 'vue' {
     Setting: typeof import('./src/components/Setting.vue')['default']
     SettingHeader: typeof import('./src/components/SettingHeader.vue')['default']
     System: typeof import('./src/components/System.vue')['default']
+    SystemHeadeer: typeof import('./src/components/SystemHeadeer.vue')['default']
+    SystemHeader: typeof import('./src/components/SystemHeader.vue')['default']
   }
 }
 

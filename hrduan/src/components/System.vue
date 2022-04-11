@@ -3,79 +3,105 @@
         <el-container>
             <el-header>
                 <div>
-                    <setting-header />
+                    <system-headeer />
                 </div>
             </el-header>
             <el-container>
-                <el-aside width="200px" style="background-color: rgb(63, 70, 78)">
+                <el-aside width="200px" style="background-color: rgb(240, 250, 250)">
                     <el-scrollbar>
-                        <el-menu :default-openeds="['1', '3']">
-                            <el-sub-menu index="1">
-                                <template #title>
-                                    <el-icon>
-                                    </el-icon>消息
-                                </template>
-                            </el-sub-menu>
+                        <el-menu :default-openeds="['3']" active-text-color="#999" text-color="#000"
+                            background-color="rgb(240, 250, 250)">
+                            <el-menu-item index="1">
+                                <el-icon>
+                                    <icon-menu />
+                                </el-icon>
+                                <span>消息</span>
+                            </el-menu-item>
                             <el-menu-item index="2">
                                 <el-icon>
                                     <icon-menu />
                                 </el-icon>
-                                <span>Navigator Two</span>
+                                <span>职位管理</span>
                             </el-menu-item>
-                            <el-sub-menu index="2">
-                                <template #title>
-                                    <el-icon>
-                                        <icon-menu />
-                                    </el-icon>Navigator Two
-                                </template>
-                                <el-menu-item-group>
-                                    <template #title>Group 1</template>
-                                    <el-menu-item index="2-1">Option 1</el-menu-item>
-                                    <el-menu-item index="2-2">Option 2</el-menu-item>
-                                </el-menu-item-group>
-                                <el-menu-item-group title="Group 2">
-                                    <el-menu-item index="2-3">Option 3</el-menu-item>
-                                </el-menu-item-group>
-                                <el-sub-menu index="2-4">
-                                    <template #title>Option 4</template>
-                                    <el-menu-item index="2-4-1">Option 4-1</el-menu-item>
-                                </el-sub-menu>
-                            </el-sub-menu>
                             <el-sub-menu index="3">
                                 <template #title>
                                     <el-icon>
-
-                                    </el-icon>Navigator Three
+                                    </el-icon>简历管理
                                 </template>
-                                <el-menu-item-group>
-                                    <template #title>Group 1</template>
-                                    <el-menu-item index="3-1">Option 1</el-menu-item>
-                                    <el-menu-item index="3-2">Option 2</el-menu-item>
+                                <el-menu-item-group class="item-text">
+                                    <template #title></template>
+                                    <el-menu-item index="3-1">收到的简历</el-menu-item>
+                                    <el-menu-item index="3-2">下载的简历</el-menu-item>
                                 </el-menu-item-group>
-                                <el-menu-item-group title="Group 2">
-                                    <el-menu-item index="3-3">Option 3</el-menu-item>
-                                </el-menu-item-group>
-                                <el-sub-menu index="3-4">
-                                    <template #title>Option 4</template>
-                                    <el-menu-item index="3-4-1">Option 4-1</el-menu-item>
-                                </el-sub-menu>
                             </el-sub-menu>
+                            <el-menu-item index="4">
+                                <el-icon>
+                                    <icon-menu />
+                                </el-icon>
+                                <span>面试管理</span>
+                            </el-menu-item>
+                            <el-menu-item index="5">
+                                <el-icon>
+                                    <icon-menu />
+                                </el-icon>
+                                <span>人才库</span>
+                            </el-menu-item>
+                            <el-menu-item index="6">
+                                <el-icon>
+                                    <icon-menu />
+                                </el-icon>
+                                <span>数据中心</span>
+                            </el-menu-item>
+                            <el-menu-item>
+                                <el-icon>
+                                    <icon-menu />
+                                </el-icon>
+                                <span>个人中心</span>
+                            </el-menu-item>
                         </el-menu>
                     </el-scrollbar>
                 </el-aside>
                 <el-main>Main</el-main>
             </el-container>
         </el-container>
-  </div>
+    </div>
 </template>
 
 <script setup lang="ts">
-import SettingHeader from './SettingHeader.vue'
+import { onMounted } from 'vue';
+import SystemHeadeer from './SystemHeadeer.vue';
 
 </script>
 
-<style scoped lang="scss">* {
+<style scoped lang="scss">
+* {
     margin: 0;
     padding: 0;
+}
+
+.el-header {
+
+    height: 42.5px;
+}
+
+.common-layout {
+    height: 100%;
+}
+
+.el-container {
+    height: 100%;
+
+    .el.aside {
+        height: 100%;
+    }
+}
+
+.el-menu {
+    ::v-deep .item-text {
+        padding: 0;
+        font-size: 10px;
+        color: greenyellow;
+    }
+
 }
 </style >
