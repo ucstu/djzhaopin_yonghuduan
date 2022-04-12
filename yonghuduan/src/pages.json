@@ -1,6 +1,12 @@
 {
 	"pages": [
 		{
+			"path": "pages/xiaoxiyemian/xiaoxiyemian",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/wodeyemian/wodeyemian",
 			"style": {
 				"navigationStyle": "custom"
@@ -272,12 +278,6 @@
 		},
 		{
 			"path": "pages/shuikanguowo/shuikanguowo",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/xiaoxiyemian/xiaoxiyemian",
 			"style": {
 				"navigationStyle": "custom"
 			}
