@@ -5,7 +5,6 @@
                 <el-form label-width="120px" :model="formLabelAlign" style="max-width: 500px" :rules="rule"
                     ref="formRef">
                     <el-form-item label="头像" prop="name">
-                        <!-- <el-input :input-style="{ display: 'none' }" v-model="formLabelAlign.avatar" /> -->
                         <div class=" avatar">
                             <el-upload :show-file-list="false" :on-success="handleAvatarSuccess"
                                 :before-upload="beforeAvatarUpload" :on-error="handleAvatarError" name="avatar"
@@ -62,7 +61,8 @@
                     <span>{{ formLabelAlign.acceptEmail || "邮箱" }}</span>
                 </div>
             </div>
-        </form>   </div>
+        </form>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -85,21 +85,23 @@ const formLabelAlign = reactive({
     fullName: '',
     acceptEmail: '',
     hrId: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    createdAt: "",
+    updatedAt: "",
 })
 
 const imageUrl = ref('')
 
 const handleAvatarSuccess: UploadProps['onSuccess'] = (
     response,
-    uploadFile
+    // uploadFile
 ) => {
     imageUrl.value = response.url
 
 }
 const handleAvatarError: UploadProps['onError'] = (
-    err,
-    uploadFile
+    // err,
+    // uploadFile
 ) => {
     ElMessage.error('对不起，上传失败，请重试')
 }
@@ -128,7 +130,7 @@ const rule = reactive({
 const confirmPerson = (formEl: FormInstance | undefined) => {
     if (!formEl) return
     formEl.validate(
-        async (valid, fields) => {
+        async (valid) => {
             if (valid) {
                 const res = await putHrinfosHrinfoid(store.state.accountInfo.infoId, formLabelAlign)
                 store.commit('setHrInfo', res.data)
@@ -140,7 +142,8 @@ const confirmPerson = (formEl: FormInstance | undefined) => {
 }
 </script>
 
-<style scoped lang="scss">a {
+<style scoped lang="scss">
+a {
     text-decoration: none;
     display: block;
     width: 150px;

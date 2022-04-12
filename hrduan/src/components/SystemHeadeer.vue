@@ -10,7 +10,7 @@
                 <router-link to="/Manage">
                     <span>首页</span>
                 </router-link>
-                <router-link to="/Manage/Information">
+                <router-link to="/System/Talent">
                     <span>找人才</span>
                 </router-link>
                 <router-link to="/PublishJob">
@@ -22,7 +22,8 @@
             <router-link to="/Setting/">
                 <img :src="avatar">
             </router-link>
-        </div>   </div>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">

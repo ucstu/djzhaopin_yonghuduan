@@ -18,7 +18,8 @@
                     </div>
                 </el-scrollbar>
             </div>
-        </div>   </div>
+        </div>
+    </div>
 </template>
 <script setup lang="ts">
 import { Plus } from '@element-plus/icons-vue';
@@ -53,7 +54,8 @@ const deletePrise = (index: number) => {
 
 </script>
 
-<style lang="scss" scoped>.put-prise {
+<style lang="scss" scoped>
+.put-prise {
     display: flex;
     justify-content: center;
     align-items: center;

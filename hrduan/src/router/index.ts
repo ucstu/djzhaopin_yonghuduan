@@ -76,7 +76,46 @@ const routes: Array<RouteRecordRaw> = [
     },
     {
         path: "/System/",
+        redirect: "/System/Message",
         component: () => import("../components/System.vue"),
+        children: [
+            {
+                path: "Message",
+                component: () => import("../pages/Manage/Message/index.vue")
+            },
+            {
+                path: "Position",
+                component: () => import("../pages/Manage/Position/index.vue")
+            },
+            {
+                path: "ResumeRecevie",
+                component: () => import("../pages/Manage/Resume/ReResume.vue")
+            },
+            {
+                path: "ResumeDownload",
+                component: () => import("../pages/Manage/Resume/DwResume.vue")
+            },
+            {
+                path: "Interview",
+                component: () => import("../pages/Manage/Interview/index.vue")
+            },
+            {
+                path: "Talent",
+                component: () => import("../pages/Manage/Talent/index.vue")
+            },
+            {
+                path: "Data",
+                component: () => import("../pages/Manage/Data/index.vue")
+            },
+            {
+                path: "Individual",
+                component: () => import("../pages/Manage/Individual/index.vue")
+            }
+        ]
+    },
+    {
+        path: "/Manage",
+        component: () => import("../pages/Manage/index.vue"),
     }
 ]
 

@@ -5,7 +5,9 @@
             <div class="upside-lia">
                 <div>
                     <span class="title">发布职位，开启招聘之旅~</span>
-                    <a href="#">跳过发布</a>
+                    <router-link to="/Manage">
+                        跳过发布
+                    </router-link>
                 </div>
                 <div class="line"></div>
             </div>
@@ -98,7 +100,8 @@
                     </el-form>
                 </div>
             </div>
-        </div>  </div>
+        </div>
+    </div>
 
 </template>
 
@@ -158,7 +161,8 @@ const publishPost = () => {
 // postCompanyinfosCompanyinfoidPositioninfos(store.state.companyInfo.companyId, jobTypeList)
 </script>
 
-<style lang="scss" scoped>.upside {
+<style lang="scss" scoped>
+.upside {
 
     display: flex;
     justify-content: center;
