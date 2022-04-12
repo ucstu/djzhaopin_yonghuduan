@@ -3,27 +3,35 @@
     <NavigationBar class="top-group" :title="country" />
     <view class="flex-row group_all">
       <view class="justify-center group_left">商圈</view>
-      <scroll-view class="flex-row group_center" :scroll-y="true" @scroll="scroll">
+      <scroll-view
+        class="flex-row group_center"
+        :scroll-y="true"
+        @scroll="scroll"
+      >
         <view class="flex-col">
           <view
+            v-for="(country, i) in countries"
+            :key="i"
             class="cities"
             :class="countriesIndex == i ? 'active' : ''"
             @click="countriesIndexOf(i)"
-            :key="i"
-            v-for="(country, i) in countries"
           >
             <text>{{ country.countyName }}</text>
           </view>
         </view>
       </scroll-view>
-      <scroll-view class="flex-row group_right" :scroll-y="true" @scroll="scroll">
+      <scroll-view
+        class="flex-row group_right"
+        :scroll-y="true"
+        @scroll="scroll"
+      >
         <view class="flex-col items-center">
           <view
+            v-for="(area, i) in areas"
+            :key="i"
             class="toponym"
             :class="areasIndex.includes(i) ? 'active' : ''"
             @click="areasIndexOf(i)"
-            :key="i"
-            v-for="(area, i) in areas"
           >
             <text>{{ area }}</text>
           </view>
@@ -31,7 +39,10 @@
       </scroll-view>
     </view>
     <view class="flex-row button">
-      <view class="flex-col items-center justify-center reset" @click="replacement">
+      <view
+        class="flex-col items-center justify-center reset"
+        @click="replacement"
+      >
         <text>重置</text>
       </view>
       <view class="flex-col items-center justify-center identify">
@@ -42,122 +53,128 @@
 </template>
 
 <script lang="ts" setup>
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-import { getAreaInformations } from '@/services/services';
-import { AreaInformations } from '@/services/types';
-import { reactive, ref, computed } from 'vue'
+import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { getAreaInformations } from "@/services/services";
+import { AreaInformations } from "@/services/types";
+import { computed, reactive, ref } from "vue";
 
 const countries = reactive<AreaInformations>([
   {
-    countyName: '不限',
-    areas: [
-      '不限'
-    ]
+    countyName: "不限",
+    areas: ["不限"],
   },
-])
+]);
 getAreaInformations({
-  city: '北京市',
-}).then(res => {
-  countries.push(...res.data)
-})
+  city: "北京市",
+}).then((res) => {
+  countries.push(...res.data);
+});
 const areas = computed(() => {
-  return countries[countriesIndex.value].areas
-})
+  return countries[countriesIndex.value].areas;
+});
 
-const countriesIndex = ref(0)
-const country = ref('位置')
+const countriesIndex = ref(0);
+const country = ref("位置");
 const countriesIndexOf = (index: number) => {
-  countriesIndex.value = index
-  areasIndex.value.splice(1, areasIndex.value.length)
-  country.value = ''
-  country.value = countries[index].countyName
-  console.log(country.value)
+  countriesIndex.value = index;
+  areasIndex.value.splice(1, areasIndex.value.length);
+  country.value = "";
+  country.value = countries[index].countyName;
+  console.log(country.value);
+};
 
-}
-
-const areasIndex = ref([0])
+const areasIndex = ref([0]);
 const areasIndexOf = (index: number) => {
   if (areasIndex.value.includes(index)) {
-    areasIndex.value.splice(areasIndex.value.indexOf(index), 1)
+    areasIndex.value.splice(areasIndex.value.indexOf(index), 1);
   } else {
-    areasIndex.value.push(index)
+    areasIndex.value.push(index);
   }
-}
+};
 const replacement = () => {
-  countriesIndex.value = 0
-  areasIndex.value = [0]
-}
+  countriesIndex.value = 0;
+  areasIndex.value = [0];
+};
 </script>
 
 <style lang="scss" scoped>
 .page {
-  margin-top: -50rpx;
-  padding: 60rpx 0 21rpx;
-  background-color: rgb(255, 255, 255);
   width: 710rpx;
   height: 1334rpx;
+  padding: 60rpx 0 21rpx;
+  margin-top: -50rpx;
   margin-left: 20rpx;
+  background-color: rgb(255 255 255);
+
   .top-group {
     position: relative;
   }
+
   .group_all {
     height: 1120rpx;
+
     .active {
-      color: rgb(84, 188, 163);
+      color: rgb(84 188 163);
     }
+
     .group_left {
       width: 213rpx;
       font-size: 30rpx;
       font-weight: bold;
-      background-color: rgb(244, 250, 255);
+      background-color: rgb(244 250 255);
     }
 
     .group_center {
       width: 248.5rpx;
       overflow-y: hidden;
+
       .cities {
         width: 200rpx;
         height: 60rpx;
         margin-left: 24rpx;
-        white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
         font-size: 30rpx;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
+
     .group_right {
       width: 248.5rpx;
       overflow-y: hidden;
+
       .toponym {
         width: 200rpx;
         height: 60rpx;
         margin-left: 24rpx;
-        white-space: nowrap;
         overflow: hidden;
-        text-overflow: ellipsis;
         font-size: 30rpx;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
+
   .button {
-    width: 710rpx;
     position: fixed;
     bottom: 20rpx;
-    background-color: rgb(255, 255, 255);
+    width: 710rpx;
+    background-color: rgb(255 255 255);
 
     .reset {
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
       width: 230rpx;
       height: 60rpx;
       font-size: 30rpx;
-    }
-    .identify {
-      margin-left: 20rpx;
-      background-color: rgb(84, 188, 163);
+      background-color: rgb(229 229 229);
       border-radius: 5rpx;
-      font-size: 30rpx;
+    }
+
+    .identify {
       width: 460rpx;
+      margin-left: 20rpx;
+      font-size: 30rpx;
+      background-color: rgb(84 188 163);
+      border-radius: 5rpx;
     }
   }
 }
