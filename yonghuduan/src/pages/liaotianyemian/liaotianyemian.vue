@@ -1,16 +1,22 @@
 <template>
   <view class="page">
-    <view class="flex-row justify-between items-center group-top"
-      :style="'width: ' + navigationBarWidth + 'px; margin-top: ' + navigationBarTop + 'px'">
+    <view
+      class="flex-row justify-between items-center group-top"
+      :style="
+        'width: ' +
+        navigationBarWidth +
+        'px; margin-top: ' +
+        navigationBarTop +
+        'px'
+      "
+    >
       <image class="image-left" src="@/static/icons/arrow-left-bold.png" />
       <view class="flex-col top-title">
         <text class="justify-center text-top">{{ personnelName }}</text>
         <text class="text-bottom">{{ companyAndJob }}</text>
       </view>
     </view>
-    <scroll-view class="group-info" :scroll-y="true" @scroll="scroll">
-
-    </scroll-view>
+    <scroll-view class="group-info" :scroll-y="true"> </scroll-view>
     <view class="flex-col group-end justify-center">
       <view class="flex-row justify-between input-box">
         <view class="text-input">
@@ -30,39 +36,28 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { useStore } from 'vuex';
-import { key } from '@/stores';
+import { key } from "@/stores";
+import { ref } from "vue";
+import { useStore } from "vuex";
 const store = useStore(key);
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-// @ts-ignore
-const navigationBarHeight = store.state.menuButtonInfo.height
-// @ts-ignore
-const navigationBarTop = store.state.menuButtonInfo.top
-// @ts-ignore
-const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(30)
-// @ts-ignore
-const expectationWidth = store.state.menuButtonInfo.left - uni.upx2px(170)
+
+const navigationBarTop = store.state.menuButtonInfo.top;
+
+const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(30);
+
 /* #endif */
 
-const personnelName = ref('张三')
-const companyAndJob = ref('字节跳动 · 人事总监')
-
-const imageOnClick = () => {
-  // @ts-ignore
-  uni.navigateBack()
-}
-const text_7OnClick = () => {
-  uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-}
+const personnelName = ref("张三");
+const companyAndJob = ref("字节跳动 · 人事总监");
 </script>
 
 <style lang="scss" scoped>
 .page {
   height: 1334rpx;
   overflow: hidden;
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(235 235 235);
 
   .group-top {
     .image-left {
@@ -85,9 +80,9 @@ const text_7OnClick = () => {
   }
 
   .group-info {
-    margin-top: 30rpx;
     width: 100%;
     height: 1040rpx;
+    margin-top: 30rpx;
   }
 
   .group-end {
@@ -115,10 +110,10 @@ const text_7OnClick = () => {
       }
 
       .text-send {
+        padding: 3rpx 25rpx;
         font-size: 30rpx;
         color: #fff;
-        background-color: rgb(9, 164, 225);
-        padding: 3rpx 25rpx;
+        background-color: rgb(9 164 225);
         border-radius: 30rpx;
       }
     }

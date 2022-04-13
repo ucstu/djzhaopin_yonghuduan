@@ -39,20 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-
-const companyName = ref('请填写')
-const department = ref('请填写')
-const jobContent = ref('工作内容')
-const projectIndustry = ref('请选择')
-const startTime = ref('入职时间')
-const overTime = ref('至今')
-const positionType = ref('请选择')
-const imageOnClick = () => {
-  // @ts-ignore
-  uni.navigateBack()
-}
+import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 </script>
 
 <style lang="scss" scoped>
@@ -60,34 +47,39 @@ const imageOnClick = () => {
   .group-all {
     width: 710rpx;
     height: auto;
-    margin-left: 20rpx;
     margin-top: 120rpx;
+    margin-left: 20rpx;
+
     .group-box {
       width: 100%;
       height: 130rpx;
       margin-top: 20rpx;
-      border: solid 2rpx rgb(210, 210, 210);
-      border-radius: 5rpx;
       line-height: 60rpx;
+      border: solid 2rpx rgb(210 210 210);
+      border-radius: 5rpx;
+
       .text-title {
+        padding-left: 20rpx;
         font-size: 30rpx;
-        padding-left: 20rpx;
       }
+
       .text-input {
-        font-size: 28rpx;
         padding-left: 20rpx;
+        font-size: 28rpx;
       }
     }
+
     .group-button {
-      width: 100%;
-      height: 80rpx;
       position: fixed;
       bottom: 40rpx;
+      width: 100%;
+      height: 80rpx;
+
       .button-box {
         width: 500rpx;
-        background-color: rgb(35, 193, 158);
-        color: #fff;
         font-size: 30rpx;
+        color: #fff;
+        background-color: rgb(35 193 158);
         border-radius: 10rpx;
       }
     }

@@ -161,696 +161,752 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-const systemEnvironment = ref('Windows')
-const algorithmType = ref('回归算法')
-const applicationField = ref('搜索 | 推荐')
-const communicationProtocol = ref('TCP | IP')
-const encryptionTechnology = ref('IDS')
-const searchEngine = ref('Lucene')
-const imageOnClick = () => {
-  // @ts-ignore
-  uni.navigateBack()
-}
+import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { ref } from "vue";
+const systemEnvironment = ref("Windows");
+const algorithmType = ref("回归算法");
+const applicationField = ref("搜索 | 推荐");
+const communicationProtocol = ref("TCP | IP");
+const encryptionTechnology = ref("IDS");
+const searchEngine = ref("Lucene");
 </script>
 
 <style lang="scss" scoped>
 .page {
-  padding-bottom: 20rpx;
-  background-color: rgb(255, 255, 255);
-  height: 1880rpx;
-  width: 100%;
-  overflow-y: auto;
   position: relative;
+  width: 100%;
+  height: 1880rpx;
+  padding-bottom: 20rpx;
+  overflow-y: auto;
+  background-color: rgb(255 255 255);
+
   .header {
     position: absolute;
-    left: 0;
-    right: 0;
     top: 0;
+    right: 0;
+    left: 0;
   }
+
   .text_1 {
-    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 128rpx;
+    left: 41rpx;
     font-size: 30rpx;
     line-height: 28rpx;
+    color: rgb(0 0 0);
     white-space: nowrap;
-    position: absolute;
-    left: 41rpx;
-    top: 128rpx;
   }
+
   .text_2 {
-    color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 171rpx;
+    left: 41rpx;
     font-size: 20rpx;
     line-height: 19rpx;
+    color: rgb(0 0 0 / 70%);
     white-space: nowrap;
-    position: absolute;
-    left: 41rpx;
-    top: 171rpx;
   }
+
   .group_1 {
+    position: absolute;
+    top: 220rpx;
+    right: 30rpx;
+    left: 30rpx;
+    height: 290rpx;
     padding: 18rpx 0 15rpx;
     overflow: hidden;
-    height: 290rpx;
-    position: absolute;
-    left: 30rpx;
-    right: 30rpx;
-    top: 220rpx;
+
     .text_3 {
       margin-left: 21rpx;
-      color: rgb(0, 0, 0);
       font-size: 30rpx;
       line-height: 28rpx;
+      color: rgb(0 0 0);
       white-space: nowrap;
     }
   }
+
   .group_2 {
+    position: absolute;
+    top: 520rpx;
+    right: 30rpx;
+    left: 30rpx;
+    height: 290rpx;
     padding: 18rpx 0 15rpx;
     overflow: hidden;
-    height: 290rpx;
-    position: absolute;
-    left: 30rpx;
-    right: 30rpx;
-    top: 520rpx;
+
     .text_11 {
       margin-left: 21rpx;
-      color: rgb(0, 0, 0);
       font-size: 30rpx;
       line-height: 28rpx;
+      color: rgb(0 0 0);
       white-space: nowrap;
     }
   }
+
   .group_3 {
-    padding: 18rpx 0 15rpx;
-    overflow: hidden;
-    height: 290rpx;
     position: absolute;
-    left: 30rpx;
     right: 30rpx;
     bottom: 770rpx;
+    left: 30rpx;
+    height: 290rpx;
+    padding: 18rpx 0 15rpx;
+    overflow: hidden;
+
     .text_21 {
       margin-left: 21rpx;
-      color: rgb(0, 0, 0);
       font-size: 30rpx;
       line-height: 28rpx;
+      color: rgb(0 0 0);
       white-space: nowrap;
     }
+
     .view_7 {
       margin-top: 19rpx;
     }
   }
+
   .group_4 {
-    padding: 18rpx 0 15rpx;
-    overflow: hidden;
-    height: 215rpx;
     position: absolute;
-    left: 30rpx;
     right: 30rpx;
     bottom: 545rpx;
+    left: 30rpx;
+    height: 215rpx;
+    padding: 18rpx 0 15rpx;
+    overflow: hidden;
+
     .text_31 {
       margin-left: 21rpx;
-      color: rgb(0, 0, 0);
       font-size: 30rpx;
       line-height: 28rpx;
+      color: rgb(0 0 0);
       white-space: nowrap;
     }
+
     .group_5 {
-      margin-top: 21rpx;
-      height: 135rpx;
       position: relative;
+      height: 135rpx;
+      margin-top: 21rpx;
+
       .text-wrapper_20 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 210rpx;
+        height: 60rpx;
         padding: 21rpx 0 19rpx;
-        color: rgb(0, 0, 0);
+        overflow: hidden;
         font-size: 25rpx;
         line-height: 21rpx;
+        color: rgb(0 0 0);
         white-space: nowrap;
-        background-color: rgb(229, 229, 229);
+        background-color: rgb(229 229 229);
         border-radius: 5rpx;
-        overflow: hidden;
-        width: 210rpx;
-        height: 60rpx;
-        position: absolute;
-        left: 0;
-        top: 0;
       }
+
       .view_11 {
-        color: rgb(0, 0, 0);
         font-size: 25rpx;
         line-height: 20rpx;
+        color: rgb(0 0 0);
         white-space: nowrap;
       }
+
       .text-wrapper_21 {
-        padding: 21rpx 0 23rpx;
-        color: rgb(0, 0, 0);
-        font-size: 25rpx;
-        line-height: 18rpx;
-        white-space: nowrap;
-        background-color: rgb(229, 229, 229);
-        border-radius: 5rpx;
-        overflow: hidden;
+        position: absolute;
+        bottom: 0;
+        left: 0;
         width: 210rpx;
         height: 60rpx;
-        position: absolute;
-        left: 0;
-        bottom: 0;
+        padding: 21rpx 0 23rpx;
+        overflow: hidden;
+        font-size: 25rpx;
+        line-height: 18rpx;
+        color: rgb(0 0 0);
+        white-space: nowrap;
+        background-color: rgb(229 229 229);
+        border-radius: 5rpx;
       }
     }
   }
+
   .group_6 {
-    padding: 18rpx 0 15rpx;
-    overflow: hidden;
-    height: 365rpx;
     position: absolute;
-    left: 30rpx;
     right: 30rpx;
     bottom: 170rpx;
-    .text_36 {
-      margin-left: 22rpx;
-      color: rgb(0, 0, 0);
-      font-size: 30rpx;
-      line-height: 28rpx;
-      white-space: nowrap;
-    }
-    .group_7 {
-      margin-right: 4rpx;
-      margin-top: 21rpx;
-      height: 285rpx;
-      position: relative;
-      .text-wrapper_22 {
-        padding: 21rpx 0 21rpx;
-        color: rgb(0, 0, 0);
-        font-size: 25rpx;
-        line-height: 18rpx;
-        white-space: nowrap;
-        background-color: rgb(229, 229, 229);
-        border-radius: 5rpx;
-        overflow: hidden;
-        width: 210rpx;
-        height: 60rpx;
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-      .view_13 {
-        color: rgb(0, 0, 0);
-        font-size: 25rpx;
-        line-height: 18rpx;
-        white-space: nowrap;
-      }
-      .text-wrapper_23 {
-        padding: 21rpx 0 23rpx;
-        color: rgb(0, 0, 0);
-        font-size: 25rpx;
-        line-height: 18rpx;
-        white-space: nowrap;
-        background-color: rgb(229, 229, 229);
-        border-radius: 5rpx;
-        overflow: hidden;
-        width: 210rpx;
-        height: 60rpx;
-        position: absolute;
-        left: 0;
-        top: 75rpx;
-      }
-      .text-wrapper_24 {
-        padding: 21rpx 0 23rpx;
-        color: rgb(0, 0, 0);
-        font-size: 25rpx;
-        line-height: 18rpx;
-        white-space: nowrap;
-        background-color: rgb(229, 229, 229);
-        border-radius: 5rpx;
-        overflow: hidden;
-        width: 210rpx;
-        height: 60rpx;
-        position: absolute;
-        top: 75rpx;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-      .text-wrapper_25 {
-        padding: 21rpx 0 17rpx;
-        color: rgb(0, 0, 0);
-        font-size: 25rpx;
-        line-height: 23rpx;
-        white-space: nowrap;
-        background-color: rgb(229, 229, 229);
-        border-radius: 5rpx;
-        overflow: hidden;
-        width: 210rpx;
-        height: 60rpx;
-        position: absolute;
-        right: 0;
-        top: 75rpx;
-      }
-      .text-wrapper_26 {
-        padding: 21rpx 0 21rpx;
-        color: rgb(0, 0, 0);
-        font-size: 25rpx;
-        line-height: 18rpx;
-        white-space: nowrap;
-        background-color: rgb(229, 229, 229);
-        border-radius: 5rpx;
-        overflow: hidden;
-        width: 210rpx;
-        height: 60rpx;
-        position: absolute;
-        left: 0;
-        bottom: 75rpx;
-      }
-      .text-wrapper_27 {
-        padding: 21rpx 0 17rpx;
-        color: rgb(0, 0, 0);
-        font-size: 25rpx;
-        line-height: 23rpx;
-        white-space: nowrap;
-        background-color: rgb(229, 229, 229);
-        border-radius: 5rpx;
-        overflow: hidden;
-        width: 210rpx;
-        height: 60rpx;
-        position: absolute;
-        bottom: 75rpx;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-      .text-wrapper_28 {
-        padding: 20rpx 0 18rpx;
-        color: rgb(0, 0, 0);
-        font-size: 25rpx;
-        line-height: 24rpx;
-        white-space: nowrap;
-        background-color: rgb(229, 229, 229);
-        border-radius: 5rpx;
-        overflow: hidden;
-        width: 210rpx;
-        height: 60rpx;
-        position: absolute;
-        right: 0;
-        bottom: 75rpx;
-      }
-      .text-wrapper_29 {
-        padding: 21rpx 0 17rpx;
-        color: rgb(0, 0, 0);
-        font-size: 25rpx;
-        line-height: 23rpx;
-        white-space: nowrap;
-        background-color: rgb(229, 229, 229);
-        border-radius: 5rpx;
-        overflow: hidden;
-        width: 210rpx;
-        height: 60rpx;
-        position: absolute;
-        left: 0;
-        bottom: 0;
-      }
-    }
-  }
-  .group_8 {
+    left: 30rpx;
+    height: 365rpx;
     padding: 18rpx 0 15rpx;
     overflow: hidden;
-    height: 140rpx;
-    position: absolute;
-    left: 30rpx;
-    right: 30rpx;
-    bottom: 20rpx;
-    .text_47 {
-      margin-left: 21rpx;
-      color: rgb(0, 0, 0);
+
+    .text_36 {
+      margin-left: 22rpx;
       font-size: 30rpx;
       line-height: 28rpx;
+      color: rgb(0 0 0);
       white-space: nowrap;
     }
-    .group_9 {
+
+    .group_7 {
+      position: relative;
+      height: 285rpx;
       margin-top: 21rpx;
-      .text-wrapper_30 {
-        padding: 21rpx 0 21rpx;
-        flex: 1 1 210rpx;
-        color: rgb(0, 0, 0);
+      margin-right: 4rpx;
+
+      .text-wrapper_22 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 210rpx;
+        height: 60rpx;
+        padding: 21rpx 0;
+        overflow: hidden;
         font-size: 25rpx;
         line-height: 18rpx;
+        color: rgb(0 0 0);
         white-space: nowrap;
-        background-color: rgb(229, 229, 229);
+        background-color: rgb(229 229 229);
         border-radius: 5rpx;
-        overflow: hidden;
-        height: 60rpx;
       }
-      .center-text-wrapper {
-        margin-left: 30rpx;
-        flex: 1 1 210rpx;
-        color: rgb(0, 0, 0);
+
+      .view_13 {
         font-size: 25rpx;
-        line-height: 19rpx;
+        line-height: 18rpx;
+        color: rgb(0 0 0);
         white-space: nowrap;
-        padding: 20rpx 0 22rpx;
-        background-color: rgb(229, 229, 229);
-        border-radius: 5rpx;
-        overflow: hidden;
+      }
+
+      .text-wrapper_23 {
+        position: absolute;
+        top: 75rpx;
+        left: 0;
+        width: 210rpx;
         height: 60rpx;
+        padding: 21rpx 0 23rpx;
+        overflow: hidden;
+        font-size: 25rpx;
+        line-height: 18rpx;
+        color: rgb(0 0 0);
+        white-space: nowrap;
+        background-color: rgb(229 229 229);
+        border-radius: 5rpx;
+      }
+
+      .text-wrapper_24 {
+        position: absolute;
+        top: 75rpx;
+        left: 50%;
+        width: 210rpx;
+        height: 60rpx;
+        padding: 21rpx 0 23rpx;
+        overflow: hidden;
+        font-size: 25rpx;
+        line-height: 18rpx;
+        color: rgb(0 0 0);
+        white-space: nowrap;
+        background-color: rgb(229 229 229);
+        border-radius: 5rpx;
+        transform: translateX(-50%);
+      }
+
+      .text-wrapper_25 {
+        position: absolute;
+        top: 75rpx;
+        right: 0;
+        width: 210rpx;
+        height: 60rpx;
+        padding: 21rpx 0 17rpx;
+        overflow: hidden;
+        font-size: 25rpx;
+        line-height: 23rpx;
+        color: rgb(0 0 0);
+        white-space: nowrap;
+        background-color: rgb(229 229 229);
+        border-radius: 5rpx;
+      }
+
+      .text-wrapper_26 {
+        position: absolute;
+        bottom: 75rpx;
+        left: 0;
+        width: 210rpx;
+        height: 60rpx;
+        padding: 21rpx 0;
+        overflow: hidden;
+        font-size: 25rpx;
+        line-height: 18rpx;
+        color: rgb(0 0 0);
+        white-space: nowrap;
+        background-color: rgb(229 229 229);
+        border-radius: 5rpx;
+      }
+
+      .text-wrapper_27 {
+        position: absolute;
+        bottom: 75rpx;
+        left: 50%;
+        width: 210rpx;
+        height: 60rpx;
+        padding: 21rpx 0 17rpx;
+        overflow: hidden;
+        font-size: 25rpx;
+        line-height: 23rpx;
+        color: rgb(0 0 0);
+        white-space: nowrap;
+        background-color: rgb(229 229 229);
+        border-radius: 5rpx;
+        transform: translateX(-50%);
+      }
+
+      .text-wrapper_28 {
+        position: absolute;
+        right: 0;
+        bottom: 75rpx;
+        width: 210rpx;
+        height: 60rpx;
+        padding: 20rpx 0 18rpx;
+        overflow: hidden;
+        font-size: 25rpx;
+        line-height: 24rpx;
+        color: rgb(0 0 0);
+        white-space: nowrap;
+        background-color: rgb(229 229 229);
+        border-radius: 5rpx;
+      }
+
+      .text-wrapper_29 {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 210rpx;
+        height: 60rpx;
+        padding: 21rpx 0 17rpx;
+        overflow: hidden;
+        font-size: 25rpx;
+        line-height: 23rpx;
+        color: rgb(0 0 0);
+        white-space: nowrap;
+        background-color: rgb(229 229 229);
+        border-radius: 5rpx;
       }
     }
   }
+
+  .group_8 {
+    position: absolute;
+    right: 30rpx;
+    bottom: 20rpx;
+    left: 30rpx;
+    height: 140rpx;
+    padding: 18rpx 0 15rpx;
+    overflow: hidden;
+
+    .text_47 {
+      margin-left: 21rpx;
+      font-size: 30rpx;
+      line-height: 28rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+    }
+
+    .group_9 {
+      margin-top: 21rpx;
+
+      .text-wrapper_30 {
+        flex: 1 1 210rpx;
+        height: 60rpx;
+        padding: 21rpx 0;
+        overflow: hidden;
+        font-size: 25rpx;
+        line-height: 18rpx;
+        color: rgb(0 0 0);
+        white-space: nowrap;
+        background-color: rgb(229 229 229);
+        border-radius: 5rpx;
+      }
+
+      .center-text-wrapper {
+        flex: 1 1 210rpx;
+        height: 60rpx;
+        padding: 20rpx 0 22rpx;
+        margin-left: 30rpx;
+        overflow: hidden;
+        font-size: 25rpx;
+        line-height: 19rpx;
+        color: rgb(0 0 0);
+        white-space: nowrap;
+        background-color: rgb(229 229 229);
+        border-radius: 5rpx;
+      }
+    }
+  }
+
   .bottom-group {
-    margin-top: 21rpx;
-    height: 210rpx;
     position: relative;
+    height: 210rpx;
+    margin-top: 21rpx;
+
     .text-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 210rpx;
+      height: 60rpx;
       padding: 20rpx 0 22rpx;
-      color: rgb(0, 0, 0);
+      overflow: hidden;
       font-size: 25rpx;
       line-height: 19rpx;
+      color: rgb(0 0 0);
       white-space: nowrap;
-      background-color: rgb(229, 229, 229);
+      background-color: rgb(229 229 229);
       border-radius: 5rpx;
-      overflow: hidden;
-      width: 210rpx;
-      height: 60rpx;
-      position: absolute;
-      left: 0;
-      top: 0;
     }
+
     .view_1 {
-      color: rgb(0, 0, 0);
       font-size: 25rpx;
       line-height: 18rpx;
+      color: rgb(0 0 0);
       white-space: nowrap;
     }
+
     .text-wrapper_3 {
-      padding: 21rpx 0 21rpx;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 18rpx;
-      white-space: nowrap;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
+      position: absolute;
+      top: 50%;
+      left: 0;
       width: 210rpx;
       height: 60rpx;
-      position: absolute;
-      left: 0;
-      top: 50%;
+      padding: 21rpx 0;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 18rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
       transform: translateY(-50%);
     }
+
     .text-wrapper_4 {
-      padding: 21rpx 0 23rpx;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 18rpx;
-      white-space: nowrap;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
+      position: absolute;
+      top: 50%;
+      left: 50%;
       width: 210rpx;
       height: 60rpx;
-      position: absolute;
-      left: 50%;
-      top: 50%;
+      padding: 21rpx 0 23rpx;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 18rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
       transform: translate(-50%, -50%);
     }
+
     .text-wrapper_5 {
-      padding: 21rpx 0 21rpx;
-      color: rgb(0, 0, 0);
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 210rpx;
+      height: 60rpx;
+      padding: 21rpx 0;
+      overflow: hidden;
       font-size: 25rpx;
       line-height: 18rpx;
+      color: rgb(0 0 0);
       white-space: nowrap;
-      background-color: rgb(229, 229, 229);
+      background-color: rgb(229 229 229);
       border-radius: 5rpx;
-      overflow: hidden;
-      width: 210rpx;
-      height: 60rpx;
-      position: absolute;
-      right: 0;
-      top: 50%;
       transform: translateY(-50%);
     }
+
     .text-wrapper_6 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 210rpx;
+      height: 60rpx;
       padding: 20rpx 0 22rpx;
-      color: rgb(0, 0, 0);
+      overflow: hidden;
       font-size: 25rpx;
       line-height: 19rpx;
+      color: rgb(0 0 0);
       white-space: nowrap;
-      background-color: rgb(229, 229, 229);
+      background-color: rgb(229 229 229);
       border-radius: 5rpx;
-      overflow: hidden;
-      width: 210rpx;
-      height: 60rpx;
-      position: absolute;
-      left: 0;
-      bottom: 0;
     }
+
     .text-wrapper_7 {
-      padding: 18rpx 0 20rpx;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      white-space: nowrap;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
-      width: 210rpx;
-      height: 60rpx;
       position: absolute;
-      left: 0;
       top: 0;
-    }
-    .text-wrapper_8 {
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      white-space: nowrap;
-      padding: 18rpx 0 20rpx;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
+      left: 0;
       width: 210rpx;
       height: 60rpx;
+      padding: 18rpx 0 20rpx;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 23rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
+    }
+
+    .text-wrapper_8 {
       position: absolute;
       top: 0;
       left: 50%;
+      width: 210rpx;
+      height: 60rpx;
+      padding: 18rpx 0 20rpx;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 23rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
       transform: translateX(-50%);
     }
+
     .text-wrapper_9 {
-      padding: 18rpx 0 20rpx;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      white-space: nowrap;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
-      width: 210rpx;
-      height: 60rpx;
       position: absolute;
-      right: 0;
       top: 0;
-    }
-    .text-wrapper_10 {
-      padding: 18rpx 0 20rpx;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      white-space: nowrap;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
+      right: 0;
       width: 210rpx;
       height: 60rpx;
+      padding: 18rpx 0 20rpx;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 23rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
+    }
+
+    .text-wrapper_10 {
       position: absolute;
-      left: 0;
       top: 50%;
+      left: 0;
+      width: 210rpx;
+      height: 60rpx;
+      padding: 18rpx 0 20rpx;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 23rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
       transform: translateY(-50%);
     }
+
     .text-wrapper_11 {
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      white-space: nowrap;
-      padding: 18rpx 0 20rpx;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
+      position: absolute;
+      top: 50%;
+      left: 50%;
       width: 210rpx;
       height: 60rpx;
-      position: absolute;
-      left: 50%;
-      top: 50%;
+      padding: 18rpx 0 20rpx;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 23rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
       transform: translate(-50%, -50%);
     }
+
     .section_1 {
-      color: rgb(0, 0, 0);
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 210rpx;
+      height: 60rpx;
+      overflow: hidden;
       font-size: 25rpx;
       line-height: 30rpx;
+      color: rgb(0 0 0);
       white-space: nowrap;
-      background-color: rgb(229, 229, 229);
+      background-color: rgb(229 229 229);
       border-radius: 5rpx;
-      overflow: hidden;
-      width: 210rpx;
-      height: 60rpx;
-      position: absolute;
-      right: 0;
-      top: 50%;
       transform: translateY(-50%);
     }
+
     .text-wrapper_12 {
-      padding: 18rpx 0 20rpx;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      white-space: nowrap;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
-      width: 210rpx;
-      height: 60rpx;
       position: absolute;
-      left: 0;
       bottom: 0;
-    }
-    .text-wrapper_13 {
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      white-space: nowrap;
-      padding: 18rpx 0 20rpx;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
+      left: 0;
       width: 210rpx;
       height: 60rpx;
+      padding: 18rpx 0 20rpx;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 23rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
+    }
+
+    .text-wrapper_13 {
       position: absolute;
       bottom: 0;
       left: 50%;
-      transform: translateX(-50%);
-    }
-    .text-wrapper_14 {
-      padding: 18rpx 0 18rpx;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 24rpx;
-      white-space: nowrap;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
       width: 210rpx;
       height: 60rpx;
-      position: absolute;
-      left: 0;
-      top: 0;
+      padding: 18rpx 0 20rpx;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 23rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
+      transform: translateX(-50%);
     }
+
+    .text-wrapper_14 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 210rpx;
+      height: 60rpx;
+      padding: 18rpx 0;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 24rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
+    }
+
     .text-wrapper_15 {
-      padding: 18rpx 0;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 24rpx;
-      white-space: nowrap;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
-      height: 60rpx;
       position: absolute;
-      right: 0;
       top: 0;
-      .text_24 {
-        margin-left: 23rpx;
-        margin-right: 13rpx;
-      }
-    }
-    .text-wrapper_16 {
-      padding: 18rpx 0;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 24rpx;
-      white-space: nowrap;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
-      height: 60rpx;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      .text_25 {
-        margin-left: 21rpx;
-        margin-right: 14rpx;
-      }
-    }
-    .text-wrapper_17 {
-      padding: 18rpx 0 18rpx;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 24rpx;
-      white-space: nowrap;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
-      height: 60rpx;
-      position: absolute;
       right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      .text_27 {
+      height: 60rpx;
+      padding: 18rpx 0;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 24rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
+
+      .text_24 {
+        margin-right: 13rpx;
         margin-left: 23rpx;
-        margin-right: 12rpx;
       }
     }
+
+    .text-wrapper_16 {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 60rpx;
+      padding: 18rpx 0;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 24rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
+      transform: translateY(-50%);
+
+      .text_25 {
+        margin-right: 14rpx;
+        margin-left: 21rpx;
+      }
+    }
+
+    .text-wrapper_17 {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      height: 60rpx;
+      padding: 18rpx 0;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 24rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
+      transform: translateY(-50%);
+
+      .text_27 {
+        margin-right: 12rpx;
+        margin-left: 23rpx;
+      }
+    }
+
     .text-wrapper_18 {
-      padding: 18rpx 0 18rpx;
-      color: rgb(0, 0, 0);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 60rpx;
+      padding: 18rpx 0;
+      overflow: hidden;
       font-size: 25rpx;
       line-height: 25rpx;
+      color: rgb(0 0 0);
       white-space: nowrap;
-      background-color: rgb(229, 229, 229);
+      background-color: rgb(229 229 229);
       border-radius: 5rpx;
-      overflow: hidden;
-      height: 60rpx;
-      position: absolute;
-      left: 0;
-      bottom: 0;
+
       .text_28 {
         margin-left: 9rpx;
       }
     }
+
     .text-wrapper_19 {
-      padding: 18rpx 0 20rpx;
-      color: rgb(0, 0, 0);
-      font-size: 25rpx;
-      line-height: 23rpx;
-      white-space: nowrap;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
-      overflow: hidden;
-      width: 210rpx;
-      height: 60rpx;
       position: absolute;
       right: 0;
       bottom: 0;
+      width: 210rpx;
+      height: 60rpx;
+      padding: 18rpx 0 20rpx;
+      overflow: hidden;
+      font-size: 25rpx;
+      line-height: 23rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
     }
   }
+
   .text-wrapper_1 {
-    padding: 21rpx 0 21rpx;
-    background-color: rgb(229, 229, 229);
-    border-radius: 5rpx;
-    overflow: hidden;
-    width: 210rpx;
-    height: 60rpx;
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translateX(-50%);
-  }
-  .text-wrapper_2 {
-    color: rgb(0, 0, 0);
-    font-size: 25rpx;
-    line-height: 18rpx;
-    white-space: nowrap;
-    padding: 21rpx 0 21rpx;
-    background-color: rgb(229, 229, 229);
-    border-radius: 5rpx;
-    overflow: hidden;
     width: 210rpx;
     height: 60rpx;
+    padding: 21rpx 0;
+    overflow: hidden;
+    background-color: rgb(229 229 229);
+    border-radius: 5rpx;
+    transform: translateX(-50%);
+  }
+
+  .text-wrapper_2 {
     position: absolute;
-    right: 0;
     top: 0;
+    right: 0;
+    width: 210rpx;
+    height: 60rpx;
+    padding: 21rpx 0;
+    overflow: hidden;
+    font-size: 25rpx;
+    line-height: 18rpx;
+    color: rgb(0 0 0);
+    white-space: nowrap;
+    background-color: rgb(229 229 229);
+    border-radius: 5rpx;
   }
 }
 </style>

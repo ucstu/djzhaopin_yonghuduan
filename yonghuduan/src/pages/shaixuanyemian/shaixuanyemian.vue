@@ -1,88 +1,94 @@
 <template>
   <view class="flex-col page">
     <NavigationBar class="group" title="筛选" />
-    <scroll-view class="flex-col search" :scroll-y="true" @scroll="scroll">
+    <scroll-view class="flex-col search" :scroll-y="true">
       <view class="flex-col expected_salary">
         <text class="salary">期望薪资</text>
         <view class="flex-row expects">
           <view
+            v-for="(expectedSalary, i) in expectedSalaries"
+            :key="i"
             class="justify-center items-center expect"
             :class="activeSalary === i ? 'active' : ''"
             @click="activeSalaryOf(i)"
-            v-for="(expectedSalary, i) in expectedSalaries"
-            :key="i"
-          >{{ expectedSalary }}</view>
+            >{{ expectedSalary }}</view
+          >
         </view>
       </view>
       <view class="flex-col work_experience">
         <text class="experience">工作经验</text>
         <view class="flex-row works">
           <view
+            v-for="(workExperience, i) in workExperiences"
+            :key="i"
             class="justify-center items-center work"
             :class="activeExpect.includes(i) ? 'active' : ''"
             @click="activeExpectOf(i)"
-            v-for="(workExperience, i) in workExperiences"
-            :key="i"
-          >{{ workExperience }}</view>
+            >{{ workExperience }}</view
+          >
         </view>
       </view>
       <view class="flex-col degree_require">
         <text class="degree">学历</text>
         <view class="flex-row requires">
           <view
+            v-for="(education, i) in degreeRequires"
+            :key="i"
             class="justify-center items-center require"
             :class="activeRequire.includes(i) ? 'active' : ''"
             @click="activeRequireOf(i)"
-            v-for="(education, i) in degreeRequires"
-            :key="i"
-          >{{ education }}</view>
+            >{{ education }}</view
+          >
         </view>
       </view>
       <view class="flex-col job_nature">
         <text class="job">工作性质</text>
         <view class="flex-row natures">
           <view
+            v-for="(jobNature, i) in jobNatures"
+            :key="i"
             class="justify-center items-center nature"
             :class="activeNature.includes(i) ? 'active' : ''"
             @click="activeNatureOf(i)"
-            v-for="(jobNature, i) in jobNatures"
-            :key="i"
-          >{{ jobNature }}</view>
+            >{{ jobNature }}</view
+          >
         </view>
       </view>
       <view class="flex-col company_size">
         <text class="company">公司规模</text>
         <view class="flex-row sizes">
           <view
+            v-for="(companySize, i) in companySizes"
+            :key="i"
             class="justify-center items-center size"
             :class="activeSize.includes(i) ? 'active' : ''"
             @click="activeSizeOf(i)"
-            v-for="(companySize, i) in companySizes"
-            :key="i"
-          >{{ companySize }}</view>
+            >{{ companySize }}</view
+          >
         </view>
       </view>
       <view class="flex-col finance_stage">
         <text class="finance">融资阶段</text>
         <view class="flex-row stages">
           <view
+            v-for="(financeStage, i) in financeStages"
+            :key="i"
             class="justify-center items-center stage"
             :class="activeStage.includes(i) ? 'active' : ''"
             @click="activeStageOf(i)"
-            v-for="(financeStage, i) in financeStages"
-            :key="i"
-          >{{ financeStage }}</view>
+            >{{ financeStage }}</view
+          >
         </view>
       </view>
       <view class="flex-col industry_sector">
         <text class="industry">行业领域</text>
         <view class="flex-row sectors">
           <view
+            v-for="(industrySector, i) in industrySectors"
+            :key="i"
             class="justify-center items-center sector"
             :class="activeSector.includes(i) ? 'active' : ''"
             @click="activeSectorOf(i)"
-            v-for="(industrySector, i) in industrySectors"
-            :key="i"
           >
             <text>{{ industrySector }}</text>
           </view>
@@ -90,7 +96,10 @@
       </view>
     </scroll-view>
     <view class="flex-row button">
-      <view class="flex-col items-center justify-center reset" @click="replacement()">
+      <view
+        class="flex-col items-center justify-center reset"
+        @click="replacement()"
+      >
         <text>重置</text>
       </view>
       <view class="flex-col items-center justify-center identify">
@@ -101,287 +110,343 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, computed } from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-import { getFilterinfos } from '@/services/services';
+import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { getFilterinfos } from "@/services/services";
+import { ref } from "vue";
 
-const expectedSalaries = reactive([])
-const workExperiences = reactive([])
-const degreeRequires = reactive([])
-const jobNatures = reactive([])
-const companySizes = reactive([])
-const financeStages = reactive([])
-const industrySectors = reactive([])
+const expectedSalaries = ref([]);
+const workExperiences = ref([]);
+const degreeRequires = ref([]);
+const jobNatures = ref([]);
+const companySizes = ref([]);
+const financeStages = ref([]);
+const industrySectors = ref([]);
 
-getFilterinfos().then(res => {
-  expectedSalaries.splice(0, expectedSalaries.length, ...res.data.expectedSalary)
-  workExperiences.splice(0, workExperiences.length, ...res.data.workExperience)
-  degreeRequires.splice(0, degreeRequires.length, ...res.data.education)
-  jobNatures.splice(0, jobNatures.length, ...res.data.NatureWork)
-  companySizes.splice(0, companySizes.length, ...res.data.companySize)
-  financeStages.splice(0, financeStages.length, ...res.data.financingStage)
-  industrySectors.splice(0, industrySectors.length, ...res.data.IndustryField)
-})
+getFilterinfos().then((res) => {
+  expectedSalaries.value.splice(
+    0,
+    expectedSalaries.value.length,
+    ...res.data.expectedSalary
+  );
+  workExperiences.value.splice(
+    0,
+    workExperiences.value.length,
+    ...res.data.workExperience
+  );
+  degreeRequires.value.splice(
+    0,
+    degreeRequires.value.length,
+    ...res.data.education
+  );
+  jobNatures.value.splice(0, jobNatures.value.length, ...res.data.NatureWork);
+  companySizes.value.splice(
+    0,
+    companySizes.value.length,
+    ...res.data.companySize
+  );
+  financeStages.value.splice(
+    0,
+    financeStages.value.length,
+    ...res.data.financingStage
+  );
+  industrySectors.value.splice(
+    0,
+    industrySectors.value.length,
+    ...res.data.IndustryField
+  );
+});
 
-const activeSalary = ref() // 期望薪资
+const activeSalary = ref(); // 期望薪资
 const activeSalaryOf = (index: number) => {
   if (activeSalary.value === index) {
-    activeSalary.value = 0
+    activeSalary.value = 0;
   } else {
-    activeSalary.value = index
+    activeSalary.value = index;
   }
-}
+};
 
-const activeExpect = ref([]) // 工作经验
+const activeExpect = ref<number[]>([]); // 工作经验
 const activeExpectOf = (index: number) => {
-  let num = ''
+  let num = 0;
   if (activeExpect.value.includes(index)) {
-    activeExpect.value.sort((a, b) => a - b)
-    num = activeExpect.value.indexOf(index)
-    activeExpect.value.splice(num, 1)
+    activeExpect.value.sort((a, b) => a - b);
+    num = activeExpect.value.indexOf(index);
+    activeExpect.value.splice(num, 1);
   } else {
-    activeExpect.value.push(index)
+    activeExpect.value.push(index);
   }
-}
+};
 
-const activeRequire = ref([]); // 学历要求
-const activeRequireOf = (index) => {
-  let num = ''
+const activeRequire = ref<number[]>([]); // 学历要求
+const activeRequireOf = (index: number) => {
+  let num = 0;
   if (activeRequire.value.includes(index)) {
-    activeRequire.value.sort((a, b) => a - b)
-    num = activeRequire.value.indexOf(index)
-    activeRequire.value.splice(num, 1)
+    activeRequire.value.sort((a, b) => a - b);
+    num = activeRequire.value.indexOf(index);
+    activeRequire.value.splice(num, 1);
   } else {
-    activeRequire.value.push(index)
+    activeRequire.value.push(index);
   }
-}
-const activeNature = ref([]); // 工作性质
-const activeNatureOf = (index) => {
-  let num = ''
+};
+const activeNature = ref<number[]>([]); // 工作性质
+const activeNatureOf = (index: number) => {
+  let num = 0;
   if (activeNature.value.includes(index)) {
-    activeNature.value.sort((a, b) => a - b)
-    num = activeNature.value.indexOf(index)
-    activeNature.value.splice(num, 1)
+    activeNature.value.sort((a, b) => a - b);
+    num = activeNature.value.indexOf(index);
+    activeNature.value.splice(num, 1);
   } else {
-    activeNature.value.push(index)
+    activeNature.value.push(index);
   }
-}
+};
 
-const activeSize = ref([]); // 公司规模
-const activeSizeOf = (index) => {
-  let num = ''
+const activeSize = ref<number[]>([]); // 公司规模
+const activeSizeOf = (index: number) => {
+  let num = 0;
   if (activeSize.value.includes(index)) {
-    activeSize.value.sort((a, b) => a - b)
-    num = activeSize.value.indexOf(index)
-    activeSize.value.splice(num, 1)
+    activeSize.value.sort((a, b) => a - b);
+    num = activeSize.value.indexOf(index);
+    activeSize.value.splice(num, 1);
   } else {
-    activeSize.value.push(index)
+    activeSize.value.push(index);
   }
-}
+};
 
-const activeStage = ref([]); // 融资阶段
-const activeStageOf = (index) => {
-  let num = ''
+const activeStage = ref<number[]>([]); // 融资阶段
+const activeStageOf = (index: number) => {
+  let num = 0;
   if (activeStage.value.includes(index)) {
-    activeStage.value.sort((a, b) => a - b)
-    num = activeStage.value.indexOf(index)
-    activeStage.value.splice(num, 1)
+    activeStage.value.sort((a, b) => a - b);
+    num = activeStage.value.indexOf(index);
+    activeStage.value.splice(num, 1);
   } else {
-    activeStage.value.push(index)
+    activeStage.value.push(index);
   }
-}
+};
 
-const activeSector = ref([]); // 行业领域
-const activeSectorOf = (index) => {
-  let num = ''
+const activeSector = ref<number[]>([]); // 行业领域
+const activeSectorOf = (index: number) => {
+  let num = 0;
   if (activeSector.value.includes(index)) {
-    activeSector.value.sort((a, b) => a - b)
-    num = activeSector.value.indexOf(index)
-    activeSector.value.splice(num, 1)
+    activeSector.value.sort((a, b) => a - b);
+    num = activeSector.value.indexOf(index);
+    activeSector.value.splice(num, 1);
   } else {
-    activeSector.value.push(index)
+    activeSector.value.push(index);
   }
-}
+};
 
 const replacement = () => {
-  activeSalary.value = ''
-  activeExpect.value.length = 0
-  activeRequire.value.length = 0
-  activeNature.value.length = 0
-  activeSize.value.length = 0
-  activeStage.value.length = 0
-  activeSector.value.length = 0
-}
+  activeSalary.value = "";
+  activeExpect.value.length = 0;
+  activeRequire.value.length = 0;
+  activeNature.value.length = 0;
+  activeSize.value.length = 0;
+  activeStage.value.length = 0;
+  activeSector.value.length = 0;
+};
 </script>
 
 <style lang="scss" scoped>
 .page {
-  background-color: rgb(255, 255, 255);
   width: 100%;
+  background-color: rgb(255 255 255);
+
   .group {
     position: relative;
   }
+
   .active {
     color: $app-color;
-    background-color: rgb(216, 245, 231) !important;
-    border: solid 0.5rpx rgb(84, 188, 163);
+    background-color: rgb(216 245 231) !important;
+    border: solid 0.5rpx rgb(84 188 163);
   }
+
   .search {
     width: 720rpx;
-    margin-left: 15rpx;
-    margin-top: 20rpx;
     height: 1120rpx;
+    margin-top: 20rpx;
+    margin-left: 15rpx;
     overflow: hidden;
 
     .expected_salary {
       margin-top: 20rpx;
+
       .salary {
         margin-left: 25rpx;
         font-size: 35rpx;
       }
+
       .expects {
         flex-wrap: wrap;
+
         .expect {
-          margin: 10rpx 10rpx;
           width: 220rpx;
           height: 70rpx;
+          margin: 10rpx;
           font-size: 30rpx;
-          background-color: rgb(229, 229, 229);
+          background-color: rgb(229 229 229);
           border-radius: 5rpx;
         }
       }
     }
+
     .work_experience {
       margin-top: 20rpx;
+
       .experience {
         margin-left: 25rpx;
         font-size: 35rpx;
       }
+
       .works {
         flex-wrap: wrap;
+
         .work {
-          margin: 10rpx 10rpx;
           width: 220rpx;
           height: 70rpx;
+          margin: 10rpx;
           font-size: 30rpx;
-          background-color: rgb(229, 229, 229);
+          background-color: rgb(229 229 229);
           border-radius: 5rpx;
         }
       }
     }
+
     .degree_require {
       margin-top: 20rpx;
+
       .degree {
         margin-left: 25rpx;
         font-size: 35rpx;
       }
+
       .requires {
         flex-wrap: wrap;
+
         .require {
-          margin: 10rpx 10rpx;
           width: 220rpx;
           height: 70rpx;
+          margin: 10rpx;
           font-size: 30rpx;
-          background-color: rgb(229, 229, 229);
+          background-color: rgb(229 229 229);
           border-radius: 5rpx;
         }
       }
     }
+
     .job_nature {
       margin-top: 20rpx;
+
       .job {
         margin-left: 25rpx;
         font-size: 35rpx;
       }
+
       .natures {
         flex-wrap: wrap;
+
         .nature {
-          margin: 10rpx 10rpx;
           width: 220rpx;
           height: 70rpx;
+          margin: 10rpx;
           font-size: 30rpx;
-          background-color: rgb(229, 229, 229);
+          background-color: rgb(229 229 229);
           border-radius: 5rpx;
         }
       }
     }
+
     .company_size {
       margin-top: 20rpx;
+
       .company {
         margin-left: 25rpx;
         font-size: 35rpx;
       }
+
       .sizes {
         flex-wrap: wrap;
+
         .size {
-          margin: 10rpx 10rpx;
           width: 220rpx;
           height: 70rpx;
+          margin: 10rpx;
           font-size: 30rpx;
-          background-color: rgb(229, 229, 229);
+          background-color: rgb(229 229 229);
           border-radius: 5rpx;
         }
       }
     }
+
     .finance_stage {
       margin-top: 20rpx;
+
       .finance {
         margin-left: 25rpx;
         font-size: 35rpx;
       }
+
       .stages {
         flex-wrap: wrap;
+
         .stage {
-          margin: 10rpx 10rpx;
           width: 220rpx;
           height: 70rpx;
+          margin: 10rpx;
           font-size: 30rpx;
-          background-color: rgb(229, 229, 229);
+          background-color: rgb(229 229 229);
           border-radius: 5rpx;
         }
       }
     }
+
     .industry_sector {
       margin-top: 20rpx;
+
       .industry {
         margin-left: 25rpx;
         font-size: 35rpx;
       }
+
       .sectors {
         flex-wrap: wrap;
+
         .sector {
-          margin: 10rpx 10rpx;
           width: 220rpx;
           height: 70rpx;
+          margin: 10rpx;
           font-size: 30rpx;
-          background-color: rgb(229, 229, 229);
-          border-radius: 5rpx;
           white-space: nowrap;
+          background-color: rgb(229 229 229);
+          border-radius: 5rpx;
         }
       }
     }
   }
+
   .button {
-    width: 100%;
     position: fixed;
     bottom: 20rpx;
-    background-color: rgb(255, 255, 255);
+    width: 100%;
+    background-color: rgb(255 255 255);
 
     .reset {
-      margin-left: 20rpx;
-      background-color: rgb(229, 229, 229);
-      border-radius: 5rpx;
       width: 230rpx;
       height: 60rpx;
+      margin-left: 20rpx;
       font-size: 30rpx;
+      background-color: rgb(229 229 229);
+      border-radius: 5rpx;
     }
+
     .identify {
+      width: 460rpx;
       margin-right: 20rpx;
       margin-left: 20rpx;
-      background-color: rgb(84, 188, 163);
-      border-radius: 5rpx;
       font-size: 30rpx;
-      width: 460rpx;
+      background-color: rgb(84 188 163);
+      border-radius: 5rpx;
     }
   }
 }

@@ -1,6 +1,18 @@
 {
 	"pages": [
 		{
+			"path": "pages/denglu_zhuce/denglu_zhuce",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/denglu_zhuce/zhucezhanghao",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/liaotianyemian/liaotianyemian",
 			"style": {
 				"navigationStyle": "custom"
@@ -91,12 +103,6 @@
 			}
 		},
 		{
-			"path": "pages/denglu_zhuce/zhucezhanghao",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
 			"path": "pages/wanshangongzuojingli/wanshangongzuojingli",
 			"style": {
 				"navigationStyle": "custom"
@@ -116,12 +122,6 @@
 		},
 		{
 			"path": "pages/chengshixuanze/chengshixuanze",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/denglu_zhuce/denglu_zhuce",
 			"style": {
 				"navigationStyle": "custom"
 			}

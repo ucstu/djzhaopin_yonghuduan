@@ -1,21 +1,24 @@
 <template>
   <view class="flex-col page">
     <!--  #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
-    <view class="section_1" :style="'height: ' + navigationBarTop + 'px'"></view>
-    <view class="flex-col section_2">
-      <view class="justify-between items-center"
-        :style="'height: ' + navigationBarHeight + 'px; width: ' + navigationBarWidth + 'px'">
-        <scroll-view @click="scroll" :scroll-x="true" :style="'width: ' + expectationWidth + 'px'"
-          class="flex-row list">
+    <view class="section-1" :style="'height: ' + navigationBarTop + 'px'"></view>
+      <view class="flex-col section-2">
+        <view
+          class="justify-between items-center"
+          :style="'height: ' + navigationBarHeight + 'px; width: ' + navigationBarWidth + 'px'">
+          <scroll-view
+          :scroll-x="true" :style="'width: ' + expectationWidth + 'px'" class="flex-row list"
+          >
           <!--  #endif -->
           <!--  #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
-          <view class="section_1"></view>
-          <view class="flex-col section_2">
+          <view class="section-1"></view>
+          <view class="flex-col section-2">
             <view class="justify-between items-center">
-              <scroll-view @click="scroll" :scroll-x="true" class="flex-row list">
+              <scroll-view :scroll-x="true" class="flex-row list">
                 <!--  #endif -->
-                <text class="list-item" :class="activeIndex === i ? 'active' : ''" :key="i" @click="activeIndex = i"
-                  v-for="(name, i) in expects">
+                <text
+                  v-for="(name, i) in expects" :key="i" class="list-item" :class="activeIndex === i ? 'active' : ''"
+                  @click="activeIndex = i">
                   {{
                     name.name
                   }}
@@ -24,63 +27,67 @@
               <view class="flex-row">
                 <image
                   src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254586402738.png"
-                  @click="image_5OnClick" class="image" />
+                  class="image" @click="image_5OnClick" />
                 <image
                   src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254587111646.png"
-                  @click="image_6OnClick" class="image image_2" />
+                  class="image image-2" @click="image_6OnClick" />
               </view>
             </view>
-            <view class="justify-between group_2">
-              <view class="flex-row group_3">
-                <text :class="showFirst === 'true' ? 'active' : ''"
+            <view class="justify-between group-2">
+              <view class="flex-row group-3">
+                <text
+                  :class="showFirst === 'true' ? 'active' : ''"
                   @click="showFirst = 'true'; showSecond = 'false'; showThird = 'false'">热门</text>
-                <text class="text_4" :class="showSecond === 'true' ? 'active' : ''"
+                <text
+                  class="text-4" :class="showSecond === 'true' ? 'active' : ''"
                   @click="showFirst = 'false'; showSecond = 'true'; showThird = 'false'">附近</text>
-                <text class="text_5" :class="showThird === 'true' ? 'active' : ''"
+                <text
+                  class="text-5" :class="showThird === 'true' ? 'active' : ''"
                   @click="showFirst = 'false'; showSecond = 'false'; showThird = 'true'">最新</text>
               </view>
-              <view class="flex-row group_4">
+              <view class="flex-row group-4">
                 <view class="flex-row">
                   <text @click="text_22OnClick">{{ city }}</text>
                   <image
                     src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475959311313713900.png"
-                    class="image_3 image_4" />
+                    class="image-3 image-4" />
                 </view>
-                <view class="flex-row group_6">
+                <view class="flex-row group-6">
                   <text @click="text_23OnClick">筛选</text>
                   <image
                     src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475959311313713900.png"
-                    class="image_3 image_5" />
+                    class="image-3 image-5" />
                 </view>
               </view>
             </view>
             <image
               src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254587777410.png"
-              class="image_6" />
+              class="image-6" />
           </view>
-          <view class="flex-col list_1">
-            <JobDetail @click="view_4OnClick" class="list-item_1" :jobDetail="jobDetail" :key="i"
-              v-for="(jobDetail, i) in jobDetails" />
+          <view class="flex-col list-1">
+            <JobDetail
+              v-for="(jobDetail, i) in jobDetails" :key="i" class="list-item-1" :job-detail="jobDetail"
+              @click="view_4OnClick" />
           </view>
-      </view>
+</view>
 </template>
 
 <script lang="ts" setup>
-import JobDetail from '@/components/JobDetail/JobDetail.vue'
+import JobDetail from '@/components/JobDetail/JobDetail.vue';
 import { key } from '@/stores';
-import { reactive, ref } from 'vue'
+import { reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore(key);
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-// @ts-ignore
+
 const navigationBarHeight = store.state.menuButtonInfo.height
-// @ts-ignore
+
 const navigationBarTop = store.state.menuButtonInfo.top
-// @ts-ignore
+
 const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(30)
-// @ts-ignore
+
 const expectationWidth = store.state.menuButtonInfo.left - uni.upx2px(170)
 /* #endif */
 
@@ -128,151 +135,170 @@ const text_23OnClick = () => {
 const view_4OnClick = () => {
   uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
 }
-const view_5OnClick = () => {
-  uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-}
-const view_6OnClick = () => {
-  uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-}
-const view_7OnClick = () => {
-  uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-}
 </script>
 
 <style lang="scss" scoped>
 .page {
-  background-color: rgb(255, 255, 255);
   width: 100%;
-  overflow-y: auto;
   height: 100%;
-  .section_1 {
-    background-color: rgb(37, 85, 212);
+  overflow-y: auto;
+  background-color: rgb(255 255 255);
+
+  .section-1 {
     height: 45rpx;
+    background-color: rgb(37 85 212);
   }
-  .section_2 {
+
+  .section-2 {
     padding: 28rpx 20rpx 15rpx;
     padding-top: 0rpx;
-    background-color: rgb(37, 85, 212);
-    .group_2 {
+    background-color: rgb(37 85 212);
+
+    .group-2 {
       margin-top: 15rpx;
-      .group_3 {
-        color: rgb(209, 205, 205);
+
+      .group-3 {
         font-size: 25rpx;
         line-height: 23rpx;
+        color: rgb(209 205 205);
         white-space: nowrap;
+
         .active {
-          color: rgb(255, 255, 255);
+          color: rgb(255 255 255);
         }
-        .text_4 {
+
+        .text-4 {
           margin-left: 32rpx;
         }
-        .text_5 {
+
+        .text-5 {
           margin-left: 29rpx;
         }
       }
-      .group_4 {
+
+      .group-4 {
         margin-top: 5rpx;
-        color: rgb(255, 255, 255);
         font-size: 20rpx;
         line-height: 17rpx;
+        color: rgb(255 255 255);
         white-space: nowrap;
-        .group_6 {
+
+        .group-6 {
           margin-left: 27rpx;
-          .image_5 {
+
+          .image-5 {
             margin: 6rpx 0 5rpx 3rpx;
           }
         }
-        .image_4 {
+
+        .image-4 {
           margin: 7rpx 0 4rpx 3rpx;
         }
-        .image_3 {
+
+        .image-3 {
           width: 10rpx;
           height: 7rpx;
         }
       }
     }
-    .image_6 {
-      margin-top: 26rpx;
-      border-radius: 25rpx;
+
+    .image-6 {
       width: 94.5vw;
       height: 25.5vw;
+      margin-top: 26rpx;
+      border-radius: 25rpx;
     }
+
     .list {
       margin: 3rpx 0 9rpx;
       overflow: hidden;
       white-space: nowrap;
+
       .active {
         font-size: 35rpx !important;
-        color: rgb(255, 255, 255) !important;
+        color: rgb(255 255 255) !important;
       }
+
       .list-item {
-        color: rgb(209, 205, 205);
+        margin-right: 12rpx;
         font-size: 28rpx;
         line-height: 32rpx;
-        margin-right: 12rpx;
+        color: rgb(209 205 205);
         white-space: nowrap;
       }
     }
+
     .image {
       width: 45rpx;
       height: 44rpx;
     }
-    .image_2 {
+
+    .image-2 {
       margin-left: 30rpx;
     }
   }
-  .list_1 {
+
+  .list-1 {
     padding: 15rpx 25rpx 0rpx;
-    .list-item_1 {
+
+    .list-item-1 {
       margin-top: 20rpx;
     }
   }
+
   .footer {
-    margin-top: 61rpx;
-    padding: 9rpx 49rpx 11rpx 56rpx;
-    overflow: hidden;
     height: 101rpx;
-    border: solid 2rpx rgb(0, 0, 0);
-    .group_15 {
-      color: rgb(0, 0, 0);
-      font-size: 20rpx;
-      line-height: 19rpx;
-      white-space: nowrap;
+    padding: 9rpx 49rpx 11rpx 56rpx;
+    margin-top: 61rpx;
+    overflow: hidden;
+    border: solid 2rpx rgb(0 0 0);
+
+    .group-15 {
       width: 79rpx;
       height: 76rpx;
-      .text_52 {
+      font-size: 20rpx;
+      line-height: 19rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
+
+      .text-52 {
         margin-top: 3rpx;
       }
     }
-    .group_16 {
-      color: rgb(0, 0, 0);
+
+    .group-16 {
+      height: 77rpx;
       font-size: 20rpx;
       line-height: 18rpx;
+      color: rgb(0 0 0);
       white-space: nowrap;
-      height: 77rpx;
-      .text_53 {
+
+      .text-53 {
         margin-top: 4rpx;
       }
     }
-    .group_17 {
-      margin-top: 5rpx;
-      color: rgb(0, 0, 0);
-      font-size: 20rpx;
-      line-height: 19rpx;
-      white-space: nowrap;
+
+    .group-17 {
       width: 79rpx;
       height: 72rpx;
-    }
-    .group_18 {
-      margin-top: 3rpx;
-      color: rgb(0, 0, 0);
+      margin-top: 5rpx;
       font-size: 20rpx;
       line-height: 19rpx;
+      color: rgb(0 0 0);
       white-space: nowrap;
+    }
+
+    .group-18 {
       width: 79rpx;
       height: 74rpx;
+      margin-top: 3rpx;
+      font-size: 20rpx;
+      line-height: 19rpx;
+      color: rgb(0 0 0);
+      white-space: nowrap;
     }
-    .image_12 {
+
+    .image-12 {
       width: 54rpx;
       height: 54rpx;
     }

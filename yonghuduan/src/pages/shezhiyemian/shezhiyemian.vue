@@ -13,11 +13,17 @@
       <text class="text-title">通知设置</text>
       <image class="image" src="@/static/icons/arrow-right.png" />
     </view>
-    <view class="justify-between items-center group-box" @click="toUserAgreement">
+    <view
+      class="justify-between items-center group-box"
+      @click="toUserAgreement"
+    >
       <text class="text-title">用户协议</text>
       <image class="image" src="@/static/icons/arrow-right.png" />
     </view>
-    <view class="justify-between items-center group-box" @click="toPrivacyPolicy">
+    <view
+      class="justify-between items-center group-box"
+      @click="toPrivacyPolicy"
+    >
       <text class="text-title">隐私政策</text>
       <image class="image" src="@/static/icons/arrow-right.png" />
     </view>
@@ -32,61 +38,61 @@
       <view class="justify-center items-center button-box">
         <text>退出当前账号</text>
       </view>
-    </view>  </view>
+    </view>
+  </view>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-
+import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 
 const toMyAccount = () => {
-  uni.navigateTo({ url: '/pages/wodezhanghu/wodezhanghu' })
-}
+  uni.navigateTo({ url: "/pages/wodezhanghu/wodezhanghu" });
+};
 const toPassWord = () => {
-  uni.navigateTo({ url: '/pages/shezhimima/shezhimima' })
-}
+  uni.navigateTo({ url: "/pages/shezhimima/shezhimima" });
+};
 const toNotice = () => {
-  uni.navigateTo({ url: '/pages/tongzhishezhi/tongzhishezhi' })
-}
+  uni.navigateTo({ url: "/pages/tongzhishezhi/tongzhishezhi" });
+};
 const toUserAgreement = () => {
-  uni.navigateTo({ url: '/pages/yonghuxieyi/yonghuxieyi' })
-}
+  uni.navigateTo({ url: "/pages/yonghuxieyi/yonghuxieyi" });
+};
 const toPrivacyPolicy = () => {
-  uni.navigateTo({ url: '/pages/yinsicelve/yinsicelve' })
-}
+  uni.navigateTo({ url: "/pages/yinsicelve/yinsicelve" });
+};
 const toVersion = () => {
-  uni.navigateTo({ url: '/pages/banbengengxin/banbengengxin' })
-}
+  uni.navigateTo({ url: "/pages/banbengengxin/banbengengxin" });
+};
 </script>
 
-<style lang="scss" scoped>.page {
+<style lang="scss" scoped>
+.page {
   .group-box {
     width: 710rpx;
     height: 100rpx;
-    border: 2rpx solid rgb(200, 200, 200);
     margin-top: 20rpx;
     margin-left: 20rpx;
+    border: 2rpx solid rgb(200 200 200);
     border-radius: 10rpx;
 
     .text-title {
-      font-size: 30rpx;
       padding-left: 20rpx;
+      font-size: 30rpx;
     }
   }
 
   .group-button {
-    width: 100%;
-    height: 80rpx;
     position: fixed;
     bottom: 40rpx;
+    width: 100%;
+    height: 80rpx;
 
     .button-box {
       width: 500rpx;
       font-size: 30rpx;
-      background-color: rgb(35, 193, 158);
-      border-radius: 10rpx;
       color: #fff;
+      background-color: rgb(35 193 158);
+      border-radius: 10rpx;
     }
   }
 
