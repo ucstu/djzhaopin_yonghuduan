@@ -1,136 +1,134 @@
 <template>
-    <div class="top">
-        <div class="left">
-            <span>We</span>
-            <span class="red">❤</span>
-            <span>{{ store.state.companyInfo.fullName || "You" }}</span>
+  <div class="top">
+    <div class="left">
+      <span>We</span>
+      <span class="red">❤</span>
+      <span>{{ store.state.companyInfo.fullName || "You" }}</span>
+    </div>
+    <div class="right">
+      <router-link to="/PublishJob">
+        <img src="../assets/pub.png" />
+      </router-link>
+      <img :src="avatar" />
+      <div class="dropdown">
+        <div class="user">
+          <span>{{ name || "HR" }}</span>
         </div>
-        <div class="right">
-            <router-link to="/PublishJob">
-                <img src="../assets/pub.png">
-            </router-link>
-            <img :src="avatar">
-            <div class="dropdown">
-                <div class="user">
-                    <span>{{ name || "HR" }}</span>
-                </div>
-                <ul class="dropdown-content">
-                    <li>
-                        <a href="#">账号设置</a>
-                    </li>
-                    <li>
-                        <a href="#">退出</a>
-                    </li>
-                </ul>
-            </div>
-        </div>   </div>
+        <ul class="dropdown-content">
+          <li>
+            <a href="#">账号设置</a>
+          </li>
+          <li>
+            <a href="#">退出</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { key } from '../stores'
-import { useStore } from 'vuex'
-import { onMounted } from 'vue';
-const store = useStore(key)
-const { name, avatar } = store.state.hrInfo
+import { useStore } from "vuex";
+import { key } from "../stores";
+const store = useStore(key);
+const { name, avatar } = store.state.hrInfo;
 </script>
 
-<style scoped lang="scss">.top {
+<style scoped lang="scss">
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 42.5px;
+  color: rgb(255 255 255);
+  background-color: rgb(50 55 62);
+
+  .left {
+    .red {
+      margin: 0 10px;
+      color: red;
+    }
+  }
+
+  .right {
     display: flex;
-    justify-content: space-around;
-    background-color: rgb(50, 55, 62);
-    height: 42.5px;
     align-items: center;
-    color: rgb(255, 255, 255);
 
-    .left {
-
-        .red {
-            color: red;
-            margin: 0px 10px;
-        }
+    :first-child {
+      width: 20px;
+      height: 20px;
     }
 
-    .right {
-        display: flex;
-        align-items: center;
+    :nth-child(2) {
+      width: 30px;
+      height: 30px;
+      margin: auto 10px auto 20px;
+      border-radius: 50%;
+    }
 
-        :first-child {
-            width: 20px;
-            height: 20px;
+    span {
+      margin-left: 10px;
+    }
 
-        }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      width: 85px;
+      cursor: pointer;
 
-        :nth-child(2) {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin: auto 10px auto 20px;
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            width: 85px;
-            cursor: pointer;
-
-            .user {
-                text-align: center;
-                padding-left: 18px;
-
-                span {
-                    display: block;
-                    width: 60px;
-                    height: 60px;
-                }
-            }
-
-            a {
-                text-decoration: none;
-
-                color: rgb(255, 255, 255);
-            }
-
-            a:hover {
-                color: rgb(176, 163, 192);
-            }
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            width: 60px;
-            top: 30px;
-            left: -6px;
-            font-size: 14px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            padding: 12px 16px;
-            border-radius: 0;
-            height: 55px;
-            list-style: none;
-            transform: matrix();
-
-            :nth-child(1) {
-                text-align: center;
-                width: 60px;
-                margin-top: 1px;
-            }
-
-            :nth-child(2) {
-                margin-top: 15px;
-                text-align: center;
-                position: absolute;
-                left: 10px;
-            }
-        }
-
-        .dropdown:hover .dropdown-content {
-            background-color: rgb(51, 51, 51);
-            display: block;
-        }
+      .user {
+        padding-left: 18px;
+        text-align: center;
 
         span {
-            margin-left: 10px;
+          display: block;
+          width: 60px;
+          height: 60px;
         }
+      }
+
+      a {
+        color: rgb(255 255 255);
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: rgb(176 163 192);
+      }
     }
+
+    .dropdown-content {
+      position: absolute;
+      top: 30px;
+      left: -6px;
+      display: none;
+      width: 60px;
+      height: 55px;
+      padding: 12px 16px;
+      font-size: 14px;
+      list-style: none;
+      border-radius: 0;
+      box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+      transform: matrix();
+
+      :nth-child(1) {
+        width: 60px;
+        margin-top: 1px;
+        text-align: center;
+      }
+
+      :nth-child(2) {
+        position: absolute;
+        left: 10px;
+        margin-top: 15px;
+        text-align: center;
+      }
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+      background-color: rgb(51 51 51);
+    }
+  }
 }
-</style >
+</style>
