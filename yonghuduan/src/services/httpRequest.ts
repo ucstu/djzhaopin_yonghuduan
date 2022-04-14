@@ -4,16 +4,18 @@
  * @version 5
  */
 import axios, { AxiosRequestConfig, CancelToken } from "axios";
+import settle from "axios/lib/core/settle";
+import buildURL from "axios/lib/helpers/buildURL";
 import { getAxiosInstance, Security, SwaggerResponse } from "./config";
 
-import settle from 'axios/lib/core/settle';
-import buildURL from 'axios/lib/helpers/buildURL';
-
-axios.defaults.adapter = function (config) { //自己定义个适配器，用来适配uniapp的语法
+axios.defaults.adapter = function (config) {
+  //自己定义个适配器，用来适配uniapp的语法
   return new Promise((resolve, reject) => {
     uni.request({
       method: config.method.toUpperCase(),
-      url: config.baseURL + buildURL(config.url, config.params, config.paramsSerializer),
+      url:
+        config.baseURL +
+        buildURL(config.url, config.params, config.paramsSerializer),
       header: config.headers,
       data: config.data,
       dataType: config.dataType,
@@ -25,13 +27,13 @@ axios.defaults.adapter = function (config) { //自己定义个适配器，用来
           status: response.statusCode,
           errMsg: response.errMsg,
           header: response.header,
-          config: config
+          config: config,
         };
         settle(resolve, reject, response);
-      }
-    })
-  })
-}
+      },
+    });
+  });
+};
 
 /**
  * Cancellation handled here, you can cancel request by call promise.cancel()

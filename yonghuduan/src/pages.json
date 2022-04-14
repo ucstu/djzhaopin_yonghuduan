@@ -1,5 +1,12 @@
 {
 	"pages": [
+
+		{
+			"path": "pages/xifenshaixuan/xifenshaixuan",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
 		{
 			"path": "pages/denglu_zhuce/denglu_zhuce",
 			"style": {
@@ -284,12 +291,6 @@
 		},
 		{
 			"path": "pages/Page_24Hmianshiyemian/Page_24Hmianshiyemian",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/xifenshaixuan/xifenshaixuan",
 			"style": {
 				"navigationStyle": "custom"
 			}

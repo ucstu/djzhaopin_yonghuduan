@@ -88,6 +88,14 @@ export interface GetCompanyinfosCompanyinfoidPositioninfosQueryParams {
   workingyears?: string;
 }
 
+export interface GetSubdivisionlabelsQueryParams {
+  /**
+   *
+   * 职位类型
+   */
+  jobName: string;
+}
+
 export interface HRInformation {
   /**
    *
