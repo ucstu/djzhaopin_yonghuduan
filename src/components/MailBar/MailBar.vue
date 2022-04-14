@@ -14,16 +14,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
-
-const time = ref('昨天')
-const name = ref('张三')
-const message = ref('方便投递吗卡夫卡吉林省地方卡机黑龙江撒旦立刻反击啊考了几分卡了？')
+const time = ref("昨天");
+const name = ref("张三");
+const message = ref(
+  "方便投递吗卡夫卡吉林省地方卡机黑龙江撒旦立刻反击啊考了几分卡了？"
+);
 
 const toChatPage = () => {
-  uni.navigateTo({ url: '/pages/liaotianyemian/liaotianyemian' })
-}
+  uni.navigateTo({ url: "/pages/liaotianyemian/liaotianyemian" });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -52,10 +53,10 @@ const toChatPage = () => {
 
     .message {
       width: 550rpx;
-      font-size: 25rpx;
-      white-space: nowrap;
       overflow: hidden;
+      font-size: 25rpx;
       text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

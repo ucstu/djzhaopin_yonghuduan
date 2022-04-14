@@ -1,11 +1,14 @@
 <template>
   <view class="flex-col component">
-    <JobDetail @click="view_4OnClick" :jobDetail="collectionPosition!.jobDetail" />
-    <view class="flex-row group_8">
-      <view class="flex-col items-center text-wrapper_2">
+    <JobDetail
+      :job-detail="collectionPosition!.jobDetail"
+      @click="view_4OnClick"
+    />
+    <view class="flex-row group-8">
+      <view class="flex-col items-center text-wrapper-2">
         <test>{{ collectionPosition!.left }}</test>
       </view>
-      <view @click="view_11OnClick" class="flex-col items-center image-wrapper">
+      <view class="flex-col items-center image-wrapper" @click="view_11OnClick">
         <text>联系HR</text>
       </view>
     </view>
@@ -13,51 +16,55 @@
 </template>
 
 <script lang="ts" setup>
-import JobDetail from '@/components/JobDetail/JobDetail.vue'
+import JobDetail from "@/components/JobDetail/JobDetail.vue";
 
 defineProps({
   collectionPosition: {
-    type: Object
-  }
-})
+    type: Object,
+  },
+});
 
 const view_4OnClick = () => {
-  uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
-}
+  uni.navigateTo({ url: "/pages/zhiweixiangqing/zhiweixiangqing" });
+};
 const view_11OnClick = () => {
-  uni.navigateTo({ url: '/pages/liaotianyemian/liaotianyemian' })
-}
+  uni.navigateTo({ url: "/pages/liaotianyemian/liaotianyemian" });
+};
 </script>
 
 <style lang="scss" scoped>
 .component {
-  padding-top: 20rpx;
-  border-radius: 5rpx;
-  overflow: hidden;
   height: 270rpx;
-  border: solid 2rpx rgb(229, 229, 229);
-  .group_8 {
+  padding-top: 20rpx;
+  overflow: hidden;
+  border: solid 2rpx rgb(229 229 229);
+  border-radius: 5rpx;
+
+  .group-8 {
     margin-top: 20rpx;
-    color: rgb(163, 154, 154);
     font-size: 25rpx;
     line-height: 23rpx;
+    color: rgb(163 154 154);
     letter-spacing: 2.5rpx;
     white-space: nowrap;
-    .text-wrapper_2 {
+
+    .text-wrapper-2 {
+      flex: 1 1 335rpx;
+      height: 75rpx;
       padding: 25rpx 0 24rpx;
-      flex: 1 1 335rpx;
       overflow: hidden;
-      height: 75rpx;
-      border: solid 2rpx rgb(229, 229, 229);
+      border: solid 2rpx rgb(229 229 229);
     }
+
     .image-wrapper {
-      padding: 21rpx 0 17rpx;
       flex: 1 1 335rpx;
-      overflow: hidden;
       height: 75rpx;
-      border: solid 2rpx rgb(229, 229, 229);
-      color: rgb(35, 193, 158);
-      .image_1 {
+      padding: 21rpx 0 17rpx;
+      overflow: hidden;
+      color: rgb(35 193 158);
+      border: solid 2rpx rgb(229 229 229);
+
+      .image-1 {
         width: 91rpx;
         height: 33rpx;
       }
