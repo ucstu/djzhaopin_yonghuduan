@@ -47,7 +47,6 @@ const navigationBarTop = store.state.menuButtonInfo.top;
 
 const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(30);
 
-const expectationWidth = store.state.menuButtonInfo.left - uni.upx2px(170);
 /* #endif */
 
 const props = defineProps({
@@ -87,12 +86,7 @@ const imageOnClick = () => {
   background-color: rgb(255 255 255);
 
   .image {
-    /* #endif */
-
-    /* #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
     position: absolute;
-
-    /* #endif */
     bottom: 23rpx;
     left: 40rpx;
     width: 25rpx;
@@ -100,6 +94,8 @@ const imageOnClick = () => {
 
     /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
     margin-left: 30rpx;
+
+    /* #endif */
   }
 
   .text {

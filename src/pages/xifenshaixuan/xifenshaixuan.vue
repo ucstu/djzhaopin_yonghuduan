@@ -10,11 +10,11 @@
         {{ title.classificationName }}
         <view class="flex-row group-box">
           <view
-            v-for="(segmentInfo, i) in title.subdivisionLabels"
-            :key="i"
+            v-for="(segmentInfo, j) in title.subdivisionLabels"
+            :key="j"
             class="justify-center items-center segment-tag"
-            :class="select === i ? 'active' : ''"
-            @click="selectTag(i)"
+            :class="subLabelTags.includes(i, j) ? 'active' : ''"
+            @click="selectTag(i, j)"
           >
             {{ segmentInfo }}
           </view>
@@ -33,15 +33,32 @@ import { getSubdivisionlabels } from "@/services/services";
 import { DirectionTags } from "@/services/types";
 import { ref } from "vue";
 
-const select = ref<number[]>();
 const segmentation = ref<DirectionTags>([]);
 getSubdivisionlabels({ jobName: "撒辣椒粉" }).then((res) => {
   segmentation.value = res.data;
 });
 
-const selectTag = (index: number) => {
-  select.value = index;
-  console.log(select.value);
+const select = ref<number[]>([]);
+const subLabelTags = ref<number[]>([]);
+const selectTag = (index: number, last: number) => {
+  if (subLabelTags.value.length === 0 && select.value.length === 0) {
+    select.value.push(index);
+    subLabelTags.value.push(last);
+  } else {
+    if (select.value.includes(index)) {
+      if (subLabelTags.value.includes(last)) {
+        subLabelTags.value.splice(subLabelTags.value.indexOf(last), 1);
+        if (subLabelTags.value.length === 0) {
+          select.value.splice(select.value.indexOf(index), 1);
+        }
+      } else {
+        subLabelTags.value.push(last);
+      }
+    } else {
+      select.value.push(index);
+      subLabelTags.value.push(last);
+    }
+  }
 };
 </script>
 
