@@ -1,12 +1,10 @@
-
 <template>
   <router-view />
 </template>
-<script setup lang="ts">
+<script setup lang="ts"></script>
 
-</script>
-
-<style lang="scss">/************************************************************
+<style lang="scss">
+/************************************************************
 ** 请将全局样式拷贝到项目的全局 CSS 文件或者当前页面的顶部 **
 ** 否则页面将无法正常显示                                  **
 ************************************************************/
@@ -17,12 +15,11 @@ html {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
     "Microsoft Yahei", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
 
 view,
