@@ -1,33 +1,46 @@
 <template>
   <view class="flex-col items-center page">
-    <view class="flex-col group_1">
+    <view class="flex-col group-1">
       <text>登录/注册</text>
-      <view class=" textarea">
+      <view class="textarea">
         <view class="items-center phone-number">
-          <input style="padding-left: 20rpx;" type="number" placeholder="请输入你的手机号" :maxlength="11"
-            v-model="inputValue" />
+          <input
+            v-model="inputValue"
+            style="padding-left: 20rpx"
+            type="number"
+            placeholder="请输入你的手机号"
+            :maxlength="11"
+          />
         </view>
-        <view class="flex-row justify-between items-center verification">
-          <input style="padding-left: 20rpx;" type="number" placeholder="请输入验证码" v-model="verification" />
-          <button class="justify-center items-center btn" @click="getVerification">获取验证码</button>
+        <view class="items-center verification">
+          <input
+            v-model="password"
+            style="padding-left: 20rpx"
+            type="number"
+            placeholder="请输入密码"
+          />
         </view>
       </view>
       <view class="justify-center items-center next" @click="nextStep">
         <text>登录 </text>
       </view>
       <view class="flex-row items-center justify-between other-type">
-        <text>忘记密码？</text>
-        <text>注册账号</text>
+        <text @click="forget">忘记密码？</text>
+        <text @click="register">注册账号</text>
       </view>
       <view class="flex-row items-center agree">
-        <checkbox style="transform: scale(0.7);" :checked="isAgree" @click="isAgree = !isAgree"></checkbox>
-        <view>同意
-          <text style="color: rgb(35, 193, 158);">《东江用户协议》</text>和
-          <text style="color: rgb(35, 193, 158);">《东江登录政策》</text>
+        <checkbox
+          style="transform: scale(0.7)"
+          :checked="isAgree"
+          @click="isAgree = !isAgree"
+        ></checkbox>
+        <view
+          >同意 <text style="color: rgb(35 193 158)">《东江用户协议》</text>和
+          <text style="color: rgb(35 193 158)">《东江登录政策》</text>
         </view>
       </view>
     </view>
-    <view class="flex-col group_2">
+    <view class="flex-col group-2">
       <text>客服（投诉）电话：4008 2082 02（工作日9：00-18：00）</text>
       <text>违法和不良信息举报、未成年人投诉举报渠道同上</text>
       <text>客服邮箱：cc@dongjiang 北京市人社局电话：12333</text>
@@ -37,136 +50,110 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
-import { putAccounts } from '@/services/services'
+import { putAccounts } from "@/services/services";
+import { ref } from "vue";
 
-const verificationCode = ref({})
-putAccounts(
-  {
-    phoneNumber: '17323677595',
-    verificationCode: '1456'
-  }
-).then(res => {
-  verificationCode.value = res.data.accountInfo
+const inputValue = ref("");
+const password = ref("");
+const isAgree = ref(false);
+putAccounts({
+  phoneNumber: "17323677595",
+  password: "1456",
+}).then((res) => {
+  console.log(res.data);
+});
 
-})
-
-const verCode = computed(() => {
-  // @ts-ignore
-  return verificationCode.value.verificationCode
-})
-
-const wrongCode = ref('')
-
-const inputValue = ref('')
-const verification = ref('')
-const isAgree = ref(false)
 const nextStep = () => {
-  if (inputValue.value.length === 11 && isAgree.value === true && verification.value === verCode.value) {
-    uni.navigateTo({ url: '/pages/shuruyanzhengma/shuruyanzhengma' })
-    uni.setStorage({
-      key: 'tel',
-      data: inputValue.value,
-      success: (result) => {
-        console.log(result);
-
-      },
-      fail: (error) => {
-        console.log(error);
-
-      }
-    })
+  if (inputValue.value.length === 11 && isAgree.value === true) {
+    uni.switchTab({ url: "/pages/wodeyemian/wodeyemian" });
   } else if (inputValue.value.length < 11) {
     uni.showToast({
-      title: '请输入正确的手机号',
-      icon: 'none'
-    })
-    inputValue.value = ''
+      title: "请输入正确的手机号",
+      icon: "none",
+    });
+    inputValue.value = "";
   } else if (isAgree.value === false) {
     uni.showToast({
-      title: '请同意协议',
-      icon: 'none'
-    })
-  } else if (verification.value !== verCode.value) {
-    uni.showToast({
-      title: '验证码错误',
-      icon: 'none'
-    })
+      title: "请同意协议",
+      icon: "none",
+    });
   }
-}
-const getVerification = () => {
-  if (inputValue.value.length === 11) {
-    uni.showToast({
-      title: '验证码已发送' + inputValue.value,
-      icon: 'none'
-    })
+};
 
-  } else {
-    uni.showToast({
-      title: '请输入正确的手机号',
-      icon: 'none'
-    })
-  }
-}
+const register = () => {
+  uni.navigateTo({ url: "/pages/denglu_zhuce/zhucezhanghao" });
+};
+const forget = () => {
+  uni.navigateTo({ url: "/pages/shezhimima/shezhimima" });
+};
 </script>
 
 <style lang="scss" scoped>
 .page {
   width: 100%;
   height: 100%;
-  .group_1 {
-    font-size: 40rpx;
-    width: 600rpx;
+
+  .group-1 {
     position: relative;
     top: 200rpx;
+    width: 600rpx;
+    font-size: 40rpx;
+
     .textarea {
-      font-size: 30rpx;
-      margin-top: 30rpx;
       height: 160rpx;
+      margin-top: 30rpx;
+      font-size: 30rpx;
       border-radius: 5rpx;
+
       .phone-number {
         height: 80rpx;
-        border-bottom: 2rpx solid rgb(163, 154, 154);
+        border-bottom: 2rpx solid rgb(163 154 154);
       }
+
       .verification {
         height: 80rpx;
-        border-bottom: 2rpx solid rgb(163, 154, 154);
+        border-bottom: 2rpx solid rgb(163 154 154);
+
         .btn {
           width: 200rpx;
           height: 60rpx;
-          margin: 0 0;
-          border-radius: 5rpx;
-          background-color: rgb(230, 230, 230);
+          margin: 0;
           font-size: 25rpx;
+          background-color: rgb(230 230 230);
+          border-radius: 5rpx;
         }
       }
     }
+
     .next {
       width: 600rpx;
       height: 80rpx;
       margin-top: 30rpx;
       font-size: 30rpx;
-      background-color: rgb(35, 193, 158);
-      border-radius: 10rpx;
       color: #fff;
+      background-color: rgb(35 193 158);
+      border-radius: 10rpx;
     }
+
     .other-type {
       margin-top: 20rpx;
       font-size: 25rpx;
-      color: rgb(35, 193, 158);
+      color: rgb(35 193 158);
     }
+
     .agree {
       width: 600rpx;
       margin-top: 30rpx;
       font-size: 25rpx;
     }
   }
-  .group_2 {
-    font-size: 20rpx;
-    color: rgb(163, 154, 154);
+
+  .group-2 {
     position: fixed;
     bottom: 100rpx;
+    font-size: 20rpx;
     line-height: 40rpx;
+    color: rgb(163 154 154);
   }
 }
 </style>

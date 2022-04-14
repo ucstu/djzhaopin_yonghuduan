@@ -4,15 +4,30 @@
     <view class="group-all">
       <view class="group-box">
         <text class="text-title">项目名称</text>
-        <input class="text-input" type="text" placeholder="请填写" v-model="projectName" />
+        <input
+          v-model="projectName"
+          class="text-input"
+          type="text"
+          placeholder="请填写"
+        />
       </view>
       <view class="group-box">
         <text class="text-title">项目描述</text>
-        <input class="text-input" type="text" placeholder="请填写" v-model="projectDescribe" />
+        <input
+          v-model="projectDescribe"
+          class="text-input"
+          type="text"
+          placeholder="请填写"
+        />
       </view>
       <view class="group-box">
         <text class="text-title">你的成就</text>
-        <input class="text-input" type="text" placeholder="请填写" v-model="achievement" />
+        <input
+          v-model="achievement"
+          class="text-input"
+          type="text"
+          placeholder="请填写"
+        />
       </view>
       <view class="group-box">
         <text class="text-title">项目时间</text>
@@ -41,40 +56,68 @@
       height="300"
       radius="6"
       mode="size-auto"
-      :showCloseIcon="false"
+      :show-close-icon="false"
     >
       <view class="flex-row">
         <view
           class="flex-col justify-center items-center"
-          style="width: 50%;"
-          @click="start = true; end = false"
+          style="width: 50%"
+          @click="
+            start = true;
+            end = false;
+          "
         >
           <text>开始时间</text>
-          <text style="font-size: 25rpx;" :class="start ? 'active' : ''">{{ startTime }}</text>
+          <text style="font-size: 25rpx" :class="start ? 'active' : ''">{{
+            startTime
+          }}</text>
         </view>
         <view
           class="flex-col justify-center items-center"
-          style="width: 50%;"
-          @click="end = true; start = false"
+          style="width: 50%"
+          @click="
+            end = true;
+            start = false;
+          "
         >
           <text>结束时间</text>
-          <text style="font-size: 25rpx;" :class="end ? 'active' : ''">{{ overTime }}</text>
+          <text style="font-size: 25rpx" :class="end ? 'active' : ''">{{
+            overTime
+          }}</text>
         </view>
       </view>
-      <picker-view v-if="start" :value="value1" @change="bindChange" class="picker-view">
+      <picker-view
+        v-if="start"
+        :value="value1"
+        class="picker-view"
+        @change="bindChange"
+      >
         <picker-view-column>
-          <view class="item" v-for="(item, i) in years" :key="i">{{ item }}</view>
+          <view v-for="(item, i) in years" :key="i" class="item">{{
+            item
+          }}</view>
         </picker-view-column>
         <picker-view-column>
-          <view class="item" v-for="(item, i) in months" :key="i">{{ item }}</view>
+          <view v-for="(item, i) in months" :key="i" class="item">{{
+            item
+          }}</view>
         </picker-view-column>
       </picker-view>
-      <picker-view v-if="end" :value="value2" @change="bindChange" class="picker-view">
+      <picker-view
+        v-if="end"
+        :value="value2"
+        class="picker-view"
+        @change="bindChange"
+      >
         <picker-view-column>
-          <view class="item" v-for="(item, i) in years" :key="i">{{ item }}</view>
+          <view v-for="(item, i) in years" :key="i" class="item">{{
+            item
+          }}</view>
         </picker-view-column>
         <picker-view-column>
-          <view class="item" v-for="(item, i) in months" :key="i">{{ item }}</view>
+          <view v-for="(item, i) in months" :key="i" class="item">{{
+            item
+          }}</view>
         </picker-view-column>
       </picker-view>
     </WybPopup>
@@ -82,99 +125,104 @@
 </template>
 
 <script lang="ts" setup>
+import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { ref } from "vue";
 
-import { ref } from 'vue';
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
-import wybPopup from '@/components/wyb-popup/wyb-popup.vue';
+const projectName = ref("");
+const projectDescribe = ref("");
+const achievement = ref("");
+let startTime = ref("开始时间");
+let overTime = ref("结束时间");
 
-const projectName = ref('')
-const projectDescribe = ref('')
-const achievement = ref('')
-let startTime = ref('开始时间')
-let overTime = ref('结束时间')
-const projectUrl = ref('')
+const start = ref(true);
+const end = ref(false);
 
-const start = ref(true)
-const end = ref(false)
-
-const popup = ref()
+const popup = ref();
 const showTime = () => {
-  popup.value.show()
-}
-const date = new Date()
-const years = []
-const months = []
-let year = date.getFullYear()
-let month = date.getMonth() + 1
+  popup.value.show();
+};
+const date = new Date();
+const years = ref<number[]>([]);
+const months = ref<number[]>([]);
+let year = date.getFullYear();
+let month = date.getMonth() + 1;
 for (let i = 1960; i <= year; i++) {
-  years.push(i)
+  years.value.push(i);
 }
 for (let i = 1; i <= 12; i++) {
-  months.push(i)
+  months.value.push(i);
 }
-const value1 = [year[0], month[0]]
-const value2 = [year, month - 1]
-const bindChange = (e) => {
-  let val = e.detail.value
-  year = years[val[0]]
-  month = months[val[1]]
+const value1 = [years.value[0], months.value[0]];
+const value2 = [year, month - 1];
+const bindChange = (e: { detail: { value: never } }) => {
+  let val = e.detail.value;
+  year = years.value[val[0]];
+  month = months.value[val[1]];
   if (start.value) {
-    startTime.value = `${year}年${month}月`
+    startTime.value = `${year}年${month}月`;
   } else {
-    overTime.value = `${year}年${month}月`
+    overTime.value = `${year}年${month}月`;
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .page {
   .active {
-    color: rgb(35, 193, 158);
+    color: rgb(35 193 158);
   }
+
   .group-all {
     width: 710rpx;
     height: auto;
-    margin-left: 20rpx;
     margin-top: 120rpx;
+    margin-left: 20rpx;
+
     .group-box {
       width: 100%;
       height: 130rpx;
-      border: solid 2rpx rgb(210, 210, 210);
-      border-radius: 10rpx;
       margin-top: 20rpx;
       line-height: 60rpx;
+      border: solid 2rpx rgb(210 210 210);
+      border-radius: 10rpx;
+
       .text-title {
+        padding-left: 20rpx;
         font-size: 30rpx;
-        padding-left: 20rpx;
       }
+
       .text-input {
-        font-size: 28rpx;
         padding-left: 20rpx;
+        font-size: 28rpx;
       }
     }
+
     .group-button {
-      width: 100%;
-      height: 80rpx;
       position: fixed;
       bottom: 40rpx;
+      width: 100%;
+      height: 80rpx;
+
       .button-box {
         width: 500rpx;
-        background-color: rgb(35, 193, 158);
         font-size: 30rpx;
         color: #fff;
+        background-color: rgb(35 193 158);
         border-radius: 10rpx;
       }
     }
   }
+
   .picker-view {
     width: 750rpx;
     height: 600rpx;
     margin-top: 20rpx;
   }
+
   .item {
-    height: 50px;
     align-items: center;
     justify-content: center;
+    height: 50px;
     text-align: center;
   }
 }

@@ -1,14 +1,16 @@
 <template>
   <view class="flex-col page">
     <view class="group-top">
-      <view class="flex-row userInfos" @click="toSelfInfo">
+      <view class="flex-row user-infos" @click="toSelfInfo">
         <image class="avatar" :src="userInfos.avatar" />
-        <view class="flex-col userInfo">
+        <view class="flex-col user-info">
           <text class="name">{{ userInfo.userName }}</text>
-          <text class="age-educate">{{ userInfos.age }}/{{ userInfos.education }}</text>
+          <text class="age-educate"
+            >{{ userInfos.age }}/{{ userInfos.education }}</text
+          >
         </view>
       </view>
-      <view class="flex-row justify-between applyInfos">
+      <view class="flex-row justify-between apply-infos">
         <view class="flex-col items-center justify-center" @click="onClick_1">
           <text>投递简历</text>
           <text>0</text>
@@ -28,108 +30,119 @@
       </view>
     </view>
     <view class="flex-col group-button">
-      <view class="flex-row justify-between items-center set" @click="onClick_5">
+      <view
+        class="flex-row justify-between items-center set"
+        @click="onClick_5"
+      >
         <view class="items-center">
           <image class="image" src="@/static/icons/feeds.png" />
           <text class="interval">附件简历</text>
         </view>
         <image class="arrow-right" src="@/static/icons/arrow-right.png" />
       </view>
-      <view class="flex-row justify-between items-center set" @click="onClick_6">
+      <view
+        class="flex-row justify-between items-center set"
+        @click="onClick_6"
+      >
         <view class="items-center">
           <image class="image" src="@/static/icons/compass.png" />
           <text class="interval">求职意向</text>
         </view>
         <image class="arrow-right" src="@/static/icons/arrow-right.png" />
       </view>
-      <view class="flex-row justify-between items-center set" @click="onClick_7">
+      <view
+        class="flex-row justify-between items-center set"
+        @click="onClick_7"
+      >
         <view class="items-center">
           <image class="image" src="@/static/icons/suggestion.png" />
           <text class="interval">用户反馈</text>
         </view>
         <image class="arrow-right" src="@/static/icons/arrow-right.png" />
       </view>
-      <view class="flex-row justify-between items-center set" @click="onClick_8">
+      <view
+        class="flex-row justify-between items-center set"
+        @click="onClick_8"
+      >
         <view class="items-center">
           <image class="image" src="@/static/icons/ali-clould.png" />
           <text class="interval">隐私设置</text>
         </view>
         <image class="arrow-right" src="@/static/icons/arrow-right.png" />
       </view>
-      <view class="flex-row justify-between items-center set" @click="onClick_9">
+      <view
+        class="flex-row justify-between items-center set"
+        @click="onClick_9"
+      >
         <view class="items-center">
           <image class="image" src="@/static/icons/set.png" />
           <text class="interval">设置</text>
         </view>
         <image class="arrow-right" src="@/static/icons/arrow-right.png" />
       </view>
-    </view>  </view>
+    </view>
+  </view>
 </template>
 
 <script lang="ts" setup>
-import { getUserinfosUserinfoid } from '@/services/services';
-import { UserInformation } from '@/services/types';
-import { computed, ref } from 'vue'
+import { getUserinfosUserinfoid } from "@/services/services";
+import { UserInformation } from "@/services/types";
+import { computed, ref } from "vue";
 
-let userInfos = ref<UserInformation>({})
-getUserinfosUserinfoid().then(res => {
-  userInfos.value = res.data
-})
+let userInfos = ref<UserInformation>({});
+getUserinfosUserinfoid().then((res) => {
+  userInfos.value = res.data;
+});
 
-const userInfo = uni.getStorageSync('userInfo')
+const userInfo = uni.getStorageSync("userInfo");
 console.log(userInfo);
 
-
 const fullName = computed(() => {
-  return userInfos.value.firstName + userInfos.value.lastName
-})
+  return userInfos.value.firstName + userInfos.value.lastName;
+});
 
-
-const sendSum = ref('0')
-const collectSum = ref('0')
-const attendSum = ref('0')
-const interSum = ref('0')
 const toSelfInfo = () => {
-  uni.navigateTo({ url: '/pages/bianjijianli/bianjijianli' })
-}
+  uni.navigateTo({ url: "/pages/bianjijianli/bianjijianli" });
+};
 const onClick_1 = () => {
-  uni.navigateTo({ url: '/pages/toudijilu/toudijilu' })
-}
+  uni.navigateTo({ url: "/pages/toudijilu/toudijilu" });
+};
 const onClick_2 = () => {
-  uni.navigateTo({ url: '/pages/shoucangzhiwei/shoucangzhiwei' })
-}
+  uni.navigateTo({ url: "/pages/shoucangzhiwei/shoucangzhiwei" });
+};
 const onClick_3 = () => {
-  uni.navigateTo({ url: '/pages/guanzhugongsi/guanzhugongsi' })
-}
+  uni.navigateTo({ url: "/pages/guanzhugongsi/guanzhugongsi" });
+};
 const onClick_4 = () => {
-  uni.navigateTo({ url: '/pages/daimianshi/daimianshi' })
-}
+  uni.navigateTo({ url: "/pages/daimianshi/daimianshi" });
+};
 const onClick_5 = () => {
-  uni.navigateTo({ url: '/pages/shangchuanjianli/shangchuanjianli' })
-}
+  uni.navigateTo({ url: "/pages/shangchuanjianli/shangchuanjianli" });
+};
 const onClick_6 = () => {
-  uni.navigateTo({ url: '/pages/qiuzhiyixiang/qiuzhiyixiang' })
-}
+  uni.navigateTo({ url: "/pages/qiuzhiyixiang/qiuzhiyixiang" });
+};
 const onClick_7 = () => {
-  uni.navigateTo({ url: '/pages/yonghufankui/yonghufankui' })
-}
+  uni.navigateTo({ url: "/pages/yonghufankui/yonghufankui" });
+};
 const onClick_8 = () => {
-  uni.navigateTo({ url: '/pages/yinsishezhi/yinsishezhi' })
-}
+  uni.navigateTo({ url: "/pages/yinsishezhi/yinsishezhi" });
+};
 const onClick_9 = () => {
-  uni.navigateTo({ url: '/pages/shezhiyemian/shezhiyemian' })
-}
+  uni.navigateTo({ url: "/pages/shezhiyemian/shezhiyemian" });
+};
 </script>
 
-<style lang="scss" scoped>.page {
+<style lang="scss" scoped>
+.page {
   width: 750rpx;
   height: auto;
 
   .group-top {
     height: 430rpx;
-    background-color: rgb(35, 193, 158);
+    background-color: rgb(35 193 158);
 
-    .userInfos {
+    .user-infos {
       width: 650rpx;
       margin-top: 150rpx;
       margin-left: 50rpx;
@@ -140,7 +153,7 @@ const onClick_9 = () => {
         border-radius: 100%;
       }
 
-      .userInfo {
+      .user-info {
         padding-left: 30rpx;
         line-height: 50rpx;
 
@@ -151,11 +164,11 @@ const onClick_9 = () => {
       }
     }
 
-    .applyInfos {
+    .apply-infos {
       width: 650rpx;
       height: 100rpx;
-      margin-left: 50rpx;
       margin-top: 50rpx;
+      margin-left: 50rpx;
       font-size: 25rpx;
     }
   }
@@ -170,7 +183,7 @@ const onClick_9 = () => {
       height: 100rpx;
       padding-left: 10rpx;
       font-size: 30rpx;
-      border-bottom: 2rpx solid rgb(200, 200, 200);
+      border-bottom: 2rpx solid rgb(200 200 200);
 
       .interval {
         padding-left: 25rpx;

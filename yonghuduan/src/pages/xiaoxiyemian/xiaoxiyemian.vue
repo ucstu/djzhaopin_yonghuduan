@@ -9,15 +9,24 @@
     <view class="justify-center group-cent">
       <view class="flex-row justify-between group-button">
         <view class="flex-col items-center button-box" @click="toMyDelivery">
-          <image style="width: 45rpx; height: 45rpx;" src="@/static/icons/deliver.png" />
+          <image
+            style="width: 45rpx; height: 45rpx"
+            src="@/static/icons/deliver.png"
+          />
           <text class="text-1">我的投递</text>
         </view>
         <view class="flex-col items-center button-box" @click="toBeViewed">
-          <image style="width: 60rpx; height: 45rpx;" src="@/static/icons/eye_color.png" />
+          <image
+            style="width: 60rpx; height: 45rpx"
+            src="@/static/icons/eye_color.png"
+          />
           <text class="text-1">谁看过我</text>
         </view>
         <view class="flex-col items-center button-box" @click="toFootprint">
-          <image style="width: 45rpx; height: 45rpx;" src="@/static/icons/footprint.png" />
+          <image
+            style="width: 45rpx; height: 45rpx"
+            src="@/static/icons/footprint.png"
+          />
           <text class="text-1">我的查看</text>
         </view>
       </view>
@@ -27,7 +36,7 @@
         <text>消息沟通</text>
         <image class="image-down" src="@/static/icons/arrow-down-filling.png" />
       </view>
-      <scroll-view class="group-infos" :scroll-y="true" @scroll="scroll">
+      <scroll-view class="group-infos" :scroll-y="true">
         <MailBar />
         <MailBar />
         <MailBar />
@@ -45,21 +54,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import MailBar from '@/components/MailBar/MailBar.vue'
+import MailBar from "@/components/MailBar/MailBar.vue";
 
 const toMyDelivery = () => {
-  uni.navigateTo({ url: '/pages/toudijilu/toudijilu' })
-}
+  uni.navigateTo({ url: "/pages/toudijilu/toudijilu" });
+};
 const toBeViewed = () => {
-  uni.navigateTo({ url: '/pages/shuikanguowo/shuikanguowo' })
-}
+  uni.navigateTo({ url: "/pages/shuikanguowo/shuikanguowo" });
+};
 const toFootprint = () => {
-  uni.navigateTo({ url: '/pages/wodechakan/wodechakan' })
-}
-const toChatPage = () => {
-  uni.navigateTo({ url: '/pages/liaotianyemian/liaotianyemian' })
-}
+  uni.navigateTo({ url: "/pages/wodechakan/wodechakan" });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -67,27 +72,27 @@ const toChatPage = () => {
   .group-top {
     width: 100%;
     height: 230rpx;
-    background-color: rgb(35, 193, 158);
+    background-color: rgb(35 193 158);
 
     .top-box {
-      width: 100%;
-      height: auto;
       position: relative;
       top: 170rpx;
+      width: 100%;
+      height: auto;
 
       .info-title {
+        padding-left: 30rpx;
         font-size: 40rpx;
         color: #fff;
-        padding-left: 30rpx;
       }
 
       .info-del {
+        padding: 2rpx 15rpx;
+        margin-right: 20rpx;
         font-size: 25rpx;
         color: #fff;
         border: 2rpx solid #fff;
-        padding: 2rpx 15rpx;
         border-radius: 20rpx;
-        margin-right: 20rpx;
       }
     }
   }
@@ -101,7 +106,6 @@ const toChatPage = () => {
       width: 70%;
 
       .button-box {
-
         .text-1 {
           font-size: 28rpx;
         }
@@ -113,9 +117,9 @@ const toChatPage = () => {
     margin-top: 20rpx;
 
     .info {
+      margin-left: 30rpx;
       font-size: 25rpx;
       font-weight: 600;
-      margin-left: 30rpx;
 
       .image-down {
         width: 25rpx;
@@ -153,10 +157,10 @@ const toChatPage = () => {
 
           .message {
             width: 550rpx;
-            font-size: 25rpx;
-            white-space: nowrap;
             overflow: hidden;
+            font-size: 25rpx;
             text-overflow: ellipsis;
+            white-space: nowrap;
           }
         }
       }

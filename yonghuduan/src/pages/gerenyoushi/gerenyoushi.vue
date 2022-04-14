@@ -19,10 +19,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { ref } from "vue";
 
-const inputValue = ref('')
+const inputValue = ref("");
 </script>
 
 <style lang="scss" scoped>
@@ -32,33 +32,38 @@ const inputValue = ref('')
     height: auto;
     margin-left: 30rpx;
     line-height: 50rpx;
+
     .text-title {
       font-size: 35rpx;
       font-weight: 400;
     }
+
     .title {
       font-size: 30rpx;
-      color: rgba(0, 0, 0, 0.5);
-      white-space: normal;
       line-height: 40rpx;
+      color: rgb(0 0 0 / 50%);
+      white-space: normal;
     }
   }
+
   .group-2 {
     width: 710rpx;
     height: auto;
-    margin-left: 20rpx;
     margin-top: 30rpx;
+    margin-left: 20rpx;
+
     .text-input {
       width: 100%;
       height: 500rpx;
-      background-color: rgba(229, 229, 229, 0.5);
-      border-radius: 10rpx;
       overflow: hidden;
+      background-color: rgb(229 229 229 / 50%);
+      border-radius: 10rpx;
+
       .input {
         height: 450rpx;
+        padding-left: 20rpx;
         font-size: 28rpx;
         line-height: 50rpx;
-        padding-left: 20rpx;
       }
     }
   }

@@ -3,91 +3,99 @@
     <NavigationBar />
     <text class="text">请输入验证码</text>
     <view class="group">
-      <text class="text_1">4位验证码已发送至:</text>
-      <text class="text_2">{{ phonceNumber }}</text>
+      <text class="text-1">4位验证码已发送至:</text>
+      <text class="text-2">{{ phonceNumber }}</text>
     </view>
-    <view class="justify-evenly group_1">
-      <view class="section_1"></view>
-      <view class="section_2"></view>
-      <view class="section_2"></view>
-      <view class="section_2"></view>
+    <view class="justify-evenly group-1">
+      <view class="section-1"></view>
+      <view class="section-2"></view>
+      <view class="section-2"></view>
+      <view class="section-2"></view>
     </view>
-    <text class="text_3">重新发送验证码</text>
+    <text class="text-3">重新发送验证码</text>
     <button @click="getPhoneNum">点击获取手机号</button>
   </view>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import NavigationBar from '@/components/NavigationBar/NavigationBar.vue'
+import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { ref } from "vue";
 
-const phonceNumber = ref('180******64')
+const phonceNumber = ref("180******64");
 const getPhoneNum = () => {
   uni.getStorage({
-    key: 'tel',
+    key: "tel",
     success: (res) => {
       console.log(res.data);
-
     },
-    fail: (error) => { }
-  })
-
-}
+    fail: (error) => {
+      console.log(error);
+    },
+  });
+};
 </script>
 
 <style lang="scss" scoped>
 .page {
-  padding-bottom: 672rpx;
-  background-color: rgb(255, 255, 255);
   width: 100%;
-  overflow-y: auto;
   height: 100%;
+  padding-bottom: 672rpx;
+  overflow-y: auto;
+  background-color: rgb(255 255 255);
+
   .text {
-    margin-left: 102rpx;
     margin-top: 134rpx;
-    color: rgb(0, 0, 0);
+    margin-left: 102rpx;
     font-size: 45rpx;
     line-height: 42rpx;
+    color: rgb(0 0 0);
     white-space: nowrap;
   }
+
   .group {
-    margin-top: 42rpx;
     align-self: center;
+    margin-top: 42rpx;
     line-height: 26rpx;
     white-space: nowrap;
-    .text_1 {
-      color: rgba(0, 0, 0, 0.5);
+
+    .text-1 {
       font-size: 30rpx;
       line-height: 26rpx;
+      color: rgb(0 0 0 / 50%);
     }
-    .text_2 {
-      color: rgb(0, 0, 0);
+
+    .text-2 {
       font-size: 30rpx;
       line-height: 22rpx;
+      color: rgb(0 0 0);
     }
   }
-  .group_1 {
-    margin-top: 86rpx;
+
+  .group-1 {
     padding: 0 100rpx;
-    .section_1 {
-      overflow: hidden;
+    margin-top: 86rpx;
+
+    .section-1 {
       width: 138rpx;
       height: 131rpx;
-      border: solid 2rpx rgb(35, 193, 158);
+      overflow: hidden;
+      border: solid 2rpx rgb(35 193 158);
     }
-    .section_2 {
-      overflow: hidden;
+
+    .section-2 {
       width: 138rpx;
       height: 131rpx;
-      border: solid 2rpx rgb(196, 196, 196);
+      overflow: hidden;
+      border: solid 2rpx rgb(196 196 196);
     }
   }
-  .text_3 {
-    margin-left: 102rpx;
+
+  .text-3 {
     margin-top: 57rpx;
-    color: rgba(0, 0, 0, 0.5);
+    margin-left: 102rpx;
     font-size: 30rpx;
     line-height: 28rpx;
+    color: rgb(0 0 0 / 50%);
     white-space: nowrap;
   }
 }

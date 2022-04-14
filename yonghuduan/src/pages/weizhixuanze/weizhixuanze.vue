@@ -1,30 +1,22 @@
 <template>
   <view class="flex-col page">
     <NavigationBar class="top-group" :title="country" />
-    <view class="flex-row group_all">
-      <view class="justify-center group_left">商圈</view>
-      <scroll-view
-        class="flex-row group_center"
-        :scroll-y="true"
-        @scroll="scroll"
-      >
+    <view class="flex-row group-all">
+      <view class="justify-center group-left">商圈</view>
+      <scroll-view class="flex-row group_center" :scroll-y="true">
         <view class="flex-col">
           <view
-            v-for="(country, i) in countries"
+            v-for="(con, i) in countries"
             :key="i"
             class="cities"
             :class="countriesIndex == i ? 'active' : ''"
             @click="countriesIndexOf(i)"
           >
-            <text>{{ country.countyName }}</text>
+            <text>{{ con.countyName }}</text>
           </view>
         </view>
       </scroll-view>
-      <scroll-view
-        class="flex-row group_right"
-        :scroll-y="true"
-        @scroll="scroll"
-      >
+      <scroll-view class="flex-row group_right" :scroll-y="true">
         <view class="flex-col items-center">
           <view
             v-for="(area, i) in areas"
@@ -110,21 +102,21 @@ const replacement = () => {
     position: relative;
   }
 
-  .group_all {
+  .group-all {
     height: 1120rpx;
 
     .active {
       color: rgb(84 188 163);
     }
 
-    .group_left {
+    .group-left {
       width: 213rpx;
       font-size: 30rpx;
       font-weight: bold;
       background-color: rgb(244 250 255);
     }
 
-    .group_center {
+    .group-center {
       width: 248.5rpx;
       overflow-y: hidden;
 
@@ -139,7 +131,7 @@ const replacement = () => {
       }
     }
 
-    .group_right {
+    .group-right {
       width: 248.5rpx;
       overflow-y: hidden;
 
