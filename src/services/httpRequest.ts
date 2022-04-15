@@ -34,7 +34,6 @@ axios.defaults.adapter = function (config) {
     });
   });
 };
-
 /**
  * Cancellation handled here, you can cancel request by call promise.cancel()
  *

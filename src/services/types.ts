@@ -25,6 +25,44 @@ export interface GetAreaInformationsQueryParams {
   city: string;
 }
 
+export interface GetCompanyinfosCompanyinfoidDeliveryrecordsQueryParams {
+  /**
+   *
+   * 年龄限制{1:18-25,2:25-35,3:35-45,4:45-55,5:55-65}
+   */
+  age?: string;
+  /**
+   *
+   * 投递日期
+   */
+  deliveryDate?: string;
+  /**
+   *
+   * 投递职位
+   */
+  jobId?: string;
+  /**
+   *
+   * 搜索内容
+   */
+  search?: string;
+  /**
+   *
+   * 性别
+   */
+  sex?: string;
+  /**
+   *
+   * 状态{1:待查看,2:已查看,3:通过筛选,4:约面试,5:不合适}
+   */
+  state?: string;
+  /**
+   *
+   * 工作经验{0:经验不限,1:在校/应届,2:3年及以下,3:3-5年,4:5-10年,5:10年以上}
+   */
+  workingYears?: string;
+}
+
 export interface GetCompanyinfosCompanyinfoidPositioninfosQueryParams {
   /**
    *
@@ -88,12 +126,20 @@ export interface GetCompanyinfosCompanyinfoidPositioninfosQueryParams {
   workingyears?: string;
 }
 
-export interface GetSubdivisionlabelsQueryParams {
+export interface GetDirectiontagsQueryParams {
   /**
    *
    * 职位类型
    */
-  jobName: string;
+  positionName: string;
+}
+
+export interface GetVerificationCodeQueryParams {
+  /**
+   *
+   * 手机号码
+   */
+  phoneNumber: string;
 }
 
 export interface HRInformation {
@@ -110,6 +156,12 @@ export interface HRInformation {
    *
    */
   avatar: string;
+  /**
+   *
+   * 公司ID
+   *
+   */
+  companyInfoId: string;
   /**
    *
    * 创建时间
@@ -532,12 +584,6 @@ export interface FilterInformation {
   IndustryField: string[];
   /**
    *
-   * 工作性质
-   *
-   */
-  NatureWork: string[];
-  /**
-   *
    * 公司规模
    *
    */
@@ -560,6 +606,12 @@ export interface FilterInformation {
    *
    */
   financingStage: string[];
+  /**
+   *
+   * 工作性质
+   *
+   */
+  natureWork: string[];
   /**
    *
    * 细分方向
@@ -697,164 +749,6 @@ export interface JobExpectation {
   updatedAt: string;
 }
 
-export interface JobInformation {
-  /**
-   *
-   * 上限薪资
-   *
-   * 单位K
-   */
-  ceilingSalary: number;
-  /**
-   *
-   * 公司ID
-   *
-   */
-  companyId: string;
-  /**
-   *
-   * 创建时间
-   *
-   */
-  createdAt: string;
-  /**
-   *
-   * 所属部门
-   *
-   */
-  department: string;
-  /**
-   *
-   * 细化标签
-   *
-   */
-  directionTags: string[];
-  /**
-   *
-   * 学历
-   *
-   * {0:不要求,1:大专,2:本科,3:硕士,4:博士}
-   */
-  education: "0" | "1" | "2" | "3" | "4";
-  /**
-   *
-   * HRID
-   *
-   */
-  hrId: string;
-  /**
-   *
-   * 职位描述
-   *
-   */
-  jobDescription: string;
-  /**
-   *
-   * 职位亮点
-   *
-   */
-  jobHighlights: string[];
-  /**
-   *
-   * 职位信息ID
-   *
-   * 增加可以留“”
-   */
-  jobInformationId: string;
-  /**
-   *
-   * 职位名称
-   *
-   */
-  name: string;
-  /**
-   *
-   * 职位类型
-   *
-   * {1:全职,2:兼职,3:实习}
-   */
-  positionType: "1" | "2" | "3";
-  /**
-   *
-   * 发布日期
-   *
-   */
-  releaseDate: string;
-  /**
-   *
-   * 起始薪资
-   *
-   * 单位K
-   */
-  startingSalary: number;
-  /**
-   *
-   * 更新时间
-   *
-   */
-  updatedAt: string;
-  /**
-   *
-   * 工作地区
-   *
-   */
-  workArea: string;
-  /**
-   *
-   * 工作地点
-   *
-   */
-  workingPlace: {
-    /**
-     *
-     * 纬度
-     *
-     */
-    latitude: number;
-    /**
-     *
-     * 经度
-     *
-     */
-    longitude: number;
-  };
-  /**
-   *
-   * 工作年限
-   *
-   * {0:经验不限,1:在校/应届,2:3年及以下,3:3-5年,4:5-10年,5:10年以上}
-   */
-  workingYears: "0" | "1" | "2" | "3" | "4" | "5";
-}
-
-export type JobTypes = {
-  /**
-   *
-   * 方向
-   *
-   */
-  directions: {
-    /**
-     *
-     * 方向名
-     *
-     */
-    directionName: string;
-    /**
-     *
-     * 职位
-     *
-     */
-    positions: string[];
-  }[];
-  /**
-   *
-   * 领域名
-   *
-   */
-  fieldName: string;
-}[];
-
 export interface MessageRecord {
   /**
    *
@@ -901,6 +795,212 @@ export interface MessageRecord {
    */
   updatedAt: string;
 }
+
+export interface PositionInformation {
+  /**
+   *
+   * 上限薪资
+   *
+   * 单位K
+   */
+  ceilingSalary: number;
+  /**
+   *
+   * 公司ID
+   *
+   */
+  companyId: string;
+  /**
+   *
+   * 创建时间
+   *
+   */
+  createdAt: string;
+  /**
+   *
+   * 所属部门
+   *
+   */
+  department: string;
+  /**
+   *
+   * 职位描述
+   *
+   */
+  description: string;
+  /**
+   *
+   * 细化标签
+   *
+   */
+  directionTags: string[];
+  /**
+   *
+   * 学历
+   *
+   * {0:不要求,1:大专,2:本科,3:硕士,4:博士}
+   */
+  education: "0" | "1" | "2" | "3" | "4";
+  /**
+   *
+   * 职位亮点
+   *
+   */
+  highlights: string[];
+  /**
+   *
+   * HRID
+   *
+   */
+  hrId: string;
+  /**
+   *
+   * 面试信息
+   *
+   */
+  interviewInfo: {
+    /**
+     *
+     * 面试说明
+     *
+     * {1:可周末面试,2:包含笔试,3:可下班面试,4:包含面试作业}
+     */
+    illustrate: "1" | "2" | "3" | "4";
+    /**
+     *
+     * 面试形式
+     *
+     * {1:现场面试,2:视频面试,3:电话面试}
+     */
+    situation: "1" | "2" | "3";
+    /**
+     *
+     * 面试时长
+     *
+     * {1:一天内完成,2:分多次完成}
+     */
+    time: "1" | "2";
+    /**
+     *
+     * 面试轮数
+     *
+     * {1:1-2轮次,2:3-4轮次,3:5-6轮次,4:暂不确定}
+     */
+    wheel: "1" | "2" | "3" | "4";
+  };
+  /**
+   *
+   * 职位名称
+   *
+   */
+  name: string;
+  /**
+   *
+   * 职位信息ID
+   *
+   * 增加可以留“”
+   */
+  positionInformationId: string;
+  /**
+   *
+   * 职位类型
+   *
+   * {1:全职,2:兼职,3:实习}
+   */
+  positionType: "1" | "2" | "3";
+  /**
+   *
+   * 发布日期
+   *
+   */
+  releaseDate: string;
+  /**
+   *
+   * 起始薪资
+   *
+   * 单位K
+   */
+  startingSalary: number;
+  /**
+   *
+   * 更新时间
+   *
+   */
+  updatedAt: string;
+  /**
+   *
+   * 周末休息时间
+   *
+   * {1周末双休:,2:周末单休,3:大小周}
+   */
+  weekendReleseTime: "1" | "2" | "3";
+  /**
+   *
+   * 工作地区
+   *
+   */
+  workArea: string;
+  /**
+   *
+   * 上班时间
+   *
+   */
+  workTime: string[];
+  /**
+   *
+   * 工作地点
+   *
+   */
+  workingPlace: {
+    /**
+     *
+     * 纬度
+     *
+     */
+    latitude: number;
+    /**
+     *
+     * 经度
+     *
+     */
+    longitude: number;
+  };
+  /**
+   *
+   * 工作年限
+   *
+   * {0:经验不限,1:在校/应届,2:3年及以下,3:3-5年,4:5-10年,5:10年以上}
+   */
+  workingYears: "0" | "1" | "2" | "3" | "4" | "5";
+}
+
+export type PositionTypes = {
+  /**
+   *
+   * 方向
+   *
+   */
+  directions: {
+    /**
+     *
+     * 方向名
+     *
+     */
+    directionName: string;
+    /**
+     *
+     * 职位
+     *
+     */
+    positions: string[];
+  }[];
+  /**
+   *
+   * 领域名
+   *
+   */
+  fieldName: string;
+}[];
 
 export interface ProjectExperience {
   /**
@@ -1010,7 +1110,6 @@ export interface UserInformation {
    *
    */
   email: string;
-  field4: string;
   /**
    *
    * 姓

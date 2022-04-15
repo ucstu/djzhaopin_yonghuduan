@@ -8,29 +8,31 @@ import { AxiosRequestConfig } from "axios";
 import { SwaggerResponse } from "./config";
 import { Http } from "./httpRequest";
 import {
-  GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
-  GetAreaInformationsQueryParams,
+  GetVerificationCodeQueryParams,
   DeleteAccountsAccountidQueryParams,
-  GetSubdivisionlabelsQueryParams,
-  AreaInformations,
-  UserInformation,
+  GetDirectiontagsQueryParams,
+  GetAreaInformationsQueryParams,
+  GetCompanyinfosCompanyinfoidDeliveryrecordsQueryParams,
+  GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
+  JobExpectation,
+  DirectionTags,
   CityInformations,
-  HRInformation,
+  AreaInformations,
   MessageRecord,
-  JobInformation,
+  FilterInformation,
+  AccountInformation,
   DeliveryRecord,
+  UserInformation,
   ProjectExperience,
-  EducationExperience,
   GarnerRecord,
   WorkExperience,
-  InspectionRecord,
   AttentionRecord,
-  DirectionTags,
-  AccountInformation,
-  JobTypes,
+  PositionInformation,
+  HRInformation,
   CompanyInformation,
-  JobExpectation,
-  FilterInformation,
+  InspectionRecord,
+  EducationExperience,
+  PositionTypes,
 } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -113,7 +115,7 @@ export const deleteCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
    */
   positioninfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<JobInformation>> => {
+): Promise<SwaggerResponse<PositionInformation>> => {
   return Http.deleteRequest(
     template(deleteCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key, {
       companyinfoid,
@@ -478,6 +480,30 @@ getCompanyinfosCompanyinfoid.key = "/companyinfos/{companyinfoid}";
 
 /**
  *
+ * 查询所有投递记录
+ */
+export const getCompanyinfosCompanyinfoidDeliveryrecords = (
+  companyinfoid: string,
+  queryParams: GetCompanyinfosCompanyinfoidDeliveryrecordsQueryParams,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<DeliveryRecord[]>> => {
+  return Http.getRequest(
+    template(getCompanyinfosCompanyinfoidDeliveryrecords.key, {
+      companyinfoid,
+    }),
+    queryParams,
+    undefined,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/** Key is end point string without base url */
+getCompanyinfosCompanyinfoidDeliveryrecords.key =
+  "/companyinfos/{companyinfoid}/deliveryrecords";
+
+/**
+ *
  * 查询所有职位信息
  */
 export const getCompanyinfosCompanyinfoidPositioninfos = (
@@ -488,7 +514,7 @@ export const getCompanyinfosCompanyinfoidPositioninfos = (
   companyinfoid: string,
   queryParams: GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<JobInformation[]>> => {
+): Promise<SwaggerResponse<PositionInformation[]>> => {
   return Http.getRequest(
     template(getCompanyinfosCompanyinfoidPositioninfos.key, { companyinfoid }),
     queryParams,
@@ -518,7 +544,7 @@ export const getCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
    */
   positioninfoid: string,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<JobInformation>> => {
+): Promise<SwaggerResponse<PositionInformation>> => {
   return Http.getRequest(
     template(getCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key, {
       companyinfoid,
@@ -534,6 +560,26 @@ export const getCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
 /** Key is end point string without base url */
 getCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key =
   "/companyinfos/{companyinfoid}/positioninfos/{positioninfoid}";
+
+/**
+ *
+ * 查询细分标签
+ */
+export const getDirectiontags = (
+  queryParams: GetDirectiontagsQueryParams,
+  configOverride?: AxiosRequestConfig
+): Promise<SwaggerResponse<DirectionTags>> => {
+  return Http.getRequest(
+    getDirectiontags.key,
+    queryParams,
+    undefined,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/** Key is end point string without base url */
+getDirectiontags.key = "/directiontags";
 
 /**
  *
@@ -631,7 +677,7 @@ getNewversion.key = "/newversion";
  */
 export const getPositiontypes = (
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<JobTypes>> => {
+): Promise<SwaggerResponse<PositionTypes>> => {
   return Http.getRequest(
     getPositiontypes.key,
     undefined,
@@ -666,26 +712,6 @@ export const getRecommendations = (
 
 /** Key is end point string without base url */
 getRecommendations.key = "/recommendations";
-
-/**
- *
- * 查询细分标签
- */
-export const getSubdivisionlabels = (
-  queryParams: GetSubdivisionlabelsQueryParams,
-  configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<DirectionTags>> => {
-  return Http.getRequest(
-    getSubdivisionlabels.key,
-    queryParams,
-    undefined,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/** Key is end point string without base url */
-getSubdivisionlabels.key = "/subdivisionlabels";
 
 /**
  *
@@ -1196,6 +1222,35 @@ getUserinfosUserinfoidWorkexperiencesWorkexperienceid.key =
 
 /**
  *
+ * 发送验证码
+ */
+export const getVerificationCode = (
+  queryParams: GetVerificationCodeQueryParams,
+  configOverride?: AxiosRequestConfig
+): Promise<
+  SwaggerResponse<{
+    /**
+     *
+     * 消息
+     *
+     */
+    msg: string;
+  }>
+> => {
+  return Http.getRequest(
+    getVerificationCode.key,
+    queryParams,
+    undefined,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/** Key is end point string without base url */
+getVerificationCode.key = "/verificationCode";
+
+/**
+ *
  * 注册账号
  */
 export const postAccounts = (
@@ -1306,9 +1361,9 @@ export const postCompanyinfosCompanyinfoidPositioninfos = (
    * 公司信息ID
    */
   companyinfoid: string,
-  requestBody: JobInformation,
+  requestBody: PositionInformation,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<JobInformation>> => {
+): Promise<SwaggerResponse<PositionInformation>> => {
   return Http.postRequest(
     template(postCompanyinfosCompanyinfoidPositioninfos.key, { companyinfoid }),
     undefined,
@@ -1728,9 +1783,9 @@ export const putCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
    * 职位信息ID
    */
   positioninfoid: string,
-  requestBody: JobInformation,
+  requestBody: PositionInformation,
   configOverride?: AxiosRequestConfig
-): Promise<SwaggerResponse<JobInformation>> => {
+): Promise<SwaggerResponse<PositionInformation>> => {
   return Http.putRequest(
     template(putCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key, {
       companyinfoid,

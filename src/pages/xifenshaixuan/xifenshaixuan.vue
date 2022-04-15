@@ -6,17 +6,46 @@
         <text class="text-title">选择职位细分标签</text>
         <text class="tag">根据您选择的期望职位，选择一下职位细分标签</text>
       </view>
-      <view v-for="(title, i) in segmentation" :key="i" class="group-tags">
+      <view class="flex-row group-checked">
+        <view
+          v-for="(label, i) in checkedSubLabels"
+          v-show="label.checked"
+          :key="i"
+          class="justify-center items-center text-checked"
+          @click="
+            label.checked = false;
+            checkeds.splice(checkeds.indexOf(label.id), 1);
+          "
+          >{{ label.subLabelsName }}
+          <image class="icon-close" src="@/static/icons/close.png" />
+        </view>
+      </view>
+      <view
+        v-for="(title, i) in checkedClassifyName"
+        :key="i"
+        class="group-tags"
+      >
         {{ title.classificationName }}
         <view class="flex-row group-box">
           <view
-            v-for="(segmentInfo, j) in title.subdivisionLabels"
+            v-for="(segmentInfo, j) in title.subLabels"
             :key="j"
             class="justify-center items-center segment-tag"
-            :class="subLabelTags.includes(i, j) ? 'active' : ''"
-            @click="selectTag(i, j)"
+            :class="segmentInfo.checked ? 'active' : ''"
+            @click="
+              if (segmentInfo.checked === false) {
+                if (checkeds.length < 3) {
+                  segmentInfo.checked = true;
+                  checkeds.push(segmentInfo.subLabelsName);
+                }
+              } else {
+                checkeds.splice(checkeds.indexOf(segmentInfo.subLabelsName), 1);
+                segmentInfo.checked = false;
+              }
+              checkedInfo(segmentInfo.checked);
+            "
           >
-            {{ segmentInfo }}
+            {{ segmentInfo.subLabelsName }}
           </view>
         </view>
       </view>
@@ -29,35 +58,47 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getSubdivisionlabels } from "@/services/services";
-import { DirectionTags } from "@/services/types";
-import { ref } from "vue";
+import { getDirectiontags } from "@/services/services";
+import { onMounted, reactive, ref } from "vue";
 
-const segmentation = ref<DirectionTags>([]);
-getSubdivisionlabels({ jobName: "撒辣椒粉" }).then((res) => {
-  segmentation.value = res.data;
+interface subDivisionLabels {
+  classificationName: string;
+  subLabels: {
+    subLabelsName: string;
+    checked: boolean;
+  }[];
+}
+
+const checkedClassifyName = ref<subDivisionLabels[]>([]);
+const checkedSubLabels = ref<subDivisionLabels["subLabels"]>([]);
+
+onMounted(() => {
+  getDirectiontags({ positionName: "撒辣椒粉" }).then((res) => {
+    checkedClassifyName.value = res.data.map((classify) => {
+      const checkedLabels = classify.subdivisionLabels.map((label) => {
+        let checkableLabel = reactive({
+          subLabelsName: label,
+          checked: false,
+        });
+        checkedSubLabels.value.push(checkableLabel);
+        return checkableLabel;
+      });
+      return {
+        classificationName: classify.classificationName,
+        subLabels: checkedLabels,
+      };
+    });
+  });
 });
 
-const select = ref<number[]>([]);
-const subLabelTags = ref<number[]>([]);
-const selectTag = (index: number, last: number) => {
-  if (subLabelTags.value.length === 0 && select.value.length === 0) {
-    select.value.push(index);
-    subLabelTags.value.push(last);
-  } else {
-    if (select.value.includes(index)) {
-      if (subLabelTags.value.includes(last)) {
-        subLabelTags.value.splice(subLabelTags.value.indexOf(last), 1);
-        if (subLabelTags.value.length === 0) {
-          select.value.splice(select.value.indexOf(index), 1);
-        }
-      } else {
-        subLabelTags.value.push(last);
-      }
-    } else {
-      select.value.push(index);
-      subLabelTags.value.push(last);
-    }
+let checkeds = ref<string>([]);
+const checkedInfo = (check: boolean) => {
+  if (checkeds.value.length === 3 && check === false) {
+    uni.showToast({
+      title: "最多只能选择3个",
+      icon: "none",
+      mask: true,
+    });
   }
 };
 </script>
@@ -68,7 +109,9 @@ const selectTag = (index: number, last: number) => {
   height: auto;
 
   .active {
-    background-color: rgb(35 193 158) !important;
+    color: rgb(35 193 158);
+    background-color: rgb(240 255 240) !important;
+    border: 1px solid rgb(35 193 158);
   }
 
   .group-view {
@@ -84,6 +127,29 @@ const selectTag = (index: number, last: number) => {
       .tag {
         font-size: 23rpx;
         font-weight: bold;
+      }
+    }
+
+    .group-checked {
+      margin-top: 20rpx;
+      margin-left: 20rpx;
+
+      .text-checked {
+        width: auto;
+        height: 60rpx;
+        margin: 10rpx;
+        font-size: 22rpx;
+        color: rgb(35 193 158);
+        text-align: center;
+        background-color: rgb(240 255 240);
+        border: 1px solid rgb(35 193 158);
+        border-radius: 10rpx;
+      }
+
+      .icon-close {
+        width: 30rpx;
+        height: 30rpx;
+        margin-left: 10rpx;
       }
     }
 
