@@ -1,8 +1,8 @@
 <template>
   <view class="flex-col items-center page">
-    <NavigationBar class="heard" title="注册账号" />
+    <NavigationBar class="heard" title="忘记密码" />
     <view class="flex-col group-1">
-      <text>注册账号</text>
+      <text>忘记密码</text>
       <view class="textarea">
         <view class="items-center phone-number">
           <input
@@ -29,10 +29,18 @@
         </view>
         <view class="items-center phone-number">
           <input
-            v-model="password"
+            v-model="passwordNew"
             style="padding-left: 20rpx"
             type="password"
-            placeholder="请输入密码"
+            placeholder="请输入新密码"
+          />
+        </view>
+        <view class="items-center phone-number">
+          <input
+            v-model="passwordAffirm"
+            style="padding-left: 20rpx"
+            type="password"
+            placeholder="请确认密码"
           />
         </view>
       </view>
@@ -41,19 +49,8 @@
         form-type="submit"
         @click="registeredAccount"
       >
-        注册
+        保存
       </button>
-      <view class="flex-row items-center agree">
-        <checkbox
-          style="transform: scale(0.7)"
-          :checked="isAgree"
-          @click="isAgree = !isAgree"
-        ></checkbox>
-        <view
-          >同意 <text style="color: rgb(35 193 158)">《东江用户协议》</text>和
-          <text style="color: rgb(35 193 158)">《东江登录政策》</text>
-        </view>
-      </view>
     </view>
     <view class="flex-col group-2">
       <text>客服（投诉）电话：4008 2082 02（工作日9：00-18：00）</text>
@@ -70,7 +67,8 @@ import { postAccounts } from "@/services/services";
 import { ref } from "vue";
 
 const inputValue = ref("");
-const password = ref("");
+const passwordNew = ref("");
+const passwordAffirm = ref("");
 const verification = ref();
 const isAgree = ref(false);
 
@@ -78,7 +76,7 @@ postAccounts({
   phoneNumber: inputValue.value,
   verificationCode: verification.value,
   accountType: "1",
-  password: password.value,
+  password: passwordNew.value,
 }).then((res) => {
   console.log(res.data);
 });
@@ -99,7 +97,11 @@ const getVerifiable = () => {
   }
 };
 const registeredAccount = () => {
-  if (inputValue.value === "" || password.value === "") {
+  if (
+    inputValue.value === "" ||
+    passwordNew.value === "" ||
+    passwordAffirm.value === ""
+  ) {
     uni.showToast({
       title: "手机密码不能为空",
       icon: "none",
@@ -117,18 +119,19 @@ const registeredAccount = () => {
       icon: "none",
       duration: 2000,
     });
-  } else if (isAgree.value === false) {
+  } else if (passwordNew.value !== passwordAffirm.value) {
     uni.showToast({
-      title: "请同意协议",
+      title: "两次密码不一致",
       icon: "none",
       duration: 2000,
     });
   } else {
     uni.showToast({
-      title: "注册成功",
+      title: "修改成功",
       icon: "none",
       duration: 2000,
     });
+    uni.navigateBack({ delta: 1 });
   }
 };
 </script>
@@ -151,7 +154,7 @@ const registeredAccount = () => {
     font-size: 40rpx;
 
     .textarea {
-      height: 240rpx;
+      height: auto;
       margin-top: 30rpx;
       font-size: 30rpx;
       border-radius: 5rpx;

@@ -4,7 +4,7 @@
     "list": [
       {
         "name": "测试页面",
-        "path": "pages/xifenshaixuan/xifenshaixuan"
+        "path": "pages/denglu_zhuce/wangjimima"
       }
     ]
   },
@@ -155,6 +155,9 @@
     },
     {
       "path": "pages/denglu_zhuce/zhucezhanghao"
+    },
+    {
+      "path": "pages/denglu_zhuce/wangjimima"
     }
   ],
   "esaycom": {
