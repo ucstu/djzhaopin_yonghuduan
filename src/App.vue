@@ -1,20 +1,16 @@
 <script lang="ts" setup>
-import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
-import { useStore } from 'vuex';
-import { key } from './stores';
+import { onLaunch } from "@dcloudio/uni-app";
+import { useStore } from "vuex";
+import { key } from "./stores";
 
 const store = useStore(key);
 
 onLaunch(() => {
   store.commit("setSystemInfo", uni.getSystemInfoSync());
   /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-  store.commit("setMenuButtonInfo", uni.getMenuButtonBoundingClientRect())
+  store.commit("setMenuButtonInfo", uni.getMenuButtonBoundingClientRect());
   /* #endif */
-})
-onShow(() => {
-})
-onHide(() => {
-})
+});
 </script>
 
 <style lang="scss">
@@ -29,8 +25,8 @@ html {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
     "Microsoft Yahei", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
