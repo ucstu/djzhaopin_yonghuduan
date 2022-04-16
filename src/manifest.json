@@ -1,6 +1,6 @@
 {
-  "name": "codefun",
-  "appid": "",
+  "name": "东江招聘",
+  "appid": "__UNI__80B8DF1",
   "description": "",
   "versionName": "1.0.0",
   "versionCode": "100",
@@ -42,7 +42,7 @@
   },
   "quickapp": {},
   "mp-weixin": {
-    "appid": "wx726a76f8d71d4877",
+    "appid": "wx8e1d4039ec3833f6",
     "setting": {
       "urlCheck": false
     },

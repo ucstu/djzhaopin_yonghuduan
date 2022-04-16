@@ -19,7 +19,7 @@
     >
       <image class="image" :src="leftUrl" @click="imageOnClick" />
       <text class="text">{{ title }}</text>
-      <text class="text-1">{{ right }}</text>
+      <text class="text-1" @click="emit('rightClick')">{{ right }}</text>
     </view>
   </view>
   <!-- #endif -->
@@ -28,14 +28,14 @@
   <view class="header justify-center component">
     <image class="image" :src="leftUrl" @click="imageOnClick" />
     <text class="text">{{ title }}</text>
-    <text class="text-1">{{ right }}</text>
+    <text class="text-1" @click="emit('rightClick')">{{ right }}</text>
   </view>
   <!-- #endif -->
 </template>
 
 <script lang="ts" setup>
 import { key } from "@/stores";
-import { computed, defineProps } from "vue";
+import { computed, defineProps, defineEmits } from "vue";
 import { useStore } from "vuex";
 const store = useStore(key);
 
@@ -63,6 +63,8 @@ const props = defineProps({
     default: "",
   },
 });
+
+const emit = defineEmits(["rightClick"]);
 
 const leftUrl = computed(() => {
   return props.left === "return"

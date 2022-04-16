@@ -1,11 +1,11 @@
 <template>
   <view class="flex-col items-center page">
     <view class="flex-col group-1">
-      <text>登录/注册</text>
+      <text>登录</text>
       <view class="textarea">
         <view class="items-center phone-number">
           <input
-            v-model="inputValue"
+            v-model="phoneNum"
             style="padding-left: 20rpx"
             type="number"
             placeholder="请输入你的手机号"
@@ -21,12 +21,12 @@
           />
         </view>
       </view>
-      <view class="justify-center items-center next" @click="nextStep">
-        <text>登录 </text>
+      <view class="justify-center items-center next" @click="login">
+        <text>登录</text>
       </view>
       <view class="flex-row items-center justify-between other-type">
         <text @click="forget">忘记密码？</text>
-        <text @click="register">注册账号</text>
+        <text @click="throttle(register)()">注册账号</text>
       </view>
       <view class="flex-row items-center agree">
         <checkbox
@@ -52,28 +52,27 @@
 <script lang="ts" setup>
 import { putAccounts } from "@/services/services";
 import { key } from "@/stores";
+import { throttle } from "@/utils/common";
+import { errorHandler } from "@/utils/errorHandler";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
-const p = store.state.accountInfo.phoneNum;
-const w = store.state.accountInfo.password;
-console.log(p, w);
 
-const inputValue = ref("");
+const phoneNum = ref("");
 const password = ref("");
 const isAgree = ref(false);
-putAccounts({
-  phoneNumber: "17323677595",
-  password: "1456",
-}).then((res) => {
-  console.log(res);
-});
 
-const nextStep = () => {
-  if (inputValue.value === "" || password.value === "") {
+const login = () => {
+  if (phoneNum.value === "" || password.value === "") {
     uni.showToast({
       title: "手机或密码不能为空",
+      icon: "none",
+      mask: true,
+    });
+  } else if (!/^1[3456789]\d{9}$/.test(phoneNum.value)) {
+    uni.showToast({
+      title: "手机号错误",
       icon: "none",
       mask: true,
     });
@@ -83,14 +82,17 @@ const nextStep = () => {
       icon: "none",
       mask: true,
     });
-  } else if (inputValue.value !== p || password.value !== w) {
-    uni.showToast({
-      title: "手机或密码不正确",
-      icon: "none",
-      mask: true,
-    });
   } else {
-    uni.switchTab({ url: "/pages/wodeyemian/wodeyemian" });
+    putAccounts({
+      phoneNumber: phoneNum.value,
+      password: password.value,
+    })
+      .then((res) => {
+        store.commit("setToken", res.data.body.token);
+        store.commit("setAccountInfo", res.data.body.accountInfo);
+        uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+      })
+      .catch(errorHandler);
   }
 };
 

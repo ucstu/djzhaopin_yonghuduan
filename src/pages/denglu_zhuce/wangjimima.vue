@@ -6,7 +6,7 @@
       <view class="textarea">
         <view class="items-center phone-number">
           <input
-            v-model="inputValue"
+            v-model="phoneNum"
             style="padding-left: 20rpx"
             type="number"
             placeholder="请输入你的手机号"
@@ -17,6 +17,7 @@
           <input
             v-model="verification"
             style="padding-left: 20rpx"
+            :maxlength="4"
             type="number"
             placeholder="请输入验证码"
           />
@@ -63,94 +64,78 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getVerificationCode, postAccounts } from "@/services/services";
-import { key } from "@/stores";
+import { getVerificationCode, putAccounts0 } from "@/services/services";
+import { errorHandler } from "@/utils/errorHandler";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
-const p = store.state.accountInfo.phoneNum;
-const w = store.state.accountInfo.password;
-console.log(p, w);
-
-const inputValue = ref("");
+const phoneNum = ref("");
 const passwordNew = ref("");
 const passwordAffirm = ref("");
 const verification = ref();
-const isAgree = ref(false);
-
-postAccounts({
-  phoneNumber: inputValue.value,
-  verificationCode: verification.value,
-  accountType: "1",
-  password: passwordNew.value,
-}).then((res) => {
-  console.log(res.data.body);
-});
 
 const getVerifiable = () => {
-  if (inputValue.value === p) {
-    getVerificationCode({ phoneNumber: phoneNum.value }).then((res) => {
-      console.log(res);
-    });
+  if (phoneNum.value === "") {
     uni.showToast({
-      title: "验证码已发送至\n" + inputValue.value,
+      title: "请输入手机号",
       icon: "none",
-      duration: 2000,
+      duration: 500,
     });
+  } else if (/^1[3456789]\d{9}$/.test(phoneNum.value)) {
+    getVerificationCode({ phoneNumber: phoneNum.value })
+      .then((res) => {
+        uni.showToast({
+          title: "验证码已发送",
+          icon: "none",
+          duration: 500,
+        });
+      })
+      .catch(errorHandler);
   } else {
     uni.showToast({
       title: "请输入正确的手机号",
       icon: "none",
-      duration: 2000,
+      duration: 500,
     });
   }
 };
 const registeredAccount = () => {
   if (
-    inputValue.value === "" ||
+    phoneNum.value === "" ||
     passwordNew.value === "" ||
     passwordAffirm.value === ""
   ) {
     uni.showToast({
       title: "手机密码不能为空",
       icon: "none",
-      duration: 2000,
+      duration: 500,
     });
   } else if (verification.value === "") {
     uni.showToast({
       title: "验证码不能为空",
       icon: "none",
-      duration: 2000,
-    });
-  } else if (verification.value !== "1234") {
-    uni.showToast({
-      title: "验证码错误\n" + "请输入正确的验证码",
-      icon: "none",
-      duration: 2000,
-    });
-  } else if (inputValue.value !== p) {
-    uni.showToast({
-      title: "手机号输入有误",
-      icon: "none",
-      duration: 2000,
+      duration: 500,
     });
   } else if (passwordNew.value !== passwordAffirm.value) {
     uni.showToast({
       title: "两次密码不一致",
       icon: "none",
-      duration: 2000,
+      duration: 500,
     });
   } else {
-    uni.showToast({
-      title: "修改成功",
-      icon: "none",
-      duration: 2000,
-    });
-    store.state.accountInfo.password = passwordNew.value;
-    console.log(store.state.accountInfo.password);
-
-    uni.navigateTo({ url: "/pages/denglu_zhuce/denglu" });
+    putAccounts0({
+      phoneNumber: phoneNum.value,
+      verificationCode: verification.value,
+      password: passwordNew.value,
+    })
+      .then((res) => {
+        uni.showToast({
+          title: "修改成功",
+          icon: "none",
+          duration: 500,
+        });
+        uni.navigateTo({ url: "/pages/denglu_zhuce/denglu" });
+      })
+      .catch(errorHandler);
   }
 };
 </script>

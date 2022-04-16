@@ -44,6 +44,10 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { key } from "@/stores";
+import { useStore } from "vuex";
+
+const store = useStore(key);
 
 const toMyAccount = () => {
   uni.navigateTo({ url: "/pages/wodezhanghu/wodezhanghu" });
@@ -64,6 +68,8 @@ const toVersion = () => {
   uni.navigateTo({ url: "/pages/banbengengxin/banbengengxin" });
 };
 const exitAccount = () => {
+  store.commit("setToken", null);
+  store.commit("setAccountInfo", null);
   uni.navigateTo({ url: "/pages/denglu_zhuce/denglu" });
 };
 </script>

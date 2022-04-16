@@ -7,6 +7,7 @@ export interface State {
   systemInfo: UniApp.GetSystemInfoResult | null;
   menuButtonInfo: UniApp.GetMenuButtonBoundingClientRectRes | null;
   accountInfo: AccountInformation | null;
+  token: string | null;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -30,16 +31,23 @@ export const store = createStore<State>({
     systemInfo: null,
     menuButtonInfo: null,
     accountInfo: null,
+    token: null,
   }),
   mutations: {
-    setSystemInfo(state, systemInfo) {
+    setSystemInfo(state, systemInfo: UniApp.GetSystemInfoResult) {
       state.systemInfo = systemInfo;
     },
-    setMenuButtonInfo(state, menuButtonInfo) {
+    setMenuButtonInfo(
+      state,
+      menuButtonInfo: UniApp.GetMenuButtonBoundingClientRectRes
+    ) {
       state.menuButtonInfo = menuButtonInfo;
     },
-    setAccountInfo(state, accountInfo) {
+    setAccountInfo(state, accountInfo: AccountInformation) {
       state.accountInfo = accountInfo;
+    },
+    setToken(state, token: string) {
+      state.token = token;
     },
   },
   modules: {},

@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar />
+    <NavigationBar right="跳过" @right-click="skip" />
     <view class="flex-col group-all">
       <text class="self-info">请完善教育经历（2/3）</text>
       <view class="group-self">
@@ -164,6 +164,10 @@ const nextClick = () => {
       console.log(error.errMsg);
     },
   });
+  uni.navigateTo({ url: "/pages/wanshangongzuojingli/wanshangongzuojingli" });
+};
+
+const skip = () => {
   uni.navigateTo({ url: "/pages/wanshangongzuojingli/wanshangongzuojingli" });
 };
 </script>

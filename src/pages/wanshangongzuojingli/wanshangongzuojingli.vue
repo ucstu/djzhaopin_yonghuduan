@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar />
+    <NavigationBar right="跳过" @right-click="skip" />
     <view class="flex-col group-all">
       <text class="self-info">请完善工作经历（3/3）</text>
       <view class="group-self">
@@ -128,7 +128,11 @@ const nextClick = () => {
       console.log(error.errMsg);
     },
   });
-  uni.switchTab({ url: "/pages/wodeyemian/wodeyemian" });
+  uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+};
+
+const skip = () => {
+  uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
 };
 </script>
 

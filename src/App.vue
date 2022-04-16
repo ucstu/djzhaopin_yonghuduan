@@ -6,10 +6,19 @@ import { key } from "./stores";
 const store = useStore(key);
 
 onLaunch(() => {
-  store.commit("setSystemInfo", uni.getSystemInfoSync());
+  if (store.state.systemInfo === null) {
+    store.commit("setSystemInfo", uni.getSystemInfoSync());
+  }
   /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-  store.commit("setMenuButtonInfo", uni.getMenuButtonBoundingClientRect());
+  if (store.state.menuButtonInfo === null) {
+    store.commit("setMenuButtonInfo", uni.getMenuButtonBoundingClientRect());
+  }
   /* #endif */
+  if (store.state.accountInfo === null || store.state.token === null) {
+    uni.navigateTo({
+      url: "/pages/denglu_zhuce/denglu",
+    });
+  }
 });
 </script>
 

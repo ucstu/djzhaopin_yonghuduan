@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar />
+    <NavigationBar right="跳过" @right-click="skip" />
     <view class="flex-col group-all">
       <text class="self-info">请完善个人信息（1/3）</text>
       <view class="group-self">
@@ -165,6 +165,10 @@ const nextClick = () => {
 
 const choseCity = () => {
   uni.navigateTo({ url: "/pages/chengshixuanze/chengshixuanze" });
+};
+
+const skip = () => {
+  uni.navigateTo({ url: "/pages/wanshanjiaoyujingli/wanshanjiaoyujingli" });
 };
 </script>
 

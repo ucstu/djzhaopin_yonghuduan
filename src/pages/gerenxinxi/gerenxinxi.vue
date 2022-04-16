@@ -158,19 +158,6 @@ const bindChange = (e: { detail: { value: never } }) => {
 
 // 本地存储用户基本信息
 const saveInfos = () => {
-  if (isActiveMan.value === true) {
-    sex.value = sexMan.value;
-  } else if (isActiveWo.value === true) {
-    sex.value = sexWo.value;
-  }
-  let userInfos = {
-    userName: userName.value,
-    birthday: birthday.value,
-    sex: sex.value,
-    email: email.value,
-  };
-  uni.setStorageSync("userInfo", userInfos);
-  uni.setStorageSync("tel", phoneNumber.value);
   uni.navigateBack({ delta: 1 });
 };
 </script>
