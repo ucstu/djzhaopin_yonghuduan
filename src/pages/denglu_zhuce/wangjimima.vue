@@ -65,7 +65,6 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getVerificationCode, putAccounts0 } from "@/services/services";
-import { errorHandler } from "@/utils/errorHandler";
 import { ref } from "vue";
 
 const phoneNum = ref("");
@@ -81,15 +80,13 @@ const getVerifiable = () => {
       duration: 500,
     });
   } else if (/^1[3456789]\d{9}$/.test(phoneNum.value)) {
-    getVerificationCode({ phoneNumber: phoneNum.value })
-      .then((res) => {
-        uni.showToast({
-          title: "验证码已发送",
-          icon: "none",
-          duration: 500,
-        });
-      })
-      .catch(errorHandler);
+    getVerificationCode({ phoneNumber: phoneNum.value }).then((res) => {
+      uni.showToast({
+        title: "验证码已发送",
+        icon: "none",
+        duration: 500,
+      });
+    });
   } else {
     uni.showToast({
       title: "请输入正确的手机号",
@@ -126,16 +123,14 @@ const registeredAccount = () => {
       phoneNumber: phoneNum.value,
       verificationCode: verification.value,
       password: passwordNew.value,
-    })
-      .then((res) => {
-        uni.showToast({
-          title: "修改成功",
-          icon: "none",
-          duration: 500,
-        });
-        uni.navigateTo({ url: "/pages/denglu_zhuce/denglu" });
-      })
-      .catch(errorHandler);
+    }).then((res) => {
+      uni.showToast({
+        title: "修改成功",
+        icon: "none",
+        duration: 500,
+      });
+      uni.navigateTo({ url: "/pages/denglu_zhuce/denglu" });
+    });
   }
 };
 </script>

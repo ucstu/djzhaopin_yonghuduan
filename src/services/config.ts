@@ -3,14 +3,75 @@
  *
  * @version 5
  */
+
+// @ts-nocheck
+
+import { badRequestHandler } from "@/utils/handler";
 import Axios, {
-  AxiosRequestConfig,
   AxiosError,
-  AxiosResponse,
   AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse
 } from "axios";
+import settle from "axios/lib/core/settle";
+import buildURL from "axios/lib/helpers/buildURL";
 //@ts-ignore
 import qs from "qs";
+
+Axios.defaults.adapter = function (config) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      uni.showLoading({
+        title: "加载中...",
+      });
+    }, 300);
+    uni.request({
+      method: config.method.toUpperCase(),
+      url:
+        config.baseURL +
+        buildURL(config.url, config.params, config.paramsSerializer),
+      header: config.headers,
+      data: config.data,
+      dataType: config.dataType,
+      responseType: config.responseType,
+      sslVerify: config.sslVerify,
+      complete: function complete(response) {
+        clearTimeout(timer);
+        uni.hideLoading();
+        if (response.statusCode === 400) {
+          badRequestHandler(response);
+        } else if (response.statusCode === 401) {
+          uni.showToast({
+            title: "登录失效，请重新登录",
+            icon: "none",
+            duration: 500,
+          });
+          uni.reLaunch({ url: "/pages/denglu_zhuce/denglu" });
+        } else if (response.statusCode === 403) {
+          uni.showToast({
+            title: "没有权限",
+            icon: "none",
+            duration: 500,
+          });
+        } else if (response.statusCode === 500) {
+          uni.showToast({
+            title: "服务器错误",
+            icon: "none",
+            duration: 500,
+          });
+        }
+        response = {
+          data: response.data,
+          status: response.statusCode,
+          errMsg: response.errMsg,
+          header: response.header,
+          config: config,
+        };
+        settle(resolve, reject, response);
+      },
+    });
+  });
+};
 
 const baseConfig: AxiosRequestConfig = {
   baseURL: (import.meta.env.VITE_BASE_URL as string) || "", // <--- Add your base url
@@ -100,6 +161,6 @@ class RequestError extends Error {
 
 export type Security = any[] | undefined;
 
-export interface SwaggerResponse<R> extends AxiosResponse<R> {}
+export type SwaggerResponse<R> = AxiosResponse<R>;
 
 export { getAxiosInstance, RequestError };

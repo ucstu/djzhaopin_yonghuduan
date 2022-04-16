@@ -53,7 +53,6 @@
 import { putAccounts } from "@/services/services";
 import { key } from "@/stores";
 import { throttle } from "@/utils/common";
-import { errorHandler } from "@/utils/errorHandler";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -86,13 +85,11 @@ const login = () => {
     putAccounts({
       phoneNumber: phoneNum.value,
       password: password.value,
-    })
-      .then((res) => {
-        store.commit("setToken", res.data.body.token);
-        store.commit("setAccountInfo", res.data.body.accountInfo);
-        uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
-      })
-      .catch(errorHandler);
+    }).then((res) => {
+      store.commit("setToken", res.data.body.token);
+      store.commit("setAccountInfo", res.data.body.accountInfo);
+      uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+    });
   }
 };
 

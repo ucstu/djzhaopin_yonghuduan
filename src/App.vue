@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import { key } from "@/stores";
 import { onLaunch } from "@dcloudio/uni-app";
 import { useStore } from "vuex";
-import { key } from "./stores";
+import { getAxiosInstance } from "./services/config";
 
 const store = useStore(key);
 
@@ -15,9 +16,10 @@ onLaunch(() => {
   }
   /* #endif */
   if (store.state.accountInfo === null || store.state.token === null) {
-    uni.navigateTo({
-      url: "/pages/denglu_zhuce/denglu",
-    });
+    uni.reLaunch({ url: "/pages/denglu_zhuce/denglu" });
+  } else {
+    getAxiosInstance(undefined).defaults.headers.common["Authorization"] =
+      "Bearer " + store.state.token;
   }
 });
 </script>
