@@ -10,7 +10,10 @@ export interface State {
     top: number;
     left: number;
   };
-  accountInfo: Object;
+  accountInfo: {
+    phoneNum: string;
+    password: string;
+  };
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();

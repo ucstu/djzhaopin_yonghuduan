@@ -86,9 +86,6 @@ const imageOnClick = () => {
   background-color: rgb(255 255 255);
 
   .image {
-    position: absolute;
-    bottom: 23rpx;
-    left: 40rpx;
     width: 25rpx;
     height: 35rpx;
 

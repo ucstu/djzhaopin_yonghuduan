@@ -35,7 +35,7 @@
       <image class="image" src="@/static/icons/arrow-right.png" />
     </view>
     <view class="justify-center group-button">
-      <view class="justify-center items-center button-box">
+      <view class="justify-center items-center button-box" @click="exitAccount">
         <text>退出当前账号</text>
       </view>
     </view>
@@ -62,6 +62,9 @@ const toPrivacyPolicy = () => {
 };
 const toVersion = () => {
   uni.navigateTo({ url: "/pages/banbengengxin/banbengengxin" });
+};
+const exitAccount = () => {
+  uni.navigateTo({ url: "/pages/denglu_zhuce/denglu" });
 };
 </script>
 

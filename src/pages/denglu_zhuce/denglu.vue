@@ -51,7 +51,14 @@
 
 <script lang="ts" setup>
 import { putAccounts } from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore(key);
+const p = store.state.accountInfo.phoneNum;
+const w = store.state.accountInfo.password;
+console.log(p, w);
 
 const inputValue = ref("");
 const password = ref("");
@@ -60,23 +67,30 @@ putAccounts({
   phoneNumber: "17323677595",
   password: "1456",
 }).then((res) => {
-  console.log(res.data);
+  console.log(res);
 });
 
 const nextStep = () => {
-  if (inputValue.value.length === 11 && isAgree.value === true) {
+  if (inputValue.value === "" || password.value === "") {
+    uni.showToast({
+      title: "手机或密码不能为空",
+      icon: "none",
+      mask: true,
+    });
+  } else if (!isAgree.value) {
+    uni.showToast({
+      title: "请勾选同意协议",
+      icon: "none",
+      mask: true,
+    });
+  } else if (inputValue.value !== p || password.value !== w) {
+    uni.showToast({
+      title: "手机或密码不正确",
+      icon: "none",
+      mask: true,
+    });
+  } else {
     uni.switchTab({ url: "/pages/wodeyemian/wodeyemian" });
-  } else if (inputValue.value.length < 11) {
-    uni.showToast({
-      title: "请输入正确的手机号",
-      icon: "none",
-    });
-    inputValue.value = "";
-  } else if (isAgree.value === false) {
-    uni.showToast({
-      title: "请同意协议",
-      icon: "none",
-    });
   }
 };
 
@@ -84,7 +98,7 @@ const register = () => {
   uni.navigateTo({ url: "/pages/denglu_zhuce/zhucezhanghao" });
 };
 const forget = () => {
-  uni.navigateTo({ url: "/pages/shezhimima/shezhimima" });
+  uni.navigateTo({ url: "/pages/denglu_zhuce/wangjimima" });
 };
 </script>
 

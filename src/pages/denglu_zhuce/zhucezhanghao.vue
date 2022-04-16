@@ -6,7 +6,7 @@
       <view class="textarea">
         <view class="items-center phone-number">
           <input
-            v-model="inputValue"
+            v-model="phoneNum"
             style="padding-left: 20rpx"
             type="number"
             placeholder="请输入你的手机号"
@@ -66,16 +66,20 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { postAccounts } from "@/services/services";
+import { postAccounts, getVerificationCode } from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
+import { useStore } from "vuex";
 
-const inputValue = ref("");
+const store = useStore(key);
+
+const phoneNum = ref("");
 const password = ref("");
 const verification = ref();
 const isAgree = ref(false);
 
 postAccounts({
-  phoneNumber: inputValue.value,
+  phoneNumber: phoneNum.value,
   verificationCode: verification.value,
   accountType: "1",
   password: password.value,
@@ -84,9 +88,12 @@ postAccounts({
 });
 
 const getVerifiable = () => {
-  if (inputValue.value.length === 11) {
+  if (phoneNum.value.length === 11) {
+    getVerificationCode({ phoneNumber: phoneNum.value }).then((res) => {
+      console.log(res);
+    });
     uni.showToast({
-      title: "验证码已发送至\n" + inputValue.value,
+      title: "验证码已发送至\n" + phoneNum.value,
       icon: "none",
       duration: 2000,
     });
@@ -99,7 +106,7 @@ const getVerifiable = () => {
   }
 };
 const registeredAccount = () => {
-  if (inputValue.value === "" || password.value === "") {
+  if (phoneNum.value === "" || password.value === "") {
     uni.showToast({
       title: "手机密码不能为空",
       icon: "none",
@@ -128,6 +135,11 @@ const registeredAccount = () => {
       title: "注册成功",
       icon: "none",
       duration: 2000,
+    });
+    store.state.accountInfo.phoneNum = phoneNum.value;
+    store.state.accountInfo.password = password.value;
+    uni.navigateTo({
+      url: "/pages/wanchengjianli/wanchengjianli",
     });
   }
 };

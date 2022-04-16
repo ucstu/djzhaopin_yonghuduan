@@ -32,35 +32,98 @@
             />
           </view>
         </view>
-        <view class="flex-col exceptWork">
-          <text class="text-top">求职期望</text>
+        <view class="flex-col except-work-box">
+          <view class="flex-col except-work">
+            <text class="text-top">求职期望</text>
+          </view>
+          <view
+            v-for="(jobExcept, i) in jobExpectations"
+            :key="i"
+            class="flex-col"
+          >
+            <view style="font-size: 28rpx; font-weight: 600">
+              <text>{{ jobExcept.name }}</text>
+              <text style="padding-left: 20rpx">{{
+                jobExcept.salary
+              }}</text></view
+            >
+            <text style="font-size: 25rpx">{{ jobExcept.direction }}</text>
+            <view style="font-size: 25rpx">
+              <text>{{ jobExcept.city }}</text>
+              <text style="padding-left: 20rpx">{{ jobExcept.entryTime }}</text>
+            </view>
+          </view>
         </view>
       </view>
       <view class="group-box">
-        <view class="flex-row items-center justify-between">
+        <view class="flex-row items-center justify-between group-info-box">
           <text class="text-top">个人优势</text>
-          <image class="image" src="@/static/icons/edit.png" />
+          <image
+            class="image"
+            src="@/static/icons/edit.png"
+            @click="addAdvantage"
+          />
         </view>
         <view>
-          <text>{{ personalAdvantage }}</text>
+          <text style="font-size: 30rpx">{{ personalAdvantage }}</text>
         </view>
       </view>
       <view class="group-box">
-        <view class="flex-row items-center justify-between">
+        <view class="flex-row items-center justify-between group-info-box">
           <text class="text-top">工作经历</text>
-          <image class="image" src="@/static/icons/add-circle.png" />
+          <image
+            class="image"
+            src="@/static/icons/add-circle.png"
+            @click="addWork"
+          />
+        </view>
+        <view
+          v-for="(workExperience, i) in workExperiences"
+          :key="i"
+          class="flex-col experience-box"
+        >
+          <text class="experience-company">{{ workExperience.company }}</text>
+          <text>{{ workExperience.direction }}</text>
+          <text>{{ workExperience.date }}</text>
+          <text class="experience-work">{{ workExperience.work }}</text>
         </view>
       </view>
       <view class="group-box">
-        <view class="flex-row items-center justify-between">
+        <view class="flex-row items-center justify-between group-info-box">
           <text class="text-top">教育经历</text>
-          <image class="image" src="@/static/icons/add-circle.png" />
+          <image
+            class="image"
+            src="@/static/icons/add-circle.png"
+            @click="addEducate"
+          />
+        </view>
+        <view
+          v-for="(educate, i) in educationExperiences"
+          :key="i"
+          class="flex-col educate-box"
+        >
+          <text class="educate-school">{{ educate.school }}</text>
+          <text>{{ educate.levelAndProfession }}</text>
+          <text>{{ educate.date }}</text>
         </view>
       </view>
       <view class="group-box">
-        <view class="flex-row items-center justify-between">
+        <view class="flex-row items-center justify-between group-info-box">
           <text class="text-top">项目经历</text>
-          <image class="image" src="@/static/icons/add-circle.png" />
+          <image
+            class="image"
+            src="@/static/icons/add-circle.png"
+            @click="addProject"
+          />
+        </view>
+        <view
+          v-for="(project, i) in projectExperiences"
+          :key="i"
+          class="flex-col project-box"
+        >
+          <text class="project-pro">{{ project.project }}</text>
+          <text>{{ project.date }}</text>
+          <text>{{ project.work }}</text>
         </view>
       </view>
     </view>
@@ -97,7 +160,7 @@ const workExperiences = reactive([
   {
     company: "小而美科技",
     direction: "前端工程师",
-    work: "小程序开发",
+    work: "小程序开发拉萨解放克拉斯分厘卡时空裂缝经济拉萨解放了看爱上尽快立法就阿里山可见度克里夫尽快拉萨机的风口浪尖ask来得及发考了几分考虑",
     date: "2020.03 - 2021.03",
   },
 ]);
@@ -117,7 +180,9 @@ const projectExperiences = reactive([
   { project: "LOL", date: "2020.02-2021.06", work: "完成召唤兽" },
   { project: "LOL", date: "2020.02-2021.06", work: "完成召唤兽" },
 ]);
-const personalAdvantage = ref("能吃苦，能加班，身体挺好！");
+const personalAdvantage = ref(
+  "能吃苦，能加班，身体挺好！啊考了几分卢卡斯就看浪费时间分厘卡机"
+);
 
 const userInfos = uni.getStorageSync("userInfo");
 const education = uni.getStorageSync("education");
@@ -128,6 +193,18 @@ console.log(year);
 
 const changeInfo = () => {
   uni.navigateTo({ url: "/pages/gerenxinxi/gerenxinxi" });
+};
+const addAdvantage = () => {
+  uni.navigateTo({ url: "/pages/gerenyoushi/gerenyoushi" });
+};
+const addWork = () => {
+  uni.navigateTo({ url: "/pages/gongzuojingli/gongzuojingli" });
+};
+const addEducate = () => {
+  uni.navigateTo({ url: "/pages/jiaoyujingli/jiaoyujingli" });
+};
+const addProject = () => {
+  uni.navigateTo({ url: "/pages/xiangmujingli/xiangmujingli" });
 };
 </script>
 
@@ -145,7 +222,7 @@ const changeInfo = () => {
 
     .group-user {
       height: auto;
-      line-height: 60rpx;
+      line-height: 50rpx;
       border-bottom: 1px solid rgb(230 230 230);
 
       .user-box {
@@ -166,12 +243,66 @@ const changeInfo = () => {
           height: 25rpx;
         }
       }
+
+      .except-work-box {
+        height: auto;
+
+        .except-work {
+          height: 80rpx;
+        }
+      }
     }
 
     .group-box {
       height: auto;
-      line-height: 80rpx;
       border-bottom: 1px solid rgb(230 230 230);
+
+      .group-info-box {
+        height: 100rpx;
+      }
+
+      .experience-box {
+        height: auto;
+        margin-top: 20rpx;
+        font-size: 25rpx;
+        line-height: 40rpx;
+
+        .experience-company {
+          font-size: 30rpx;
+          font-weight: bold;
+        }
+
+        .experience-work {
+          max-height: 40rpx;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      .educate-box {
+        height: auto;
+        margin-top: 20rpx;
+        font-size: 25rpx;
+        line-height: 40rpx;
+
+        .educate-school {
+          font-size: 30rpx;
+          font-weight: bold;
+        }
+      }
+
+      .project-box {
+        height: auto;
+        margin-top: 20rpx;
+        font-size: 25rpx;
+        line-height: 40rpx;
+
+        .project-pro {
+          font-size: 30rpx;
+          font-weight: bold;
+        }
+      }
     }
   }
 

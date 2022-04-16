@@ -945,7 +945,7 @@ export interface PositionInformation {
    * 上班时间
    *
    */
-  workTime: string[];
+  workTime: string;
   /**
    *
    * 工作地点

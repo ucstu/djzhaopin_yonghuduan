@@ -63,8 +63,15 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { postAccounts } from "@/services/services";
+import { postAccounts, getVerificationCode } from "@/services/services";
 import { ref } from "vue";
+import { useStore } from "vuex";
+import { key } from "@/stores";
+
+const store = useStore(key);
+const p = store.state.accountInfo.phoneNum;
+const w = store.state.accountInfo.password;
+console.log(p, w);
 
 const inputValue = ref("");
 const passwordNew = ref("");
@@ -82,7 +89,10 @@ postAccounts({
 });
 
 const getVerifiable = () => {
-  if (inputValue.value.length === 11) {
+  if (inputValue.value.length === p) {
+    getVerificationCode({ phoneNumber: phoneNum.value }).then((res) => {
+      console.log(res);
+    });
     uni.showToast({
       title: "验证码已发送至\n" + inputValue.value,
       icon: "none",
@@ -119,6 +129,12 @@ const registeredAccount = () => {
       icon: "none",
       duration: 2000,
     });
+  } else if (inputValue.value !== p) {
+    uni.showToast({
+      title: "手机号输入有误",
+      icon: "none",
+      duration: 2000,
+    });
   } else if (passwordNew.value !== passwordAffirm.value) {
     uni.showToast({
       title: "两次密码不一致",
@@ -131,7 +147,10 @@ const registeredAccount = () => {
       icon: "none",
       duration: 2000,
     });
-    uni.navigateBack({ delta: 1 });
+    store.state.accountInfo.password = passwordNew.value;
+    console.log(store.state.accountInfo.password);
+
+    uni.navigateTo({ url: "/pages/denglu_zhuce/denglu" });
   }
 };
 </script>
