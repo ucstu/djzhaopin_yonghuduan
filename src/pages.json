@@ -169,7 +169,8 @@
   "globalStyle": {
     "navigationStyle": "custom",
     "backgroundColor": "#ffffff",
-    "backgroundTextStyle": "light"
+    "backgroundTextStyle": "light",
+    "navigationBarTitleText": "东江招聘"
   },
   "tabBar": {
     "color": "#7A7E83",
