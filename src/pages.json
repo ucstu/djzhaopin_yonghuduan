@@ -202,6 +202,32 @@
       ]
     }
   ],
+  "preloadRule": {
+    "pages/shouyeyemian/shouyeyemian": {
+      "network": "all",
+      "packages": ["common", "content"]
+    },
+    "pages/wodeyemian/wodeyemian": {
+      "network": "all",
+      "packages": ["common", "record", "mine"]
+    },
+    "pages/xiaoxiyemian/xiaoxiyemian": {
+      "network": "all",
+      "packages": ["common", "record", "mine"]
+    },
+    "account/denglu_zhuce/zhucezhanghao": {
+      "network": "all",
+      "packages": ["common", "init"]
+    },
+    "mine/shezhiyemian/shezhiyemian": {
+      "network": "all",
+      "packages": ["common", "setting"]
+    },
+    "mine/bianjijianli/bianjijianli": {
+      "network": "all",
+      "packages": ["common", "info"]
+    }
+  },
   "esaycom": {
     "autoscan": true,
     "custom": {
