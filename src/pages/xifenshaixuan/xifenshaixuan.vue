@@ -74,7 +74,7 @@ const checkedSubLabels = ref<subDivisionLabels["subLabels"]>([]);
 
 onMounted(() => {
   getDirectiontags({ positionName: "撒辣椒粉" }).then((res) => {
-    checkedClassifyName.value = res.data.map((classify) => {
+    checkedClassifyName.value = res.data.body.map((classify) => {
       const checkedLabels = classify.subdivisionLabels.map((label) => {
         let checkableLabel = reactive({
           subLabelsName: label,

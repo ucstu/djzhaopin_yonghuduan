@@ -101,12 +101,12 @@ getCompanyinfosCompanyinfoidPositioninfosPositioninfoid(
   { companyinfoid: "asd165a1d56a" },
   { positioninfoid: "adjalkdlak" }
 ).then((res) => {
-  jobInformation.value = res.data;
+  jobInformation.value = res.data.body;
   console.log(jobInformation);
 });
 let companyInformation = ref<CompanyInformation>({});
 getCompanyinfosCompanyinfoid({ companyinfoid: "asd165a1d56a" }).then((res) => {
-  companyInformation.value = res.data;
+  companyInformation.value = res.data.body;
 });
 
 const toCompanyIn = () => {

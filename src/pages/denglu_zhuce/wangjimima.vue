@@ -63,10 +63,10 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { postAccounts, getVerificationCode } from "@/services/services";
+import { getVerificationCode, postAccounts } from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
 import { useStore } from "vuex";
-import { key } from "@/stores";
 
 const store = useStore(key);
 const p = store.state.accountInfo.phoneNum;
@@ -85,11 +85,11 @@ postAccounts({
   accountType: "1",
   password: passwordNew.value,
 }).then((res) => {
-  console.log(res.data);
+  console.log(res.data.body);
 });
 
 const getVerifiable = () => {
-  if (inputValue.value.length === p) {
+  if (inputValue.value === p) {
     getVerificationCode({ phoneNumber: phoneNum.value }).then((res) => {
       console.log(res);
     });

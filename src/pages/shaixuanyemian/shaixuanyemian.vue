@@ -126,33 +126,37 @@ getFilterinfos().then((res) => {
   expectedSalaries.value.splice(
     0,
     expectedSalaries.value.length,
-    ...res.data.expectedSalary
+    ...res.data.body.expectedSalary
   );
   workExperiences.value.splice(
     0,
     workExperiences.value.length,
-    ...res.data.workExperience
+    ...res.data.body.workExperience
   );
   degreeRequires.value.splice(
     0,
     degreeRequires.value.length,
-    ...res.data.education
+    ...res.data.body.education
   );
-  jobNatures.value.splice(0, jobNatures.value.length, ...res.data.NatureWork);
+  jobNatures.value.splice(
+    0,
+    jobNatures.value.length,
+    ...res.data.body.NatureWork
+  );
   companySizes.value.splice(
     0,
     companySizes.value.length,
-    ...res.data.companySize
+    ...res.data.body.companySize
   );
   financeStages.value.splice(
     0,
     financeStages.value.length,
-    ...res.data.financingStage
+    ...res.data.body.financingStage
   );
   industrySectors.value.splice(
     0,
     industrySectors.value.length,
-    ...res.data.IndustryField
+    ...res.data.body.IndustryField
   );
 });
 

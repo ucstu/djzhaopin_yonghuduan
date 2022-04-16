@@ -64,7 +64,7 @@ import { ref } from "vue";
 
 let companyInfo = ref<CompanyInformation>({});
 getCompanyinfosCompanyinfoid().then((res) => {
-  companyInfo.value = res.data;
+  companyInfo.value = res.data.body;
 });
 </script>
 

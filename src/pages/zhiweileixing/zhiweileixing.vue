@@ -92,7 +92,7 @@ const positions = computed(
 );
 
 getPositiontypes().then((res) => {
-  fields.push(...res.data);
+  fields.push(...res.data.body);
 });
 
 const showDirections = (index: number) => {

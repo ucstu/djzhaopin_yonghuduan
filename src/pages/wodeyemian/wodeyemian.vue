@@ -91,7 +91,7 @@ import { computed, ref } from "vue";
 
 let userInfos = ref<UserInformation>({});
 getUserinfosUserinfoid().then((res) => {
-  userInfos.value = res.data;
+  userInfos.value = res.data.body;
 });
 
 const userInfo = uni.getStorageSync("userInfo");

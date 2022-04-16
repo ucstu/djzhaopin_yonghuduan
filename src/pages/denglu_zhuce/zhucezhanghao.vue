@@ -66,7 +66,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { postAccounts, getVerificationCode } from "@/services/services";
+import { getVerificationCode, postAccounts } from "@/services/services";
 import { key } from "@/stores";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -84,7 +84,7 @@ postAccounts({
   accountType: "1",
   password: password.value,
 }).then((res) => {
-  console.log(res.data);
+  console.log(res.data.body);
 });
 
 const getVerifiable = () => {

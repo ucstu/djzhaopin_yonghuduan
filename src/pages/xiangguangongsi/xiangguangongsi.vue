@@ -37,15 +37,15 @@ const popup = ref();
 
 let attentionCompanies = reactive<CompanyInformation[]>([]);
 getCompanyinfos().then((res) => {
-  attentionCompanies.push(...res.data);
+  attentionCompanies.push(...res.data.body);
 });
 const companySizes = reactive([]); //公司规模
 const financeStages = reactive([]); //融资阶段
 const industrySectors = reactive([]); //行业领域
 getFilterinfos().then((res) => {
-  companySizes.push(...res.data.companySize);
-  financeStages.push(...res.data.financingStage);
-  industrySectors.push(...res.data.IndustryField);
+  companySizes.push(...res.data.body.companySize);
+  financeStages.push(...res.data.body.financingStage);
+  industrySectors.push(...res.data.body.IndustryField);
   console.log(companySizes);
   console.log(financeStages);
   console.log(industrySectors);

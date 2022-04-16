@@ -26,7 +26,7 @@ const getPhoneNum = () => {
   uni.getStorage({
     key: "tel",
     success: (res) => {
-      console.log(res.data);
+      console.log(res.data.body);
     },
     fail: (error) => {
       console.log(error);

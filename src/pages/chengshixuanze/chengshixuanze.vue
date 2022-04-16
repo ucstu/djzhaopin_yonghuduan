@@ -55,7 +55,7 @@ const provinces = reactive([
   },
 ]);
 getCityinfos().then((res) => {
-  provinces.push(...res.data);
+  provinces.push(...res.data.body);
 });
 const cities = computed(() => provinces[provinceIndexOf.value].cities);
 

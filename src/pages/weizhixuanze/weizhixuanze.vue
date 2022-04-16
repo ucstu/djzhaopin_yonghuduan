@@ -59,7 +59,7 @@ const countries = reactive<AreaInformations>([
 getAreaInformations({
   city: "北京市",
 }).then((res) => {
-  countries.push(...res.data);
+  countries.push(...res.data.body);
 });
 const areas = computed(() => {
   return countries[countriesIndex.value].areas;

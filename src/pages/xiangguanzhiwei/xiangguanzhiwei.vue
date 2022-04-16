@@ -44,7 +44,7 @@ getCompanyinfosCompanyinfoidPositioninfos(
   { name: "前端开发" },
   { salary: "2k-3k" }
 ).then((res) => {
-  jobDetails.push(...res.data);
+  jobDetails.push(...res.data.body);
   console.log(jobDetails);
 });
 
