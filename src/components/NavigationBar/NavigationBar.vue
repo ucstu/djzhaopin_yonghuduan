@@ -35,7 +35,7 @@
 
 <script lang="ts" setup>
 import { key } from "@/stores";
-import { computed, defineProps, defineEmits } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 const store = useStore(key);
 
