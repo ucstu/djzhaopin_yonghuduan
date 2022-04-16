@@ -25,7 +25,7 @@
   <!-- #endif -->
   <!--  #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
   <view style="height: 136rpx"></view>
-  <view class="header justify-center component">
+  <view class="header items-center justify-between component">
     <image class="image" :src="leftUrl" @click="imageOnClick" />
     <text class="text">{{ title }}</text>
     <text class="text-1" @click="emit('rightClick')">{{ right }}</text>
@@ -105,11 +105,6 @@ const imageOnClick = () => {
   }
 
   .text-1 {
-    /* #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-    position: absolute;
-
-    /* #endif */
-    right: 39rpx;
     bottom: 31rpx;
     font-size: 30rpx;
     line-height: 23rpx;
