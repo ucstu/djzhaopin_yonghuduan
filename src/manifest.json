@@ -37,7 +37,11 @@
         ]
       },
       "ios": {},
-      "sdkConfigs": {}
+      "sdkConfigs": {},
+      "optimization": {
+        "subPackages": true
+      },
+      "runmode": "liberate"
     }
   },
   "h5": {

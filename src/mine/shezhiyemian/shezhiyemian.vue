@@ -50,22 +50,22 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const toMyAccount = () => {
-  uni.navigateTo({ url: "/pages/wodezhanghu/wodezhanghu" });
+  uni.navigateTo({ url: "/setting/wodezhanghu/wodezhanghu" });
 };
 const toPassWord = () => {
-  uni.navigateTo({ url: "/pages/shezhimima/shezhimima" });
+  uni.navigateTo({ url: "/setting/shezhimima/shezhimima" });
 };
 const toNotice = () => {
-  uni.navigateTo({ url: "/pages/tongzhishezhi/tongzhishezhi" });
+  uni.navigateTo({ url: "/setting/tongzhishezhi/tongzhishezhi" });
 };
 const toUserAgreement = () => {
-  uni.navigateTo({ url: "/pages/yonghuxieyi/yonghuxieyi" });
+  uni.navigateTo({ url: "/setting/yonghuxieyi/yonghuxieyi" });
 };
 const toPrivacyPolicy = () => {
-  uni.navigateTo({ url: "/pages/yinsicelve/yinsicelve" });
+  uni.navigateTo({ url: "/setting/yinsicelve/yinsicelve" });
 };
 const toVersion = () => {
-  uni.navigateTo({ url: "/pages/banbengengxin/banbengengxin" });
+  uni.navigateTo({ url: "/setting/banbengengxin/banbengengxin" });
 };
 const exitAccount = () => {
   store.commit("setToken", null);

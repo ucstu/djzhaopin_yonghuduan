@@ -13,151 +13,193 @@
       "path": "pages/shouyeyemian/shouyeyemian"
     },
     {
-      "path": "pages/banbengengxin/banbengengxin"
-    },
-    {
-      "path": "pages/yinsicelve/yinsicelve"
-    },
-    {
-      "path": "pages/yonghuxieyi/yonghuxieyi"
-    },
-    {
-      "path": "pages/tongzhishezhi/tongzhishezhi"
-    },
-    {
-      "path": "pages/shezhimima/shezhimima"
-    },
-    {
-      "path": "pages/wodezhanghu/wodezhanghu"
-    },
-    {
-      "path": "pages/shezhiyemian/shezhiyemian"
-    },
-    {
-      "path": "pages/yinsishezhi/yinsishezhi"
-    },
-    {
-      "path": "pages/yonghufankui/yonghufankui"
-    },
-    {
-      "path": "pages/zhiweileixing/zhiweileixing"
-    },
-    {
-      "path": "pages/qiuzhiqiwang/qiuzhiqiwang"
-    },
-    {
-      "path": "pages/qiuzhiyixiang/qiuzhiyixiang"
-    },
-    {
-      "path": "pages/shangchuanjianli/shangchuanjianli"
-    },
-    {
-      "path": "pages/daimianshi/daimianshi"
-    },
-    {
-      "path": "pages/guanzhugongsi/guanzhugongsi"
-    },
-    {
-      "path": "pages/shoucangzhiwei/shoucangzhiwei"
-    },
-    {
-      "path": "pages/toudijilu/toudijilu"
-    },
-    {
-      "path": "pages/tupianzuopin/tupianzuopin"
-    },
-    {
-      "path": "pages/shejiaozhuye/shejiaozhuye"
-    },
-    {
-      "path": "pages/xiangmujingli/xiangmujingli"
-    },
-    {
-      "path": "pages/jiaoyujingli/jiaoyujingli"
-    },
-    {
-      "path": "pages/gongzuojingli/gongzuojingli"
-    },
-    {
-      "path": "pages/gerenyoushi/gerenyoushi"
-    },
-    {
-      "path": "pages/gerenxinxi/gerenxinxi"
-    },
-    {
       "path": "pages/wodeyemian/wodeyemian"
-    },
-    {
-      "path": "pages/bianjijianli/bianjijianli"
-    },
-    {
-      "path": "pages/wanshangongzuojingli/wanshangongzuojingli"
-    },
-    {
-      "path": "pages/wanshanjiaoyujingli/wanshanjiaoyujingli"
-    },
-    {
-      "path": "pages/wanshangerenxinxi/wanshangerenxinxi"
-    },
-    {
-      "path": "pages/tianjiaqiuzhiqiwang/tianjiaqiuzhiqiwang"
-    },
-    {
-      "path": "pages/wanchengjianli/wanchengjianli"
-    },
-    {
-      "path": "pages/shuruyanzhengma/shuruyanzhengma"
-    },
-    {
-      "path": "pages/denglu_zhuce/denglu"
-    },
-    {
-      "path": "pages/liaotianyemian/liaotianyemian"
-    },
-    {
-      "path": "pages/wodechakan/wodechakan"
-    },
-    {
-      "path": "pages/shuikanguowo/shuikanguowo"
     },
     {
       "path": "pages/xiaoxiyemian/xiaoxiyemian"
     },
     {
       "path": "pages/Page_24Hmianshiyemian/Page_24Hmianshiyemian"
+    }
+  ],
+  "subPackages": [
+    {
+      "root": "init",
+      "pages": [
+        {
+          "path": "wanshangongzuojingli/wanshangongzuojingli"
+        },
+        {
+          "path": "wanshanjiaoyujingli/wanshanjiaoyujingli"
+        },
+        {
+          "path": "wanshangerenxinxi/wanshangerenxinxi"
+        },
+        {
+          "path": "wanchengjianli/wanchengjianli"
+        },
+        {
+          "path": "shuruyanzhengma/shuruyanzhengma"
+        },
+        {
+          "path": "tianjiaqiuzhiqiwang/tianjiaqiuzhiqiwang"
+        }
+      ]
     },
     {
-      "path": "pages/gongsijieshao/gongsijieshao"
+      "root": "account",
+      "pages": [
+        {
+          "path": "denglu_zhuce/denglu"
+        },
+        {
+          "path": "denglu_zhuce/wangjimima"
+        },
+        {
+          "path": "denglu_zhuce/zhucezhanghao"
+        }
+      ]
     },
     {
-      "path": "pages/zhiweixiangqing/zhiweixiangqing"
+      "root": "common",
+      "pages": [
+        {
+          "path": "zhiweileixing/zhiweileixing"
+        },
+        {
+          "path": "xifenshaixuan/xifenshaixuan"
+        },
+        {
+          "path": "shaixuanyemian/shaixuanyemian"
+        },
+        {
+          "path": "chengshixuanze/chengshixuanze"
+        },
+        {
+          "path": "sousuoyemian/sousuoyemian"
+        },
+        {
+          "path": "weizhixuanze/weizhixuanze"
+        }
+      ]
     },
     {
-      "path": "pages/xifenshaixuan/xifenshaixuan"
+      "root": "record",
+      "pages": [
+        {
+          "path": "daimianshi/daimianshi"
+        },
+        {
+          "path": "guanzhugongsi/guanzhugongsi"
+        },
+        {
+          "path": "shoucangzhiwei/shoucangzhiwei"
+        },
+        {
+          "path": "toudijilu/toudijilu"
+        },
+        {
+          "path": "wodechakan/wodechakan"
+        },
+        {
+          "path": "shuikanguowo/shuikanguowo"
+        }
+      ]
     },
     {
-      "path": "pages/shaixuanyemian/shaixuanyemian"
+      "root": "content",
+      "pages": [
+        {
+          "path": "gongsijieshao/gongsijieshao"
+        },
+        {
+          "path": "zhiweixiangqing/zhiweixiangqing"
+        },
+        {
+          "path": "xiangguangongsi/xiangguangongsi"
+        },
+        {
+          "path": "xiangguanzhiwei/xiangguanzhiwei"
+        }
+      ]
     },
     {
-      "path": "pages/xiangguangongsi/xiangguangongsi"
+      "root": "mine",
+      "pages": [
+        {
+          "path": "shezhiyemian/shezhiyemian"
+        },
+        {
+          "path": "bianjijianli/bianjijianli"
+        },
+        {
+          "path": "liaotianyemian/liaotianyemian"
+        }
+      ]
     },
     {
-      "path": "pages/xiangguanzhiwei/xiangguanzhiwei"
+      "root": "info",
+      "pages": [
+        {
+          "path": "qiuzhiqiwang/qiuzhiqiwang"
+        },
+        {
+          "path": "qiuzhiyixiang/qiuzhiyixiang"
+        },
+        {
+          "path": "shangchuanjianli/shangchuanjianli"
+        },
+        {
+          "path": "tupianzuopin/tupianzuopin"
+        },
+        {
+          "path": "shejiaozhuye/shejiaozhuye"
+        },
+        {
+          "path": "xiangmujingli/xiangmujingli"
+        },
+        {
+          "path": "jiaoyujingli/jiaoyujingli"
+        },
+        {
+          "path": "gongzuojingli/gongzuojingli"
+        },
+        {
+          "path": "gerenyoushi/gerenyoushi"
+        },
+        {
+          "path": "gerenxinxi/gerenxinxi"
+        }
+      ]
     },
     {
-      "path": "pages/chengshixuanze/chengshixuanze"
-    },
-    {
-      "path": "pages/sousuoyemian/sousuoyemian"
-    },
-    {
-      "path": "pages/weizhixuanze/weizhixuanze"
-    },
-    {
-      "path": "pages/denglu_zhuce/zhucezhanghao"
-    },
-    {
-      "path": "pages/denglu_zhuce/wangjimima"
+      "root": "setting",
+      "pages": [
+        {
+          "path": "yinsishezhi/yinsishezhi"
+        },
+        {
+          "path": "yonghufankui/yonghufankui"
+        },
+        {
+          "path": "banbengengxin/banbengengxin"
+        },
+        {
+          "path": "yinsicelve/yinsicelve"
+        },
+        {
+          "path": "yonghuxieyi/yonghuxieyi"
+        },
+        {
+          "path": "tongzhishezhi/tongzhishezhi"
+        },
+        {
+          "path": "shezhimima/shezhimima"
+        },
+        {
+          "path": "wodezhanghu/wodezhanghu"
+        }
+      ]
     }
   ],
   "esaycom": {

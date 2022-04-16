@@ -160,7 +160,7 @@ const nextClick = () => {
       console.log(error.errMsg);
     },
   });
-  uni.navigateTo({ url: "/pages/wanshanjiaoyujingli/wanshanjiaoyujingli" });
+  uni.navigateTo({ url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli" });
 };
 
 const choseCity = () => {
@@ -168,7 +168,7 @@ const choseCity = () => {
 };
 
 const skip = () => {
-  uni.navigateTo({ url: "/pages/wanshanjiaoyujingli/wanshanjiaoyujingli" });
+  uni.navigateTo({ url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli" });
 };
 </script>
 

@@ -16,7 +16,7 @@ onLaunch(() => {
   }
   /* #endif */
   if (store.state.accountInfo === null || store.state.token === null) {
-    uni.reLaunch({ url: "/pages/denglu_zhuce/denglu" });
+    uni.reLaunch({ url: "/account/denglu_zhuce/denglu" });
   } else {
     getAxiosInstance(undefined).defaults.headers.common["Authorization"] =
       "Bearer " + store.state.token;

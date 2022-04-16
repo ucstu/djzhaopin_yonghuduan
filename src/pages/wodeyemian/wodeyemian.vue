@@ -123,10 +123,10 @@ const onClick_6 = () => {
   uni.navigateTo({ url: "/pages/qiuzhiyixiang/qiuzhiyixiang" });
 };
 const onClick_7 = () => {
-  uni.navigateTo({ url: "/pages/yonghufankui/yonghufankui" });
+  uni.navigateTo({ url: "/setting/yonghufankui/yonghufankui" });
 };
 const onClick_8 = () => {
-  uni.navigateTo({ url: "/pages/yinsishezhi/yinsishezhi" });
+  uni.navigateTo({ url: "/setting/yinsishezhi/yinsishezhi" });
 };
 const onClick_9 = () => {
   uni.navigateTo({ url: "/pages/shezhiyemian/shezhiyemian" });

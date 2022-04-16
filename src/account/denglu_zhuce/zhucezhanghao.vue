@@ -1,8 +1,8 @@
 <template>
   <view class="flex-col items-center page">
-    <NavigationBar class="heard" title="忘记密码" />
+    <NavigationBar class="heard" title="注册账号" />
     <view class="flex-col group-1">
-      <text>忘记密码</text>
+      <text>注册账号</text>
       <view class="textarea">
         <view class="items-center phone-number">
           <input
@@ -30,18 +30,10 @@
         </view>
         <view class="items-center phone-number">
           <input
-            v-model="passwordNew"
+            v-model="password"
             style="padding-left: 20rpx"
             type="password"
-            placeholder="请输入新密码"
-          />
-        </view>
-        <view class="items-center phone-number">
-          <input
-            v-model="passwordAffirm"
-            style="padding-left: 20rpx"
-            type="password"
-            placeholder="请确认密码"
+            placeholder="请输入密码"
           />
         </view>
       </view>
@@ -50,8 +42,19 @@
         form-type="submit"
         @click="registeredAccount"
       >
-        保存
+        注册
       </button>
+      <view class="flex-row items-center agree">
+        <checkbox
+          style="transform: scale(0.7)"
+          :checked="isAgree"
+          @click="isAgree = !isAgree"
+        ></checkbox>
+        <view
+          >同意 <text style="color: rgb(35 193 158)">《东江用户协议》</text>和
+          <text style="color: rgb(35 193 158)">《东江登录政策》</text>
+        </view>
+      </view>
     </view>
     <view class="flex-col group-2">
       <text>客服（投诉）电话：4008 2082 02（工作日9：00-18：00）</text>
@@ -64,13 +67,17 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getVerificationCode, putAccounts0 } from "@/services/services";
+import { getVerificationCode, postAccounts } from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore(key);
 
 const phoneNum = ref("");
-const passwordNew = ref("");
-const passwordAffirm = ref("");
+const password = ref("");
 const verification = ref();
+const isAgree = ref(false);
 
 const getVerifiable = () => {
   if (phoneNum.value === "") {
@@ -96,11 +103,7 @@ const getVerifiable = () => {
   }
 };
 const registeredAccount = () => {
-  if (
-    phoneNum.value === "" ||
-    passwordNew.value === "" ||
-    passwordAffirm.value === ""
-  ) {
+  if (phoneNum.value === "" || password.value === "") {
     uni.showToast({
       title: "手机密码不能为空",
       icon: "none",
@@ -112,24 +115,24 @@ const registeredAccount = () => {
       icon: "none",
       duration: 500,
     });
-  } else if (passwordNew.value !== passwordAffirm.value) {
+  } else if (isAgree.value === false) {
     uni.showToast({
-      title: "两次密码不一致",
+      title: "请同意协议",
       icon: "none",
       duration: 500,
     });
   } else {
-    putAccounts0({
+    postAccounts({
       phoneNumber: phoneNum.value,
       verificationCode: verification.value,
-      password: passwordNew.value,
+      accountType: "1",
+      password: password.value,
     }).then((res) => {
-      uni.showToast({
-        title: "修改成功",
-        icon: "none",
-        duration: 500,
+      store.commit("setToken", res.data.body.token);
+      store.commit("setAccountInfo", res.data.body.accountInfo);
+      uni.navigateTo({
+        url: "/init/wanchengjianli/wanchengjianli",
       });
-      uni.navigateTo({ url: "/pages/denglu_zhuce/denglu" });
     });
   }
 };
@@ -153,7 +156,7 @@ const registeredAccount = () => {
     font-size: 40rpx;
 
     .textarea {
-      height: auto;
+      height: 240rpx;
       margin-top: 30rpx;
       font-size: 30rpx;
       border-radius: 5rpx;

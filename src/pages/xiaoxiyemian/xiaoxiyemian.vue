@@ -57,13 +57,13 @@
 import MailBar from "@/components/MailBar/MailBar.vue";
 
 const toMyDelivery = () => {
-  uni.navigateTo({ url: "/pages/toudijilu/toudijilu" });
+  uni.navigateTo({ url: "/record/toudijilu/toudijilu" });
 };
 const toBeViewed = () => {
-  uni.navigateTo({ url: "/pages/shuikanguowo/shuikanguowo" });
+  uni.navigateTo({ url: "/record/shuikanguowo/shuikanguowo" });
 };
 const toFootprint = () => {
-  uni.navigateTo({ url: "/pages/wodechakan/wodechakan" });
+  uni.navigateTo({ url: "/record/wodechakan/wodechakan" });
 };
 </script>
 

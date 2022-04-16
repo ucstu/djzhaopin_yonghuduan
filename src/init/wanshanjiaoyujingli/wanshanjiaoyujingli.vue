@@ -164,11 +164,11 @@ const nextClick = () => {
       console.log(error.errMsg);
     },
   });
-  uni.navigateTo({ url: "/pages/wanshangongzuojingli/wanshangongzuojingli" });
+  uni.navigateTo({ url: "/init/wanshangongzuojingli/wanshangongzuojingli" });
 };
 
 const skip = () => {
-  uni.navigateTo({ url: "/pages/wanshangongzuojingli/wanshangongzuojingli" });
+  uni.navigateTo({ url: "/init/wanshangongzuojingli/wanshangongzuojingli" });
 };
 </script>
 

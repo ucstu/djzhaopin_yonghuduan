@@ -94,10 +94,10 @@ const login = () => {
 };
 
 const register = () => {
-  uni.navigateTo({ url: "/pages/denglu_zhuce/zhucezhanghao" });
+  uni.navigateTo({ url: "/account/denglu_zhuce/zhucezhanghao" });
 };
 const forget = () => {
-  uni.navigateTo({ url: "/pages/denglu_zhuce/wangjimima" });
+  uni.navigateTo({ url: "/account/denglu_zhuce/wangjimima" });
 };
 </script>
 

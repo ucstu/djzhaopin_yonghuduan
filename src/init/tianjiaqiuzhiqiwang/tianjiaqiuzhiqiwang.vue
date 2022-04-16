@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar />
+    <NavigationBar right="跳过" @right-click="skip" />
     <text class="text">填写你的求职目标</text>
     <view class="section-1 flex-col view">
       <text class="text-1">期望职位</text>
@@ -32,7 +32,7 @@
         />
       </view>
     </view>
-    <view class="flex-col items-center button">
+    <view class="flex-col items-center button" @click="nextStep">
       <text>下一步</text>
     </view>
   </view>
@@ -49,8 +49,17 @@ const salaryExpectation = ref("请选择");
 const view_6OnClick = () => {
   uni.navigateTo({ url: "/pages/zhiweileixing/zhiweileixing" });
 };
+
 const view_7OnClick = () => {
   uni.navigateTo({ url: "/pages/chengshixuanze/chengshixuanze" });
+};
+
+const nextStep = () => {
+  uni.navigateTo({ url: "/pages/shouyeyemian/shouyeyemian" });
+};
+
+const skip = () => {
+  uni.navigateTo({ url: "/pages/shouyeyemian/shouyeyemian" });
 };
 </script>
 

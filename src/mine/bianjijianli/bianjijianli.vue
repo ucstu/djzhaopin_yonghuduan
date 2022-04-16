@@ -192,19 +192,19 @@ const year = date.getFullYear();
 console.log(year);
 
 const changeInfo = () => {
-  uni.navigateTo({ url: "/pages/gerenxinxi/gerenxinxi" });
+  uni.navigateTo({ url: "/info/gerenxinxi/gerenxinxi" });
 };
 const addAdvantage = () => {
-  uni.navigateTo({ url: "/pages/gerenyoushi/gerenyoushi" });
+  uni.navigateTo({ url: "/info/gerenyoushi/gerenyoushi" });
 };
 const addWork = () => {
-  uni.navigateTo({ url: "/pages/gongzuojingli/gongzuojingli" });
+  uni.navigateTo({ url: "/info/gongzuojingli/gongzuojingli" });
 };
 const addEducate = () => {
-  uni.navigateTo({ url: "/pages/jiaoyujingli/jiaoyujingli" });
+  uni.navigateTo({ url: "/info/jiaoyujingli/jiaoyujingli" });
 };
 const addProject = () => {
-  uni.navigateTo({ url: "/pages/xiangmujingli/xiangmujingli" });
+  uni.navigateTo({ url: "/info/xiangmujingli/xiangmujingli" });
 };
 </script>
 
