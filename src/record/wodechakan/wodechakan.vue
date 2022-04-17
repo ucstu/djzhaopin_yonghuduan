@@ -72,7 +72,7 @@ const myViews = reactive([
 ]);
 
 const view_2OnClick = () => {
-  uni.navigateTo({ url: "/pages/zhiweixiangqing/zhiweixiangqing" });
+  uni.navigateTo({ url: "/detail/zhiweixiangqing/zhiweixiangqing" });
 };
 </script>
 <style lang="scss" scoped>

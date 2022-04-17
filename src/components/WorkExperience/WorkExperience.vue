@@ -24,7 +24,7 @@ const direction = ref("后端工程师");
 const work = ref("开发后台");
 
 const rootViewOnClick = () => {
-  uni.navigateTo({ url: "/pages/gongzuojingli/gongzuojingli" });
+  uni.navigateTo({ url: "/info/gongzuojingli/gongzuojingli" });
 };
 </script>
 

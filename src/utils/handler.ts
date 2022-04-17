@@ -18,7 +18,7 @@ const failResponseHandler = (responseError: RequestError) => {
       duration: 500,
     });
     uni.reLaunch({
-      url: "/pages/denglu_zhuce/denglu",
+      url: "/account/denglu_zhuce/denglu",
     });
   } else if (responseError.status === 403) {
     uni.showToast({

@@ -34,7 +34,7 @@ defineProps({
 });
 
 const rootViewOnClick = () => {
-  uni.navigateTo({ url: "/pages/gongsijieshao/gongsijieshao" });
+  uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao" });
 };
 </script>
 

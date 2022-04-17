@@ -25,10 +25,10 @@ defineProps({
 });
 const func = ref("取消关注");
 const view_4OnClick = () => {
-  uni.navigateTo({ url: "/pages/gongsijieshao/gongsijieshao" });
+  uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao" });
 };
 const view_10OnClick = () => {
-  uni.navigateTo({ url: "/pages/liaotianyemian/liaotianyemian" });
+  uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });
 };
 </script>
 

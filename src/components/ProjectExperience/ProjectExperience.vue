@@ -22,7 +22,7 @@ const date = ref("2020.02-2021.06");
 const work = ref("完成召唤兽");
 
 const rootViewOnClick = () => {
-  uni.navigateTo({ url: "/pages/xiangmujingli/xiangmujingli" });
+  uni.navigateTo({ url: "/info/xiangmujingli/xiangmujingli" });
 };
 </script>
 

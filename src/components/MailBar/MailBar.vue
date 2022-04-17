@@ -23,7 +23,7 @@ const message = ref(
 );
 
 const toChatPage = () => {
-  uni.navigateTo({ url: "/pages/liaotianyemian/liaotianyemian" });
+  uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });
 };
 </script>
 

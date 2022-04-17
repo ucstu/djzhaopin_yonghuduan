@@ -28,7 +28,7 @@ const city = ref("重庆");
 const entryTime = ref("1个月内入职");
 
 const rootViewOnClick = () => {
-  uni.navigateTo({ url: "/pages/qiuzhiqiwang/qiuzhiqiwang" });
+  uni.navigateTo({ url: "/info/qiuzhiqiwang/qiuzhiqiwang" });
 };
 </script>
 

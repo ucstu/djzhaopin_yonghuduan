@@ -42,7 +42,7 @@ defineProps({
 });
 
 const rootViewOnClick = () => {
-  uni.navigateTo({ url: "/pages/zhiweixiangqing/zhiweixiangqing" });
+  uni.navigateTo({ url: "/detail/zhiweixiangqing/zhiweixiangqing" });
 };
 </script>
 

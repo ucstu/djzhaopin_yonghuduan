@@ -46,10 +46,10 @@ const salary = ref("请选择");
 const city = ref("请选择");
 
 const view_4OnClick = () => {
-  uni.navigateTo({ url: "/pages/zhiweileixing/zhiweileixing" });
+  uni.navigateTo({ url: "/most/zhiweileixing/zhiweileixing" });
 };
 const view_6OnClick = () => {
-  uni.navigateTo({ url: "/pages/chengshixuanze/chengshixuanze" });
+  uni.navigateTo({ url: "/most/chengshixuanze/chengshixuanze" });
 };
 </script>
 

@@ -70,7 +70,7 @@ const toVersion = () => {
 const exitAccount = () => {
   store.commit("setToken", null);
   store.commit("setAccountInfo", null);
-  uni.navigateTo({ url: "/pages/denglu_zhuce/denglu" });
+  uni.navigateTo({ url: "/account/denglu_zhuce/denglu" });
 };
 </script>
 

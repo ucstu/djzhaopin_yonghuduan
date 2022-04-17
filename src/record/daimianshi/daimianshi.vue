@@ -52,16 +52,16 @@ const interviewedJobs = reactive([
   },
 ]);
 const view_4OnClick = () => {
-  uni.navigateTo({ url: "/pages/zhiweixiangqing/zhiweixiangqing" });
+  uni.navigateTo({ url: "/detail/zhiweixiangqing/zhiweixiangqing" });
 };
 const view_11OnClick = () => {
-  uni.navigateTo({ url: "/pages/liaotianyemian/liaotianyemian" });
+  uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });
 };
 const view_6OnClick = () => {
-  uni.navigateTo({ url: "/pages/zhiweixiangqing/zhiweixiangqing" });
+  uni.navigateTo({ url: "/detail/zhiweixiangqing/zhiweixiangqing" });
 };
 const view_15OnClick = () => {
-  uni.navigateTo({ url: "/pages/liaotianyemian/liaotianyemian" });
+  uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });
 };
 </script>
 

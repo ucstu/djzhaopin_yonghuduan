@@ -62,7 +62,7 @@ const lookForMes = reactive([
 ]);
 
 const view_2OnClick = () => {
-  uni.navigateTo({ url: "/pages/gongsijieshao/gongsijieshao" });
+  uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao" });
 };
 </script>
 

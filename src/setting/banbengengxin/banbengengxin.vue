@@ -55,10 +55,10 @@ const version = ref("当前版本 1.0.0");
 const newVersion = ref("无新版");
 
 const text_7OnClick = () => {
-  uni.navigateTo({ url: "/pages/yonghuxieyi/yonghuxieyi" });
+  uni.navigateTo({ url: "/setting/yonghuxieyi/yonghuxieyi" });
 };
 const text_9OnClick = () => {
-  uni.navigateTo({ url: "/pages/yinsicelve/yinsicelve" });
+  uni.navigateTo({ url: "/setting/yinsicelve/yinsicelve" });
 };
 </script>
 

@@ -110,7 +110,7 @@ getCompanyinfosCompanyinfoid({ companyinfoid: "asd165a1d56a" }).then((res) => {
 });
 
 const toCompanyIn = () => {
-  uni.navigateTo({ url: "/pages/gongsijieshao/gongsijieshao" });
+  uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao" });
 };
 </script>
 
