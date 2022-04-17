@@ -4,31 +4,48 @@
     :style="'height: ' + (navigationBarHeight + navigationBarTop) + 'px'"
   ></view>
   <view
-    class="header items-center component"
+    class="header"
     :style="
       'padding-top: ' +
       navigationBarTop +
       'px; height: ' +
       (navigationBarHeight + navigationBarTop) +
-      'px'
+      'px; width: ' +
+      navigationBarWidth +
+      'px;'
     "
   >
+    <view class="text items-center justify-center">
+      <text>{{ title }}</text>
+    </view>
     <view
-      class="justify-between items-center"
-      :style="'width: ' + navigationBarWidth + 'px'"
+      class="component items-center justify-between"
+      :style="
+        'top: ' +
+        navigationBarTop +
+        'px; height: ' +
+        navigationBarHeight +
+        'px;'
+      "
     >
       <image class="image" :src="leftUrl" @click="imageOnClick" />
-      <text class="text">{{ title }}</text>
       <text class="text-1" @click="emit('rightClick')">{{ right }}</text>
     </view>
   </view>
   <!-- #endif -->
   <!--  #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
   <view style="height: 136rpx"></view>
-  <view class="header items-center justify-between component">
-    <image class="image" :src="leftUrl" @click="imageOnClick" />
-    <text class="text">{{ title }}</text>
-    <text class="text-1" @click="emit('rightClick')">{{ right }}</text>
+  <view class="header">
+    <view class="text items-center justify-center">
+      <text>{{ title }}</text>
+    </view>
+    <view
+      class="component items-center justify-between"
+      style="top: 0rpx; height: 100%"
+    >
+      <image class="image" :src="leftUrl" @click="imageOnClick" />
+      <text class="text-1" @click="emit('rightClick')">{{ right }}</text>
+    </view>
   </view>
   <!-- #endif -->
 </template>
@@ -41,11 +58,11 @@ const store = useStore(key);
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
 
-const navigationBarHeight = store.state.menuButtonInfo.height;
+const navigationBarHeight = store.state.menuButtonInfo!.height;
 
-const navigationBarTop = store.state.menuButtonInfo.top;
+const navigationBarTop = store.state.menuButtonInfo!.top;
 
-const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(30);
+const navigationBarWidth = store.state.menuButtonInfo!.left;
 
 /* #endif */
 
@@ -81,43 +98,39 @@ const imageOnClick = () => {
 
 <style lang="scss" scoped>
 .header {
-  position: fixed !important;
-  top: 0rpx;
-  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 750rpx;
-  background-color: rgb(255 255 255);
+  height: 136rpx;
+  padding: 0 40rpx;
+
+  .component {
+    position: absolute;
+    width: calc(100% - 80rpx);
+  }
 
   .image {
     width: 25rpx;
     height: 35rpx;
-
-    /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-    margin-left: 30rpx;
-
-    /* #endif */
   }
 
   .text {
+    width: 100%;
+    height: 100%;
     font-size: 30rpx;
     line-height: 28rpx;
     color: rgb(0 0 0);
+    text-align: center;
     white-space: nowrap;
   }
 
   .text-1 {
-    bottom: 31rpx;
     font-size: 30rpx;
     line-height: 23rpx;
     color: rgb(0 0 0 / 70%);
     letter-spacing: 2.5rpx;
     white-space: nowrap;
   }
-}
-
-.component {
-  /* #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-  padding: 53rpx 39rpx 29rpx 40rpx;
-
-  /* #endif */
 }
 </style>
