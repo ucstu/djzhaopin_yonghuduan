@@ -34,8 +34,10 @@
   </view>
   <!-- #endif -->
   <!--  #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
-  <view style="height: 136rpx"></view>
-  <view class="header">
+  <view
+    style="height: var(--tab-bar-height); padding-top: var(-–status-bar-height)"
+  ></view>
+  <view class="header" style="padding-top: var(-–status-bar-height)">
     <view class="text items-center justify-center">
       <text>{{ title }}</text>
     </view>
@@ -101,9 +103,11 @@ const imageOnClick = () => {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 999;
   width: 750rpx;
-  height: 136rpx;
+  height: var(--tab-bar-height);
   padding: 0 40rpx;
+  background-color: #fff;
 
   .component {
     position: absolute;
