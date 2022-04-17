@@ -124,16 +124,16 @@ const image_5OnClick = () => {
   uni.navigateTo({ url: '/info/qiuzhiqiwang/qiuzhiqiwang' })
 }
 const image_6OnClick = () => {
-  uni.navigateTo({ url: '/common/sousuoyemian/sousuoyemian' })
+  uni.navigateTo({ url: '/most/sousuoyemian/sousuoyemian' })
 }
 const text_22OnClick = () => {
-  uni.navigateTo({ url: '/common/weizhixuanze/weizhixuanze' })
+  uni.navigateTo({ url: '/most/weizhixuanze/weizhixuanze' })
 }
 const text_23OnClick = () => {
-  uni.navigateTo({ url: '/common/shaixuanyemian/shaixuanyemian' })
+  uni.navigateTo({ url: '/most/shaixuanyemian/shaixuanyemian' })
 }
 const view_4OnClick = () => {
-  uni.navigateTo({ url: '/content/zhiweixiangqing/zhiweixiangqing' })
+  uni.navigateTo({ url: '/detail/zhiweixiangqing/zhiweixiangqing' })
 }
 </script>
 

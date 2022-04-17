@@ -36,7 +36,7 @@ getFilterinfos().then((res) => {
 });
 
 const toCompanyInfo = () => {
-  uni.navigateTo({ url: "/content/gongsijieshao/gongsijieshao" });
+  uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao" });
 };
 </script>
 

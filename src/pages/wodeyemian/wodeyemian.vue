@@ -102,25 +102,25 @@ const fullName = computed(() => {
 });
 
 const toSelfInfo = () => {
-  uni.navigateTo({ url: "/pages/bianjijianli/bianjijianli" });
+  uni.navigateTo({ url: "/mine/bianjijianli/bianjijianli" });
 };
 const onClick_1 = () => {
-  uni.navigateTo({ url: "/pages/toudijilu/toudijilu" });
+  uni.navigateTo({ url: "/record/toudijilu/toudijilu" });
 };
 const onClick_2 = () => {
-  uni.navigateTo({ url: "/pages/shoucangzhiwei/shoucangzhiwei" });
+  uni.navigateTo({ url: "/record/shoucangzhiwei/shoucangzhiwei" });
 };
 const onClick_3 = () => {
-  uni.navigateTo({ url: "/pages/guanzhugongsi/guanzhugongsi" });
+  uni.navigateTo({ url: "/record/guanzhugongsi/guanzhugongsi" });
 };
 const onClick_4 = () => {
-  uni.navigateTo({ url: "/pages/daimianshi/daimianshi" });
+  uni.navigateTo({ url: "/record/daimianshi/daimianshi" });
 };
 const onClick_5 = () => {
-  uni.navigateTo({ url: "/pages/shangchuanjianli/shangchuanjianli" });
+  uni.navigateTo({ url: "/info/shangchuanjianli/shangchuanjianli" });
 };
 const onClick_6 = () => {
-  uni.navigateTo({ url: "/pages/qiuzhiyixiang/qiuzhiyixiang" });
+  uni.navigateTo({ url: "/info/qiuzhiyixiang/qiuzhiyixiang" });
 };
 const onClick_7 = () => {
   uni.navigateTo({ url: "/setting/yonghufankui/yonghufankui" });
@@ -129,7 +129,7 @@ const onClick_8 = () => {
   uni.navigateTo({ url: "/setting/yinsishezhi/yinsishezhi" });
 };
 const onClick_9 = () => {
-  uni.navigateTo({ url: "/pages/shezhiyemian/shezhiyemian" });
+  uni.navigateTo({ url: "/mine/shezhiyemian/shezhiyemian" });
 };
 </script>
 

@@ -96,10 +96,10 @@ const text_2OnClick = () => {
   uni.navigateTo({ url: "/common/zhiweileixing/zhiweileixing" });
 };
 const view_9OnClick = () => {
-  uni.navigateTo({ url: "/content/xiangguanzhiwei/xiangguanzhiwei" });
+  uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei" });
 };
 const view_18OnClick = () => {
-  uni.navigateTo({ url: "/content/xiangguangongsi/xiangguangongsi" });
+  uni.navigateTo({ url: "/detail/xiangguangongsi/xiangguangongsi" });
 };
 </script>
 

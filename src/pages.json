@@ -61,7 +61,7 @@
       ]
     },
     {
-      "root": "common",
+      "root": "most",
       "pages": [
         {
           "path": "zhiweileixing/zhiweileixing"
@@ -107,7 +107,7 @@
       ]
     },
     {
-      "root": "content",
+      "root": "detail",
       "pages": [
         {
           "path": "gongsijieshao/gongsijieshao"
@@ -205,27 +205,27 @@
   "preloadRule": {
     "pages/shouyeyemian/shouyeyemian": {
       "network": "all",
-      "packages": ["common", "content"]
+      "packages": ["most", "detail"]
     },
     "pages/wodeyemian/wodeyemian": {
       "network": "all",
-      "packages": ["common", "record", "mine"]
+      "packages": ["most", "record", "mine"]
     },
     "pages/xiaoxiyemian/xiaoxiyemian": {
       "network": "all",
-      "packages": ["common", "record", "mine"]
+      "packages": ["most", "record", "mine"]
     },
     "account/denglu_zhuce/zhucezhanghao": {
       "network": "all",
-      "packages": ["common", "init"]
+      "packages": ["most", "init"]
     },
     "mine/shezhiyemian/shezhiyemian": {
       "network": "all",
-      "packages": ["common", "setting"]
+      "packages": ["most", "setting"]
     },
     "mine/bianjijianli/bianjijianli": {
       "network": "all",
-      "packages": ["common", "info"]
+      "packages": ["most", "info"]
     }
   },
   "esaycom": {

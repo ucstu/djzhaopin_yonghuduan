@@ -49,7 +49,7 @@ getCompanyinfosCompanyinfoidPositioninfos(
 });
 
 const toPositions = () => {
-  uni.navigateTo({ url: "/content/zhiweixiangqing/zhiweixiangqing" });
+  uni.navigateTo({ url: "/detail/zhiweixiangqing/zhiweixiangqing" });
 };
 </script>
 

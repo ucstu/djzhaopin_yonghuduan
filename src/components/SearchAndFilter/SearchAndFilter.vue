@@ -11,10 +11,10 @@
 import FilterBar from "./FilterBar.vue";
 import SearchBar from "./SearchBar.vue";
 const text_2OnClick = () => {
-  uni.navigateTo({ url: "/content/xiangguanzhiwei/xiangguanzhiwei" });
+  uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei" });
 };
 const text_3OnClick = () => {
-  uni.navigateTo({ url: "/content/xiangguangongsi/xiangguangongsi" });
+  uni.navigateTo({ url: "/detail/xiangguangongsi/xiangguangongsi" });
 };
 </script>
 
