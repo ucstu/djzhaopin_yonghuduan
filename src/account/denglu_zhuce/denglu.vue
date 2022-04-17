@@ -16,7 +16,7 @@
           <input
             v-model="password"
             style="padding-left: 20rpx"
-            type="number"
+            type="password"
             placeholder="请输入密码"
           />
         </view>
@@ -162,7 +162,7 @@ const forget = () => {
   }
 
   .group-2 {
-    position: fixed;
+    position: absolute;
     bottom: 100rpx;
     font-size: 20rpx;
     line-height: 40rpx;

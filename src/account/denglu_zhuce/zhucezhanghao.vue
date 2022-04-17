@@ -31,9 +31,10 @@
         <view class="items-center phone-number">
           <input
             v-model="password"
+            :maxlength="11"
             style="padding-left: 20rpx"
             type="password"
-            placeholder="请输入密码"
+            placeholder="请输入密码(6-11位)"
           />
         </view>
       </view>
@@ -118,6 +119,12 @@ const registeredAccount = () => {
   } else if (isAgree.value === false) {
     uni.showToast({
       title: "请同意协议",
+      icon: "none",
+      duration: 500,
+    });
+  } else if (password.value.length < 6) {
+    uni.showToast({
+      title: "密码不能小于6位",
       icon: "none",
       duration: 500,
     });

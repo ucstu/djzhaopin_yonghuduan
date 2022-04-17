@@ -1,16 +1,30 @@
 <template>
   <view class="flex-col page">
-    <NavigationBar right="跳过" @right-click="skip" />
+    <NavigationBar />
     <view class="flex-col group-all">
       <text class="self-info">请完善个人信息（1/3）</text>
       <view class="group-self">
         <text class="text">姓名</text>
-        <input
-          v-model="inputName"
-          class="input"
-          type="text"
-          placeholder="请输入"
-        />
+        <view class="flex-row">
+          <view class="flex-row items-center" style="margin-left: 20rpx">
+            <text>姓</text>
+            <input
+              v-model="inputName"
+              class="input"
+              type="text"
+              placeholder="请输入"
+            />
+          </view>
+          <view class="flex-row items-center">
+            <text>名</text>
+            <input
+              v-model="inputName"
+              class="input"
+              type="text"
+              placeholder="请输入"
+            />
+          </view>
+        </view>
       </view>
       <view class="group-self">
         <text class="text">出生日期</text>
@@ -86,9 +100,9 @@
       </wybPopup>
     </view>
     <view class="justify-center next-click">
-      <view class="justify-center items-center next-box" @click="nextClick">
-        <text>下一步</text>
-      </view>
+      <button class="justify-center items-center next-box" @click="nextClick">
+        下一步
+      </button>
     </view>
   </view>
 </template>
@@ -96,9 +110,16 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
+import { putUserinfosUserinfoid } from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore(key);
 
 const inputName = ref("");
+const firstName = ref("");
+const lastName = ref("");
 const isActiveMan = ref(true);
 const isActiveMo = ref(false);
 const sexMan = ref("男");
@@ -142,33 +163,21 @@ const nextClick = () => {
   } else if (isActiveMo.value === true) {
     sex.value = sexMo.value;
   }
-  let userInfo = {
-    userName: inputName.value,
-    birthday: birthday.value,
-    sex: sex.value,
-    email: emailValue.value,
-  };
-  console.log(userInfo);
-
-  uni.setStorage({
-    key: "userInfo",
-    data: userInfo,
-    success: (result) => {
-      console.log(result);
-    },
-    fail: (error) => {
-      console.log(error.errMsg);
-    },
+  if (inputName.value.lenght > 2) {
+    firstName = inputName.value.substr(0, 2);
+  }
+  putUserinfosUserinfoid(
+    { userinfoid: store.state.accountInfo.accountId },
+    { firstName: inputName.value[0], lastName: inputName.value }
+  ).then((res) => {
+    console.log(res);
   });
-  uni.navigateTo({ url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli" });
+
+  // uni.navigateTo({ url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli" });
 };
 
 const choseCity = () => {
-  uni.navigateTo({ url: "/pages/chengshixuanze/chengshixuanze" });
-};
-
-const skip = () => {
-  uni.navigateTo({ url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli" });
+  uni.navigateTo({ url: "/most/chengshixuanze/chengshixuanze" });
 };
 </script>
 
