@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar />
   <view class="flex-col page">
-    <NavigationBar />
     <view class="flex-col">
       <view class="group-1">
         <text class="chose">选择你的职位类型</text>

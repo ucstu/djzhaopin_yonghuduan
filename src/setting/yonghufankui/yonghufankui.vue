@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="用户反馈" />
   <view class="flex-col page">
-    <NavigationBar class="header" title="用户反馈" />
     <view class="user-feedback">
       <view class="retroaction-type">
         <text style="font-size: 28rpx">请选择反馈类型</text>

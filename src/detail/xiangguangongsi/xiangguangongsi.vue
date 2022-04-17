@@ -1,6 +1,6 @@
 <template>
+  <SearchAndFilter></SearchAndFilter>
   <view class="page">
-    <SearchAndFilter></SearchAndFilter>
     <view class="flex-col list">
       <CompanyDetail
         v-for="(attentionCompany, i) in attentionCompanies"

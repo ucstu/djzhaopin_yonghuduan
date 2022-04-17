@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="待面试" />
   <view class="flex-col page">
-    <NavigationBar class="header" title="待面试" />
     <view class="flex-col list">
       <JobPanel
         v-for="(interviewedJob, i) in interviewedJobs"

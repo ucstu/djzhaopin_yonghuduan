@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="编辑教育经历" />
   <view class="flex-row page">
-    <NavigationBar class="header" title="编辑教育经历" />
     <view class="group-all">
       <view class="group-box">
         <text class="text-title">学校名称</text>

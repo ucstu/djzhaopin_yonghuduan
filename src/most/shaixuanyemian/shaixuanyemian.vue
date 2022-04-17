@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="group" title="筛选" />
   <view class="flex-col page">
-    <NavigationBar class="group" title="筛选" />
     <scroll-view class="flex-col search" :scroll-y="true">
       <view class="flex-col expected_salary">
         <text class="salary">期望薪资</text>

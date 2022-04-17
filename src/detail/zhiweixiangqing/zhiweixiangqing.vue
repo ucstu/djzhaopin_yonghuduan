@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="职位详情" />
   <view class="flex-col page">
-    <NavigationBar class="header" title="职位详情" />
     <view class="job-information">
       <view class="flex-row name-salary">
         <view class="name">{{ jobInformation.name }}</view>
@@ -90,8 +90,8 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
-  getCompanyinfosCompanyinfoid,
-  getCompanyinfosCompanyinfoidPositioninfosPositioninfoid,
+getCompanyinfosCompanyinfoid,
+getCompanyinfosCompanyinfoidPositioninfosPositioninfoid
 } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
 import { ref } from "vue";

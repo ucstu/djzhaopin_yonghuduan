@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="求职期望" />
   <view class="flex-row page">
-    <NavigationBar class="header" title="求职期望" />
     <view class="justify-between section-1" @click="view_4OnClick">
       <text class="text-1">期望职位</text>
       <view class="flex-row group-1">

@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="公司介绍" />
   <view class="flex-col page">
-    <NavigationBar class="header" title="公司介绍" />
     <view class="flex-col company-description">
       <view class="flex-row items-center company-infos">
         <image class="logo" :src="companyInfo.logo" />

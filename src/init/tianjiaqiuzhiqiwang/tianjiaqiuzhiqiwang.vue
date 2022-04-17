@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar right="跳过" @right-click="skip" />
   <view class="flex-col page">
-    <NavigationBar right="跳过" @right-click="skip" />
     <text class="text">填写你的求职目标</text>
     <view class="section-1 flex-col view">
       <text class="text-1">期望职位</text>

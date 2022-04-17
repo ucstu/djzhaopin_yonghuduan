@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="在线简历" />
   <view class="flex-col page">
-    <NavigationBar class="header" title="在线简历" />
     <view class="flex-col group-all">
       <view class="flex-col group-user">
         <view class="flex-row justify-between user-box">

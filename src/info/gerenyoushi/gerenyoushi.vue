@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" right="保存" />
   <view class="flex-col page">
-    <NavigationBar class="header" right="保存" />
     <view class="flex-col group-1">
       <text class="text-title">个人优势</text>
       <text class="title">展示你的特别之处，分享你在工作中取得的成绩</text>

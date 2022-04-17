@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar />
   <view class="flex-col page">
-    <NavigationBar />
     <view class="flex-col section-1">
       <text class="text-2">你的社交主页</text>
       <text class="text-3">{{ socialHomepage }}</text>

@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="heard" title="忘记密码" />
   <view class="flex-col items-center page">
-    <NavigationBar class="heard" title="忘记密码" />
     <view class="flex-col group-1">
       <text>忘记密码</text>
       <view class="textarea">
@@ -64,8 +64,8 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { failResponseHandler } from "@/utils/handler";
 import { getVerificationCode, putAccounts0 } from "@/services/services";
+import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
 
 const phoneNum = ref("");

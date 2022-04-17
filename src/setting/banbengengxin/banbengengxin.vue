@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="版本更新" />
   <view class="flex-row page">
-    <NavigationBar class="header" title="版本更新" />
     <view class="flex-col main">
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478529383979520523.png"

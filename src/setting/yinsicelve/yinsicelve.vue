@@ -1,7 +1,6 @@
 <template>
-  <view class="flex-col items-start page">
-    <NavigationBar class="header" title="隐私政策" />
-  </view>
+  <NavigationBar class="header" title="隐私政策" />
+  <view class="flex-col items-start page"> </view>
 </template>
 
 <script lang="ts" setup>

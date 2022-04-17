@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar />
   <view class="flex-col page">
-    <NavigationBar />
     <view class="flex-col group-all">
       <text class="self-info">请完善个人信息（1/3）</text>
       <view class="group-self">

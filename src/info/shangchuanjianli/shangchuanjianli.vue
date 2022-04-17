@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="文件管理" />
   <view class="flex-col page">
-    <NavigationBar class="header" title="文件管理" />
     <view class="flex-row items-center group-1">
       <image src="@/static/icons/storage.png" class="image-1" />
       <text class="text-1">手机存储</text>

@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="设置" />
   <view class="flex-col page">
-    <NavigationBar class="header" title="设置" />
     <view class="justify-between items-center group-box" @click="toMyAccount">
       <text class="text-title">我的账户</text>
       <image class="image" src="@/static/icons/arrow-right.png" />

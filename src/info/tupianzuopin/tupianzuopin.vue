@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="group" />
   <view class="flex-row page">
-    <NavigationBar class="group" />
     <view class="flex-col items-center equal-division-item">
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303738707613285.png"

@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar right="跳过" @right-click="skip" />
   <view class="flex-col page">
-    <NavigationBar right="跳过" @right-click="skip" />
     <view class="flex-col group-all">
       <text class="self-info">请完善工作经历（3/3）</text>
       <view class="group-self">

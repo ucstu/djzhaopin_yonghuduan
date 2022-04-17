@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="我的查看" />
   <view class="flex-col page">
-    <NavigationBar class="header" title="我的查看" />
     <view class="flex-col list">
       <JobDetail
         v-for="(myview, i) in myViews"

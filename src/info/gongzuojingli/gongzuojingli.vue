@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="工作经历" />
   <view class="flex-row page">
-    <NavigationBar class="header" title="工作经历" />
     <view class="group-all">
       <view class="group-box">
         <text class="text-title">公司名称</text>

@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="选择城市" />
   <view class="flex-col page">
-    <NavigationBar class="header" title="选择城市" />
     <view class="flex-row">
       <scroll-view class="group-left" :scroll-y="true">
         <view class="flex-col province-name">

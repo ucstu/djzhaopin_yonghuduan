@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" />
   <view class="flex-row page">
-    <NavigationBar class="header" />
     <scroll-view class="group-view" :scroll-y="true">
       <view class="flex-col group-top">
         <text class="text-title">选择职位细分标签</text>

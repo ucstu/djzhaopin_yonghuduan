@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar />
   <view class="flex-col page">
-    <NavigationBar />
     <text class="text">请输入验证码</text>
     <view class="group">
       <text class="text-1">4位验证码已发送至:</text>

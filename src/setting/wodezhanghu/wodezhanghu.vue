@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="我的账户" />
   <view class="flex-row page">
-    <NavigationBar class="header" title="我的账户" />
     <view class="justify-between section-1">
       <text class="text-1">手机号</text>
       <view class="flex-row group-1">

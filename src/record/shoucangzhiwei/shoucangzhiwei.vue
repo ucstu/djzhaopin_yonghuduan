@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="header" title="收藏职位" />
   <view class="flex-col page">
-    <NavigationBar class="header" title="收藏职位" />
     <view class="flex-col list">
       <JobPanel
         v-for="(collectionPosition, i) in collectionPositions"

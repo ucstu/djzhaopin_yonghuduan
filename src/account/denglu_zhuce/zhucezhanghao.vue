@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="heard" title="注册账号" />
   <view class="flex-col items-center page">
-    <NavigationBar class="heard" title="注册账号" />
     <view class="flex-col group-1">
       <text>注册账号</text>
       <view class="textarea">
@@ -69,8 +69,8 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getVerificationCode, postAccounts } from "@/services/services";
-import { failResponseHandler } from "@/utils/handler";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
 import { useStore } from "vuex";
 

@@ -1,6 +1,6 @@
 <template>
+  <SearchBar></SearchBar>
   <view class="page">
-    <SearchBar></SearchBar>
     <view class="justify-between group-1">
       <text class="text-3">按职位类型搜索</text>
       <view class="flex-row group-2" @click="text_2OnClick">

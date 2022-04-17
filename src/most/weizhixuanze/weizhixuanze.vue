@@ -1,6 +1,6 @@
 <template>
+  <NavigationBar class="top-group" :title="country" />
   <view class="flex-col page">
-    <NavigationBar class="top-group" :title="country" />
     <view class="flex-row group-all">
       <view class="justify-center group-left">商圈</view>
       <scroll-view class="flex-row group_center" :scroll-y="true">
