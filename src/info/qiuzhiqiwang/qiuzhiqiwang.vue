@@ -6,6 +6,10 @@
         <text class="text-title">期望职位</text>
         <text class="text-right" @click="expectJob">{{ job }}</text>
       </view>
+      <!-- <view class="flex-row items-center justify-between group-box">
+        <text class="text-title">细分标签</text>
+        <text class="text-right" @click="directTag">{{ directionTag }}</text>
+      </view> -->
       <view class="flex-row items-center justify-between group-box">
         <text class="text-title">期望月薪</text>
         <text class="text-right" @click="expectSalry">{{ salary }}</text>
@@ -51,7 +55,7 @@
       </picker-view>
     </wybPopup>
     <view class="justify-center button-box">
-      <button class="button">保存</button>
+      <button class="button" @click="saveJobExcept">保存</button>
     </view>
   </view>
 </template>
@@ -59,9 +63,12 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
+import { postUserinfosUserinfoidJobexpectations } from "@/services/services";
+import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const job = ref("请选择 >");
+// const directionTag = ref("请选择 >");
 const salary = ref("请选择 >");
 const city = ref("请选择 >");
 
@@ -72,19 +79,56 @@ const expectSalry = () => {
 
 const startSalary = ref<number[]>([]);
 const endSalary = ref<number[]>([]);
-for (let i = 1; i <= 100; i + 10) {
+let startsa = ref("");
+let endsa = ref("");
+for (let i = 1; i <= 90; i++) {
   startSalary.value.push(i);
 }
-for (let i = 5; i <= 50; i++) {
+for (let i = 5; i <= 100; i++) {
   endSalary.value.push(i);
 }
-const salaryChange = (e: any) => {
-  // const [start, end] = e.detail.value;
-  console.log(e.detail.value);
+const salaryChange = (e: { detail: { value: never } }) => {
+  let val = e.detail.value;
+  startsa.value = String(startSalary.value[val[0]]);
+  endsa.value = String(endSalary.value[val[1]]);
+  salary.value = `${startsa.value}k-${endsa.value}k`;
+};
+
+onShow(() => {
+  uni.$on("liveCity", (e) => {
+    city.value = e;
+  });
+  uni.$on("positiontypes", (e) => {
+    console.log(e);
+    job.value = e;
+  });
+});
+
+const saveJobExcept = () => {
+  if (job.value !== "" || salary.value !== "" || city.value !== "") {
+    postUserinfosUserinfoidJobexpectations(
+      { userinfoid: "" },
+      {
+        positionType: "1",
+        // directionTags: directionTag.value,
+        startingSalary: startsa.value,
+        ceilingSalary: endsa.value,
+        city: city.value,
+      }
+    ).then((res) => {
+      console.log(res);
+    });
+    uni.navigateBack({
+      delta: 1,
+    });
+  }
 };
 
 const expectJob = () => {
   uni.navigateTo({ url: "/most/zhiweileixing/zhiweileixing" });
+};
+const directTag = () => {
+  uni.navigateTo({ url: "/most/xifenshaixuan/xifenshaixuan" });
 };
 const expectCity = () => {
   uni.navigateTo({ url: "/most/chengshixuanze/chengshixuanze" });

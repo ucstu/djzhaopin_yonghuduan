@@ -88,10 +88,11 @@ onMounted(() => {
         subLabels: checkedLabels,
       };
     });
+    console.log(checkedClassifyName.value);
   });
 });
 
-let checkeds = ref<string>([]);
+let checkeds = ref([]);
 const checkedInfo = (check: boolean) => {
   if (checkeds.value.length === 3 && check === false) {
     uni.showToast({

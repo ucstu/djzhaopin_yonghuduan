@@ -65,6 +65,7 @@ const entryTime = reactive(["随时入职", "2周内入职", "一个月内入职
 
 const addExcept = () => {
   uni.navigateTo({ url: "/info/qiuzhiqiwang/qiuzhiqiwang" });
+  console.log(11111111);
 };
 </script>
 

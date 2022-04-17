@@ -62,7 +62,7 @@
                 :key="i"
                 :class="activePositionIndex === i ? 'active' : ''"
                 class="position"
-                @click="activePositionIndex = i"
+                @click="positiontypes(i)"
                 >{{ position }}</view
               >
             </view>
@@ -77,6 +77,7 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { getPositiontypes } from "@/services/services";
+import { PositionTypes } from "@/services/types";
 import { computed, nextTick, onMounted, reactive, ref } from "vue";
 
 const popup = ref();
@@ -85,7 +86,7 @@ const activeFieldIndex = ref(0);
 const activeDirectionIndex = ref(0);
 const activePositionIndex = ref(0);
 
-const fields = reactive([]);
+const fields = reactive<PositionTypes>([]);
 const directions = computed(() => fields[activeFieldIndex.value].directions);
 const positions = computed(
   () => directions.value[activeDirectionIndex.value].positions
@@ -126,6 +127,13 @@ const filteredPositionNames = computed(() => {
   return result;
 });
 
+const positiontypes = (index: number) => {
+  activePositionIndex.value = index;
+  uni.$emit("positiontypes", positions.value[index]);
+  uni.navigateBack({
+    delta: 1,
+  });
+};
 const marTop = ref(0);
 
 onMounted(() => {
