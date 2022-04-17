@@ -9,7 +9,6 @@ export interface State {
   accountInfo: AccountInformation | null;
   token: string | null;
   userInfo: UserInformation | null;
-  city: string | null;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -35,7 +34,6 @@ export const store = createStore<State>({
     accountInfo: null,
     token: null,
     userInfo: null,
-    city: null,
   }),
   mutations: {
     setSystemInfo(state, systemInfo: UniApp.GetSystemInfoResult) {
@@ -55,9 +53,6 @@ export const store = createStore<State>({
     },
     setUserInfo(state, userInfo: UserInformation) {
       state.userInfo = userInfo;
-    },
-    setCity(state, city: string) {
-      state.city = city;
     },
   },
   modules: {},

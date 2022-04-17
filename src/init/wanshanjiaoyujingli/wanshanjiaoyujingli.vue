@@ -90,7 +90,12 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
+import { postUserinfosUserinfoidEduexperiences } from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore(key);
 
 const schoolName = ref("");
 const education = ref("请选择");
@@ -143,23 +148,22 @@ const schoolChange = (e: { detail: { value: never } }) => {
 };
 // 下一步
 const nextClick = () => {
-  let educationInfo = {
-    schoolName: schoolName.value,
-    education: education.value,
-    subject: subject.value,
-    startSchool: startSchool.value,
-    endSchool: endSchool.value,
-  };
-  uni.setStorage({
-    key: "education",
-    data: educationInfo,
-    success: (result) => {
-      console.log(result);
-    },
-    fail: (error) => {
-      console.log(error.errMsg);
-    },
-  });
+  postUserinfosUserinfoidEduexperiences(
+    { userinfoid: "" },
+    {
+      schoolName: schoolName.value,
+      education: education.value,
+      major: subject.value,
+      admissionTime: startSchool.value,
+      araduationTime: endSchool.value,
+    }
+  )
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   uni.navigateTo({ url: "/init/wanshangongzuojingli/wanshangongzuojingli" });
 };
 

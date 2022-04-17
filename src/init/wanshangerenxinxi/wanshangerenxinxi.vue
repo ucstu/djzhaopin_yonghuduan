@@ -111,8 +111,8 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { putUserinfosUserinfoid } from "@/services/services";
-import { onShow } from "@dcloudio/uni-app";
 import { key } from "@/stores";
+import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -165,7 +165,7 @@ const nextClick = () => {
     sex.value = sexMo.value;
   }
   putUserinfosUserinfoid(
-    { userinfoid: store.state.accountInfo.accountId },
+    { userinfoid: "" },
     {
       firstName: firstName,
       lastName: lastName,
@@ -174,9 +174,13 @@ const nextClick = () => {
       city: city,
       email: emailValue,
     }
-  ).then((res) => {
-    console.log(res);
-  });
+  )
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
   uni.navigateTo({ url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli" });
 };

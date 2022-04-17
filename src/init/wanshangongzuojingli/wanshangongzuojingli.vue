@@ -23,12 +23,10 @@
       </view>
       <view class="group-self">
         <text class="text">职位类型</text>
-        <input
-          v-model="subject"
-          class="input"
-          type="text"
-          placeholder="请输入"
-        />
+        <view class="flex-row justify-between" @click="subType">
+          <text class="input">{{ subject }}</text>
+          <image class="image" src="@/static/icons/arrow-right.png" />
+        </view>
       </view>
       <view class="group-self">
         <text class="text">在职时间</text>
@@ -49,22 +47,39 @@
         mode="size-auto"
         type="bottom"
       >
-        <picker-view class="picker-view" @change="workChange">
-          <picker-view-column class="item">
-            <view
-              v-for="(start, i) in startYears"
-              :key="i"
-              style="font-weight: 600"
-              >{{ start }}</view
-            >
+        <view
+          v-if="!sub"
+          class="flex-row justify-between"
+          style="margin-top: 20rpx"
+        >
+          <view
+            class="justify-center items-center"
+            style="width: 50%; height: 60rpx"
+            ><text>入职时间</text></view
+          >
+          <view
+            class="justify-center items-center"
+            style="width: 50%; height: 60rpx"
+            ><text>离职时间</text></view
+          >
+        </view>
+        <picker-view v-if="!sub" class="picker-view" @change="workChange">
+          <picker-view-column>
+            <view v-for="(start, i) in startYears" :key="i" class="item">{{
+              start
+            }}</view>
           </picker-view-column>
-          <picker-view-column class="item">
-            <view
-              v-for="(end, i) in endYears"
-              :key="i"
-              style="font-weight: 600"
-              >{{ end }}</view
-            >
+          <picker-view-column>
+            <view v-for="(end, i) in endYears" :key="i" class="item">{{
+              end
+            }}</view>
+          </picker-view-column>
+        </picker-view>
+        <picker-view v-if="sub" class="picker-view" @change="workChange">
+          <picker-view-column>
+            <view v-for="(item, i) in subjectType" :key="i" class="item">{{
+              item
+            }}</view>
           </picker-view-column>
         </picker-view>
       </wybPopup>
@@ -80,13 +95,16 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
+import { postUserinfosUserinfoidWorkexperiences } from "@/services/services";
 import { ref } from "vue";
 
 const companyName = ref("");
 const companyType = ref("");
-const subject = ref("");
+const subject = ref("请选择");
+const subjectType = ref(["全职", "兼职", "实习", "其他"]);
 const startTime = ref("入职时间");
-const endTime = ref("至今");
+const endTime = ref("离职时间");
+const sub = ref(false);
 
 const date = new Date();
 const startYears = ref<number[]>([]);
@@ -100,39 +118,44 @@ for (let i = 1970; i <= year; i++) {
 
 const popup = ref();
 
+const subType = () => {
+  sub.value = true;
+  popup.value.show();
+};
+
 const showWorkTime = () => {
+  sub.value = false;
   popup.value.show();
 };
 
 const workChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;
-  startTime.value = String(startYears.value[val[0]]);
-  endTime.value = String(endYears.value[val[1]]);
+  if (sub.value) {
+    subject.value = subjectType.value[val[0]];
+  } else {
+    startTime.value = String(startYears.value[val[0]]);
+    endTime.value = String(endYears.value[val[1]]);
+  }
 };
 // 下一步
 const nextClick = () => {
-  let workExperience = {
-    companyName: companyName.value,
-    companyType: companyType.value,
-    subject: subject.value,
-    startTime: startTime.value,
-    endTime: endTime.value,
-  };
-  uni.setStorage({
-    key: "workExperience",
-    data: workExperience,
-    success: (result) => {
-      console.log(result);
-    },
-    fail: (error) => {
-      console.log(error.errMsg);
-    },
+  postUserinfosUserinfoidWorkexperiences(
+    { userinfoid: "" },
+    {
+      corporateName: companyName.value,
+      companyIndustry: companyType.value,
+      positionType: subject.value,
+      startTime: startTime.value,
+      endTime: endTime.value,
+    }
+  ).then((res) => {
+    console.log(res);
   });
-  uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+  uni.navigateTo({ url: "/info/qiuzhiqiwang/qiuzhiqiwang" });
 };
 
 const skip = () => {
-  uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+  uni.navigateTo({ url: "/info/qiuzhiqiwang/qiuzhiqiwang" });
 };
 </script>
 
