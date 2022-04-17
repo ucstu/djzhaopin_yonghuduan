@@ -18,7 +18,7 @@
           class="flex-row justify-between items-center"
           @click="showEducation"
         >
-          <input v-model="education" class="input" placeholder="请填写" />
+          <text class="input">{{ education }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
@@ -51,10 +51,13 @@
         type="bottom"
       >
         <picker-view v-if="isShowEd" class="picker-view" @change="edChange">
-          <picker-view-column class="item">
-            <view v-for="(educate, i) in educationValue" :key="i">{{
-              educate
-            }}</view>
+          <picker-view-column>
+            <view
+              v-for="(educate, i) in educationValue"
+              :key="i"
+              class="item"
+              >{{ educate }}</view
+            >
           </picker-view-column>
         </picker-view>
         <picker-view
@@ -63,21 +66,15 @@
           class="picker-view"
           @change="schoolChange"
         >
-          <picker-view-column class="item">
-            <view
-              v-for="(start, i) in startYears"
-              :key="i"
-              style="font-weight: 600"
-              >{{ start }}</view
-            >
+          <picker-view-column>
+            <view v-for="(start, i) in startYears" :key="i" class="item">{{
+              start
+            }}</view>
           </picker-view-column>
-          <picker-view-column class="item">
-            <view
-              v-for="(end, i) in endYears"
-              :key="i"
-              style="font-weight: 600"
-              >{{ end }}</view
-            >
+          <picker-view-column>
+            <view v-for="(end, i) in endYears" :key="i" class="item">{{
+              end
+            }}</view>
           </picker-view-column>
         </picker-view>
       </wybPopup>
@@ -93,10 +90,15 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
+import { postUserinfosUserinfoidEduexperiences } from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore(key);
 
 const schoolName = ref("");
-const education = ref("");
+const education = ref("请选择");
 const subject = ref("");
 const startSchool = ref("入学时间");
 const endSchool = ref("毕业时间");
@@ -112,7 +114,6 @@ const educationValue = ref([
 const edChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;
   education.value = educationValue.value[val[0]];
-  console.log(education.value);
 };
 
 const date = new Date();
@@ -147,23 +148,22 @@ const schoolChange = (e: { detail: { value: never } }) => {
 };
 // 下一步
 const nextClick = () => {
-  let educationInfo = {
-    schoolName: schoolName.value,
-    education: education.value,
-    subject: subject.value,
-    startSchool: startSchool.value,
-    endSchool: endSchool.value,
-  };
-  uni.setStorage({
-    key: "education",
-    data: educationInfo,
-    success: (result) => {
-      console.log(result);
-    },
-    fail: (error) => {
-      console.log(error.errMsg);
-    },
-  });
+  postUserinfosUserinfoidEduexperiences(
+    { userinfoid: "" },
+    {
+      schoolName: schoolName.value,
+      education: education.value,
+      major: subject.value,
+      admissionTime: startSchool.value,
+      araduationTime: endSchool.value,
+    }
+  )
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   uni.navigateTo({ url: "/init/wanshangongzuojingli/wanshangongzuojingli" });
 };
 
@@ -221,8 +221,6 @@ const skip = () => {
       align-items: center;
       justify-content: center;
       height: 300rpx;
-      font-size: 30rpx;
-      color: black;
       text-align: center;
     }
   }

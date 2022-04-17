@@ -9,7 +9,7 @@
           <view class="flex-row items-center" style="margin-left: 20rpx">
             <text>姓</text>
             <input
-              v-model="inputName"
+              v-model="firstName"
               class="input"
               type="text"
               placeholder="请输入"
@@ -18,7 +18,7 @@
           <view class="flex-row items-center">
             <text>名</text>
             <input
-              v-model="inputName"
+              v-model="lastName"
               class="input"
               type="text"
               placeholder="请输入"
@@ -29,7 +29,7 @@
       <view class="group-self">
         <text class="text">出生日期</text>
         <view class="flex-row justify-between items-center" @click="showDate">
-          <input v-model="birthday" class="input" />
+          <text class="input">{{ birthday }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
@@ -59,7 +59,7 @@
       <view class="group-self">
         <text class="text">城市</text>
         <view class="flex-row justify-between items-center" @click="choseCity">
-          <input class="input" type="text" placeholder="请选择" />
+          <text class="input">{{ city }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
@@ -112,18 +112,19 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { putUserinfosUserinfoid } from "@/services/services";
 import { key } from "@/stores";
+import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const inputName = ref("");
 const firstName = ref("");
 const lastName = ref("");
 const isActiveMan = ref(true);
 const isActiveMo = ref(false);
 const sexMan = ref("男");
 const sexMo = ref("女");
+let city = ref("请选择");
 const emailValue = ref("");
 // 获取时间
 const date = new Date();
@@ -163,19 +164,32 @@ const nextClick = () => {
   } else if (isActiveMo.value === true) {
     sex.value = sexMo.value;
   }
-  if (inputName.value.lenght > 2) {
-    firstName = inputName.value.substr(0, 2);
-  }
   putUserinfosUserinfoid(
-    { userinfoid: store.state.accountInfo.accountId },
-    { firstName: inputName.value[0], lastName: inputName.value }
-  ).then((res) => {
-    console.log(res);
-  });
+    { userinfoid: "" },
+    {
+      firstName: firstName,
+      lastName: lastName,
+      dateOfBirth: birthday,
+      sex: sex,
+      city: city,
+      email: emailValue,
+    }
+  )
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
-  // uni.navigateTo({ url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli" });
+  uni.navigateTo({ url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli" });
 };
 
+onShow(() => {
+  uni.$on("liveCity", (e) => {
+    city.value = e;
+  });
+});
 const choseCity = () => {
   uni.navigateTo({ url: "/most/chengshixuanze/chengshixuanze" });
 };
