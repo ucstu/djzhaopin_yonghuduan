@@ -1,4 +1,4 @@
-import { AccountInformation } from "@/services/types";
+import { AccountInformation, UserInformation } from "@/services/types";
 import { InjectionKey } from "vue";
 import { createStore, Store } from "vuex";
 import VuexPersister from "vuex-persister";
@@ -8,6 +8,8 @@ export interface State {
   menuButtonInfo: UniApp.GetMenuButtonBoundingClientRectRes | null;
   accountInfo: AccountInformation | null;
   token: string | null;
+  userInfo: UserInformation | null;
+  city: string | null;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -32,6 +34,8 @@ export const store = createStore<State>({
     menuButtonInfo: null,
     accountInfo: null,
     token: null,
+    userInfo: null,
+    city: null,
   }),
   mutations: {
     setSystemInfo(state, systemInfo: UniApp.GetSystemInfoResult) {
@@ -48,6 +52,12 @@ export const store = createStore<State>({
     },
     setToken(state, token: string) {
       state.token = token;
+    },
+    setUserInfo(state, userInfo: UserInformation) {
+      state.userInfo = userInfo;
+    },
+    setCity(state, city: string) {
+      state.city = city;
     },
   },
   modules: {},

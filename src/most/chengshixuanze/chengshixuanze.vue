@@ -67,7 +67,7 @@ const provinceIndex = (index: number) => {
 
 const cityIndex = (index: number) => {
   let city = cities.value[index];
-  console.log(city);
+  uni.$emit("liveCity", city);
   uni.navigateBack({ delta: 1 });
 };
 </script>
