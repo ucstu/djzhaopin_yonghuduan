@@ -1,4 +1,5 @@
 <template>
+  <!--  #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
   <view class="bar" :style="'margin-top: ' + navigationBarTop + 'px'">
     <view
       class="items-center group"
@@ -10,6 +11,13 @@
         'px'
       "
     >
+  <!-- #endif -->
+  <!--  #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
+  <view class="bar">
+    <view
+      class="items-center group"
+    >
+  <!-- #endif -->
       <view class="flex-row" style="width: 100%">
         <text class="city" @click="textOnClick">{{ city }}</text>
         <image
@@ -21,14 +29,10 @@
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528771387958614.png"
             class="search"
           />
-          <text class="search-text">{{ searchContent }}</text>
+          <input v-model="searchContent" type="text" class="search-text" placeholder="请输入关键字">
         </view>
         <text class="cancel" @click="text_1OnClick">取消</text>
       </view>
-    </view>
-    <view class="justify-between about">
-      <text @click="text_2OnClick">相关职位</text>
-      <text @click="text_3OnClick">相关公司</text>1
     </view>
   </view>
 </template>
@@ -42,26 +46,20 @@ const store = useStore(key);
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
 
-const navigationBarHeight = store.state.menuButtonInfo.height;
+const navigationBarHeight = store.state.menuButtonInfo!.height;
 
-const navigationBarTop = store.state.menuButtonInfo.top - uni.upx2px(45);
+const navigationBarTop = store.state.menuButtonInfo!.top - uni.upx2px(45);
 
-const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(50);
+const navigationBarWidth = store.state.menuButtonInfo!.left - uni.upx2px(50);
 /* #endif */
 
 const city = ref("重庆");
-const searchContent = ref("请输入关键字");
+const searchContent = ref("");
 const textOnClick = () => {
-  uni.navigateTo({ url: "/pages/chengshixuanze/chengshixuanze" });
+  uni.navigateTo({ url: "/common/chengshixuanze/chengshixuanze" });
 };
 const text_1OnClick = () => {
   uni.navigateBack({ delta: 100 });
-};
-const text_2OnClick = () => {
-  uni.navigateTo({ url: "/pages/xiangguanzhiwei/xiangguanzhiwei" });
-};
-const text_3OnClick = () => {
-  uni.navigateTo({ url: "/pages/xiangguangongsi/xiangguangongsi" });
 };
 </script>
 
@@ -69,7 +67,7 @@ const text_3OnClick = () => {
 .bar {
   position: relative;
   width: 100%;
-  height: 180rpx;
+  height: 120rpx;
   background-color: rgb(255 255 255);
 
   .group {
@@ -125,20 +123,6 @@ const text_3OnClick = () => {
       color: rgb(0 0 0);
       white-space: nowrap;
     }
-  }
-
-  .about {
-    position: absolute;
-    top: 128rpx;
-    right: 18rpx;
-    left: 18rpx;
-    padding-right: 106rpx;
-    padding-left: 111rpx;
-    font-size: 30rpx;
-    line-height: 28rpx;
-    color: rgb(0 0 0);
-    letter-spacing: 6rpx;
-    white-space: nowrap;
   }
 }
 </style>

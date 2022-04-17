@@ -1,16 +1,6 @@
 <template>
   <view class="page">
-    <SearchBar></SearchBar>
-    <view id="marTop" class="flex-row justify-between search-sort">
-      <view class="items-center justify-center search" @click="showDirections">
-        <text>筛选</text>
-        <image src="@/static/icons/arrow-down-filling.png" class="image" />
-      </view>
-      <view class="items-center justify-center sort">
-        <text>排序</text>
-        <image src="@/static/icons/arrow-down-filling.png" class="image" />
-      </view>
-    </view>
+    <SearchAndFilter></SearchAndFilter>
     <view class="flex-col list">
       <CompanyDetail
         v-for="(attentionCompany, i) in attentionCompanies"
@@ -25,49 +15,29 @@
 
 <script lang="ts" setup>
 import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
-import SearchBar from "@/components/SearchAndFilter/SearchBar.vue";
+import SearchAndFilter from "@/components/SearchAndFilter/SearchAndFilter.vue";
 import { getCompanyinfos, getFilterinfos } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
-import { key } from "@/stores";
-import { onMounted, reactive, ref } from "vue";
-import { useStore } from "vuex";
+import { reactive, ref } from "vue";
 
-const store = useStore(key);
 const popup = ref();
 
 let attentionCompanies = reactive<CompanyInformation[]>([]);
 getCompanyinfos().then((res) => {
   attentionCompanies.push(...res.data.body);
 });
-const companySizes = reactive([]); //公司规模
-const financeStages = reactive([]); //融资阶段
-const industrySectors = reactive([]); //行业领域
+const companySizes = reactive<string[]>([]); //公司规模
+const financeStages = reactive<string[]>([]); //融资阶段
+const industrySectors = reactive<string[]>([]); //行业领域
 getFilterinfos().then((res) => {
   companySizes.push(...res.data.body.companySize);
   financeStages.push(...res.data.body.financingStage);
   industrySectors.push(...res.data.body.IndustryField);
-  console.log(companySizes);
-  console.log(financeStages);
-  console.log(industrySectors);
 });
 
 const toCompanyInfo = () => {
-  uni.navigateTo({ url: "/pages/gongsijieshao/gongsijieshao" });
+  uni.navigateTo({ url: "/content/gongsijieshao/gongsijieshao" });
 };
-const showDirections = () => {
-  popup.value.show();
-};
-const marTop = ref(0);
-onMounted(() => {
-  const query = uni.createSelectorQuery();
-  query
-    .select("#marTop")
-    .boundingClientRect((data) => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      marTop.value = data.top! + data.height!;
-    })
-    .exec();
-});
 </script>
 
 <style lang="scss" scoped>

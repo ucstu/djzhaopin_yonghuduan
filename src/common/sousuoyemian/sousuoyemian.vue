@@ -1,36 +1,6 @@
 <template>
-  <view
-    class="flex-col page"
-    :style="'padding-top: ' + navigationBarTop + 'px'"
-  >
-    <view
-      class="items-center"
-      :style="
-        'width: ' +
-        navigationBarWidth +
-        'px; height: ' +
-        navigationBarHeight +
-        'px'
-      "
-    >
-      <view class="flex-row" style="width: 100%">
-        <text class="text" @click="textOnClick">{{ city }}</text>
-        <view class="flex-row search">
-          <image
-            src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773197745663.png"
-            class="image"
-          />
-          <view class="flex-row section-1">
-            <image
-              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528771387958614.png"
-              class="image-1"
-            />
-            <text class="text-1">{{ searchContent }}</text>
-          </view>
-        </view>
-        <text class="text-2" @click="text_1OnClick">取消</text>
-      </view>
-    </view>
+  <view class="page">
+    <SearchBar></SearchBar>
     <view class="justify-between group-1">
       <text class="text-3">按职位类型搜索</text>
       <view class="flex-row group-2" @click="text_2OnClick">
@@ -71,20 +41,8 @@
 </template>
 
 <script lang="ts" setup>
-import { key } from "@/stores";
-import { reactive, ref } from "vue";
-import { useStore } from "vuex";
-
-const store = useStore(key);
-
-/* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-
-const navigationBarHeight = store.state.menuButtonInfo.height;
-
-const navigationBarTop = store.state.menuButtonInfo.top;
-
-const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(50);
-/* #endif */
+import SearchBar from "@/components/SearchAndFilter/SearchBar.vue";
+import { reactive } from "vue";
 
 const popularPositions = reactive([
   { name: "java" },
@@ -134,23 +92,14 @@ const popularCompanies = reactive([
   { name: "安居客" },
   { name: "小米集团" },
 ]);
-const city = ref("重庆");
-const searchContent = ref("请输入关键字");
-
-const textOnClick = () => {
-  uni.navigateTo({ url: "/pages/chengshixuanze/chengshixuanze" });
-};
-const text_1OnClick = () => {
-  uni.navigateBack({ delta: 100 });
-};
 const text_2OnClick = () => {
-  uni.navigateTo({ url: "/pages/zhiweileixing/zhiweileixing" });
+  uni.navigateTo({ url: "/common/zhiweileixing/zhiweileixing" });
 };
 const view_9OnClick = () => {
-  uni.navigateTo({ url: "/pages/xiangguanzhiwei/xiangguanzhiwei" });
+  uni.navigateTo({ url: "/content/xiangguanzhiwei/xiangguanzhiwei" });
 };
 const view_18OnClick = () => {
-  uni.navigateTo({ url: "/pages/xiangguangongsi/xiangguangongsi" });
+  uni.navigateTo({ url: "/content/xiangguangongsi/xiangguangongsi" });
 };
 </script>
 
@@ -246,7 +195,7 @@ const view_18OnClick = () => {
 
   .text {
     align-self: center;
-    font-size: 25rpx;
+    font-size: 30rpx;
     line-height: 23rpx;
     color: rgb(0 0 0);
     white-space: nowrap;
@@ -262,13 +211,16 @@ const view_18OnClick = () => {
 
     .image {
       align-self: center;
-      width: 15rpx;
-      height: 8rpx;
+      width: 25rpx;
+      height: 12rpx;
+      margin-left: 10rpx;
     }
 
     .section-1 {
+      display: flex;
       flex: 1 1 auto;
-      height: 43rpx;
+      align-items: center;
+      height: 75rpx;
       padding: 11rpx 15rpx 12rpx;
       margin-left: 20rpx;
       background-color: rgb(229 229 229);
@@ -278,12 +230,12 @@ const view_18OnClick = () => {
       border-radius: 25rpx;
 
       .image-1 {
-        width: 20rpx;
-        height: 20rpx;
+        width: 35rpx;
+        height: 35rpx;
       }
 
       .text-1 {
-        margin-left: 11rpx;
+        margin-left: 25rpx;
       }
     }
   }
@@ -291,7 +243,7 @@ const view_18OnClick = () => {
   .text-2 {
     align-self: center;
     margin-left: 21rpx;
-    font-size: 25rpx;
+    font-size: 30rpx;
     line-height: 23rpx;
     color: rgb(0 0 0);
     white-space: nowrap;

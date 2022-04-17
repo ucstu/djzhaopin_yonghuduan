@@ -82,13 +82,13 @@ const store = useStore(key);
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
 
-const navigationBarHeight = store.state.menuButtonInfo.height
+const navigationBarHeight = store.state.menuButtonInfo!.height
 
-const navigationBarTop = store.state.menuButtonInfo.top
+const navigationBarTop = store.state.menuButtonInfo!.top
 
-const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(30)
+const navigationBarWidth = store.state.menuButtonInfo!.left - uni.upx2px(30)
 
-const expectationWidth = store.state.menuButtonInfo.left - uni.upx2px(170)
+const expectationWidth = store.state.menuButtonInfo!.left - uni.upx2px(170)
 /* #endif */
 
 const jobDetails = reactive([
@@ -121,19 +121,19 @@ const showSecond = ref('false')
 const showThird = ref('false')
 
 const image_5OnClick = () => {
-  uni.navigateTo({ url: '/pages/qiuzhiqiwang/qiuzhiqiwang' })
+  uni.navigateTo({ url: '/info/qiuzhiqiwang/qiuzhiqiwang' })
 }
 const image_6OnClick = () => {
-  uni.navigateTo({ url: '/pages/sousuoyemian/sousuoyemian' })
+  uni.navigateTo({ url: '/common/sousuoyemian/sousuoyemian' })
 }
 const text_22OnClick = () => {
-  uni.navigateTo({ url: '/pages/weizhixuanze/weizhixuanze' })
+  uni.navigateTo({ url: '/common/weizhixuanze/weizhixuanze' })
 }
 const text_23OnClick = () => {
-  uni.navigateTo({ url: '/pages/shaixuanyemian/shaixuanyemian' })
+  uni.navigateTo({ url: '/common/shaixuanyemian/shaixuanyemian' })
 }
 const view_4OnClick = () => {
-  uni.navigateTo({ url: '/pages/zhiweixiangqing/zhiweixiangqing' })
+  uni.navigateTo({ url: '/content/zhiweixiangqing/zhiweixiangqing' })
 }
 </script>
 
