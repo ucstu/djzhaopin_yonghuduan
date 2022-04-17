@@ -32,7 +32,7 @@
         </view>
       </view>
     </view>
-    <view class="items-center justify-center button">
+    <view class="items-center justify-center button" @click="addExcept">
       <image class="image" src="@/static/icons/add-circle.png" />
       <text class="add">添加求职期望</text>
     </view>
@@ -62,6 +62,10 @@ const jobExpectations = reactive([
   },
 ]);
 const entryTime = reactive(["随时入职", "2周内入职", "一个月内入职"]);
+
+const addExcept = () => {
+  uni.navigateTo({ url: "/info/qiuzhiqiwang/qiuzhiqiwang" });
+};
 </script>
 
 <style lang="scss" scoped>

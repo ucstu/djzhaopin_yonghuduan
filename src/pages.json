@@ -248,26 +248,26 @@
     "list": [
       {
         "pagePath": "pages/shouyeyemian/shouyeyemian",
-        "iconPath": "static/iconoir/home.svg",
-        "selectedIconPath": "static/iconoir/home-alt.svg",
+        "iconPath": "static/home.png",
+        "selectedIconPath": "static/home-alt.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/Page_24Hmianshiyemian/Page_24Hmianshiyemian",
-        "iconPath": "static/iconoir/leaderboard.svg",
-        "selectedIconPath": "static/iconoir/leaderboard-star.svg",
+        "iconPath": "static/leaderboard.png",
+        "selectedIconPath": "static/leaderboard-star.png",
         "text": "24H招聘"
       },
       {
         "pagePath": "pages/xiaoxiyemian/xiaoxiyemian",
-        "iconPath": "static/iconoir/mail.svg",
-        "selectedIconPath": "static/iconoir/mail-opened.svg",
+        "iconPath": "static/mail.png",
+        "selectedIconPath": "static/mail-opened.png",
         "text": "消息"
       },
       {
         "pagePath": "pages/wodeyemian/wodeyemian",
-        "iconPath": "static/iconoir/user.svg",
-        "selectedIconPath": "static/iconoir/user-circle-alt.svg",
+        "iconPath": "static/user.png",
+        "selectedIconPath": "static/user-circle-alt.png",
         "text": "我的"
       }
     ]
