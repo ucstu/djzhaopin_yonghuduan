@@ -51,6 +51,7 @@
 
 <script lang="ts" setup>
 import { putAccounts } from "@/services/services";
+import { failResponseHandler } from "@/utils/handler";
 import { key } from "@/stores";
 import { throttle } from "@/utils/common";
 import { ref } from "vue";
@@ -85,11 +86,13 @@ const login = () => {
     putAccounts({
       phoneNumber: phoneNum.value,
       password: password.value,
-    }).then((res) => {
-      store.commit("setToken", res.data.body.token);
-      store.commit("setAccountInfo", res.data.body.accountInfo);
-      uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
-    });
+    })
+      .then((res) => {
+        store.commit("setToken", res.data.body.token);
+        store.commit("setAccountInfo", res.data.body.accountInfo);
+        uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+      })
+      .catch(failResponseHandler);
   }
 };
 
