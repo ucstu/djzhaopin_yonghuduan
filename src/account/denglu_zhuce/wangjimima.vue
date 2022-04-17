@@ -64,6 +64,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { failResponseHandler } from "@/utils/handler";
 import { getVerificationCode, putAccounts0 } from "@/services/services";
 import { ref } from "vue";
 
@@ -80,13 +81,15 @@ const getVerifiable = () => {
       duration: 500,
     });
   } else if (/^1[3456789]\d{9}$/.test(phoneNum.value)) {
-    getVerificationCode({ phoneNumber: phoneNum.value }).then((res) => {
-      uni.showToast({
-        title: "验证码已发送",
-        icon: "none",
-        duration: 500,
-      });
-    });
+    getVerificationCode({ phoneNumber: phoneNum.value })
+      .then((res) => {
+        uni.showToast({
+          title: "验证码已发送",
+          icon: "none",
+          duration: 500,
+        });
+      })
+      .catch(failResponseHandler);
   } else {
     uni.showToast({
       title: "请输入正确的手机号",
@@ -123,14 +126,16 @@ const registeredAccount = () => {
       phoneNumber: phoneNum.value,
       verificationCode: verification.value,
       password: passwordNew.value,
-    }).then((res) => {
-      uni.showToast({
-        title: "修改成功",
-        icon: "none",
-        duration: 500,
-      });
-      uni.navigateTo({ url: "/account/denglu_zhuce/denglu" });
-    });
+    })
+      .then((res) => {
+        uni.showToast({
+          title: "修改成功",
+          icon: "none",
+          duration: 500,
+        });
+        uni.navigateTo({ url: "/account/denglu_zhuce/denglu" });
+      })
+      .catch(failResponseHandler);
   }
 };
 </script>

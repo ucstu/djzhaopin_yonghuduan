@@ -6,12 +6,11 @@
 
 // @ts-nocheck
 
-import { badRequestHandler } from "@/utils/handler";
 import Axios, {
   AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
-  AxiosResponse,
+  AxiosResponse
 } from "axios";
 import settle from "axios/lib/core/settle";
 import buildURL from "axios/lib/helpers/buildURL";
@@ -25,7 +24,7 @@ Axios.defaults.adapter = function (config) {
         title: "加载中...",
       });
     }, 300);
-    uni.request({
+    const request = uni.request({
       method: config.method.toUpperCase(),
       url:
         config.baseURL +
@@ -35,31 +34,9 @@ Axios.defaults.adapter = function (config) {
       dataType: config.dataType,
       responseType: config.responseType,
       sslVerify: config.sslVerify,
-      complete: function complete(response) {
+      complete(response) {
         clearTimeout(timer);
         uni.hideLoading();
-        if (response.statusCode === 400) {
-          badRequestHandler(response);
-        } else if (response.statusCode === 401) {
-          uni.showToast({
-            title: "登录失效，请重新登录",
-            icon: "none",
-            duration: 500,
-          });
-          uni.reLaunch({ url: "/pages/denglu_zhuce/denglu" });
-        } else if (response.statusCode === 403) {
-          uni.showToast({
-            title: "没有权限",
-            icon: "none",
-            duration: 500,
-          });
-        } else if (response.statusCode === 500) {
-          uni.showToast({
-            title: "服务器错误",
-            icon: "none",
-            duration: 500,
-          });
-        }
         response = {
           data: response.data,
           status: response.statusCode,
@@ -70,6 +47,15 @@ Axios.defaults.adapter = function (config) {
         settle(resolve, reject, response);
       },
     });
+    if (config.cancelToken) {
+      config.cancelToken.promise.then((cancel) => {
+        if (!request) {
+          return;
+        }
+        request.abort();
+        reject(cancel);
+      });
+    }
   });
 };
 

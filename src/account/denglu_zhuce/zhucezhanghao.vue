@@ -68,6 +68,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getVerificationCode, postAccounts } from "@/services/services";
+import { failResponseHandler } from "@/utils/handler";
 import { key } from "@/stores";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -87,13 +88,15 @@ const getVerifiable = () => {
       duration: 500,
     });
   } else if (/^1[3456789]\d{9}$/.test(phoneNum.value)) {
-    getVerificationCode({ phoneNumber: phoneNum.value }).then((res) => {
-      uni.showToast({
-        title: "验证码已发送",
-        icon: "none",
-        duration: 500,
-      });
-    });
+    getVerificationCode({ phoneNumber: phoneNum.value })
+      .then((res) => {
+        uni.showToast({
+          title: "验证码已发送",
+          icon: "none",
+          duration: 500,
+        });
+      })
+      .catch(failResponseHandler);
   } else {
     uni.showToast({
       title: "请输入正确的手机号",
@@ -127,13 +130,15 @@ const registeredAccount = () => {
       verificationCode: verification.value,
       accountType: "1",
       password: password.value,
-    }).then((res) => {
-      store.commit("setToken", res.data.body.token);
-      store.commit("setAccountInfo", res.data.body.accountInfo);
-      uni.navigateTo({
-        url: "/init/wanchengjianli/wanchengjianli",
-      });
-    });
+    })
+      .then((res) => {
+        store.commit("setToken", res.data.body.token);
+        store.commit("setAccountInfo", res.data.body.accountInfo);
+        uni.navigateTo({
+          url: "/init/wanchengjianli/wanchengjianli",
+        });
+      })
+      .catch(failResponseHandler);
   }
 };
 </script>
