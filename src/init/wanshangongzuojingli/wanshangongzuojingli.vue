@@ -41,7 +41,7 @@
       </view>
       <wybPopup
         ref="popup"
-        :show-close-icon="true"
+        :show-close-icon="false"
         :height="400"
         :radius="10"
         mode="size-auto"
@@ -96,7 +96,11 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { postUserinfosUserinfoidWorkexperiences } from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore(key);
 
 const companyName = ref("");
 const companyType = ref("");
@@ -149,9 +153,9 @@ const nextClick = () => {
       endTime: endTime.value,
     }
   ).then((res) => {
-    console.log(res);
+    store.commit("exceptionJob", res.data.body);
   });
-  let value = "完成";
+  let value = false;
   uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=${value}` });
 };
 

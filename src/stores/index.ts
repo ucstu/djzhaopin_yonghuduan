@@ -1,4 +1,8 @@
-import { AccountInformation, UserInformation } from "@/services/types";
+import {
+  AccountInformation,
+  JobExpectation,
+  UserInformation
+} from "@/services/types";
 import { InjectionKey } from "vue";
 import { createStore, Store } from "vuex";
 import VuexPersister from "vuex-persister";
@@ -9,6 +13,7 @@ export interface State {
   accountInfo: AccountInformation | null;
   token: string | null;
   userInfo: UserInformation | null;
+  exceptionJob: JobExpectation | null;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -34,6 +39,7 @@ export const store = createStore<State>({
     accountInfo: null,
     token: null,
     userInfo: null,
+    exceptionJob: null,
   }),
   mutations: {
     setSystemInfo(state, systemInfo: UniApp.GetSystemInfoResult) {
@@ -53,6 +59,9 @@ export const store = createStore<State>({
     },
     setUserInfo(state, userInfo: UserInformation) {
       state.userInfo = userInfo;
+    },
+    setExceptionJob(state, exceptionJob: JobExpectation) {
+      state.exceptionJob = exceptionJob;
     },
   },
   modules: {},

@@ -80,9 +80,14 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { postUserinfosUserinfoidJobexpectations } from "@/services/services";
 import { onLoad } from "@dcloudio/uni-app";
+import { key } from "@/stores";
 import { ref } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore(key);
 
 const job = ref("");
+const directionTags = ref([]);
 const directionTag = ref("");
 const directionShow = ref(false);
 const salary = ref("");
@@ -113,7 +118,11 @@ const salaryChange = (e: { detail: { value: never } }) => {
 };
 
 onLoad((e) => {
-  saveBtn.value = e.data;
+  if (e.data === "true") {
+    saveBtn.value = "保存";
+  } else {
+    saveBtn.value = "完成";
+  }
   uni.$on("liveCity", (e) => {
     city.value = e;
   });
@@ -126,9 +135,13 @@ onLoad((e) => {
     }
   });
   uni.$on("saveTags", (e) => {
-    if (e.value !== "") {
+    console.log(e);
+
+    if (e.length !== 0) {
       directionTag.value = "";
+      directionTags.value.length = 0;
       for (const element of e) {
+        directionTags.value.push(element);
         directionTag.value += element + "、";
       }
       if (directionTag.value.length > 0) {
@@ -148,6 +161,7 @@ onLoad((e) => {
         );
       }
     }
+    console.log(directionTags.value);
   });
 });
 
@@ -165,28 +179,30 @@ const saveJobExcept = () => {
         icon: "none",
         duration: 500,
       });
-    } else if (saveBtn.value === saveOver.value) {
-      uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
     } else {
       postUserinfosUserinfoidJobexpectations(
         { userinfoid: "" },
         {
           positionType: "1",
-          directionTags: directionTag.value,
+          directionTags: directionTags.value,
           startingSalary: startsa.value,
           ceilingSalary: endsa.value,
           city: city.value,
         }
       )
         .then((res) => {
-          console.log(res);
+          store.commit("setExceptionJob", res.data.body);
         })
         .catch((err) => {
           console.log(err);
         });
-      uni.navigateBack({
-        delta: 1,
-      });
+      if (saveBtn.value === saveOver.value) {
+        uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+      } else {
+        uni.navigateBack({
+          delta: 1,
+        });
+      }
     }
   }
 };

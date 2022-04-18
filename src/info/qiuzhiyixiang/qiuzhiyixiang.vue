@@ -10,13 +10,13 @@
       <view
         v-for="(jobExpectation, i) in jobExpectations"
         :key="i"
-        class="justify-between job-expects"
+        class="justify-between items-center job-expects"
       >
         <view>
           <text class="job-name">{{ jobExpectation.name }}</text>
-          <view>
+          <view class="direct-box">
             <text
-              v-for="(direction, j) in jobExpectation.directions"
+              v-for="(direction, j) in jobExpectation.directionTags"
               :key="j"
               class="job-direct"
               >{{ direction }}</text
@@ -24,12 +24,14 @@
           </view>
           <view class="city-salary">
             <text class="job-city">{{ jobExpectation.city }}</text>
-            <text class="job-salary">{{ jobExpectation.salary }}</text>
+            <text class="job-salary"
+              >{{ jobExpectation.startingSalary }}k-{{
+                jobExpectation.ceilingSalary
+              }}k</text
+            >
           </view>
         </view>
-        <view class="items-center">
-          <text>></text>
-        </view>
+        <image class="image" src="@/static/icons/arrow-right.png" />
       </view>
     </view>
     <view class="items-center justify-center button" @click="addExcept">
@@ -38,33 +40,66 @@
     </view>
     <view class="items-center justify-between entry-time">
       <text>求职状态</text>
-      <text class="time">随时入职 ></text>
+      <view class="flex-row justify-center items-center">
+        <text class="time" @click="jobStatus">{{ entryTime }}</text>
+        <image class="image" src="@/static/icons/arrow-right.png" />
+      </view>
     </view>
+    <wybPopup
+      ref="popup"
+      :show-close-icon="false"
+      :height="400"
+      :radius="10"
+      mode="size-auto"
+      type="bottom"
+    >
+      <picker-view class="picker-view" @change="entryChange">
+        <picker-view-column>
+          <view v-for="(start, i) in entryTimes" :key="i" class="item">{{
+            start
+          }}</view>
+        </picker-view-column>
+      </picker-view>
+    </wybPopup>
   </view>
 </template>
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { reactive } from "vue";
+import { getUserinfosUserinfoidJobexpectations } from "@/services/services";
+import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
+import { ref } from "vue";
+import { key } from "@/stores";
+import { useStore } from "vuex";
 
-const jobExpectations = reactive([
-  {
-    name: "后段工程师",
-    salary: "8K-9K",
-    directions: ["前端开发", "后端开发"],
-    city: "成都",
-  },
-  {
-    name: "前端工程师",
-    salary: "5K-9K",
-    directions: ["React"],
-    city: "重庆",
-  },
+const store = useStore(key);
+
+const jobExpectations = ref([]);
+const entryTime = ref("请选择");
+const entryTimes = ref([
+  "随时入职",
+  "一周内入职",
+  "半个月内入职",
+  "一个月内入职",
 ]);
-const entryTime = reactive(["随时入职", "2周内入职", "一个月内入职"]);
+
+getUserinfosUserinfoidJobexpectations({ userinfoid: "" }).then((res) => {
+  jobExpectations.value = res.data.body;
+  console.log(jobExpectations.value);
+});
 
 const addExcept = () => {
-  uni.navigateTo({ url: "/info/qiuzhiqiwang/qiuzhiqiwang" });
+  let value = true;
+  uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=${value}` });
+};
+
+const popup = ref();
+const jobStatus = () => {
+  popup.value.show();
+};
+const entryChange = (e) => {
+  entryTime.value = entryTimes.value[e.detail.value[0]];
+  popup.value.hide();
 };
 </script>
 
@@ -104,19 +139,22 @@ const addExcept = () => {
         font-size: 30rpx;
       }
 
-      .job-direct {
-        margin-right: 20rpx;
-        font-size: 25rpx;
-        color: rgb(153 153 153);
+      .direct-box {
+        max-width: 600rpx;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        .job-direct {
+          margin-right: 20rpx;
+          font-size: 25rpx;
+          color: rgb(153 153 153);
+        }
       }
 
       .city-salary {
         font-size: 25rpx;
         color: rgb(153 153 153);
-
-        .job-city {
-          margin-right: 30rpx;
-        }
 
         .job-salary {
           margin-left: 30rpx;
@@ -136,11 +174,6 @@ const addExcept = () => {
     background-color: rgb(212 251 236);
     border-radius: 5rpx;
 
-    image {
-      width: 35rpx;
-      height: 35rpx;
-    }
-
     .add {
       margin-left: 20rpx;
       font-size: 28rpx;
@@ -153,6 +186,26 @@ const addExcept = () => {
 
     .time {
       font-size: 25rpx;
+    }
+  }
+
+  .image {
+    width: 35rpx;
+    height: 35rpx;
+  }
+
+  .picker-view {
+    width: 750rpx;
+    height: 400rpx;
+    margin-top: 20rpx;
+
+    .item {
+      align-items: center;
+      justify-content: center;
+      height: 300rpx;
+      font-size: 30rpx;
+      color: black;
+      text-align: center;
     }
   }
 }
