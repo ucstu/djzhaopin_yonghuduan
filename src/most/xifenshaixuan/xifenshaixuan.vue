@@ -51,7 +51,7 @@
       </view>
     </scroll-view>
     <view class="justify-center items-center btn-box">
-      <button class="btn-submit" type="submit">确定</button>
+      <button class="btn-submit" type="submit" @click="saveTags">确定</button>
     </view>
   </view>
 </template>
@@ -74,7 +74,7 @@ const checkedSubLabels = ref<subDivisionLabels["subLabels"]>([]);
 
 onMounted(() => {
   getDirectiontags({ positionName: "撒辣椒粉" }).then((res) => {
-    checkedClassifyName.value = res.data.body.map((classify) => {
+    checkedClassifyName.value = res.data.map((classify) => {
       const checkedLabels = classify.subdivisionLabels.map((label) => {
         let checkableLabel = reactive({
           subLabelsName: label,
@@ -88,7 +88,6 @@ onMounted(() => {
         subLabels: checkedLabels,
       };
     });
-    console.log(checkedClassifyName.value);
   });
 });
 
@@ -101,6 +100,11 @@ const checkedInfo = (check: boolean) => {
       mask: true,
     });
   }
+};
+
+const saveTags = () => {
+  uni.$emit("saveTags", checkeds.value);
+  uni.navigateBack();
 };
 </script>
 
@@ -120,7 +124,6 @@ const checkedInfo = (check: boolean) => {
     height: 1240rpx;
 
     .group-top {
-      margin-top: 120rpx;
       margin-left: 20rpx;
       font-size: 30rpx;
       font-weight: 600;

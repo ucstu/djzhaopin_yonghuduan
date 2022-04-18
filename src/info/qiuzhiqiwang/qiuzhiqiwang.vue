@@ -4,19 +4,34 @@
     <view class="group-all">
       <view class="flex-row items-center justify-between group-box">
         <text class="text-title">期望职位</text>
-        <text class="text-right" @click="expectJob">{{ job }}</text>
+        <view class="items-center text-right" @click="expectJob">
+          <text>{{ job }}</text>
+          <image class="image" src="@/static/icons/arrow-right.png" />
+        </view>
       </view>
-      <!-- <view class="flex-row items-center justify-between group-box">
+      <view
+        v-if="directionShow"
+        class="flex-row items-center justify-between group-box"
+      >
         <text class="text-title">细分标签</text>
-        <text class="text-right" @click="directTag">{{ directionTag }}</text>
-      </view> -->
+        <view class="items-center text-right" @click="directTag">
+          <text class="direction">{{ directionTag }}</text>
+          <image class="image" src="@/static/icons/arrow-right.png" />
+        </view>
+      </view>
       <view class="flex-row items-center justify-between group-box">
         <text class="text-title">期望月薪</text>
-        <text class="text-right" @click="expectSalry">{{ salary }}</text>
+        <view class="items-center text-right" @click="expectSalry">
+          <text>{{ salary }}</text>
+          <image class="image" src="@/static/icons/arrow-right.png" />
+        </view>
       </view>
       <view class="flex-row items-center justify-between group-box">
         <text class="text-title">期望城市</text>
-        <text class="text-right" @click="expectCity">{{ city }}</text>
+        <view class="items-center text-right" @click="expectCity">
+          <text>{{ city }}</text>
+          <image class="image" src="@/static/icons/arrow-right.png" />
+        </view>
       </view>
     </view>
     <wybPopup
@@ -43,19 +58,19 @@
       </view>
       <picker-view class="picker-view" @change="salaryChange">
         <picker-view-column>
-          <view v-for="(start, i) in startSalary" :key="i" class="item">{{
-            start
-          }}</view>
+          <view v-for="(start, i) in startSalary" :key="i" class="item"
+            >{{ start }}k</view
+          >
         </picker-view-column>
         <picker-view-column>
-          <view v-for="(end, i) in endSalary" :key="i" class="item">{{
-            end
-          }}</view>
+          <view v-for="(end, i) in endSalary" :key="i" class="item"
+            >{{ end }}k</view
+          >
         </picker-view-column>
       </picker-view>
     </wybPopup>
     <view class="justify-center button-box">
-      <button class="button" @click="saveJobExcept">保存</button>
+      <button class="button" @click="saveJobExcept">{{ saveBtn }}</button>
     </view>
   </view>
 </template>
@@ -64,13 +79,16 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { postUserinfosUserinfoidJobexpectations } from "@/services/services";
-import { onShow } from "@dcloudio/uni-app";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
-const job = ref("请选择 >");
-// const directionTag = ref("请选择 >");
-const salary = ref("请选择 >");
-const city = ref("请选择 >");
+const job = ref("");
+const directionTag = ref("");
+const directionShow = ref(false);
+const salary = ref("");
+const city = ref("");
+const saveBtn = ref("保存");
+const saveOver = ref("完成");
 
 const popup = ref();
 const expectSalry = () => {
@@ -94,33 +112,82 @@ const salaryChange = (e: { detail: { value: never } }) => {
   salary.value = `${startsa.value}k-${endsa.value}k`;
 };
 
-onShow(() => {
+onLoad((e) => {
+  saveBtn.value = e.data;
   uni.$on("liveCity", (e) => {
     city.value = e;
   });
   uni.$on("positiontypes", (e) => {
-    console.log(e);
     job.value = e;
+    if (job.value !== "") {
+      directionShow.value = true;
+    } else {
+      directionShow.value = false;
+    }
+  });
+  uni.$on("saveTags", (e) => {
+    if (e.value !== "") {
+      directionTag.value = "";
+      for (const element of e) {
+        directionTag.value += element + "、";
+      }
+      if (directionTag.value.length > 0) {
+        directionTag.value = directionTag.value.substring(
+          0,
+          directionTag.value.length - 1
+        );
+      }
+    } else {
+      for (const element of e) {
+        directionTag.value += element + "、";
+      }
+      if (directionTag.value.length > 0) {
+        directionTag.value = directionTag.value.substring(
+          0,
+          directionTag.value.length - 1
+        );
+      }
+    }
   });
 });
 
 const saveJobExcept = () => {
-  if (job.value !== "" || salary.value !== "" || city.value !== "") {
-    postUserinfosUserinfoidJobexpectations(
-      { userinfoid: "" },
-      {
-        positionType: "1",
-        // directionTags: directionTag.value,
-        startingSalary: startsa.value,
-        ceilingSalary: endsa.value,
-        city: city.value,
-      }
-    ).then((res) => {
-      console.log(res);
+  if (job.value === "" || salary.value === "" || city.value === "") {
+    uni.showToast({
+      title: "请填写完整信息",
+      icon: "none",
+      duration: 500,
     });
-    uni.navigateBack({
-      delta: 1,
-    });
+  } else if (directionShow.value) {
+    if (directionTag.value === "") {
+      uni.showToast({
+        title: "请填写完整信息",
+        icon: "none",
+        duration: 500,
+      });
+    } else if (saveBtn.value === saveOver.value) {
+      uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+    } else {
+      postUserinfosUserinfoidJobexpectations(
+        { userinfoid: "" },
+        {
+          positionType: "1",
+          directionTags: directionTag.value,
+          startingSalary: startsa.value,
+          ceilingSalary: endsa.value,
+          city: city.value,
+        }
+      )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      uni.navigateBack({
+        delta: 1,
+      });
+    }
   }
 };
 
@@ -156,6 +223,13 @@ const expectCity = () => {
       .text-right {
         padding-right: 20rpx;
         color: rgb(153 153 153);
+
+        .direction {
+          max-width: 300rpx;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
       }
     }
   }
@@ -187,6 +261,11 @@ const expectCity = () => {
       color: #fff;
       background-color: rgb(35 193 158);
     }
+  }
+
+  .image {
+    width: 30rpx;
+    height: 30rpx;
   }
 }
 </style>

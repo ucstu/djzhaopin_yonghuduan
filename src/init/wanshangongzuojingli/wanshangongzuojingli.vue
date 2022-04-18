@@ -151,7 +151,8 @@ const nextClick = () => {
   ).then((res) => {
     console.log(res);
   });
-  uni.navigateTo({ url: "/info/qiuzhiqiwang/qiuzhiqiwang" });
+  let value = "完成";
+  uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=${value}` });
 };
 
 const skip = () => {
