@@ -7,6 +7,7 @@
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303732403472501.png"
           class="photo"
+          @click="chooseImage"
         />
       </view>
       <view class="flex-col group-box">
@@ -67,7 +68,7 @@
       </view>
       <wybPopup
         ref="popup"
-        :show-close-icon="true"
+        :show-close-icon="false"
         :height="400"
         :radius="10"
         mode="size-auto"
@@ -98,10 +99,16 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
+import {
+  getUserinfosUserinfoid,
+  postAvatars,
+  putUserinfosUserinfoid,
+} from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
+import { useStore } from "vuex";
 
-const userInfos = uni.getStorageSync("userInfo");
-const userPhone = uni.getStorageSync("tel");
+const store = useStore(key);
 
 const userName = ref(""); //userInfos.userName
 const phoneNumber = ref(""); //userPhone
@@ -111,19 +118,35 @@ const city = ref("重庆");
 const sexMan = ref("男");
 const sexWo = ref("女");
 const sex = ref("");
+const age = ref();
 
-userName.value = userInfos.userName;
-phoneNumber.value = userPhone;
-email.value = userInfos.email;
-sex.value = userInfos.sex;
 const isActiveMan = ref(false);
 const isActiveWo = ref(false);
 
-if (sex.value === sexMan.value) {
-  isActiveMan.value = true;
-} else if (sex.value === sexWo.value) {
-  isActiveWo.value = true;
-}
+getUserinfosUserinfoid({ userinfoid: "" }).then((res) => {
+  console.log(res.data.body);
+  userName.value = res.data.body.firstName + res.data.body.lastName;
+  phoneNumber.value = res.data.body.phoneNumber;
+  email.value = res.data.body.email;
+  birthday.value = res.data.body.dateOfBirth;
+  sex.value = res.data.body.sex;
+  city.value = res.data.body.city;
+  if (sex.value === sexMan.value) {
+    isActiveMan.value = true;
+  } else if (sex.value === sexWo.value) {
+    isActiveWo.value = true;
+  }
+});
+
+const chooseImage = () => {
+  postAvatars({ avatar: "" })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err.msg);
+    });
+};
 
 // 选择出生日期
 const date = new Date();
@@ -133,7 +156,6 @@ const months = ref<number[]>([]);
 let month = date.getMonth() + 1;
 const days = ref<number[]>([]);
 let day = date.getDate();
-birthday.value = userInfos.birthday;
 const popup = ref();
 const showDate = () => {
   popup.value.show();
@@ -154,11 +176,61 @@ const bindChange = (e: { detail: { value: never } }) => {
   month = months.value[val[1]];
   day = days.value[val[2]];
   birthday.value = year + "-" + month + "-" + day;
+  age.value = date.getFullYear() - year;
+  if (month < date.getMonth() + 1) {
+    age.value--;
+  } else if (month === date.getMonth() + 1) {
+    if (day < date.getDate()) {
+      age.value--;
+    }
+  }
 };
 
 // 本地存储用户基本信息
 const saveInfos = () => {
-  uni.navigateBack({ delta: 1 });
+  if (!userName.value) {
+    uni.showToast({
+      title: "请输入姓名",
+      icon: "none",
+      duration: 500,
+    });
+  } else if (!phoneNumber.value) {
+    uni.showToast({
+      title: "手机不能为空",
+      icon: "none",
+      duration: 500,
+    });
+  } else if (!email.value) {
+    uni.showToast({
+      title: "邮箱不能为空",
+      icon: "none",
+      duration: 500,
+    });
+  } else if (
+    !/^([A-Za-z0-9_\-\.])+\@(163.com|qq.com|42du.cn)$/.test(email.value)
+  ) {
+    uni.showToast({
+      title: "邮箱格式有误",
+      icon: "none",
+      duration: 500,
+    });
+  } else {
+    putUserinfosUserinfoid(
+      { userinfoid: "" },
+      {
+        firstName: userName.value.split(" ")[0],
+        lastName: userName.value.split(" ")[1],
+        phoneNumber: phoneNumber.value,
+        email: email.value,
+        city: city.value,
+        dateOfBirth: birthday.value,
+      }
+    ).then((res) => {
+      store.commit("setUserInfo", res.data.body);
+      console.log(res);
+    });
+    uni.navigateBack({ delta: 1 });
+  }
 };
 </script>
 

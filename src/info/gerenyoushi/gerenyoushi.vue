@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" right="保存" />
+  <NavigationBar class="header" right="保存" @right-click="saveAdvantage" />
   <view class="flex-col page">
     <view class="flex-col group-1">
       <text class="text-title">个人优势</text>
@@ -8,10 +8,10 @@
     <view class="group-2">
       <view class="text-input">
         <textarea
+          v-model="inputValue"
           class="input"
           placeholder="请填写你的特点与优势，或你的求职目标"
           :maxlength="-1"
-          :v-model="inputValue"
         />
       </view>
     </view>
@@ -23,6 +23,12 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { ref } from "vue";
 
 const inputValue = ref("");
+const saveAdvantage = () => {
+  uni.$emit("advantage", inputValue.value);
+  uni.navigateBack({
+    delta: 1,
+  });
+};
 </script>
 
 <style lang="scss" scoped>

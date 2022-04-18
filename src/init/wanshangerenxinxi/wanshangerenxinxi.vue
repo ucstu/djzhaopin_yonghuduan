@@ -164,25 +164,38 @@ const nextClick = () => {
   } else if (isActiveMo.value === true) {
     sex.value = sexMo.value;
   }
-  putUserinfosUserinfoid(
-    { userinfoid: "" },
-    {
-      firstName: firstName,
-      lastName: lastName,
-      dateOfBirth: birthday,
-      sex: sex,
-      city: city,
-      email: emailValue,
-    }
-  )
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
 
-  uni.navigateTo({ url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli" });
+  if (
+    firstName.value === "" ||
+    lastName.value === "" ||
+    city.value === "请选择"
+  ) {
+    uni.showToast({
+      title: "请完善个人信息",
+      icon: "none",
+      duration: 500,
+    });
+  } else {
+    putUserinfosUserinfoid(
+      { userinfoid: "" },
+      {
+        firstName: firstName,
+        lastName: lastName,
+        dateOfBirth: birthday,
+        sex: sex,
+        city: city,
+        email: emailValue,
+      }
+    )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    uni.navigateTo({ url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli" });
+  }
 };
 
 onShow(() => {

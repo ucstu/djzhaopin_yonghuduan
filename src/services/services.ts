@@ -4,35 +4,14 @@
  * @version 5
  */
 
+// @ts-nocheck
+
 import { AxiosRequestConfig } from "axios";
 import { SwaggerResponse } from "./config";
 import { Http } from "./httpRequest";
 import {
-  GetVerificationCodeQueryParams,
-  GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
-  GetAreaInformationsQueryParams,
-  GetCompanyinfosCompanyinfoidDeliveryrecordsQueryParams,
-  DeleteAccountsAccountidQueryParams,
-  GetDirectiontagsQueryParams,
-  PositionInformation,
-  AreaInformations,
-  AttentionRecord,
-  GarnerRecord,
-  PositionTypes,
-  JobExpectation,
-  WorkExperience,
-  CityInformations,
-  UserInformation,
-  AccountInformation,
-  HRInformation,
-  MessageRecord,
-  ProjectExperience,
-  InspectionRecord,
-  CompanyInformation,
-  EducationExperience,
-  DirectionTags,
-  FilterInformation,
-  DeliveryRecord,
+  AccountInformation, AreaInformations, AttentionRecord, CityInformations, CompanyInformation, DeleteAccountsAccountidQueryParams, DeliveryRecord, DirectionTags, EducationExperience, FilterInformation, GarnerRecord, GetAreaInformationsQueryParams, GetCompanyinfosCompanyinfoidDeliveryrecordsQueryParams, GetCompanyinfosCompanyinfoidPositioninfosQueryParams, GetDirectiontagsQueryParams, GetUserinfosUserinfoidDeliveryrecordsQueryParams,
+  GetVerificationCodeQueryParams, HRInformation, InspectionRecord, JobExpectation, MessageRecord, PositionInformation, PositionTypes, ProjectExperience, UserInformation, WorkExperience
 } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -1477,6 +1456,7 @@ export const getUserinfosUserinfoidDeliveryrecords = (
    * 用户信息ID
    */
   userinfoid: string,
+  queryParams: GetUserinfosUserinfoidDeliveryrecordsQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -1508,7 +1488,7 @@ export const getUserinfosUserinfoidDeliveryrecords = (
 > => {
   return Http.getRequest(
     template(getUserinfosUserinfoidDeliveryrecords.key, { userinfoid }),
-    undefined,
+    queryParams,
     undefined,
     undefined,
     overrideConfig(_CONSTANT0, configOverride)

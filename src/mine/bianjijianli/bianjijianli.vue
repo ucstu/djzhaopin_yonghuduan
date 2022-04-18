@@ -9,21 +9,16 @@
               <text
                 class="text-top"
                 style="font-size: 40rpx; font-weight: 600"
-                >{{ userInfos.userName }}</text
+                >{{ userName }}</text
               >
               <image class="image" src="@/static/icons/edit.png" />
             </view>
             <view>
-              <text
-                >{{ education.schoolName }}/{{}}/{{ education.education }}</text
-              >
+              <text style="font-size: 30rpx">{{ age }}岁/{{ education }}</text>
             </view>
           </view>
           <view class="image-box">
-            <image
-              src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303732403472501.png"
-              class="photo"
-            />
+            <image :src="avatar" class="photo" />
             <image v-if="true" class="sex-image" src="@/static/icons/man.png" />
             <image
               v-if="false"
@@ -64,8 +59,8 @@
             @click="addAdvantage"
           />
         </view>
-        <view>
-          <text style="font-size: 30rpx">{{ personalAdvantage }}</text>
+        <view class="advantage-box">
+          <text>{{ personalAdvantage }}</text>
         </view>
       </view>
       <view class="group-box">
@@ -132,7 +127,17 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { onLoad } from "@dcloudio/uni-app";
+import { key } from "@/stores";
 import { reactive, ref } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore(key);
+
+const avatar = store.state.userInfo.avatar;
+const userName = store.state.userInfo.firstName + store.state.userInfo.lastName;
+const age = store.state.userInfo.age;
+const education = store.state.userInfo.education;
 
 const jobExpectations = reactive([
   {
@@ -180,16 +185,13 @@ const projectExperiences = reactive([
   { project: "LOL", date: "2020.02-2021.06", work: "完成召唤兽" },
   { project: "LOL", date: "2020.02-2021.06", work: "完成召唤兽" },
 ]);
-const personalAdvantage = ref(
-  "能吃苦，能加班，身体挺好！啊考了几分卢卡斯就看浪费时间分厘卡机"
-);
+const personalAdvantage = ref("");
 
-const userInfos = uni.getStorageSync("userInfo");
-const education = uni.getStorageSync("education");
-console.log(userInfos);
-const date = new Date();
-const year = date.getFullYear();
-console.log(year);
+onLoad(() => {
+  uni.$on("advantage", (e) => {
+    personalAdvantage.value = e;
+  });
+});
 
 const changeInfo = () => {
   uni.navigateTo({ url: "/info/gerenxinxi/gerenxinxi" });
@@ -259,6 +261,16 @@ const addProject = () => {
 
       .group-info-box {
         height: 100rpx;
+      }
+
+      .advantage-box {
+        width: 100%;
+        max-height: 80rpx;
+        overflow: hidden;
+        font-size: 30rpx;
+        line-height: 40rpx;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .experience-box {
