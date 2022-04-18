@@ -11,6 +11,7 @@
         v-for="(jobExpectation, i) in jobExpectations"
         :key="i"
         class="justify-between items-center job-expects"
+        @click="jobExpectationClick(i)"
       >
         <view>
           <text class="job-name">{{ jobExpectation.name }}</text>
@@ -87,6 +88,14 @@ getUserinfosUserinfoidJobexpectations({ userinfoid: "" }).then((res) => {
   jobExpectations.value = res.data.body;
   console.log(jobExpectations.value);
 });
+
+const jobExpectationClick = (index: number) => {
+  let value = true;
+  let jobId = jobExpectations.value[index].jobExpectationId;
+  uni.navigateTo({
+    url: `/info/qiuzhiqiwang/qiuzhiqiwang?id=` + jobId + `&data=` + value,
+  });
+};
 
 const addExcept = () => {
   let value = true;

@@ -78,7 +78,10 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { postUserinfosUserinfoidJobexpectations } from "@/services/services";
+import {
+  postUserinfosUserinfoidJobexpectations,
+  getUserinfosUserinfoidJobexpectationsJobexpectationid,
+} from "@/services/services";
 import { onLoad } from "@dcloudio/uni-app";
 import { key } from "@/stores";
 import { ref } from "vue";
@@ -94,6 +97,7 @@ const salary = ref("");
 const city = ref("");
 const saveBtn = ref("保存");
 const saveOver = ref("完成");
+const jobId = ref("");
 
 const popup = ref();
 const expectSalry = () => {
@@ -118,10 +122,22 @@ const salaryChange = (e: { detail: { value: never } }) => {
 };
 
 onLoad((e) => {
+  jobId.value = e.id;
   if (e.data === "true") {
     saveBtn.value = "保存";
   } else {
     saveBtn.value = "完成";
+  }
+  if (jobId.value !== undefined) {
+    getUserinfosUserinfoidJobexpectationsJobexpectationid({
+      userinfoid: "",
+      jobexpectationid: jobId.value,
+    }).then((res) => {
+      salary.value =
+        res.data.body.startingSalary + "k-" + res.data.body.ceilingSalary + "k";
+      city.value = res.data.body.city;
+      console.log(res.data.body);
+    });
   }
   uni.$on("liveCity", (e) => {
     city.value = e;
@@ -135,8 +151,6 @@ onLoad((e) => {
     }
   });
   uni.$on("saveTags", (e) => {
-    console.log(e);
-
     if (e.length !== 0) {
       directionTag.value = "";
       directionTags.value.length = 0;
@@ -161,7 +175,6 @@ onLoad((e) => {
         );
       }
     }
-    console.log(directionTags.value);
   });
 });
 
