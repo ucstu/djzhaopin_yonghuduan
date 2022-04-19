@@ -65,15 +65,18 @@
               class="image-6" />
           </view>
           <view class="flex-col list-1">
-            <JobDetail
-              v-for="(jobDetail, i) in jobDetails" :key="i" class="list-item-1" :job-detail="jobDetail"
-              @click="view_4OnClick" />
+            <view @click="view_4OnClick">
+              <JobDetail
+              v-for="(jobDetail, i) in jobDetails" :key="i" class="list-item-1" :job-detail="jobDetail"></JobDetail>
+            </view>
           </view>
 </view>
 </template>
 
 <script lang="ts" setup>
 import JobDetail from '@/components/JobDetail/JobDetail.vue';
+import CompanyDetail from '@/components/CompanyDetail/CompanyDetail.vue';
+import { getCompanyinfosCompanyinfoidPositioninfos,getCompanyinfos } from "@/services/services";
 import { key } from '@/stores';
 import { reactive, ref } from 'vue';
 import { useStore } from 'vuex';
@@ -91,22 +94,22 @@ const navigationBarWidth = store.state.menuButtonInfo!.left - uni.upx2px(30)
 const expectationWidth = store.state.menuButtonInfo!.left - uni.upx2px(170)
 /* #endif */
 
-const jobDetails = reactive([
-  {
-    name: '前端开发实习生',
-    areaAndRequirements: '江北区 | 在校/应届',
-    educationalRequirements: '本科',
-    directionOne: '后台开发',
-    directionTwo: 'JAVA开发',
-    companyLogoAddress:
-      'https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528765002666348.png',
-    companyName: '字节跳动',
-    companyInfo: 'D轮及以上 | 2000人以上 | 内容资讯',
-    salary: '4K - 8K',
-    releaseDate: '2月28日',
-  },
+const jobDetails = ref<any>([
 ])
+getCompanyinfosCompanyinfoidPositioninfos(
+  {companyinfoid: "aaaaa"},
+  {positioninfoid: "bbbbb"}
+).then((res) => {
+  jobDetails.value = res.data.body
 
+})
+
+const companyDetails = ref<any>([])
+getCompanyinfos().then((res) => {
+  companyDetails.value = res.data.body
+  console.log(res.data.body);
+
+})
 
 const expects = reactive([
   { name: '前端工程师' },
@@ -243,6 +246,10 @@ const view_4OnClick = () => {
 
     .list-item-1 {
       margin-top: 20rpx;
+    }
+
+    .list-item-2 {
+      margin-top: 10rpx;
     }
   }
 

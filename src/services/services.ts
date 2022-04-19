@@ -4,18 +4,36 @@
  * @version 5
  */
 
-// @ts-nocheck
-
 import { AxiosRequestConfig } from "axios";
 import { SwaggerResponse } from "./config";
 import { Http } from "./httpRequest";
 import {
-  AccountInformation, AreaInformations,
-  AttentionRecord, CityInformations, CompanyInformation, DeleteAccountsAccountidQueryParams, DeliveryRecord, DirectionTags, EducationExperience, FilterInformation,
-  GarnerRecord, GetAreaInformationsQueryParams, GetCompanyinfosCompanyinfoidDeliveryrecordsQueryParams, GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
+  DeleteAccountsAccountidQueryParams,
+  GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
   GetDirectiontagsQueryParams,
-  GetUserinfosUserinfoidDeliveryrecordsQueryParams, GetVerificationCodeQueryParams, HRInformation,
-  InspectionRecord, JobExpectation, MessageRecord, PositionInformation, PositionTypes, ProjectExperience, UserInformation, WorkExperience
+  GetUserinfosUserinfoidDeliveryrecordsQueryParams,
+  GetCompanyinfosCompanyinfoidDeliveryrecordsQueryParams,
+  GetVerificationCodeQueryParams,
+  GetAreaInformationsQueryParams,
+  CityInformations,
+  JobExpectation,
+  HRInformation,
+  InspectionRecord,
+  DirectionTags,
+  AreaInformations,
+  AttentionRecord,
+  EducationExperience,
+  DeliveryRecord,
+  PositionInformation,
+  WorkExperience,
+  UserInformation,
+  FilterInformation,
+  GarnerRecord,
+  ProjectExperience,
+  AccountInformation,
+  CompanyInformation,
+  MessageRecord,
+  PositionTypes,
 } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
