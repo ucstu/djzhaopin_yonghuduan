@@ -44,10 +44,15 @@
         <text class="text-title">项目链接</text>
         <input class="text-input" type="text" placeholder="请填写(选填)" />
       </view>
-      <view class="justify-center group-button">
-        <view class="justify-center items-center button-box">
-          <text>保存</text>
-        </view>
+    </view>
+    <view class="justify-center group-button">
+      <view>
+        <button
+          class="justify-center items-center button-box"
+          @click="saveProjectExperience"
+        >
+          保存
+        </button>
       </view>
     </view>
     <WybPopup
@@ -126,6 +131,8 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import WybPopup from "@/components/wyb-popup/wyb-popup.vue";
+import { postUserinfosUserinfoidProjectexperiences } from "@/services/services";
 import { ref } from "vue";
 
 const projectName = ref("");
@@ -164,6 +171,31 @@ const bindChange = (e: { detail: { value: never } }) => {
     overTime.value = `${year}年${month}月`;
   }
 };
+
+const saveProjectExperience = () => {
+  if (!projectName.value || !projectDescribe.value || !achievement.value) {
+    uni.showToast({
+      title: "请填写完整信息",
+      icon: "none",
+      duration: 500,
+    });
+  } else if (startTime.value === "开始时间" || overTime.value === "结束时间") {
+    uni.showToast({
+      title: "请选择项目时间",
+      icon: "none",
+      duration: 500,
+    });
+  } else {
+    postUserinfosUserinfoidProjectexperiences()
+      .then((res) => {
+        console.log(res.data.body);
+      })
+      .catch((err) => {
+        console.log(err.msg);
+      });
+    uni.navigateBack({ delta: 1 });
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -175,7 +207,6 @@ const bindChange = (e: { detail: { value: never } }) => {
   .group-all {
     width: 710rpx;
     height: auto;
-    margin-top: 120rpx;
     margin-left: 20rpx;
 
     .group-box {
@@ -196,20 +227,20 @@ const bindChange = (e: { detail: { value: never } }) => {
         font-size: 28rpx;
       }
     }
+  }
 
-    .group-button {
-      position: fixed;
-      bottom: 40rpx;
-      width: 100%;
-      height: 80rpx;
+  .group-button {
+    position: fixed;
+    bottom: 40rpx;
+    width: 100%;
+    height: 80rpx;
 
-      .button-box {
-        width: 500rpx;
-        font-size: 30rpx;
-        color: #fff;
-        background-color: rgb(35 193 158);
-        border-radius: 10rpx;
-      }
+    .button-box {
+      width: 600rpx;
+      font-size: 30rpx;
+      color: #fff;
+      background-color: rgb(35 193 158);
+      border-radius: 10rpx;
     }
   }
 
