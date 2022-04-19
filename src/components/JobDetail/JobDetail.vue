@@ -17,13 +17,13 @@
           </view>
         </view>
       </view>
-      <view class="flex-row company-infos">
+      <!-- <view class="flex-row company-infos">
         <image class="company-logo" :src="jobDetail!.companyLogoAddress" />
         <view class="flex-col name-info">
           <text class="company-name">{{ jobDetail!.companyName }}</text>
           <text class="company-info">{{ jobDetail!.companyInfo }}</text>
         </view>
-      </view>
+      </view> -->
     </view>
     <view class="flex-col items-end group-2">
       <text class="salary"
@@ -48,6 +48,9 @@ const rootViewOnClick = () => {
 
 <style lang="scss" scoped>
 .border {
+  margin-top: 20rpx;
+  border-bottom: 1px solid rgb(235 235 235);
+
   .group-1 {
     width: 550rpx;
 

@@ -1,9 +1,9 @@
 <template>
   <SearchBar></SearchBar>
   <view class="page">
-    <view class="justify-between group-1">
+    <view class="justify-between group-1" @click="searchType">
       <text class="text-3">按职位类型搜索</text>
-      <view class="flex-row group-2" @click="text_2OnClick">
+      <view class="flex-row group-2">
         <text>技术</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254581114841.png"
@@ -57,28 +57,6 @@ const popularPositions = reactive([
   { name: "项目经理" },
   { name: "项目助理" },
   { name: "项目主管" },
-  { name: "项目总监" },
-  { name: "项目经理" },
-  { name: "项目助理" },
-  { name: "项目主管" },
-  { name: "项目总监" },
-  { name: "项目经理" },
-  { name: "项目助理" },
-  { name: "项目主管" },
-  { name: "项目总监" },
-  { name: "项目经理" },
-  { name: "项目助理" },
-  { name: "项目主管" },
-  { name: "项目总监" },
-  { name: "项目经理" },
-  { name: "项目助理" },
-  { name: "项目主管" },
-  { name: "项目总监" },
-  { name: "项目经理" },
-  { name: "项目助理" },
-  { name: "项目主管" },
-  { name: "项目总监" },
-  { name: "项目经理" },
 ]);
 const popularCompanies = reactive([
   { name: "字节跳动" },
@@ -92,8 +70,9 @@ const popularCompanies = reactive([
   { name: "安居客" },
   { name: "小米集团" },
 ]);
-const text_2OnClick = () => {
-  uni.navigateTo({ url: "/common/zhiweileixing/zhiweileixing" });
+const searchType = () => {
+  let value = true;
+  uni.navigateTo({ url: `/most/zhiweileixing/zhiweileixing?value=` + value });
 };
 const view_9OnClick = () => {
   uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei" });

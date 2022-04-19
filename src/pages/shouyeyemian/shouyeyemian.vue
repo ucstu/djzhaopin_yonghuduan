@@ -248,9 +248,6 @@ const view_4OnClick = () => {
       margin-top: 20rpx;
     }
 
-    .list-item-2 {
-      margin-top: 10rpx;
-    }
   }
 
   .footer {

@@ -76,6 +76,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
+import { onLoad } from "@dcloudio/uni-app";
 import { getPositiontypes } from "@/services/services";
 import { PositionTypes } from "@/services/types";
 import { computed, nextTick, onMounted, reactive, ref } from "vue";
@@ -126,14 +127,23 @@ const filteredPositionNames = computed(() => {
   }
   return result;
 });
+const value = ref();
+onLoad((e) => {
+  value.value = e.value;
+});
 
 const positiontypes = (index: number) => {
   activePositionIndex.value = index;
   uni.$emit("positiontypes", positions.value[index]);
-  uni.navigateBack({
-    delta: 1,
-  });
+  if (value.value) {
+    uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei" });
+  } else {
+    uni.navigateBack({
+      delta: 1,
+    });
+  }
 };
+
 const marTop = ref(0);
 
 onMounted(() => {

@@ -1,12 +1,9 @@
 <template>
   <view class="flex-col component">
-    <JobDetail
-      :job-detail="collectionPosition!.jobDetail"
-      @click="view_4OnClick"
-    />
+    <JobDetail :job-detail="collectionPosition" @click="view_4OnClick" />
     <view class="flex-row group-8">
       <view class="flex-col items-center text-wrapper-2">
-        <test>{{ collectionPosition!.left }}</test>
+        <test>{{ sendType }}</test>
       </view>
       <view class="flex-col items-center image-wrapper" @click="view_11OnClick">
         <text>联系HR</text>
@@ -21,6 +18,9 @@ import JobDetail from "@/components/JobDetail/JobDetail.vue";
 defineProps({
   collectionPosition: {
     type: Object,
+  },
+  sendType: {
+    type: String,
   },
 });
 
