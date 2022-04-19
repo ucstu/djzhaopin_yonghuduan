@@ -10,7 +10,11 @@
         'px'
       "
     >
-      <image class="image-left" src="@/static/icons/arrow-left-bold.png" />
+      <image
+        class="image-left"
+        src="@/static/icons/arrow-left-bold.png"
+        @click="goBack"
+      />
       <view class="flex-col top-title">
         <text class="justify-center text-top">{{ personnelName }}</text>
         <text class="text-bottom">{{ companyAndJob }}</text>
@@ -43,7 +47,7 @@ const store = useStore(key);
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
 
-const navigationBarTop = store.state.menuButtonInfo.top;
+const navigationBarTop = store.state.menuButtonInfo?.top;
 
 const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(30);
 
@@ -51,6 +55,12 @@ const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(30);
 
 const personnelName = ref("张三");
 const companyAndJob = ref("字节跳动 · 人事总监");
+
+const goBack = () => {
+  uni.navigateBack({
+    delta: 1,
+  });
+};
 </script>
 
 <style lang="scss" scoped>

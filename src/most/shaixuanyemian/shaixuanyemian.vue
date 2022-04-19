@@ -2,7 +2,7 @@
   <NavigationBar class="group" title="筛选" />
   <view class="flex-col page">
     <scroll-view class="flex-col search" :scroll-y="true">
-      <view class="flex-col expected_salary">
+      <view class="flex-col expected-salary">
         <text class="salary">期望薪资</text>
         <view class="flex-row expects">
           <view
@@ -15,7 +15,7 @@
           >
         </view>
       </view>
-      <view class="flex-col work_experience">
+      <view class="flex-col work-experience">
         <text class="experience">工作经验</text>
         <view class="flex-row works">
           <view
@@ -28,7 +28,7 @@
           >
         </view>
       </view>
-      <view class="flex-col degree_require">
+      <view class="flex-col degree-require">
         <text class="degree">学历</text>
         <view class="flex-row requires">
           <view
@@ -41,7 +41,7 @@
           >
         </view>
       </view>
-      <view class="flex-col job_nature">
+      <view class="flex-col job-nature">
         <text class="job">工作性质</text>
         <view class="flex-row natures">
           <view
@@ -54,7 +54,7 @@
           >
         </view>
       </view>
-      <view class="flex-col company_size">
+      <view class="flex-col company-size">
         <text class="company">公司规模</text>
         <view class="flex-row sizes">
           <view
@@ -67,7 +67,7 @@
           >
         </view>
       </view>
-      <view class="flex-col finance_stage">
+      <view class="flex-col finance-stage">
         <text class="finance">融资阶段</text>
         <view class="flex-row stages">
           <view
@@ -80,7 +80,7 @@
           >
         </view>
       </view>
-      <view class="flex-col industry_sector">
+      <view class="flex-col industry-sector">
         <text class="industry">行业领域</text>
         <view class="flex-row sectors">
           <view
@@ -102,7 +102,10 @@
       >
         <text>重置</text>
       </view>
-      <view class="flex-col items-center justify-center identify">
+      <view
+        class="flex-col items-center justify-center identify"
+        @click="saveScreen"
+      >
         <text>确定</text>
       </view>
     </view>
@@ -114,13 +117,13 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getFilterinfos } from "@/services/services";
 import { ref } from "vue";
 
-const expectedSalaries = ref([]);
-const workExperiences = ref([]);
-const degreeRequires = ref([]);
-const jobNatures = ref([]);
-const companySizes = ref([]);
-const financeStages = ref([]);
-const industrySectors = ref([]);
+const expectedSalaries = ref<any>([]);
+const workExperiences = ref<any>([]);
+const degreeRequires = ref<any>([]);
+const jobNatures = ref<any>([]);
+const companySizes = ref<any>([]);
+const financeStages = ref<any>([]);
+const industrySectors = ref<any>([]);
 
 getFilterinfos().then((res) => {
   expectedSalaries.value.splice(
@@ -141,7 +144,7 @@ getFilterinfos().then((res) => {
   jobNatures.value.splice(
     0,
     jobNatures.value.length,
-    ...res.data.body.NatureWork
+    ...res.data.body.natureWork
   );
   companySizes.value.splice(
     0,
@@ -240,6 +243,7 @@ const activeSectorOf = (index: number) => {
   }
 };
 
+// 重置
 const replacement = () => {
   activeSalary.value = "";
   activeExpect.value.length = 0;
@@ -248,6 +252,10 @@ const replacement = () => {
   activeSize.value.length = 0;
   activeStage.value.length = 0;
   activeSector.value.length = 0;
+};
+
+const saveScreen = () => {
+  uni.navigateBack({ delta: 1 });
 };
 </script>
 
@@ -273,7 +281,7 @@ const replacement = () => {
     margin-left: 15rpx;
     overflow: hidden;
 
-    .expected_salary {
+    .expected-salary {
       margin-top: 20rpx;
 
       .salary {
@@ -295,7 +303,7 @@ const replacement = () => {
       }
     }
 
-    .work_experience {
+    .work-experience {
       margin-top: 20rpx;
 
       .experience {
@@ -317,7 +325,7 @@ const replacement = () => {
       }
     }
 
-    .degree_require {
+    .degree-require {
       margin-top: 20rpx;
 
       .degree {
@@ -339,7 +347,7 @@ const replacement = () => {
       }
     }
 
-    .job_nature {
+    .job-nature {
       margin-top: 20rpx;
 
       .job {
@@ -351,17 +359,19 @@ const replacement = () => {
         flex-wrap: wrap;
 
         .nature {
+          flex-wrap: wrap;
           width: 220rpx;
           height: 70rpx;
           margin: 10rpx;
           font-size: 30rpx;
+          text-align: center;
           background-color: rgb(229 229 229);
           border-radius: 5rpx;
         }
       }
     }
 
-    .company_size {
+    .company-size {
       margin-top: 20rpx;
 
       .company {
@@ -383,7 +393,7 @@ const replacement = () => {
       }
     }
 
-    .finance_stage {
+    .finance-stage {
       margin-top: 20rpx;
 
       .finance {
@@ -405,7 +415,7 @@ const replacement = () => {
       }
     }
 
-    .industry_sector {
+    .industry-sector {
       margin-top: 20rpx;
 
       .industry {
