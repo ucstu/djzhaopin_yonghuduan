@@ -4,9 +4,9 @@
       <view class="flex-row user-infos" @click="toSelfInfo">
         <image class="avatar" :src="userInfos.avatar" />
         <view class="flex-col user-info">
-          <text class="name">{{ userInfo.userName }}</text>
+          <text class="name">{{ fullName }}</text>
           <text class="age-educate"
-            >{{ userInfos.age }}/{{ userInfos.education }}</text
+            >{{ userInfos.age }}岁/{{ userInfos.education }}</text
           >
         </view>
       </view>
@@ -92,10 +92,8 @@ import { computed, ref } from "vue";
 let userInfos = ref<UserInformation>({});
 getUserinfosUserinfoid().then((res) => {
   userInfos.value = res.data.body;
+  console.log(userInfos.value);
 });
-
-const userInfo = uni.getStorageSync("userInfo");
-console.log(userInfo);
 
 const fullName = computed(() => {
   return userInfos.value.firstName + userInfos.value.lastName;
