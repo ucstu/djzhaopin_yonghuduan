@@ -64,7 +64,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getVerificationCode, putAccounts0 } from "@/services/services";
+import { getVerificationCode, putAccountsForget } from "@/services/services";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
 
@@ -122,8 +122,8 @@ const registeredAccount = () => {
       duration: 500,
     });
   } else {
-    putAccounts0({
-      phoneNumber: phoneNum.value,
+    putAccountsForget({
+      userName: phoneNum.value,
       verificationCode: verification.value,
       password: passwordNew.value,
     })

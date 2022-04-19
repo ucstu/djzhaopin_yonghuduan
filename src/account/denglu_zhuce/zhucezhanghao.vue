@@ -133,7 +133,7 @@ const registeredAccount = () => {
     });
   } else {
     postAccounts({
-      phoneNumber: phoneNum.value,
+      userName: phoneNum.value,
       verificationCode: verification.value,
       accountType: "1",
       password: password.value,

@@ -50,10 +50,10 @@
 </template>
 
 <script lang="ts" setup>
-import { putAccounts } from "@/services/services";
-import { failResponseHandler } from "@/utils/handler";
+import { postAccountsLogin } from "@/services/services";
 import { key } from "@/stores";
 import { throttle } from "@/utils/common";
+import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -83,8 +83,8 @@ const login = () => {
       mask: true,
     });
   } else {
-    putAccounts({
-      phoneNumber: phoneNum.value,
+    postAccountsLogin({
+      userName: phoneNum.value,
       password: password.value,
     })
       .then((res) => {

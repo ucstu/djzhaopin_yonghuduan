@@ -140,10 +140,11 @@ import { useStore } from "vuex";
 
 const store = useStore(key);
 
-// const avatar = store.state.userInfo.avatar; // 头像
-const userName = store.state.userInfo.firstName + store.state.userInfo.lastName; // 姓名
-const age = store.state.userInfo.age; // 年龄
-const education = store.state.userInfo.education; // 学历
+const avatar = store.state.userInfo?.avatar; // 头像
+const userName =
+  store.state.userInfo?.firstName + store.state.userInfo?.lastName; // 姓名
+const age = store.state.userInfo?.age; // 年龄
+const education = store.state.userInfo?.education; // 学历
 
 // 求职期望
 const jobExpectations = ref([
@@ -163,7 +164,7 @@ const jobExpectations = ref([
   },
 ]);
 // 工作经历
-const workExperiences = ref([]);
+const workExperiences = ref<any>([]);
 // 教育经历
 const educationExperiences = ref([
   {
@@ -194,12 +195,12 @@ onLoad(() => {
 
 // 查询所有工作经历
 getUserinfosUserinfoidWorkexperiences({
-  userinfoid: store.state.accountInfo.userInfoId,
+  userinfoid: store.state.accountInfo?.userInfoId,
 }).then((res) => {
   workExperiences.value = res.data.body;
 });
 // 查看、修改、删除工作经历
-const alterWork = (index) => {
+const alterWork = (index: number) => {
   let workId = workExperiences.value[index].workExperienceId;
   uni.navigateTo({
     url: "/info/gongzuojingli/gongzuojingli?workId=" + workId,

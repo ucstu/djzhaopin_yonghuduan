@@ -180,7 +180,7 @@ const nextClick = () => {
     });
   } else {
     putUserinfosUserinfoid(
-      { userinfoid: store.state.accountInfo.userInfoId },
+      { userinfoid: store.state.accountInfo?.userInfoId },
       {
         firstName: firstName.value,
         lastName: lastName.value,

@@ -109,6 +109,7 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
+console.log(store.state.accountInfo?.userInfoId);
 
 const userName = ref(""); //userInfos.userName
 const phoneNumber = ref(""); //userPhone
@@ -123,8 +124,9 @@ const age = ref();
 const isActiveMan = ref(false);
 const isActiveWo = ref(false);
 
-getUserinfosUserinfoid({ userinfoid: "" }).then((res) => {
-  console.log(res.data.body);
+getUserinfosUserinfoid({
+  userinfoid: store.state.accountInfo?.userInfoId,
+}).then((res) => {
   userName.value = res.data.body.firstName + res.data.body.lastName;
   phoneNumber.value = res.data.body.phoneNumber;
   email.value = res.data.body.email;

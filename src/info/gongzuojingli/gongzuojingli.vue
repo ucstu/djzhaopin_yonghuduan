@@ -53,7 +53,12 @@
         </view>
       </view>
       <view class="group-box">
-        <text class="text-title">职位类型</text>
+        <view>
+          <text class="text-title">职位类型</text>
+          <text style="font-size: 28rpx; color: gray"
+            >(全职、兼职、实习、其他)</text
+          >
+        </view>
         <input
           v-model="companyPosition"
           class="text-input"
@@ -147,10 +152,10 @@ onLoad((e) => {
   let workId = e.workId; // 工作经历id
   /* 查询工作经历 */
   if (workId !== undefined) {
-    getUserinfosUserinfoidWorkexperiencesWorkexperienceid({
-      userinfoid: store.state.accountInfo.userInfoId,
-      workexperienceid: workId,
-    }).then((res) => {
+    getUserinfosUserinfoidWorkexperiencesWorkexperienceid(
+      { userinfoid: store.state.accountInfo.userInfoId },
+      { workexperienceid: workId }
+    ).then((res) => {
       companyName.value = res.data.body.corporateName;
       companyIndustry.value = res.data.body.companyIndustry;
       companyStartTime.value = res.data.body.startTime;

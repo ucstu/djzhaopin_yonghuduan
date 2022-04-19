@@ -35,11 +35,14 @@
           }}</view>
         </view>
       </view>
-      <view class="justify-center group-button">
-        <view class="justify-center items-center button-box">
-          <text>保存</text>
-        </view>
-      </view>
+    </view>
+    <view class="justify-center group-button">
+      <button
+        class="justify-center items-center button-box"
+        @click="saveEducation"
+      >
+        保存
+      </button>
     </view>
     <WybPopup
       ref="popup"
@@ -125,13 +128,18 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import WybPopup from "@/components/wyb-popup/wyb-popup.vue";
+import { postUserinfosUserinfoidEduexperiences } from "@/services/services";
 import { ref } from "vue";
+import { key } from "@/stores";
+import { useStore } from "vuex";
 
-const schoolName = ref("");
-const education = ref("请选择");
-const subject = ref("");
-const startTime = ref("入学时间");
-const overTime = ref("结束时间");
+const store = useStore(key);
+
+const schoolName = ref(""); // 学校名称
+const education = ref("请选择"); // 学历
+const subject = ref(""); // 专业名称
+const startTime = ref("入学时间"); // 入学时间
+const overTime = ref("结束时间"); // 毕业时间
 const educations = ref([
   "初中",
   "高中",
@@ -142,19 +150,22 @@ const educations = ref([
   "博士",
 ]);
 
-const start = ref(true);
+const start = ref(false);
 const end = ref(false);
 const educate = ref(false);
-
 const popup = ref();
+// 选择学历
 const showEducate = () => {
   educate.value = true;
   start.value = false;
+  end.value = false;
   popup.value.show();
 };
+// 选择在校时间
 const showSchool = () => {
   educate.value = false;
   start.value = true;
+  end.value = false;
   popup.value.show();
 };
 const date = new Date();
@@ -182,6 +193,46 @@ const bindChange = (e: { detail: { value: never } }) => {
     education.value = educations.value[val[0]];
   }
 };
+
+const saveEducation = () => {
+  if (!schoolName.value || !subject.value) {
+    uni.showToast({
+      title: "请填写完整信息",
+      icon: "none",
+      duration: 500,
+    });
+  } else if (startTime.value === "入学时间" || overTime.value === "结束时间") {
+    uni.showToast({
+      title: "请选择在校时间",
+      icon: "none",
+      duration: 500,
+    });
+  } else if (education.value === "请选择") {
+    uni.showToast({
+      title: "请选择学历",
+      icon: "none",
+      duration: 500,
+    });
+  } else {
+    postUserinfosUserinfoidEduexperiences(
+      { userinfoid: store.state.accountInfo?.userInfoId },
+      {
+        schoolName: schoolName.value,
+        education: education.value,
+        major: subject.value,
+        admissionTime: startTime.value,
+        araduationTime: overTime.value,
+      }
+    )
+      .then((res) => {
+        console.log(res.data.body);
+      })
+      .catch((err) => {
+        console.log(err.msg);
+      });
+    uni.navigateBack({ delta: 1 });
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -193,7 +244,6 @@ const bindChange = (e: { detail: { value: never } }) => {
   .group-all {
     width: 710rpx;
     height: auto;
-    margin-top: 120rpx;
     margin-left: 20rpx;
 
     .group-box {
@@ -219,20 +269,20 @@ const bindChange = (e: { detail: { value: never } }) => {
         font-size: 28rpx;
       }
     }
+  }
 
-    .group-button {
-      position: fixed;
-      bottom: 40rpx;
-      width: 100%;
-      height: 80rpx;
+  .group-button {
+    position: fixed;
+    bottom: 40rpx;
+    width: 100%;
+    height: 80rpx;
 
-      .button-box {
-        width: 500rpx;
-        font-size: 30rpx;
-        color: #fff;
-        background-color: rgb(35 193 158);
-        border-radius: 10rpx;
-      }
+    .button-box {
+      width: 500rpx;
+      font-size: 30rpx;
+      color: #fff;
+      background-color: rgb(35 193 158);
+      border-radius: 10rpx;
     }
   }
 
