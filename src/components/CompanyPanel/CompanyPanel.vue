@@ -3,13 +3,10 @@
     <CompanyDetail :company-detail="attentionCompany" @click="view_4OnClick" />
     <view class="flex-row group-4">
       <view class="flex-col items-center text-wrapper-1">
-        <text>{{ func }}</text>
+        <text>{{ sendType }}</text>
       </view>
       <view class="flex-col items-center image-wrapper" @click="view_10OnClick">
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303739866250431.png"
-          class="image-1"
-        />
+        <text style="color: rgb(35 193 158)">联系HR</text>
       </view>
     </view>
   </view>
@@ -21,6 +18,9 @@ import { ref } from "vue";
 defineProps({
   attentionCompany: {
     type: Object,
+  },
+  sendType: {
+    type: String,
   },
 });
 const func = ref("取消关注");
@@ -61,11 +61,6 @@ const view_10OnClick = () => {
       padding: 21rpx 0 17rpx;
       overflow: hidden;
       border: solid 2rpx rgb(229 229 229);
-
-      .image-1 {
-        width: 91rpx;
-        height: 33rpx;
-      }
     }
   }
 }
