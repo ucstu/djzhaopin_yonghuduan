@@ -41,7 +41,7 @@ const view_11OnClick = () => {
   border-radius: 5rpx;
 
   .group-8 {
-    margin-top: 20rpx;
+    margin-top: 50rpx;
     font-size: 25rpx;
     line-height: 23rpx;
     color: rgb(163 154 154);
