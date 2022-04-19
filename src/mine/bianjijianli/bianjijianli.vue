@@ -76,11 +76,16 @@
           v-for="(workExperience, i) in workExperiences"
           :key="i"
           class="flex-col experience-box"
+          @click="alterWork(i)"
         >
-          <text class="experience-company">{{ workExperience.company }}</text>
-          <text>{{ workExperience.direction }}</text>
-          <text>{{ workExperience.date }}</text>
-          <text class="experience-work">{{ workExperience.work }}</text>
+          <text class="experience-company">{{
+            workExperience.corporateName
+          }}</text>
+          <text>{{ workExperience.positionName }}</text>
+          <text
+            >{{ workExperience.startTime }}~{{ workExperience.endTime }}</text
+          >
+          <text class="experience-work">{{ workExperience.jobContent }}</text>
         </view>
       </view>
       <view class="group-box">
@@ -127,19 +132,21 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { onLoad } from "@dcloudio/uni-app";
+import { getUserinfosUserinfoidWorkexperiences } from "@/services/services";
 import { key } from "@/stores";
-import { reactive, ref } from "vue";
+import { onLoad } from "@dcloudio/uni-app";
+import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const avatar = store.state.userInfo.avatar;
-const userName = store.state.userInfo.firstName + store.state.userInfo.lastName;
-const age = store.state.userInfo.age;
-const education = store.state.userInfo.education;
+// const avatar = store.state.userInfo.avatar; // 头像
+const userName = store.state.userInfo.firstName + store.state.userInfo.lastName; // 姓名
+const age = store.state.userInfo.age; // 年龄
+const education = store.state.userInfo.education; // 学历
 
-const jobExpectations = reactive([
+// 求职期望
+const jobExpectations = ref([
   {
     name: "前段工程师",
     salary: "8K-9K",
@@ -155,21 +162,10 @@ const jobExpectations = reactive([
     entryTime: "3个月内入职",
   },
 ]);
-const workExperiences = reactive([
-  {
-    company: "命通科技",
-    direction: "后端工程师",
-    work: "开发后台",
-    date: "2020.03 - 2021.03",
-  },
-  {
-    company: "小而美科技",
-    direction: "前端工程师",
-    work: "小程序开发拉萨解放克拉斯分厘卡时空裂缝经济拉萨解放了看爱上尽快立法就阿里山可见度克里夫尽快拉萨机的风口浪尖ask来得及发考了几分考虑",
-    date: "2020.03 - 2021.03",
-  },
-]);
-const educationExperiences = reactive([
+// 工作经历
+const workExperiences = ref([]);
+// 教育经历
+const educationExperiences = ref([
   {
     school: "电子科技大学",
     levelAndProfession: "本科 | 计算机科学与技术",
@@ -181,17 +177,34 @@ const educationExperiences = reactive([
     date: "2022.09 - 2026.06",
   },
 ]);
-const projectExperiences = reactive([
+// 项目经历
+const projectExperiences = ref([
   { project: "LOL", date: "2020.02-2021.06", work: "完成召唤兽" },
   { project: "LOL", date: "2020.02-2021.06", work: "完成召唤兽" },
 ]);
+// 个人优势
 const personalAdvantage = ref("");
 
 onLoad(() => {
+  // 获取个人优势
   uni.$on("advantage", (e) => {
     personalAdvantage.value = e;
   });
 });
+
+// 查询所有工作经历
+getUserinfosUserinfoidWorkexperiences({
+  userinfoid: store.state.accountInfo.userInfoId,
+}).then((res) => {
+  workExperiences.value = res.data.body;
+});
+// 查看、修改、删除工作经历
+const alterWork = (index) => {
+  let workId = workExperiences.value[index].workExperienceId;
+  uni.navigateTo({
+    url: "/info/gongzuojingli/gongzuojingli?workId=" + workId,
+  });
+};
 
 const changeInfo = () => {
   uni.navigateTo({ url: "/info/gerenxinxi/gerenxinxi" });

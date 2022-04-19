@@ -126,6 +126,7 @@ const sexMan = ref("男");
 const sexMo = ref("女");
 let city = ref("请选择");
 const emailValue = ref("");
+const age = ref();
 // 获取时间
 const date = new Date();
 const years = ref<number[]>([]);
@@ -155,6 +156,8 @@ const bindChange = (e: { detail: { value: never } }) => {
   month = months.value[val[1]];
   day = days.value[val[2]];
   birthday.value = year + "-" + month + "-" + day;
+  age.value = date.getFullYear() - year;
+  console.log(age.value);
 };
 // 下一步
 const sex = ref();
@@ -177,17 +180,19 @@ const nextClick = () => {
     });
   } else {
     putUserinfosUserinfoid(
-      { userinfoid: "" },
+      { userinfoid: store.state.accountInfo.userInfoId },
       {
-        firstName: firstName,
-        lastName: lastName,
+        firstName: firstName.value,
+        lastName: lastName.value,
         dateOfBirth: birthday,
-        sex: sex,
+        sex: sex.value,
+        age: age.value,
         city: city,
-        email: emailValue,
+        email: emailValue.value,
       }
     )
       .then((res) => {
+        store.commit("setUserInfo", res.data.body);
         console.log(res);
       })
       .catch((err) => {

@@ -11,6 +11,7 @@ import settle from "axios/lib/core/settle";
 import buildURL from "axios/lib/helpers/buildURL";
 import { getAxiosInstance, Security, SwaggerResponse } from "./config";
 
+
 axios.defaults.adapter = function (config) {
   //自己定义个适配器，用来适配uniapp的语法
   return new Promise((resolve, reject) => {
