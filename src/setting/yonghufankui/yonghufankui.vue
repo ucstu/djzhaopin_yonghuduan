@@ -21,8 +21,9 @@
         <view class="describe">
           <scroll-view class="input-set" :scroll-y="true">
             <textarea
+              v-model="opinion"
               class="input"
-              :placeholder="opinion"
+              placeholder="请写下您的宝贵意见（不得少与5个字符）"
               maxlength="-1"
               :auto-height="true"
             />
@@ -44,7 +45,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { ref } from "vue";
-const opinion = ref("请写下您的宝贵意见（不得少与5个字符）");
+const opinion = ref("");
 const retroactionTypes = ref([
   "账号相关",
   "推荐相关",
@@ -64,11 +65,19 @@ const choseType = (index: number) => {
 };
 
 const submit = () => {
-  uni.showToast({
-    title: "提交成功,感谢您的反馈",
-    icon: "none",
-    duration: 500,
-  });
+  if (!opinion.value) {
+    uni.showToast({
+      title: "反馈内容不能为空",
+      icon: "none",
+      duration: 500,
+    });
+  } else {
+    uni.showToast({
+      title: "提交成功,感谢您的反馈",
+      icon: "none",
+      duration: 500,
+    });
+  }
 };
 </script>
 
