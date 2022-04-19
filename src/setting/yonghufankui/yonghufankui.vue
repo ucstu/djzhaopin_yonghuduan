@@ -35,9 +35,9 @@
       </view>
       <text class="annotation">最多3张支持JPG、JPEG、PNG格式（选填）</text>
     </view>
-    <view class="justify-center items-center sub">
-      <text>提交</text>
-    </view>
+  </view>
+  <view class="justify-center items-center sub">
+    <button class="btn" @click="submit">提交</button>
   </view>
 </template>
 
@@ -62,30 +62,28 @@ const choseType = (index: number) => {
     choseNum.value.push(index);
   }
 };
+
+const submit = () => {
+  uni.showToast({
+    title: "提交成功,感谢您的反馈",
+    icon: "none",
+    duration: 500,
+  });
+};
 </script>
 
 <style lang="scss" scoped>
 .page {
-  position: relative;
-  width: 750rpx;
-  height: 1334rpx;
-  overflow-y: auto;
+  width: 710rpx;
+  margin-left: 20rpx;
 
   .active {
     background-color: rgb(35 193 158);
   }
 
-  .header {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-  }
-
   .user-feedback {
     width: 690rpx;
-    margin-top: 130rpx;
-    margin-left: 30rpx;
+    padding-left: 20rpx;
 
     .retroaction-type {
       width: 690rpx;
@@ -151,14 +149,18 @@ const choseType = (index: number) => {
       color: gray;
     }
   }
+}
 
-  .sub {
-    position: fixed;
-    bottom: 40rpx;
-    width: 630rpx;
+.sub {
+  position: absolute;
+  bottom: 40rpx;
+  width: 100%;
+
+  .btn {
+    width: 600rpx;
     height: 80rpx;
-    margin-left: 60rpx;
     font-size: 30rpx;
+    color: #fff;
     background-color: rgb(35 193 158);
     border-radius: 10rpx;
   }
