@@ -16,50 +16,13 @@
 <script lang="ts" setup>
 import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { reactive } from "vue";
+import { getCompanyinfos } from "@/services/services";
+import { ref } from "vue";
 
-const lookForMes = reactive([
-  {
-    logoAddress:
-      "https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png",
-    name: "字节跳动",
-    recruitmentPosition: "200",
-    cityAndInfo: "杭州 | 上市公司 | 2000人以上 | 软件服务",
-    benefitOne: "技能培训",
-    benefitTwo: "年薪双假",
-    benefitThree: "带薪年假",
-  },
-  {
-    logoAddress:
-      "https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png",
-    name: "字节跳动",
-    recruitmentPosition: "200",
-    cityAndInfo: "杭州 | 上市公司 | 2000人以上 | 软件服务",
-    benefitOne: "技能培训",
-    benefitTwo: "年薪双假",
-    benefitThree: "带薪年假",
-  },
-  {
-    logoAddress:
-      "https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png",
-    name: "字节跳动",
-    recruitmentPosition: "200",
-    cityAndInfo: "杭州 | 上市公司 | 2000人以上 | 软件服务",
-    benefitOne: "技能培训",
-    benefitTwo: "年薪双假",
-    benefitThree: "带薪年假",
-  },
-  {
-    logoAddress:
-      "https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528776315613849.png",
-    name: "字节跳动",
-    recruitmentPosition: "200",
-    cityAndInfo: "杭州 | 上市公司 | 2000人以上 | 软件服务",
-    benefitOne: "技能培训",
-    benefitTwo: "年薪双假",
-    benefitThree: "带薪年假",
-  },
-]);
+const lookForMes = ref([]);
+getCompanyinfos().then((res) => {
+  lookForMes.value = res.data.body;
+});
 
 const view_2OnClick = () => {
   uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao" });
@@ -68,16 +31,8 @@ const view_2OnClick = () => {
 
 <style lang="scss" scoped>
 .page {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding-bottom: 1221rpx;
-  overflow-y: auto;
-  background-color: rgb(255 255 255);
-
-  .header {
-    position: relative;
-  }
+  width: 710rpx;
+  height: auto;
 
   .list {
     position: absolute;
