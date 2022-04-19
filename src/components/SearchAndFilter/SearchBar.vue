@@ -56,7 +56,7 @@ const navigationBarWidth = store.state.menuButtonInfo!.left - uni.upx2px(50);
 const city = ref("重庆");
 const searchContent = ref("");
 const textOnClick = () => {
-  uni.navigateTo({ url: "/common/chengshixuanze/chengshixuanze" });
+  uni.navigateTo({ url: "/most/chengshixuanze/chengshixuanze" });
 };
 const text_1OnClick = () => {
   uni.navigateBack({ delta: 100 });

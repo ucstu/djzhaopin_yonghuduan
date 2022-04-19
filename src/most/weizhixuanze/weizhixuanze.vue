@@ -37,7 +37,10 @@
       >
         <text>重置</text>
       </view>
-      <view class="flex-col items-center justify-center identify">
+      <view
+        class="flex-col items-center justify-center identify"
+        @click="savePlace"
+      >
         <text>确定</text>
       </view>
     </view>
@@ -72,7 +75,6 @@ const countriesIndexOf = (index: number) => {
   areasIndex.value.splice(1, areasIndex.value.length);
   country.value = "";
   country.value = countries[index].countyName;
-  console.log(country.value);
 };
 
 const areasIndex = ref([0]);
@@ -86,6 +88,10 @@ const areasIndexOf = (index: number) => {
 const replacement = () => {
   countriesIndex.value = 0;
   areasIndex.value = [0];
+};
+
+const savePlace = () => {
+  uni.navigateBack({ delta: 1 });
 };
 </script>
 
