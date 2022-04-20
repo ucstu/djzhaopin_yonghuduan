@@ -1,5 +1,10 @@
 <template>
-  <NavigationBar class="header" title="工作经历" />
+  <NavigationBar
+    class="header"
+    title="工作经历"
+    :right="deleteWork"
+    @right-click="deleteWorkExperience"
+  />
   <view class="flex-row page">
     <view class="group-all">
       <view class="group-box">
@@ -125,6 +130,7 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
+  deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid,
   getUserinfosUserinfoidWorkexperiencesWorkexperienceid,
   postUserinfosUserinfoidWorkexperiences,
 } from "@/services/services";
@@ -143,18 +149,21 @@ const companyPosition = ref(""); // 职位类型
 const positionName = ref(""); // 职位名称
 const companyDepartment = ref(""); // 所属部门
 const companyContent = ref(""); // 工作内容
+let deleteWork = ref(); // 删除工作经历
+const workId = ref(); // 工作经历id
 
 // 获取职位名
 const getPosition = () => {
   uni.navigateTo({ url: "/most/zhiweileixing/zhiweileixing" });
 };
 onLoad((e) => {
-  let workId = e.workId; // 工作经历id
+  workId.value = e.workId; // 工作经历id
+  deleteWork.value = e.deleteWork; // 删除工作经历
   /* 查询工作经历 */
-  if (workId !== undefined) {
+  if (workId.value !== undefined) {
     getUserinfosUserinfoidWorkexperiencesWorkexperienceid(
       { userinfoid: store.state.accountInfo.userInfoId },
-      { workexperienceid: workId }
+      { workexperienceid: workId.value }
     ).then((res) => {
       companyName.value = res.data.body.corporateName;
       companyIndustry.value = res.data.body.companyIndustry;
@@ -204,6 +213,7 @@ const saveWorkExperience = () => {
       }
     )
       .then((res) => {
+        store.commit("setWorkExperience", res.data.body);
         console.log(res);
       })
       .catch((err) => {
@@ -215,6 +225,34 @@ const saveWorkExperience = () => {
       duration: 500,
     });
   }
+};
+
+// 删除工作经历
+const deleteWorkExperience = () => {
+  uni.showModal({
+    title: "提示",
+    content: "确定删除该工作经历吗？",
+    success: (res) => {
+      if (res.confirm) {
+        console.log("用户点击确定");
+        deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid(
+          { userinfoid: store.state.accountInfo.userInfoId },
+          { workexperienceid: workId.value }
+        )
+          .then((res) => {
+            console.log(res.data.body);
+          })
+          .catch((err) => {
+            console.log(err.msg);
+          });
+        uni.navigateBack({
+          delta: 1,
+        });
+      } else if (res.cancel) {
+        console.log("用户点击取消");
+      }
+    },
+  });
 };
 
 // 弹出层

@@ -1,7 +1,8 @@
 import {
   AccountInformation,
   JobExpectation,
-  UserInformation
+  UserInformation,
+  WorkExperience
 } from "@/services/types";
 import { InjectionKey } from "vue";
 import { createStore, Store } from "vuex";
@@ -14,6 +15,7 @@ export interface State {
   token: string | null;
   userInfo: UserInformation | null;
   exceptionJob: JobExpectation | null;
+  workExperience: WorkExperience | null;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -40,6 +42,7 @@ export const store = createStore<State>({
     token: null,
     userInfo: null,
     exceptionJob: null,
+    workExperience: null,
   }),
   mutations: {
     setSystemInfo(state, systemInfo: UniApp.GetSystemInfoResult) {
@@ -62,6 +65,9 @@ export const store = createStore<State>({
     },
     setExceptionJob(state, exceptionJob: JobExpectation) {
       state.exceptionJob = exceptionJob;
+    },
+    setWorkExperience(state, workExperience: WorkExperience) {
+      state.workExperience = workExperience;
     },
   },
   modules: {},

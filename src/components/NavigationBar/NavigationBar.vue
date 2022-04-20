@@ -132,7 +132,7 @@ const imageOnClick = () => {
   .text-1 {
     font-size: 30rpx;
     line-height: 23rpx;
-    color: rgb(0 0 0 / 70%);
+    color: rgb(35 193 158);
     letter-spacing: 2.5rpx;
     white-space: nowrap;
   }

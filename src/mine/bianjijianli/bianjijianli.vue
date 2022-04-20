@@ -142,7 +142,7 @@ const store = useStore(key);
 
 const avatar = store.state.userInfo?.avatar; // 头像
 const userName =
-  store.state.userInfo?.firstName + store.state.userInfo?.lastName; // 姓名
+  store.state.userInfo!.firstName + store.state.userInfo!.lastName; // 姓名
 const age = store.state.userInfo?.age; // 年龄
 const education = store.state.userInfo?.education; // 学历
 
@@ -195,30 +195,40 @@ onLoad(() => {
 
 // 查询所有工作经历
 getUserinfosUserinfoidWorkexperiences({
-  userinfoid: store.state.accountInfo?.userInfoId,
+  userinfoid: store.state.accountInfo.userInfoId,
 }).then((res) => {
   workExperiences.value = res.data.body;
 });
 // 查看、修改、删除工作经历
 const alterWork = (index: number) => {
   let workId = workExperiences.value[index].workExperienceId;
+  let deleteWork = ref("删除");
   uni.navigateTo({
-    url: "/info/gongzuojingli/gongzuojingli?workId=" + workId,
+    url:
+      "/info/gongzuojingli/gongzuojingli?workId=" +
+      workId +
+      "&deleteWork=" +
+      deleteWork.value,
   });
 };
 
+// 修改个人信息
 const changeInfo = () => {
   uni.navigateTo({ url: "/info/gerenxinxi/gerenxinxi" });
 };
+// 添加个人优势
 const addAdvantage = () => {
   uni.navigateTo({ url: "/info/gerenyoushi/gerenyoushi" });
 };
+// 添加工作经历
 const addWork = () => {
   uni.navigateTo({ url: "/info/gongzuojingli/gongzuojingli" });
 };
+// 添加教育经历
 const addEducate = () => {
   uni.navigateTo({ url: "/info/jiaoyujingli/jiaoyujingli" });
 };
+// 添加项目经历
 const addProject = () => {
   uni.navigateTo({ url: "/info/xiangmujingli/xiangmujingli" });
 };
