@@ -127,10 +127,13 @@
           v-for="(project, i) in projectExperiences"
           :key="i"
           class="flex-col project-box"
+          @click="alterProject(i)"
         >
-          <text class="project-pro">{{ project.project }}</text>
-          <text>{{ project.date }}</text>
-          <text>{{ project.work }}</text>
+          <text class="project-pro">{{ project.projectName }}</text>
+          <text>{{ project.startTime }}-{{ project.endTime }}</text>
+          <text class="project-description">{{
+            project.projectDescription
+          }}</text>
         </view>
       </view>
     </view>
@@ -140,20 +143,23 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
-  getUserinfosUserinfoidWorkexperiences,
   getUserinfosUserinfoidEduexperiences,
+  getUserinfosUserinfoidProjectexperiences,
+  getUserinfosUserinfoidWorkexperiences,
 } from "@/services/services";
-import { WorkExperience } from "@/services/types";
 import { key } from "@/stores";
 import { onLoad } from "@dcloudio/uni-app";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
 const avatar = store.state.userInfo?.avatar; // 头像
-const userName =
-  store.state.userInfo!.firstName + store.state.userInfo!.lastName; // 姓名
+const userName = computed(() => {
+  let fullName = "";
+  fullName = store.state.userInfo!.firstName + store.state.userInfo!.lastName;
+  return fullName;
+}); // 姓名
 const age = store.state.userInfo?.age; // 年龄
 const education = store.state.userInfo?.education; // 学历
 
@@ -177,14 +183,11 @@ const jobExpectations = ref([
 // 工作经历
 const workExperiences = ref<any>([]);
 // 教育经历
-const educationExperiences = ref([]);
+const educationExperiences = ref<any>([]);
 // 项目经历
-const projectExperiences = ref([
-  { project: "LOL", date: "2020.02-2021.06", work: "完成召唤兽" },
-  { project: "LOL", date: "2020.02-2021.06", work: "完成召唤兽" },
-]);
+const projectExperiences = ref<any>([]);
 // 个人优势
-const personalAdvantage = ref("");
+const personalAdvantage = ref<any>("");
 
 onLoad(() => {
   // 获取个人优势
@@ -214,9 +217,10 @@ const addProject = () => {
   uni.navigateTo({ url: "/info/xiangmujingli/xiangmujingli" });
 };
 // 查询所有工作经历
-getUserinfosUserinfoidWorkexperiences({
-  userinfoid: store.state.accountInfo.userInfoId,
-}).then((res) => {
+getUserinfosUserinfoidWorkexperiences(
+  // @ts-ignore
+  { userinfoid: store.state.accountInfo.userInfoId }
+).then((res) => {
   workExperiences.value = res.data.body;
 });
 // 查看、修改、删除工作经历
@@ -232,9 +236,10 @@ const alterWork = (index: number) => {
   });
 };
 // 查询所有教育经历
-getUserinfosUserinfoidEduexperiences({
-  userinfoid: store.state.accountInfo.userInfoId,
-}).then((res) => {
+getUserinfosUserinfoidEduexperiences(
+  // @ts-ignore
+  { userinfoid: store.state.accountInfo?.userInfoId }
+).then((res) => {
   educationExperiences.value = res.data.body;
 });
 // 查看、修改、删除教育经历
@@ -247,6 +252,25 @@ const alterEducate = (index: number) => {
       educateId +
       "&deleteEducate=" +
       deleteEducate.value,
+  });
+};
+// 查询所有项目经历
+getUserinfosUserinfoidProjectexperiences(
+  // @ts-ignore
+  { userinfoid: store.state.accountInfo?.userInfoId }
+).then((res) => {
+  projectExperiences.value = res.data.body;
+});
+// 查看、修改、删除项目经历
+const alterProject = (index: number) => {
+  let projectId = projectExperiences.value[index].projectExperienceId;
+  let deleteProject = ref("删除");
+  uni.navigateTo({
+    url:
+      "/info/xiangmujingli/xiangmujingli?projectId=" +
+      projectId +
+      "&deleteProject=" +
+      deleteProject.value,
   });
 };
 </script>
@@ -354,6 +378,13 @@ const alterEducate = (index: number) => {
         .project-pro {
           font-size: 30rpx;
           font-weight: bold;
+        }
+
+        .project-description {
+          max-height: 40rpx;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }

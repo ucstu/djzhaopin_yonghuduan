@@ -1,5 +1,10 @@
 <template>
-  <NavigationBar class="header" title="编辑项目经历" />
+  <NavigationBar
+    class="header"
+    title="编辑项目经历"
+    :right="deleteProject"
+    @right-click="deleteProjectExperience"
+  />
   <view class="flex-row page">
     <view class="group-all">
       <view class="group-box">
@@ -42,7 +47,12 @@
       </view>
       <view class="group-box">
         <text class="text-title">项目链接</text>
-        <input class="text-input" type="text" placeholder="请填写(选填)" />
+        <input
+          v-model="projectUrl"
+          class="text-input"
+          type="text"
+          placeholder="请填写(选填)"
+        />
       </view>
     </view>
     <view class="justify-center group-button">
@@ -132,14 +142,25 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import WybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { postUserinfosUserinfoidProjectexperiences } from "@/services/services";
+import {
+  deleteUserinfosUserinfoidProjectexperiencesProjectexperienceid,
+  getUserinfosUserinfoidProjectexperiencesProjectexperienceid,
+  postUserinfosUserinfoidProjectexperiences,
+  putUserinfosUserinfoidProjectexperiencesProjectexperienceid,
+} from "@/services/services";
+import { key } from "@/stores";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
+import { useStore } from "vuex";
 
-const projectName = ref("");
-const projectDescribe = ref("");
-const achievement = ref("");
-let startTime = ref("开始时间");
-let overTime = ref("结束时间");
+const store = useStore(key);
+
+const projectName = ref(""); //项目名称
+const projectDescribe = ref(""); //项目描述
+const achievement = ref(""); //你的成就
+let startTime = ref("开始时间"); //项目开始时间
+let overTime = ref("结束时间"); //项目结束时间
+const projectUrl = ref(""); //项目链接
 
 const start = ref(true);
 const end = ref(false);
@@ -172,6 +193,32 @@ const bindChange = (e: { detail: { value: never } }) => {
   }
 };
 
+const projectId = ref(); // 项目id
+const deleteProject = ref(); // 删除项目
+onLoad((e) => {
+  projectId.value = e.projectId;
+  deleteProject.value = e.deleteProject;
+  /*查询项目经历*/
+  if (projectId.value !== undefined) {
+    getUserinfosUserinfoidProjectexperiencesProjectexperienceid(
+      { userinfoid: store.state.accountInfo!.userInfoId },
+      { eduexperienceid: projectId.value }
+    )
+      .then((res) => {
+        projectName.value = res.data.body!.projectName;
+        projectDescribe.value = res.data.body!.projectDescription;
+        achievement.value = res.data.body!.achievement;
+        startTime.value = res.data.body!.startTime;
+        overTime.value = res.data.body!.endTime;
+        projectUrl.value = res.data.body!.projectLink;
+      })
+      .catch((err) => {
+        console.log(err.msg);
+      });
+  }
+});
+
+// 添加、修改项目经历
 const saveProjectExperience = () => {
   if (!projectName.value || !projectDescribe.value || !achievement.value) {
     uni.showToast({
@@ -186,15 +233,73 @@ const saveProjectExperience = () => {
       duration: 500,
     });
   } else {
-    postUserinfosUserinfoidProjectexperiences()
-      .then((res) => {
-        console.log(res.data.body);
-      })
-      .catch((err) => {
-        console.log(err.msg);
-      });
+    if (projectId.value !== undefined) {
+      // 修改项目经历
+      putUserinfosUserinfoidProjectexperiencesProjectexperienceid(
+        { userinfoid: store.state.accountInfo!.userInfoId },
+        { projectexperienceid: projectId.value },
+        {
+          projectExperienceId: projectId.value,
+          projectName: projectName.value,
+          projectDescription: projectDescribe.value,
+          achievement: achievement.value,
+          startTime: startTime.value,
+          endTime: overTime.value,
+          projectLink: projectUrl.value,
+        }
+      )
+        .then((res) => {
+          console.log(res.data.body);
+        })
+        .catch((err) => {
+          console.log(err.msg);
+        });
+    } else {
+      // 添加项目经历
+      postUserinfosUserinfoidProjectexperiences(
+        { userinfoid: store.state.accountInfo.userInfoId },
+        {
+          projectName: projectName.value,
+          projectDescription: projectDescribe.value,
+          achievement: achievement.value,
+          startTime: startTime.value,
+          endTime: overTime.value,
+          projectLink: projectUrl.value,
+        }
+      )
+        .then((res) => {
+          console.log(res.data.body);
+        })
+        .catch((err) => {
+          console.log(err.msg);
+        });
+    }
     uni.navigateBack({ delta: 1 });
   }
+};
+// 删除项目经历
+const deleteProjectExperience = () => {
+  uni.showModal({
+    title: "提示",
+    content: "确定删除该项目经历吗？",
+    success: (res) => {
+      if (res.confirm) {
+        deleteUserinfosUserinfoidProjectexperiencesProjectexperienceid(
+          { userinfoid: store.state.accountInfo.userInfoId },
+          { projectexperienceid: projectId.value }
+        )
+          .then((res) => {
+            console.log(res.data.body);
+          })
+          .catch((err) => {
+            console.log(err.msg);
+          });
+        uni.navigateBack({ delta: 1 });
+      } else if (res.cancel) {
+        console.log("用户点击取消");
+      }
+    },
+  });
 };
 </script>
 
@@ -223,8 +328,12 @@ const saveProjectExperience = () => {
       }
 
       .text-input {
+        width: 670rpx;
         padding-left: 20rpx;
+        overflow: hidden;
         font-size: 28rpx;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }

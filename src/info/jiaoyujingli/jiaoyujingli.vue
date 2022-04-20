@@ -137,6 +137,7 @@ import {
   postUserinfosUserinfoidEduexperiences,
   getUserinfosUserinfoidEduexperiencesEduexperienceid,
   deleteUserinfosUserinfoidEduexperiencesEduexperienceid,
+  putUserinfosUserinfoidEduexperiencesEduexperienceid,
 } from "@/services/services";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
@@ -205,6 +206,27 @@ const bindChange = (e: { detail: { value: never } }) => {
   }
 };
 
+const educateId = ref(); // 教育经历id
+const deleteEd = ref(); // 删除
+onLoad((e) => {
+  educateId.value = e.educateId;
+  deleteEd.value = e.deleteEducate;
+  // 查询教育经历
+  if (educateId.value !== undefined) {
+    getUserinfosUserinfoidEduexperiencesEduexperienceid(
+      { userinfoid: store.state.accountInfo?.userInfoId },
+      { eduexperienceid: educateId.value }
+    ).then((res) => {
+      console.log(res.data.body);
+      schoolName.value = res.data.body.schoolName;
+      education.value = res.data.body.education;
+      subject.value = res.data.body.major;
+      startTime.value = res.data.body.admissionTime;
+      overTime.value = res.data.body.araduationTime;
+    });
+  }
+});
+// 增加、修改教育经历
 const saveEducation = () => {
   if (!schoolName.value || !subject.value) {
     uni.showToast({
@@ -225,45 +247,46 @@ const saveEducation = () => {
       duration: 500,
     });
   } else {
-    postUserinfosUserinfoidEduexperiences(
-      { userinfoid: store.state.accountInfo?.userInfoId },
-      {
-        schoolName: schoolName.value,
-        education: education.value,
-        major: subject.value,
-        admissionTime: startTime.value,
-        araduationTime: overTime.value,
-      }
-    )
-      .then((res) => {
-        console.log(res.data.body);
-      })
-      .catch((err) => {
-        console.log(err.msg);
-      });
+    if (educateId.value !== undefined) {
+      putUserinfosUserinfoidEduexperiencesEduexperienceid(
+        { userinfoid: store.state.accountInfo.userInfoId },
+        { eduexperienceid: educateId.value },
+        {
+          educationExperienceId: educateId.value,
+          schoolName: schoolName.value,
+          education: education.value,
+          major: subject.value,
+          admissionTime: startTime.value,
+          araduationTime: overTime.value,
+        }
+      )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      postUserinfosUserinfoidEduexperiences(
+        { userinfoid: store.state.accountInfo?.userInfoId },
+        {
+          schoolName: schoolName.value,
+          education: education.value,
+          major: subject.value,
+          admissionTime: startTime.value,
+          araduationTime: overTime.value,
+        }
+      )
+        .then((res) => {
+          console.log(res.data.body);
+        })
+        .catch((err) => {
+          console.log(err.msg);
+        });
+    }
     uni.navigateBack({ delta: 1 });
   }
 };
-const educateId = ref(); // 教育经历id
-const deleteEd = ref(); // 删除
-onLoad((e) => {
-  educateId.value = e.educateId;
-  deleteEd.value = e.deleteEducate;
-  // 查询教育经历
-  if (educateId.value !== null) {
-    getUserinfosUserinfoidEduexperiencesEduexperienceid(
-      { userinfoid: store.state.accountInfo?.userInfoId },
-      { eduexperienceid: educateId.value }
-    ).then((res) => {
-      console.log(res.data.body);
-      schoolName.value = res.data.body.schoolName;
-      education.value = res.data.body.education;
-      subject.value = res.data.body.major;
-      startTime.value = res.data.body.admissionTime;
-      overTime.value = res.data.body.araduationTime;
-    });
-  }
-});
 // 删除教育经历
 const deleteEducation = () => {
   uni.showModal({

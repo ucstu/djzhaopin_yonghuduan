@@ -199,26 +199,30 @@ const saveWorkExperience = () => {
       duration: 500,
     });
   } else {
-    postUserinfosUserinfoidWorkexperiences(
-      { userinfoid: store.state.accountInfo.userInfoId },
-      {
-        corporateName: companyName.value,
-        companyIndustry: companyIndustry.value,
-        startTime: companyStartTime.value,
-        endTime: companyEndTime.value,
-        positionName: positionName.value,
-        positionType: companyPosition.value,
-        department: companyDepartment.value,
-        jobContent: companyContent.value,
-      }
-    )
-      .then((res) => {
-        store.commit("setWorkExperience", res.data.body);
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err.msg);
-      });
+    if (workId.value) {
+      console.log("修改工作经历");
+    } else {
+      postUserinfosUserinfoidWorkexperiences(
+        { userinfoid: store.state.accountInfo.userInfoId },
+        {
+          corporateName: companyName.value,
+          companyIndustry: companyIndustry.value,
+          startTime: companyStartTime.value,
+          endTime: companyEndTime.value,
+          positionName: positionName.value,
+          positionType: companyPosition.value,
+          department: companyDepartment.value,
+          jobContent: companyContent.value,
+        }
+      )
+        .then((res) => {
+          store.commit("setWorkExperience", res.data.body);
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err.msg);
+        });
+    }
     uni.showToast({
       title: "保存成功",
       icon: "success",
