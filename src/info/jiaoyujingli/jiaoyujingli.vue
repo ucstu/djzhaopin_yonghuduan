@@ -1,5 +1,10 @@
 <template>
-  <NavigationBar class="header" title="编辑教育经历" />
+  <NavigationBar
+    class="header"
+    title="编辑教育经历"
+    :right="deleteEd"
+    @right-click="deleteEducation"
+  />
   <view class="flex-row page">
     <view class="group-all">
       <view class="group-box">
@@ -128,7 +133,12 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import WybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { postUserinfosUserinfoidEduexperiences } from "@/services/services";
+import {
+  postUserinfosUserinfoidEduexperiences,
+  getUserinfosUserinfoidEduexperiencesEduexperienceid,
+  deleteUserinfosUserinfoidEduexperiencesEduexperienceid,
+} from "@/services/services";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { key } from "@/stores";
 import { useStore } from "vuex";
@@ -140,6 +150,7 @@ const education = ref("请选择"); // 学历
 const subject = ref(""); // 专业名称
 const startTime = ref("入学时间"); // 入学时间
 const overTime = ref("结束时间"); // 毕业时间
+// 学历高度
 const educations = ref([
   "初中",
   "高中",
@@ -232,6 +243,47 @@ const saveEducation = () => {
       });
     uni.navigateBack({ delta: 1 });
   }
+};
+const educateId = ref(); // 教育经历id
+const deleteEd = ref(); // 删除
+onLoad((e) => {
+  educateId.value = e.educateId;
+  deleteEd.value = e.deleteEducate;
+  // 查询教育经历
+  if (educateId.value !== null) {
+    getUserinfosUserinfoidEduexperiencesEduexperienceid(
+      { userinfoid: store.state.accountInfo?.userInfoId },
+      { eduexperienceid: educateId.value }
+    ).then((res) => {
+      console.log(res.data.body);
+      schoolName.value = res.data.body.schoolName;
+      education.value = res.data.body.education;
+      subject.value = res.data.body.major;
+      startTime.value = res.data.body.admissionTime;
+      overTime.value = res.data.body.araduationTime;
+    });
+  }
+});
+// 删除教育经历
+const deleteEducation = () => {
+  uni.showModal({
+    title: "提示",
+    content: "确定删除该教育经历吗？",
+    showCancel: true,
+    success: (res) => {
+      if (res.confirm) {
+        deleteUserinfosUserinfoidEduexperiencesEduexperienceid(
+          { userinfoid: store.state.accountInfo?.userInfoId },
+          { eduexperienceid: educateId.value }
+        ).then((res) => {
+          console.log(res.data.body);
+        });
+        uni.navigateBack({ delta: 1 });
+      } else if (res.cancel) {
+        console.log("用户点击取消");
+      }
+    },
+  });
 };
 </script>
 

@@ -101,10 +101,17 @@
           v-for="(educate, i) in educationExperiences"
           :key="i"
           class="flex-col educate-box"
+          @click="alterEducate(i)"
         >
-          <text class="educate-school">{{ educate.school }}</text>
-          <text>{{ educate.levelAndProfession }}</text>
-          <text>{{ educate.date }}</text>
+          <text class="educate-school">{{ educate.schoolName }}</text>
+          <text>{{ educate.major }}</text>
+          <view>
+            <text>{{ educate.education }}</text
+            >&nbsp;&nbsp;
+            <text
+              >{{ educate.admissionTime }}-{{ educate.araduationTime }}</text
+            >
+          </view>
         </view>
       </view>
       <view class="group-box">
@@ -132,7 +139,11 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getUserinfosUserinfoidWorkexperiences } from "@/services/services";
+import {
+  getUserinfosUserinfoidWorkexperiences,
+  getUserinfosUserinfoidEduexperiences,
+} from "@/services/services";
+import { WorkExperience } from "@/services/types";
 import { key } from "@/stores";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
@@ -166,18 +177,7 @@ const jobExpectations = ref([
 // 工作经历
 const workExperiences = ref<any>([]);
 // 教育经历
-const educationExperiences = ref([
-  {
-    school: "电子科技大学",
-    levelAndProfession: "本科 | 计算机科学与技术",
-    date: "2019.09 - 2022.06",
-  },
-  {
-    school: "清华大学",
-    levelAndProfession: "研究生 | 计算机科学与技术",
-    date: "2022.09 - 2026.06",
-  },
-]);
+const educationExperiences = ref([]);
 // 项目经历
 const projectExperiences = ref([
   { project: "LOL", date: "2020.02-2021.06", work: "完成召唤兽" },
@@ -192,25 +192,6 @@ onLoad(() => {
     personalAdvantage.value = e;
   });
 });
-
-// 查询所有工作经历
-getUserinfosUserinfoidWorkexperiences({
-  userinfoid: store.state.accountInfo.userInfoId,
-}).then((res) => {
-  workExperiences.value = res.data.body;
-});
-// 查看、修改、删除工作经历
-const alterWork = (index: number) => {
-  let workId = workExperiences.value[index].workExperienceId;
-  let deleteWork = ref("删除");
-  uni.navigateTo({
-    url:
-      "/info/gongzuojingli/gongzuojingli?workId=" +
-      workId +
-      "&deleteWork=" +
-      deleteWork.value,
-  });
-};
 
 // 修改个人信息
 const changeInfo = () => {
@@ -231,6 +212,42 @@ const addEducate = () => {
 // 添加项目经历
 const addProject = () => {
   uni.navigateTo({ url: "/info/xiangmujingli/xiangmujingli" });
+};
+// 查询所有工作经历
+getUserinfosUserinfoidWorkexperiences({
+  userinfoid: store.state.accountInfo.userInfoId,
+}).then((res) => {
+  workExperiences.value = res.data.body;
+});
+// 查看、修改、删除工作经历
+const alterWork = (index: number) => {
+  let workId = workExperiences.value[index].workExperienceId;
+  let deleteWork = ref("删除");
+  uni.navigateTo({
+    url:
+      "/info/gongzuojingli/gongzuojingli?workId=" +
+      workId +
+      "&deleteWork=" +
+      deleteWork.value,
+  });
+};
+// 查询所有教育经历
+getUserinfosUserinfoidEduexperiences({
+  userinfoid: store.state.accountInfo.userInfoId,
+}).then((res) => {
+  educationExperiences.value = res.data.body;
+});
+// 查看、修改、删除教育经历
+const alterEducate = (index: number) => {
+  let educateId = educationExperiences.value[index].educationExperienceId;
+  let deleteEducate = ref("删除");
+  uni.navigateTo({
+    url:
+      "/info/jiaoyujingli/jiaoyujingli?educateId=" +
+      educateId +
+      "&deleteEducate=" +
+      deleteEducate.value,
+  });
 };
 </script>
 
