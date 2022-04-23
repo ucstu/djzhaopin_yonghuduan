@@ -148,16 +148,13 @@ const schoolChange = (e: { detail: { value: never } }) => {
 };
 // 下一步
 const nextClick = () => {
-  postUserinfosUserinfoidEduexperiences(
-    { userinfoid: "" },
-    {
-      schoolName: schoolName.value,
-      education: education.value,
-      major: subject.value,
-      admissionTime: startSchool.value,
-      araduationTime: endSchool.value,
-    }
-  )
+  postUserinfosUserinfoidEduexperiences(store.state.accountInfo.userInfoId, {
+    schoolName: schoolName.value,
+    education: education.value,
+    major: subject.value,
+    admissionTime: startSchool.value,
+    araduationTime: endSchool.value,
+  })
     .then((res) => {
       console.log(res);
     })

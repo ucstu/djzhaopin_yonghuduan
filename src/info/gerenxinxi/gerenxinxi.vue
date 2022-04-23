@@ -120,13 +120,12 @@ const sexMan = ref("男");
 const sexWo = ref("女");
 const sex = ref("");
 const age = ref();
+const arr = ref([]);
 
 const isActiveMan = ref(false);
 const isActiveWo = ref(false);
 
-getUserinfosUserinfoid({
-  userinfoid: store.state.accountInfo?.userInfoId,
-}).then((res) => {
+getUserinfosUserinfoid(store.state.accountInfo.userInfoId).then((res) => {
   userName.value = res.data.body.firstName + res.data.body.lastName;
   phoneNumber.value = res.data.body.phoneNumber;
   email.value = res.data.body.email;
@@ -217,17 +216,27 @@ const saveInfos = () => {
       duration: 500,
     });
   } else {
-    putUserinfosUserinfoid(
-      { userinfoid: "" },
-      {
-        firstName: userName.value.split(" ")[0],
-        lastName: userName.value.split(" ")[1],
-        phoneNumber: phoneNumber.value,
-        email: email.value,
-        city: city.value,
-        dateOfBirth: birthday.value,
-      }
-    ).then((res) => {
+    putUserinfosUserinfoid(store.state.accountInfo.userInfoId, {
+      userId: "",
+      createdAt: "",
+      updatedAt: "",
+      avatar: "",
+      firstName: userName.value.split(" ")[0],
+      lastName: userName.value.split(" ")[1],
+      dateOfBirth: birthday.value,
+      sex: sex.value,
+      age: age.value,
+      city: city.value,
+      phoneNumber: phoneNumber.value,
+      email: email.value,
+      workingYears: 1,
+      education: "2",
+      jobStatus: "1",
+      personalAdvantage: "",
+      socialHomepage: "",
+      pictureWorks: arr.value[2],
+      privacySettings: "1",
+    }).then((res) => {
       store.commit("setUserInfo", res.data.body);
       console.log(res);
     });

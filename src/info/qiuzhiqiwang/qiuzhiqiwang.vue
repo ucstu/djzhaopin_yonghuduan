@@ -129,7 +129,8 @@ onLoad((e) => {
     saveBtn.value = "完成";
   }
   if (jobId.value !== undefined) {
-    getUserinfosUserinfoidJobexpectationsJobexpectationid({
+    getUserinfosUserinfoidJobexpectationsJobexpectationid(
+      {
       userinfoid: "",
       jobexpectationid: jobId.value,
     }).then((res) => {

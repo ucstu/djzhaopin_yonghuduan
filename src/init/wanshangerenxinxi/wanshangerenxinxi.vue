@@ -110,7 +110,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { putUserinfosUserinfoid } from "@/services/services";
+import { postUserinfos } from "@/services/services";
 import { key } from "@/stores";
 import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
@@ -124,7 +124,7 @@ const isActiveMan = ref(true);
 const isActiveMo = ref(false);
 const sexMan = ref("男");
 const sexMo = ref("女");
-let city = ref("请选择");
+let city = ref<string>("请选择");
 const emailValue = ref("");
 const age = ref();
 // 获取时间
@@ -179,18 +179,18 @@ const nextClick = () => {
       duration: 500,
     });
   } else {
-    putUserinfosUserinfoid(
-      { userinfoid: store.state.accountInfo?.userInfoId },
-      {
-        firstName: firstName.value,
-        lastName: lastName.value,
-        dateOfBirth: birthday,
-        sex: sex.value,
-        age: age.value,
-        city: city,
-        email: emailValue.value,
-      }
-    )
+    postUserinfos({
+      phoneNumber: "",
+      firstName: firstName.value,
+      lastName: lastName.value,
+      dateOfBirth: birthday.value,
+      sex: sex.value,
+      age: age.value,
+      city: city.value,
+      email: emailValue.value,
+      education: "2",
+      jobStatus: "1",
+    })
       .then((res) => {
         store.commit("setUserInfo", res.data.body);
         console.log(res);

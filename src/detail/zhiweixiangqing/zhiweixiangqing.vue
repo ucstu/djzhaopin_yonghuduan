@@ -5,7 +5,9 @@
       <view class="flex-row name-salary">
         <view class="name">{{ jobInformation.name }}</view>
         <view class="justify-end salary">
-          {{ jobInformation.startingSalary }}-{{ jobInformation.ceilingSalary }}
+          {{ jobInformation.startingSalary }}k-{{
+            jobInformation.ceilingSalary
+          }}k
         </view>
       </view>
       <view class="flex-row area-require">
@@ -21,7 +23,9 @@
         </view>
         <view class="items-center">
           <image src="@/static/icons/training.png" />
-          <text style="margin-left: 15rpx">{{ jobInformation.education }}</text>
+          <text style="margin-left: 15rpx">{{
+            educates[jobInformation.education]
+          }}</text>
         </view>
       </view>
       <view class="flex-row company-info" @click="toCompanyIn">
@@ -77,6 +81,20 @@
       </view> -->
     </view>
   </view>
+  <view class="flex-row items-center justify-between btn-box">
+    <button
+      class="justify-center items-center btn-common"
+      @click="communication"
+    >
+      立即沟通
+    </button>
+    <button
+      class="justify-center items-center btn-send-resume"
+      @click="sendResume"
+    >
+      投递简历
+    </button>
+  </view>
 </template>
 
 <script lang="ts" setup>
@@ -85,17 +103,20 @@ import {
   getCompanyinfosCompanyinfoid,
   getCompanyinfosCompanyinfoidPositioninfosPositioninfoid,
 } from "@/services/services";
-import { CompanyInformation } from "@/services/types";
+import { CompanyInformation, PositionInformation } from "@/services/types";
 import { ref } from "vue";
 
-const jobInformation = ref<CompanyInformation>({});
+const jobInformation = ref<PositionInformation>({} as PositionInformation);
 getCompanyinfosCompanyinfoidPositioninfosPositioninfoid(
   { companyinfoid: "asd165a1d56a" },
   { positioninfoid: "adjalkdlak" }
 ).then((res) => {
   jobInformation.value = res.data.body;
 });
-const companyInformation = ref<CompanyInformation>({});
+
+const educates = ref(["不要求", "大专", "本科", "硕士", "博士"]);
+
+const companyInformation = ref<CompanyInformation>({} as CompanyInformation);
 getCompanyinfosCompanyinfoid({ companyinfoid: "asd165a1d56a" }).then((res) => {
   companyInformation.value = res.data.body;
 });
@@ -183,6 +204,31 @@ const toCompanyIn = () => {
       line-height: 50rpx;
       color: rgb(176 176 176);
     }
+  }
+}
+
+.btn-box {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+
+  .btn-common {
+    width: 30%;
+    height: 70rpx;
+    font-size: 30rpx;
+    color: rgb(35 193 158);
+    background-color: rgb(230 230 220);
+    border-radius: 10rpx;
+  }
+
+  .btn-send-resume {
+    width: 60%;
+    height: 70rpx;
+    font-size: 30rpx;
+    color: #fff;
+    background-color: rgb(35 193 158);
+    border-radius: 10rpx;
   }
 }
 </style>

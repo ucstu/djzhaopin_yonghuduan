@@ -31,22 +31,11 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 
 <style lang="scss" scoped>
 .page {
-  position: relative;
-  width: 750rpx;
-  height: 1334rpx;
   overflow-y: auto;
-
-  .header {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-  }
 
   .group-1 {
     width: 710rpx;
     height: 80rpx;
-    margin-top: 130rpx;
     margin-left: 40rpx;
     font-size: 25rpx;
     line-height: 23rpx;

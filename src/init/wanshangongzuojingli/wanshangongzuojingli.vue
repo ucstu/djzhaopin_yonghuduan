@@ -144,7 +144,7 @@ const workChange = (e: { detail: { value: never } }) => {
 // 下一步
 const nextClick = () => {
   postUserinfosUserinfoidWorkexperiences(
-    { userinfoid: "" },
+    { userinfoid: store.state.accountInfo.userInfoId },
     {
       corporateName: companyName.value,
       companyIndustry: companyType.value,

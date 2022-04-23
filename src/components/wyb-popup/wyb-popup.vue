@@ -99,7 +99,7 @@
         opacity: maskOpacity,
         transitionDuration: duration + 'ms',
         marginTop: marginTop + 'px',
-        height: 'calc(' + autoHeight + ' - ' + marginTop + 'px)',
+        // height: 'calc(' + autoHeight + ' - ' + marginTop + 'px)',
         backgroundColor: 'rgba(0, 0, 0, ' + maskAlpha + ')',
         zIndex: zIndex - 1,
       }"

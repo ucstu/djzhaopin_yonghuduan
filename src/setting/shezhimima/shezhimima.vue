@@ -61,8 +61,8 @@ import { ref } from "vue";
 
 const password = ref("");
 const password2 = ref("");
-const seen = ref(true);
-const seen2 = ref(true);
+const seen = ref(false);
+const seen2 = ref(false);
 const typeText = ref("text");
 const typePassword = ref("password");
 

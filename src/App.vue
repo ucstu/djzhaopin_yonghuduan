@@ -15,7 +15,7 @@ onLaunch(() => {
     store.commit("setMenuButtonInfo", uni.getMenuButtonBoundingClientRect());
   }
   /* #endif */
-  if (store.state.accountInfo === null || store.state.token === null) {
+  if (store.state.token === null) {
     uni.reLaunch({ url: "/account/denglu_zhuce/denglu" });
   } else {
     getAxiosInstance(undefined).defaults.headers.common["Authorization"] =

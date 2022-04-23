@@ -11,7 +11,7 @@ import VuexPersister from "vuex-persister";
 export interface State {
   systemInfo: UniApp.GetSystemInfoResult | null;
   menuButtonInfo: UniApp.GetMenuButtonBoundingClientRectRes | null;
-  accountInfo: AccountInformation | null;
+  accountInfo: AccountInformation;
   token: string | null;
   userInfo: UserInformation | null;
   exceptionJob: JobExpectation | null;
@@ -35,6 +35,7 @@ const vuexPersister = new VuexPersister<State>({
 });
 
 export const store = createStore<State>({
+  // @ts-ignore
   state: () => ({
     systemInfo: null,
     menuButtonInfo: null,

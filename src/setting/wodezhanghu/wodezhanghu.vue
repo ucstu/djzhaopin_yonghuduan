@@ -6,22 +6,39 @@
       <text class="phone-num">{{ phoneNumber }}</text>
     </view>
     <view class="flex-col items-center button-box">
-      <button class="button" @click="deleteAccount">注销账号</button>
+      <button class="button" @click="showDelete">注销账号</button>
     </view>
+    <wybModal
+      ref="modal"
+      title="注销账号"
+      content="您确认注销账号吗？"
+      @confirm="deleteAccount"
+    />
   </view>
 </template>
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import wybModal from "@/components/wyb-modal/wyb-modal.vue";
 import { deleteAccountsAccountid } from "@/services/services";
 import { ref } from "vue";
 
 const phoneNumber = ref("173****6235");
 
+// 注销账号消息提示
+const modal = ref();
+const showDelete = () => {
+  modal.value.showModal();
+};
+// 注销账号
 const deleteAccount = () => {
-  deleteAccountsAccountid()
+  deleteAccountsAccountid(
+    { accountid: "5e9f8f8f-d9c1-4b5b-b8b7-d9c1b8b7d9c1" },
+    { verificationCode: "1234" }
+  )
     .then((res) => {
       console.log(res.data.body);
-
+      store.commit("setToken", null);
+      store.commit("setAccountInfo", null);
       uni.navigateTo({
         url: "/account/denglu_zhuce/denglu",
       });

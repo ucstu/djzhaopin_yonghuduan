@@ -17,7 +17,7 @@
             checkeds.splice(checkeds.indexOf(label.id), 1);
           "
           >{{ label.subLabelsName }}
-          <image class="icon-close" src="@/static/icons/close.png" />
+          <image class="icon-close" src="@/static/icons/close.svg" />
         </view>
       </view>
       <view
