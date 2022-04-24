@@ -147,6 +147,11 @@ import {
   getUserinfosUserinfoidProjectexperiences,
   getUserinfosUserinfoidWorkexperiences,
 } from "@/services/services";
+import {
+  EducationExperience,
+  ProjectExperience,
+  WorkExperience,
+} from "@/services/types";
 import { key } from "@/stores";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
@@ -181,13 +186,13 @@ const jobExpectations = ref([
   },
 ]);
 // 工作经历
-const workExperiences = ref<any>([]);
+const workExperiences = ref<WorkExperience[]>([]);
 // 教育经历
-const educationExperiences = ref<any>([]);
+const educationExperiences = ref<EducationExperience[]>([]);
 // 项目经历
-const projectExperiences = ref<any>([]);
+const projectExperiences = ref<ProjectExperience[]>([]);
 // 个人优势
-const personalAdvantage = ref<any>("");
+const personalAdvantage = ref("");
 
 onLoad(() => {
   // 获取个人优势
@@ -218,8 +223,8 @@ const addProject = () => {
 };
 // 查询所有工作经历
 getUserinfosUserinfoidWorkexperiences(
-  // @ts-ignore
-  { userinfoid: store.state.accountInfo.userInfoId }
+  store.state.accountInfo.userInformationId,
+  {}
 ).then((res) => {
   workExperiences.value = res.data.body;
 });
@@ -237,8 +242,8 @@ const alterWork = (index: number) => {
 };
 // 查询所有教育经历
 getUserinfosUserinfoidEduexperiences(
-  // @ts-ignore
-  { userinfoid: store.state.accountInfo?.userInfoId }
+  store.state.accountInfo.userInformationId,
+  {}
 ).then((res) => {
   educationExperiences.value = res.data.body;
 });
@@ -256,8 +261,8 @@ const alterEducate = (index: number) => {
 };
 // 查询所有项目经历
 getUserinfosUserinfoidProjectexperiences(
-  // @ts-ignore
-  { userinfoid: store.state.accountInfo?.userInfoId }
+  store.state.accountInfo.userInformationId,
+  {}
 ).then((res) => {
   projectExperiences.value = res.data.body;
 });
