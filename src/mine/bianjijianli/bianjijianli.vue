@@ -149,17 +149,17 @@ import {
 } from "@/services/services";
 import { key } from "@/stores";
 import { onLoad } from "@dcloudio/uni-app";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
 const avatar = store.state.userInfo?.avatar; // 头像
-const userName = computed(() => {
-  let fullName = "";
-  fullName = store.state.userInfo!.firstName + store.state.userInfo!.lastName;
-  return fullName;
-}); // 姓名
+// const userName = computed(() => {
+//   let fullName = "";
+//   fullName = store.state.userInfo!.firstName + store.state.userInfo!.lastName;
+//   return fullName;
+// }); // 姓名
 const age = store.state.userInfo?.age; // 年龄
 const education = store.state.userInfo?.education; // 学历
 

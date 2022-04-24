@@ -165,7 +165,7 @@ const forget = () => {
   }
 
   .group-2 {
-    position: absolute;
+    position: fixed;
     bottom: 100rpx;
     font-size: 20rpx;
     line-height: 40rpx;

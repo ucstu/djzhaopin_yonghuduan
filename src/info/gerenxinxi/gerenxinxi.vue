@@ -5,18 +5,20 @@
       <view class="justify-between group-box">
         <text class="portrait">头像</text>
         <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16481303732403472501.png"
+          :src="userInformation.avatar"
           class="photo"
           @click="chooseImage"
         />
       </view>
       <view class="flex-col group-box">
-        <text class="caption">姓名</text>
-        <input v-model="userName" class="user-value" />
+        <text class="caption">姓名 </text>
+        <input v-model="fullName" class="user-value" />
       </view>
       <view class="flex-col group-box">
         <text class="caption">出生日期</text>
-        <input v-model="birthday" class="user-value" @click="showDate" />
+        <text class="user-value" @click="showDate">{{
+          userInformation.dateOfBirth
+        }}</text>
       </view>
       <view class="justify-between items-center group-box">
         <text class="caption">性别</text>
@@ -45,18 +47,18 @@
       </view>
       <view class="flex-col group-box">
         <text class="caption">所在城市</text>
-        <view class="justify-between group_4">
-          <text class="user-value">{{ city }}</text>
+        <view class="justify-between group_4" @click="changeCity">
+          <text class="user-value">{{ userInformation.city }}</text>
           <image src="@/static/icons/arrow-right.png" class="image" />
         </view>
       </view>
       <view class="flex-col group-box">
         <text class="caption">手机号码</text>
-        <input v-model="phoneNumber" class="user-value" />
+        <input v-model="userInformation.phoneNumber" class="user-value" />
       </view>
       <view class="flex-col group-box">
         <text class="caption">邮箱</text>
-        <input v-model="email" class="user-value" />
+        <input v-model="userInformation.email" class="user-value" />
       </view>
       <view class="justify-center button-box">
         <view
@@ -91,6 +93,14 @@
             >
           </picker-view-column>
         </picker-view>
+        <view class="flex-row confirm-box">
+          <text class="justify-center items-center cancel" @click="isCancel"
+            >取消</text
+          >
+          <text class="justify-center items-center confirm" @click="isConfirm"
+            >确认</text
+          >
+        </view>
       </wybPopup>
     </view>
   </view>
@@ -104,41 +114,27 @@ import {
   postAvatars,
   putUserinfosUserinfoid,
 } from "@/services/services";
+import { UserInformation } from "@/services/types";
+import { onLoad } from "@dcloudio/uni-app";
 import { key } from "@/stores";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
-console.log(store.state.accountInfo?.userInfoId);
+console.log(store.state.accountInfo);
 
-const userName = ref(""); //userInfos.userName
-const phoneNumber = ref(""); //userPhone
-const email = ref(""); //userInfos.email
-let birthday = ref("");
-const city = ref("重庆");
-const sexMan = ref("男");
-const sexWo = ref("女");
-const sex = ref("");
-const age = ref();
-const arr = ref([]);
+const userInformation = ref<UserInformation>({} as UserInformation);
+
+const fullName = ref(""); // 姓名
 
 const isActiveMan = ref(false);
 const isActiveWo = ref(false);
 
-getUserinfosUserinfoid(store.state.accountInfo.userInfoId).then((res) => {
-  userName.value = res.data.body.firstName + res.data.body.lastName;
-  phoneNumber.value = res.data.body.phoneNumber;
-  email.value = res.data.body.email;
-  birthday.value = res.data.body.dateOfBirth;
-  sex.value = res.data.body.sex;
-  city.value = res.data.body.city;
-  if (sex.value === sexMan.value) {
-    isActiveMan.value = true;
-  } else if (sex.value === sexWo.value) {
-    isActiveWo.value = true;
-  }
-});
+const valueYear = ref();
+const valueMonth = ref();
+const valueDay = ref();
 
+/* 上传头像 */
 const chooseImage = () => {
   postAvatars({ avatar: "" })
     .then((res) => {
@@ -161,7 +157,7 @@ const popup = ref();
 const showDate = () => {
   popup.value.show();
 };
-for (let i = 1970; i <= date.getFullYear(); i++) {
+for (let i = 1960; i <= date.getFullYear(); i++) {
   years.value.push(i);
 }
 for (let i = 1; i <= 12; i++) {
@@ -170,10 +166,46 @@ for (let i = 1; i <= 12; i++) {
 for (let i = 1; i <= 31; i++) {
   days.value.push(i);
 }
-const value = ref([9999, month - 1, day - 1]);
+const value = ref();
+onMounted(() => {
+  /* 获取用户信息 */
+  getUserinfosUserinfoid(store.state.accountInfo.userInformationId).then(
+    (res) => {
+      userInformation.value = res.data.body;
+      fullName.value =
+        userInformation.value.firstName + userInformation.value.lastName;
+      if (userInformation.value.sex === "男") {
+        isActiveMan.value = true;
+      } else {
+        isActiveWo.value = true;
+      }
+      valueYear.value = parseInt(
+        userInformation.value.dateOfBirth.slice(0, 4),
+        10
+      );
+      valueMonth.value = parseInt(
+        userInformation.value.dateOfBirth.slice(5, 7),
+        10
+      );
+      valueDay.value = parseInt(
+        userInformation.value.dateOfBirth.slice(8, 10),
+        10
+      );
+      value.value = [
+        year - valueYear.value - 2,
+        valueMonth.value - 1,
+        valueDay.value - 1,
+      ];
+    }
+  );
+});
+const birthday = ref();
+const age = ref();
 const bindChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;
   year = years.value[val[0]];
+  console.log(typeof year);
+
   month = months.value[val[1]];
   day = days.value[val[2]];
   birthday.value = year + "-" + month + "-" + day;
@@ -186,29 +218,49 @@ const bindChange = (e: { detail: { value: never } }) => {
     }
   }
 };
+const isConfirm = () => {
+  userInformation.value.dateOfBirth = birthday.value;
+  userInformation.value.age = age.value;
+  popup.value.hide();
+};
+const isCancel = () => {
+  popup.value.hide();
+};
 
-// 本地存储用户基本信息
+const changeCity = () => {
+  uni.navigateTo({ url: "/most/chengshixuanze/chengshixuanze" });
+};
+
+onLoad(() => {
+  uni.$on("liveCity", (data) => {
+    userInformation.value.city = data;
+  });
+});
+
+// 保存修改用户基本信息
 const saveInfos = () => {
-  if (!userName.value) {
+  if (!fullName.value) {
     uni.showToast({
       title: "请输入姓名",
       icon: "none",
       duration: 500,
     });
-  } else if (!phoneNumber.value) {
+  } else if (!userInformation.value.phoneNumber) {
     uni.showToast({
       title: "手机不能为空",
       icon: "none",
       duration: 500,
     });
-  } else if (!email.value) {
+  } else if (!userInformation.value.email) {
     uni.showToast({
       title: "邮箱不能为空",
       icon: "none",
       duration: 500,
     });
   } else if (
-    !/^([A-Za-z0-9_\-\.])+\@(163.com|qq.com|42du.cn)$/.test(email.value)
+    !/^([A-Za-z0-9_\-\.])+\@(163.com|qq.com|42du.cn)$/.test(
+      userInformation.value.email
+    )
   ) {
     uni.showToast({
       title: "邮箱格式有误",
@@ -216,31 +268,38 @@ const saveInfos = () => {
       duration: 500,
     });
   } else {
-    putUserinfosUserinfoid(store.state.accountInfo.userInfoId, {
-      userId: "",
-      createdAt: "",
-      updatedAt: "",
-      avatar: "",
-      firstName: userName.value.split(" ")[0],
-      lastName: userName.value.split(" ")[1],
-      dateOfBirth: birthday.value,
-      sex: sex.value,
-      age: age.value,
-      city: city.value,
-      phoneNumber: phoneNumber.value,
-      email: email.value,
-      workingYears: 1,
-      education: "2",
-      jobStatus: "1",
-      personalAdvantage: "",
-      socialHomepage: "",
-      pictureWorks: arr.value[2],
-      privacySettings: "1",
+    if (isActiveMan.value) {
+      userInformation.value.sex = "男";
+    } else {
+      userInformation.value.sex = "女";
+    }
+    let updateAt = year + "-" + month + "-" + day;
+
+    putUserinfosUserinfoid(store.state.accountInfo.userInformationId, {
+      userInformationId: store.state.accountInfo.userInformationId,
+      createdAt: userInformation.value.createdAt,
+      updatedAt: updateAt,
+      avatar: userInformation.value.avatar,
+      firstName: fullName.value.slice(0, 1),
+      lastName: fullName.value.slice(1, fullName.value.length),
+      dateOfBirth: userInformation.value.dateOfBirth,
+      sex: userInformation.value.sex,
+      age: userInformation.value.age,
+      city: userInformation.value.city,
+      phoneNumber: userInformation.value.phoneNumber,
+      email: userInformation.value.email,
+      workingYears: userInformation.value.workingYears,
+      education: userInformation.value.education,
+      jobStatus: userInformation.value.jobStatus,
+      personalAdvantage: userInformation.value.personalAdvantage,
+      socialHomepage: userInformation.value.socialHomepage,
+      pictureWorks: userInformation.value.pictureWorks,
+      privacySettings: userInformation.value.privacySettings,
     }).then((res) => {
       store.commit("setUserInfo", res.data.body);
       console.log(res);
     });
-    uni.navigateBack({ delta: 1 });
+    // uni.navigateBack({ delta: 1 });
   }
 };
 </script>
@@ -324,8 +383,32 @@ const saveInfos = () => {
     .item {
       align-items: center;
       justify-content: center;
-      height: 300rpx;
       text-align: center;
+    }
+  }
+
+  .confirm-box {
+    width: 100%;
+    height: 100rpx;
+    margin-top: 10rpx;
+    font-size: 30rpx;
+
+    .cancel {
+      width: 45%;
+      height: 80rpx;
+      margin-left: 20rpx;
+      color: #000;
+      background-color: rgb(230 230 230);
+      border-radius: 10rpx;
+    }
+
+    .confirm {
+      width: 45%;
+      height: 80rpx;
+      margin-left: 20rpx;
+      color: #fff;
+      background-color: rgb(35 193 158);
+      border-radius: 10rpx;
     }
   }
 }

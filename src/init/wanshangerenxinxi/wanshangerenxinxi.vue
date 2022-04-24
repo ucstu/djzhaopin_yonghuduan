@@ -110,7 +110,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { postUserinfos } from "@/services/services";
+import { putUserinfosUserinfoid } from "@/services/services";
 import { key } from "@/stores";
 import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
@@ -118,16 +118,16 @@ import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const firstName = ref("");
-const lastName = ref("");
-const isActiveMan = ref(true);
-const isActiveMo = ref(false);
-const sexMan = ref("男");
-const sexMo = ref("女");
-let city = ref<string>("请选择");
-const emailValue = ref("");
-const age = ref();
-// 获取时间
+const firstName = ref(""); // 姓
+const lastName = ref(""); // 名
+const isActiveMan = ref(true); // 判断性别
+const isActiveMo = ref(false); // 判断性别
+const sexMan = ref("男"); // 性别
+const sexMo = ref("女"); // 性别
+let city = ref<string>("请选择"); // 城市
+const emailValue = ref(""); // 邮箱
+const age = ref(); // 年龄
+/* 获取时间 */
 const date = new Date();
 const years = ref<number[]>([]);
 let year = date.getFullYear();
@@ -135,7 +135,8 @@ const months = ref<number[]>([]);
 let month = date.getMonth() + 1;
 const days = ref<number[]>([]);
 let day = date.getDate();
-let birthday = ref(year + "-" + month + "-" + day);
+let birthday = ref(year + "-" + month + "-" + day); /*出生日期*/
+/*弹出层 */
 const popup = ref();
 const showDate = () => {
   popup.value.show();
@@ -159,15 +160,15 @@ const bindChange = (e: { detail: { value: never } }) => {
   age.value = date.getFullYear() - year;
   console.log(age.value);
 };
-// 下一步
+/* 判断信息是否填写完整*/
 const sex = ref();
 const nextClick = () => {
+  /* 判断性别 */
   if (isActiveMan.value === true) {
     sex.value = sexMan.value;
   } else if (isActiveMo.value === true) {
     sex.value = sexMo.value;
   }
-
   if (
     firstName.value === "" ||
     lastName.value === "" ||
@@ -179,17 +180,26 @@ const nextClick = () => {
       duration: 500,
     });
   } else {
-    postUserinfos({
-      phoneNumber: "",
+    putUserinfosUserinfoid(store.state.accountInfo.userInfomationId, {
+      userInformationId: store.state.accountInfo.userInfomationId,
+      createdAt: store.state.accountInfo.createdAt,
+      updatedAt: store.state.accountInfo.updatedAt,
+      avatar: "",
       firstName: firstName.value,
       lastName: lastName.value,
       dateOfBirth: birthday.value,
       sex: sex.value,
       age: age.value,
       city: city.value,
+      phoneNumber: store.state.accountInfo.userName,
       email: emailValue.value,
+      workingYears: 1,
       education: "2",
       jobStatus: "1",
+      personalAdvantage: "",
+      socialHomepage: "",
+      pictureWorks: [],
+      privacySettings: "1",
     })
       .then((res) => {
         store.commit("setUserInfo", res.data.body);
