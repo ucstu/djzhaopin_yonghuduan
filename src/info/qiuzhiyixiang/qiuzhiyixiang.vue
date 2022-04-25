@@ -14,7 +14,7 @@
         @click="jobExpectationClick(i)"
       >
         <view>
-          <text class="job-name">{{ jobExpectation.name }}</text>
+          <text class="job-name">{{ jobExpectation.positonName }}</text>
           <view class="direct-box">
             <text
               v-for="(direction, j) in jobExpectation.directionTags"

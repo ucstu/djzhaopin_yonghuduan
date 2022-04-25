@@ -6,22 +6,29 @@
         <view class="flex-row justify-between user-box">
           <view class="flex-col" @click="changeInfo">
             <view class="flex-row items-center user">
-              <text
-                class="text-top"
-                style="font-size: 40rpx; font-weight: 600"
-                >{{ userName }}</text
+              <text class="text-top" style="font-size: 40rpx; font-weight: 600"
+                >{{ userInformation.firstName }}
+                {{ userInformation.lastName }}</text
               >
               <image class="image" src="@/static/icons/edit.png" />
             </view>
             <view>
-              <text style="font-size: 30rpx">{{ age }}岁/{{ education }}</text>
+              <text style="font-size: 30rpx"
+                >{{ userInformation.age }}岁/{{
+                  userInformation.education
+                }}</text
+              >
             </view>
           </view>
           <view class="image-box">
-            <image :src="avatar" class="photo" />
-            <image v-if="true" class="sex-image" src="@/static/icons/man.png" />
+            <image :src="userInformation.avatar" class="photo" />
             <image
-              v-if="false"
+              v-if="isSex"
+              class="sex-image"
+              src="@/static/icons/man.png"
+            />
+            <image
+              v-if="!isSex"
               class="sex-image"
               src="@/static/icons/woman.png"
             />
@@ -35,17 +42,30 @@
             v-for="(jobExcept, i) in jobExpectations"
             :key="i"
             class="flex-col"
+            style="margin-top: 20rpx"
+            @click="ToJobExpectation"
           >
             <view style="font-size: 28rpx; font-weight: 600">
-              <text>{{ jobExcept.name }}</text>
-              <text style="padding-left: 20rpx">{{
-                jobExcept.salary
-              }}</text></view
+              <text>{{ jobExcept.positonName }}</text>
+              <text style="padding-left: 20rpx">
+                {{ jobExcept.startingSalary }}k-{{
+                  jobExcept.ceilingSalary
+                }}k</text
+              ></view
             >
-            <text style="font-size: 25rpx">{{ jobExcept.direction }}</text>
+            <view>
+              <text
+                v-for="(directionTag, i) in jobExcept.directionTags"
+                :key="i"
+                style="margin-right: 20rpx; font-size: 25rpx"
+                >{{ directionTag }}</text
+              >
+            </view>
             <view style="font-size: 25rpx">
               <text>{{ jobExcept.city }}</text>
-              <text style="padding-left: 20rpx">{{ jobExcept.entryTime }}</text>
+              <text style="padding-left: 20rpx">{{
+                jobExcept.positionType
+              }}</text>
             </view>
           </view>
         </view>
@@ -143,14 +163,18 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
+  getUserinfosUserinfoid,
   getUserinfosUserinfoidEduexperiences,
   getUserinfosUserinfoidProjectexperiences,
   getUserinfosUserinfoidWorkexperiences,
+  getUserinfosUserinfoidJobexpectations,
 } from "@/services/services";
 import {
   EducationExperience,
   ProjectExperience,
+  UserInformation,
   WorkExperience,
+  JobExpectation,
 } from "@/services/types";
 import { key } from "@/stores";
 import { onLoad } from "@dcloudio/uni-app";
@@ -159,32 +183,11 @@ import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const avatar = store.state.userInfo?.avatar; // 头像
-// const userName = computed(() => {
-//   let fullName = "";
-//   fullName = store.state.userInfo!.firstName + store.state.userInfo!.lastName;
-//   return fullName;
-// }); // 姓名
-const age = store.state.userInfo?.age; // 年龄
-const education = store.state.userInfo?.education; // 学历
+const userInformation = ref<UserInformation>({} as UserInformation); // 用户信息
+const isSex = ref<boolean>(true); // 性别
 
 // 求职期望
-const jobExpectations = ref([
-  {
-    name: "前段工程师",
-    salary: "8K-9K",
-    direction: "React",
-    city: "重庆",
-    entryTime: "1个月内入职",
-  },
-  {
-    name: "后段工程师",
-    salary: "8K-9K",
-    direction: "JAVA",
-    city: "成都",
-    entryTime: "3个月内入职",
-  },
-]);
+const jobExpectations = ref<JobExpectation[]>([]);
 // 工作经历
 const workExperiences = ref<WorkExperience[]>([]);
 // 教育经历
@@ -199,11 +202,28 @@ onLoad(() => {
   uni.$on("advantage", (e) => {
     personalAdvantage.value = e;
   });
+  getUserinfosUserinfoid(store.state.accountInfo.userInformationId).then(
+    (res) => {
+      userInformation.value = res.data.body;
+      if (userInformation.value.sex === "男") {
+        isSex.value = true;
+      } else {
+        isSex.value = false;
+      }
+    }
+  );
 });
 
 // 修改个人信息
 const changeInfo = () => {
   uni.navigateTo({ url: "/info/gerenxinxi/gerenxinxi" });
+};
+// 查询求职期望
+getUserinfosUserinfoidJobexpectations().then((res) => {
+  jobExpectations.value = res.data.body;
+});
+const ToJobExpectation = () => {
+  uni.navigateTo({ url: "/info/qiuzhiyixiang/qiuzhiyixiang" });
 };
 // 添加个人优势
 const addAdvantage = () => {
@@ -294,7 +314,7 @@ const alterProject = (index: number) => {
 
     .group-user {
       height: auto;
-      line-height: 50rpx;
+      line-height: 35rpx;
       border-bottom: 1px solid rgb(230 230 230);
 
       .user-box {
