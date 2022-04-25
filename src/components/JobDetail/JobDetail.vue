@@ -1,8 +1,10 @@
 <template>
-  <view class="justify-between border" @click="rootViewOnClick">
+  <view class="justify-between border" @click="emit('jobClick')">
     <view class="flex-col group-1">
       <view class="flex-col job-infos">
-        <text class="name">{{ jobDetail!.name }}</text>
+        <text class="name"
+          >{{ jobDetail!.name }}{{jobDetail!.positonName}}</text
+        >
         <view class="flex-row area-educate">
           <text class="area">{{ jobDetail!.workArea }}</text>
           <text class="educate">{{ jobDetail!.education }}</text>
@@ -40,10 +42,7 @@ defineProps({
     type: Object,
   },
 });
-
-const rootViewOnClick = () => {
-  uni.navigateTo({ url: "/detail/zhiweixiangqing/zhiweixiangqing" });
-};
+const emit = defineEmits(["jobClick"]);
 </script>
 
 <style lang="scss" scoped>

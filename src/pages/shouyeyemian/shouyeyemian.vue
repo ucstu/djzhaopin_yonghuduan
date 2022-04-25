@@ -36,13 +36,13 @@
             <view class="justify-between group-2">
               <view class="flex-row group-3">
                 <text
-                  :class="showFirst === 'true' ? 'active' : ''"
+                  :class="showFirst === 'true' ? 'is-active' : ''"
                   @click="showFirst = 'true'; showSecond = 'false'; showThird = 'false'">热门</text>
                 <text
-                  class="text-4" :class="showSecond === 'true' ? 'active' : ''"
+                  class="text-4" :class="showSecond === 'true' ? 'is-active' : ''"
                   @click="showFirst = 'false'; showSecond = 'true'; showThird = 'false'">附近</text>
                 <text
-                  class="text-5" :class="showThird === 'true' ? 'active' : ''"
+                  class="text-5" :class="showThird === 'true' ? 'is-active' : ''"
                   @click="showFirst = 'false'; showSecond = 'false'; showThird = 'true'">最新</text>
               </view>
               <view class="flex-row group-4">
@@ -65,9 +65,9 @@
               class="image-6" />
           </view>
           <view class="flex-col list-1">
-            <view @click="view_4OnClick">
+            <view >
               <JobDetail
-              v-for="(jobDetail, i) in jobDetails" :key="i" class="list-item-1" :job-detail="jobDetail"></JobDetail>
+              v-for="(jobDetail, i) in jobDetails" :key="i" class="list-item-1" :job-detail="jobDetail" @job-click="jobDescription(i)"></JobDetail>
             </view>
           </view>
 </view>
@@ -75,8 +75,7 @@
 
 <script lang="ts" setup>
 import JobDetail from '@/components/JobDetail/JobDetail.vue';
-import CompanyDetail from '@/components/CompanyDetail/CompanyDetail.vue';
-import { getCompanyinfosCompanyinfoidPositioninfos,getCompanyinfos } from "@/services/services";
+import { getCompanyinfos, getCompanyinfosPositioninfos } from "@/services/services";
 import { key } from '@/stores';
 import { reactive, ref } from 'vue';
 import { useStore } from 'vuex';
@@ -96,9 +95,8 @@ const expectationWidth = store.state.menuButtonInfo!.left - uni.upx2px(170)
 
 const jobDetails = ref<any>([
 ])
-getCompanyinfosCompanyinfoidPositioninfos(
-  {companyinfoid: "aaaaa"},
-  {positioninfoid: "bbbbb"}
+getCompanyinfosPositioninfos(
+  {}
 ).then((res) => {
   jobDetails.value = res.data.body
 
@@ -135,8 +133,10 @@ const text_22OnClick = () => {
 const text_23OnClick = () => {
   uni.navigateTo({ url: '/most/shaixuanyemian/shaixuanyemian' })
 }
-const view_4OnClick = () => {
-  uni.navigateTo({ url: '/detail/zhiweixiangqing/zhiweixiangqing' })
+const jobDescription = (index: number) => {
+  let companyId = jobDetails.value[index].companyId;
+  let positionId = jobDetails.value[index].positionInformationId;
+  uni.navigateTo({ url: '/detail/zhiweixiangqing/zhiweixiangqing?companyId=' + companyId +"&positionId="+positionId });
 }
 </script>
 
@@ -166,7 +166,7 @@ const view_4OnClick = () => {
         color: rgb(209 205 205);
         white-space: nowrap;
 
-        .active {
+        .is-active {
           color: rgb(255 255 255);
         }
 

@@ -6,7 +6,7 @@
         <view class="flex-col user-info">
           <text class="name">{{ fullName }}</text>
           <text class="age-educate"
-            >{{ userInfos.age }}岁/{{ userInfos.education }}</text
+            >{{ userInfos.age }}岁/{{ education[userInfos.education] }}</text
           >
         </view>
       </view>
@@ -87,16 +87,23 @@
 <script lang="ts" setup>
 import { getUserinfosUserinfoid } from "@/services/services";
 import { UserInformation } from "@/services/types";
-import { computed, ref } from "vue";
+import { key } from "@/stores";
+import { onLoad } from "@dcloudio/uni-app";
+import { ref } from "vue";
+import { useStore } from "vuex";
 
-let userInfos = ref<UserInformation>({});
-getUserinfosUserinfoid().then((res) => {
-  userInfos.value = res.data.body;
-  console.log(userInfos.value);
-});
+const store = useStore(key);
 
-const fullName = computed(() => {
-  return userInfos.value.firstName + userInfos.value.lastName;
+const userInfos = ref<UserInformation>({} as UserInformation);
+const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
+const fullName = ref();
+onLoad(() => {
+  getUserinfosUserinfoid(store.state.accountInfo.userInformationId).then(
+    (res) => {
+      userInfos.value = res.data.body;
+      fullName.value = `${res.data.body.firstName} ${res.data.body.lastName}`;
+    }
+  );
 });
 
 const toSelfInfo = () => {

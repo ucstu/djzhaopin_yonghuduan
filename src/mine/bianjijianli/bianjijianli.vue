@@ -15,7 +15,7 @@
             <view>
               <text style="font-size: 30rpx"
                 >{{ userInformation.age }}岁/{{
-                  userInformation.education
+                  education[userInformation.education]
                 }}</text
               >
             </view>
@@ -165,16 +165,16 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
   getUserinfosUserinfoid,
   getUserinfosUserinfoidEduexperiences,
+  getUserinfosUserinfoidJobexpectations,
   getUserinfosUserinfoidProjectexperiences,
   getUserinfosUserinfoidWorkexperiences,
-  getUserinfosUserinfoidJobexpectations,
 } from "@/services/services";
 import {
   EducationExperience,
+  JobExpectation,
   ProjectExperience,
   UserInformation,
   WorkExperience,
-  JobExpectation,
 } from "@/services/types";
 import { key } from "@/stores";
 import { onLoad } from "@dcloudio/uni-app";
@@ -185,6 +185,7 @@ const store = useStore(key);
 
 const userInformation = ref<UserInformation>({} as UserInformation); // 用户信息
 const isSex = ref<boolean>(true); // 性别
+const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
 
 // 求职期望
 const jobExpectations = ref<JobExpectation[]>([]);
@@ -219,7 +220,10 @@ const changeInfo = () => {
   uni.navigateTo({ url: "/info/gerenxinxi/gerenxinxi" });
 };
 // 查询求职期望
-getUserinfosUserinfoidJobexpectations().then((res) => {
+getUserinfosUserinfoidJobexpectations(
+  store.state.accountInfo.userInformationId,
+  {}
+).then((res) => {
   jobExpectations.value = res.data.body;
 });
 const ToJobExpectation = () => {

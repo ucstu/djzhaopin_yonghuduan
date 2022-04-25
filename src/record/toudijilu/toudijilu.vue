@@ -5,9 +5,9 @@
       <view
         v-for="(send, i) in sendType"
         :key="i"
-        :class="sendTypeId === i ? 'active' : ''"
-        @click="sendTypeId = i"
-        >{{ send }}</view
+        :class="sendId === i ? 'active' : ''"
+        @click="sendTypeId(i)"
+        >{{ send.type }}</view
       >
     </view>
     <view class="flex-col list">
@@ -16,7 +16,7 @@
         :key="i"
         class="list-item"
         :collection-position="deliveryRecord"
-        :send-type="sendType[sendTypeId]"
+        :send-type="sendType[sendId].type"
       />
     </view>
   </view>
@@ -25,17 +25,48 @@
 <script lang="ts" setup>
 import JobPanel from "@/components/JobPanel/JobPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getCompanyinfosCompanyinfoidPositioninfos } from "@/services/services";
-import { ref } from "vue";
+import { getCompanyinfosCompanyinfoidDeliveryrecords } from "@/services/services";
+import { DeliveryRecord } from "@/services/types";
+import { key } from "@/stores";
+import { onMounted, ref } from "vue";
+import { useStore } from "vuex";
 
-const deliveryRecords = ref([]);
-const sendType = ref(["待查看", "已查看", "通过初筛", "约面试", "不合格"]);
+const store = useStore(key);
 
-getCompanyinfosCompanyinfoidPositioninfos().then((res) => {
-  deliveryRecords.value = res.data.body;
+const deliveryRecords = ref<DeliveryRecord[]>([]);
+const sendType = ref([
+  { key: "0", type: "待查看" },
+  { key: "1", type: "已查看" },
+  { key: "2", type: "通过初筛" },
+  { key: "3", type: "约面试" },
+  { key: "4", type: "不合格" },
+]);
+const sendId = ref(0);
+
+onMounted(() => {
+  getCompanyinfosCompanyinfoidDeliveryrecords(
+    store.state.accountInfo.userInformationId,
+    {
+      state: sendType.value[sendId.value].key,
+    }
+  ).then((res) => {
+    deliveryRecords.value = res.data.body;
+    console.log(deliveryRecords.value);
+  });
 });
 
-const sendTypeId = ref(0);
+const sendTypeId = (index: number) => {
+  sendId.value = index;
+  getCompanyinfosCompanyinfoidDeliveryrecords(
+    store.state.accountInfo.userInformationId,
+    {
+      state: sendType.value[sendId.value].key,
+    }
+  ).then((res) => {
+    console.log(sendId.value);
+    deliveryRecords.value = res.data.body;
+  });
+};
 </script>
 
 <style lang="scss" scoped>

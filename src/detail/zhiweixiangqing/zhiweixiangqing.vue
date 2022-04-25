@@ -62,7 +62,7 @@
           </view>
           <view>职位描述：{{ jobInformation.description }}</view>
           <view>所属部门：{{ jobInformation.department }}</view>
-          <view>周末休息时间：{{ jobInformation.weekendReleseTime }}</view>
+          <view>周末休息时间：{{ jobInformation.weekendReleaseTime }}</view>
           <view>上班时间：{{ jobInformation.workTime }}</view>
           <view>工作地点：{{ jobInformation.workingPlace }}</view>
         </view>
@@ -104,25 +104,45 @@ import {
   getCompanyinfosCompanyinfoidPositioninfosPositioninfoid,
 } from "@/services/services";
 import { CompanyInformation, PositionInformation } from "@/services/types";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const jobInformation = ref<PositionInformation>({} as PositionInformation);
-getCompanyinfosCompanyinfoidPositioninfosPositioninfoid(
-  { companyinfoid: "asd165a1d56a" },
-  { positioninfoid: "adjalkdlak" }
-).then((res) => {
-  jobInformation.value = res.data.body;
-});
 
 const educates = ref(["不要求", "大专", "本科", "硕士", "博士"]);
 
 const companyInformation = ref<CompanyInformation>({} as CompanyInformation);
-getCompanyinfosCompanyinfoid({ companyinfoid: "asd165a1d56a" }).then((res) => {
-  companyInformation.value = res.data.body;
+const companyId = ref("");
+const positionId = ref("");
+onLoad((e) => {
+  if (e.companyId) {
+    companyId.value = e.companyId;
+    console.log(companyId.value);
+  }
+  if (e.positionId) {
+    positionId.value = e.positionId;
+    console.log(positionId.value);
+  }
+  getCompanyinfosCompanyinfoidPositioninfosPositioninfoid(
+    companyId.value,
+    positionId.value
+  ).then((res) => {
+    jobInformation.value = res.data.body;
+  });
+  getCompanyinfosCompanyinfoid(companyId.value).then((res) => {
+    companyInformation.value = res.data.body;
+  });
 });
 
 const toCompanyIn = () => {
   uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao" });
+};
+
+const communication = () => {
+  uni.navigateTo({ url: "/detail/communication/communication" });
+};
+const sendResume = () => {
+  uni.navigateTo({ url: "/detail/sendResume/sendResume" });
 };
 </script>
 
