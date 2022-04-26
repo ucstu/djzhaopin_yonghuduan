@@ -21,7 +21,7 @@
       </view>
       <view class="flex-row items-center justify-between group-box">
         <text class="text-title">期望月薪</text>
-        <view class="items-center text-right" @click="expectSalry">
+        <view class="items-center text-right" @click="expectSalary">
           <text>{{ salary }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
@@ -68,6 +68,9 @@
           >
         </picker-view-column>
       </picker-view>
+      <view class="button-box">
+        <button class="button" @click="saveSalary">确认</button>
+      </view>
     </wybPopup>
     <view class="justify-center button-box">
       <button class="button" @click="saveJobExcept">{{ saveBtn }}</button>
@@ -79,18 +82,19 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  postUserinfosUserinfoidJobexpectations,
   getUserinfosUserinfoidJobexpectationsJobexpectationid,
+  postUserinfosUserinfoidJobexpectations,
 } from "@/services/services";
-import { onLoad } from "@dcloudio/uni-app";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
 const job = ref("");
-const directionTags = ref([]);
+const directionTags = ref<string[]>([]);
 const directionTag = ref("");
 const directionShow = ref(false);
 const salary = ref("");
@@ -100,7 +104,7 @@ const saveOver = ref("完成");
 const jobId = ref("");
 
 const popup = ref();
-const expectSalry = () => {
+const expectSalary = () => {
   popup.value.show();
 };
 
@@ -114,31 +118,40 @@ for (let i = 1; i <= 90; i++) {
 for (let i = 5; i <= 100; i++) {
   endSalary.value.push(i);
 }
-const salaryChange = (e: { detail: { value: never } }) => {
+const salaryChange = (e: any) => {
   let val = e.detail.value;
   startsa.value = String(startSalary.value[val[0]]);
   endsa.value = String(endSalary.value[val[1]]);
+};
+const saveSalary = () => {
   salary.value = `${startsa.value}k-${endsa.value}k`;
+  popup.value.hide();
 };
 
 onLoad((e) => {
-  jobId.value = e.id;
+  if (e.id !== undefined) {
+    jobId.value = e.id;
+  }
   if (e.data === "true") {
     saveBtn.value = "保存";
   } else {
     saveBtn.value = "完成";
   }
-  if (jobId.value !== undefined) {
+  if (jobId.value) {
     getUserinfosUserinfoidJobexpectationsJobexpectationid(
-      {
-      userinfoid: "",
-      jobexpectationid: jobId.value,
-    }).then((res) => {
-      salary.value =
-        res.data.body.startingSalary + "k-" + res.data.body.ceilingSalary + "k";
-      city.value = res.data.body.city;
-      console.log(res.data.body);
-    });
+      store.state.accountInfo.userInformationId,
+      jobId.value
+    )
+      .then((res) => {
+        salary.value =
+          res.data.body.startingSalary +
+          "k-" +
+          res.data.body.ceilingSalary +
+          "k";
+        city.value = res.data.body.city;
+        console.log(111);
+      })
+      .catch(failResponseHandler);
   }
   uni.$on("liveCity", (e) => {
     city.value = e;
@@ -195,12 +208,13 @@ const saveJobExcept = () => {
       });
     } else {
       postUserinfosUserinfoidJobexpectations(
-        { userinfoid: "" },
+        store.state.accountInfo.userInformationId,
         {
+          positionName: job.value,
           positionType: "1",
           directionTags: directionTags.value,
-          startingSalary: startsa.value,
-          ceilingSalary: endsa.value,
+          startingSalary: parseInt(startsa.value),
+          ceilingSalary: parseInt(endsa.value),
           city: city.value,
         }
       )
@@ -272,7 +286,6 @@ const expectCity = () => {
     .item {
       align-items: center;
       justify-content: center;
-      height: 300rpx;
       font-size: 30rpx;
       color: black;
       text-align: center;

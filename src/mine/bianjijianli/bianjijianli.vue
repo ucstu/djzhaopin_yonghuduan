@@ -46,7 +46,7 @@
             @click="ToJobExpectation"
           >
             <view style="font-size: 28rpx; font-weight: 600">
-              <text>{{ jobExcept.positonName }}</text>
+              <text>{{ jobExcept.positionName }}</text>
               <text style="padding-left: 20rpx">
                 {{ jobExcept.startingSalary }}k-{{
                   jobExcept.ceilingSalary
@@ -129,7 +129,7 @@
             <text>{{ educate.education }}</text
             >&nbsp;&nbsp;
             <text
-              >{{ educate.admissionTime }}-{{ educate.araduationTime }}</text
+              >{{ educate.admissionTime }}-{{ educate.graduationTime }}</text
             >
           </view>
         </view>
@@ -177,7 +177,8 @@ import {
   WorkExperience,
 } from "@/services/types";
 import { key } from "@/stores";
-import { onLoad } from "@dcloudio/uni-app";
+import { failResponseHandler } from "@/utils/handler";
+import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -198,21 +199,21 @@ const projectExperiences = ref<ProjectExperience[]>([]);
 // 个人优势
 const personalAdvantage = ref("");
 
-onLoad(() => {
+onShow(() => {
   // 获取个人优势
   uni.$on("advantage", (e) => {
     personalAdvantage.value = e;
   });
-  getUserinfosUserinfoid(store.state.accountInfo.userInformationId).then(
-    (res) => {
+  getUserinfosUserinfoid(store.state.accountInfo.userInformationId)
+    .then((res) => {
       userInformation.value = res.data.body;
       if (userInformation.value.sex === "男") {
         isSex.value = true;
       } else {
         isSex.value = false;
       }
-    }
-  );
+    })
+    .catch(failResponseHandler);
 });
 
 // 修改个人信息
@@ -223,9 +224,11 @@ const changeInfo = () => {
 getUserinfosUserinfoidJobexpectations(
   store.state.accountInfo.userInformationId,
   {}
-).then((res) => {
-  jobExpectations.value = res.data.body;
-});
+)
+  .then((res) => {
+    jobExpectations.value = res.data.body;
+  })
+  .catch(failResponseHandler);
 const ToJobExpectation = () => {
   uni.navigateTo({ url: "/info/qiuzhiyixiang/qiuzhiyixiang" });
 };

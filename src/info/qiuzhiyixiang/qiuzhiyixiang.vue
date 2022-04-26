@@ -71,6 +71,7 @@ import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { getUserinfosUserinfoidJobexpectations } from "@/services/services";
 import { JobExpectation } from "@/services/types";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -90,11 +91,13 @@ onShow(() => {
   getUserinfosUserinfoidJobexpectations(
     store.state.accountInfo.userInformationId,
     {}
-  ).then((res) => {
-    jobExpectations.value = res.data.body;
-    // store.commit("setJobExpectation", res.data.body);
-    console.log(jobExpectations.value);
-  });
+  )
+    .then((res) => {
+      jobExpectations.value = res.data.body;
+      // store.commit("setJobExpectation", res.data.body);
+      console.log(jobExpectations.value);
+    })
+    .catch(failResponseHandler);
 });
 
 const jobExpectationClick = (index: number) => {
@@ -219,7 +222,6 @@ const entryChange = (e: any) => {
     .item {
       align-items: center;
       justify-content: center;
-      height: 300rpx;
       font-size: 30rpx;
       color: black;
       text-align: center;

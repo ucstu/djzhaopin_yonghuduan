@@ -76,9 +76,9 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { onLoad } from "@dcloudio/uni-app";
 import { getPositiontypes } from "@/services/services";
 import { PositionTypes } from "@/services/types";
+import { onLoad } from "@dcloudio/uni-app";
 import { computed, nextTick, onMounted, reactive, ref } from "vue";
 
 const popup = ref();
@@ -95,6 +95,7 @@ const positions = computed(
 
 getPositiontypes().then((res) => {
   fields.push(...res.data.body);
+  console.log(res.data.body);
 });
 
 const showDirections = (index: number) => {

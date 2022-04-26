@@ -115,8 +115,9 @@ import {
   putUserinfosUserinfoid,
 } from "@/services/services";
 import { UserInformation } from "@/services/types";
-import { onLoad } from "@dcloudio/uni-app";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
+import { onLoad } from "@dcloudio/uni-app";
 import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
@@ -140,9 +141,7 @@ const chooseImage = () => {
     .then((res) => {
       console.log(res);
     })
-    .catch((err) => {
-      console.log(err.msg);
-    });
+    .catch(failResponseHandler);
 };
 
 // 选择出生日期
@@ -169,8 +168,9 @@ for (let i = 1; i <= 31; i++) {
 const value = ref();
 onMounted(() => {
   /* 获取用户信息 */
-  getUserinfosUserinfoid(store.state.accountInfo.userInformationId).then(
-    (res) => {
+  getUserinfosUserinfoid(store.state.accountInfo.userInformationId)
+    .then((res) => {
+      console.log(res.data.body);
       userInformation.value = res.data.body;
       fullName.value =
         userInformation.value.firstName + userInformation.value.lastName;
@@ -196,8 +196,8 @@ onMounted(() => {
         valueMonth.value - 1,
         valueDay.value - 1,
       ];
-    }
-  );
+    })
+    .catch(failResponseHandler);
 });
 const birthday = ref();
 const age = ref();
@@ -295,11 +295,13 @@ const saveInfos = () => {
       socialHomepage: userInformation.value.socialHomepage,
       pictureWorks: userInformation.value.pictureWorks,
       privacySettings: userInformation.value.privacySettings,
-    }).then((res) => {
-      store.commit("setUserInfo", res.data.body);
-      console.log(res);
-    });
-    // uni.navigateBack({ delta: 1 });
+    })
+      .then((res) => {
+        store.commit("setUserInfo", res.data.body);
+        uni.navigateBack({ delta: 1 });
+        console.log(res);
+      })
+      .catch(failResponseHandler);
   }
 };
 </script>
