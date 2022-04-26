@@ -98,6 +98,7 @@ import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { postUserinfosUserinfoidWorkexperiences } from "@/services/services";
 import { CompanyInformation, WorkExperience } from "@/services/types";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -156,11 +157,13 @@ const nextClick = () => {
       jobContent: "",
       positionName: "",
     }
-  ).then((res) => {
-    store.commit("exceptionJob", res.data.body);
-  });
+  )
+    .then((res) => {
+      store.commit("exceptionJob", res.data.body);
+      uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=${value}` });
+    })
+    .catch(failResponseHandler);
   let value = false;
-  uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=${value}` });
 };
 
 const skip = () => {
