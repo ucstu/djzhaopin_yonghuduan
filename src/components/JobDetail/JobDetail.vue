@@ -7,7 +7,7 @@
         >
         <view class="flex-row area-educate">
           <text class="area">{{ jobDetail!.workArea }}</text>
-          <text class="educate">{{ jobDetail!.education }}</text>
+          <text class="educate">{{ education[jobDetail!.education] }}</text>
         </view>
         <view class="flex-row items-center directions">
           <view
@@ -19,35 +19,73 @@
           </view>
         </view>
       </view>
-      <!-- <view class="flex-row company-infos">
-        <image class="company-logo" :src="jobDetail!.companyLogoAddress" />
-        <view class="flex-col name-info">
-          <text class="company-name">{{ jobDetail!.companyName }}</text>
-          <text class="company-info">{{ jobDetail!.companyInfo }}</text>
+      <view class="flex-row company-infos">
+        <view class="flex-row items-center name-info">
+          <image class="logo" :src="companyInfo.logo" />
+          <text class="company">{{ companyInfo.name }}</text>
+          <text class="company">{{
+            financingStage[companyInfo.financingStage]
+          }}</text>
+          <text class="company">{{ scale[companyInfo.scale] }}</text>
         </view>
-      </view> -->
+      </view>
     </view>
     <view class="flex-col items-end group-2">
       <text class="salary"
-        >{{ jobDetail!.startingSalary }}-{{ jobDetail!.ceilingSalary }}</text
+        >{{ jobDetail!.startingSalary }}k-{{ jobDetail!.ceilingSalary }}k</text
       >
       <text class="date">{{ jobDetail!.releaseDate }}</text>
     </view>
   </view>
+  <view class="box"></view>
 </template>
 
 <script lang="ts" setup>
-defineProps({
+import { getCompanyinfosCompanyinfoid } from "@/services/services";
+import { CompanyInformation } from "@/services/types";
+import { ref } from "vue";
+
+const props = defineProps({
+  // eslint-disable-next-line vue/require-default-prop
   jobDetail: {
     type: Object,
   },
 });
+const financingStage = ref([
+  "",
+  "未融资",
+  "天使轮",
+  "A轮",
+  "B轮",
+  "C轮",
+  "D轮及以上",
+  "上市公司",
+  "不需要融资",
+]);
+const scale = ref([
+  "",
+  "少于15人",
+  "15-50人",
+  "50-150人",
+  "150-500人",
+  "500-2000人",
+  "2000人以上",
+]);
+const companyInfo = ref<CompanyInformation>({} as CompanyInformation);
+getCompanyinfosCompanyinfoid(props.jobDetail?.companyInformationId).then(
+  (res) => {
+    companyInfo.value = res.data.body;
+  }
+);
 const emit = defineEmits(["jobClick"]);
+const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
 </script>
 
 <style lang="scss" scoped>
 .border {
+  width: 92%;
   margin-top: 20rpx;
+  margin-left: 4%;
   border-bottom: 1px solid rgb(235 235 235);
 
   .group-1 {
@@ -55,6 +93,7 @@ const emit = defineEmits(["jobClick"]);
 
     .job-infos {
       width: 550rpx;
+      line-height: 40rpx;
 
       .name {
         font-size: 28rpx;
@@ -92,6 +131,7 @@ const emit = defineEmits(["jobClick"]);
 
     .company-infos {
       width: 550rpx;
+      margin-top: 10rpx;
 
       .company-logo {
         width: 150rpx;
@@ -100,18 +140,19 @@ const emit = defineEmits(["jobClick"]);
 
       .name-info {
         width: 400rpx;
+        overflow: hidden;
+        font-size: 24rpx;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
-        .company-name {
-          padding-top: 15rpx;
-          font-size: 24rpx;
+        .company {
+          padding-left: 10rpx;
         }
 
-        .company-info {
-          padding-top: 10rpx;
-          overflow: hidden;
-          font-size: 24rpx;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+        .logo {
+          width: 50rpx;
+          height: 50rpx;
+          border-radius: 50%;
         }
       }
     }
@@ -122,11 +163,18 @@ const emit = defineEmits(["jobClick"]);
 
     .salary {
       font-size: 24rpx;
+      color: rgb(35 193 158);
     }
 
     .date {
       font-size: 24rpx;
     }
   }
+}
+
+.box {
+  width: 100%;
+  height: 15rpx;
+  background-color: rgb(230 230 230);
 }
 </style>

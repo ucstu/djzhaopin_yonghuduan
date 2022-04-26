@@ -18,7 +18,7 @@
         <view class="items-center" style="margin-right: 25rpx">
           <image src="@/static/icons/work.png" />
           <text style="margin-left: 15rpx">{{
-            jobInformation.workingYears
+            workYears[jobInformation.workingYears]
           }}</text>
         </view>
         <view class="items-center">
@@ -49,7 +49,7 @@
         <text style="font-size: 30rpx; font-weight: 400">职位描述</text>
         <view class="flex-col description">
           <text style="line-height: 40rpx"
-            >职位类型 :{{ jobInformation.positionType }}</text
+            >职位类型 :{{ positionType[jobInformation.positionType] }}</text
           >
           <view class="flex-row">
             <text style="line-height: 40rpx">职位亮点 :</text>
@@ -95,34 +95,64 @@
       投递简历
     </button>
   </view>
+  <wybPopup
+    ref="popup"
+    :show-close-icon="false"
+    :height="300"
+    :radius="10"
+    mode="size-auto"
+    type="bottom"
+  >
+    <view class="send-resume-box">
+      <view class="flex-col justify-center resume-box">
+        <text class="justify-end">上传附件 ></text>
+        <view class="flex-row justify-between items-center resume">
+          <view class="online-resume">
+            <text>在线简历</text>
+          </view>
+          <text>预览 ></text>
+        </view>
+      </view>
+      <button class="items-center justify-center send-box" @click="send">
+        确认投递简历
+      </button>
+    </view>
+  </wybPopup>
 </template>
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
   getCompanyinfosCompanyinfoid,
   getCompanyinfosCompanyinfoidPositioninfosPositioninfoid,
+  postUserinfosUserinfoidDeliveryrecords,
 } from "@/services/services";
 import { CompanyInformation, PositionInformation } from "@/services/types";
+import { key } from "@/stores";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
+import { useStore } from "vuex";
 
-const jobInformation = ref<PositionInformation>({} as PositionInformation);
+const store = useStore(key);
+
+const jobInformation = ref<PositionInformation>({} as PositionInformation); // 职位信息
 
 const educates = ref(["不要求", "大专", "本科", "硕士", "博士"]);
+const workYears = ref(["经验不限", "在校/应届", "3年以下", "3-5年", "5-10年"]);
+const positionType = ref(["", "全职", "兼职", "实习"]);
 
-const companyInformation = ref<CompanyInformation>({} as CompanyInformation);
-const companyId = ref("");
-const positionId = ref("");
+const companyInformation = ref<CompanyInformation>({} as CompanyInformation); // 公司信息
+const companyId = ref(""); // 公司id
+const positionId = ref(""); // 职位id
 onLoad((e) => {
   if (e.companyId) {
     companyId.value = e.companyId;
-    console.log(companyId.value);
   }
   if (e.positionId) {
     positionId.value = e.positionId;
-    console.log(positionId.value);
   }
+  /* 获取职位信息 */
   getCompanyinfosCompanyinfoidPositioninfosPositioninfoid(
     companyId.value,
     positionId.value
@@ -133,16 +163,29 @@ onLoad((e) => {
     companyInformation.value = res.data.body;
   });
 });
-
+// 相关公司
 const toCompanyIn = () => {
   uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao" });
 };
-
+const popup = ref();
+// 沟通HR
 const communication = () => {
-  uni.navigateTo({ url: "/detail/communication/communication" });
+  uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });
 };
 const sendResume = () => {
-  uni.navigateTo({ url: "/detail/sendResume/sendResume" });
+  popup.value.show();
+};
+// 投递简历
+const send = () => {
+  postUserinfosUserinfoidDeliveryrecords(
+    store.state.accountInfo.userInformationId,
+    {
+      jobInformationId: positionId.value,
+    }
+  ).then((res) => {
+    console.log(res.data.body);
+  });
+  popup.value.hide();
 };
 </script>
 
@@ -245,6 +288,37 @@ const sendResume = () => {
   .btn-send-resume {
     width: 60%;
     height: 70rpx;
+    font-size: 30rpx;
+    color: #fff;
+    background-color: rgb(35 193 158);
+    border-radius: 10rpx;
+  }
+}
+
+.send-resume-box {
+  width: 100%;
+  height: 100%;
+
+  .resume-box {
+    width: 100%;
+    margin-top: 15rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+
+    .resume {
+      width: 95%;
+      height: 150rpx;
+      margin-left: 2.5%;
+      font-size: 25rpx;
+      border: 1rpx solid rgb(230 230 230);
+      border-radius: 10rpx;
+    }
+  }
+
+  .send-box {
+    width: 95%;
+    height: 60rpx;
+    margin-top: 15rpx;
     font-size: 30rpx;
     color: #fff;
     background-color: rgb(35 193 158);

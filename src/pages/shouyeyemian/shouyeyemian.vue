@@ -18,7 +18,7 @@
                 <!--  #endif -->
                 <text
                   v-for="(name, i) in expects" :key="i" class="list-item" :class="activeIndex === i ? 'active' : ''"
-                  @click="activeIndex = i">
+                  @click="changeJobType(i)">
                   {{
                     name.name
                   }}
@@ -64,10 +64,11 @@
               src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254587777410.png"
               class="image-6" />
           </view>
-          <view class="flex-col list-1">
+          <view class="flex-col">
             <view >
               <JobDetail
-              v-for="(jobDetail, i) in jobDetails" :key="i" class="list-item-1" :job-detail="jobDetail" @job-click="jobDescription(i)"></JobDetail>
+              v-for="(jobDetail, i) in jobDetails" :key="i" :job-detail="jobDetail" @job-click="jobDescription(i)"></JobDetail>
+
             </view>
           </view>
 </view>
@@ -75,9 +76,10 @@
 
 <script lang="ts" setup>
 import JobDetail from '@/components/JobDetail/JobDetail.vue';
-import { getCompanyinfos, getCompanyinfosPositioninfos } from "@/services/services";
+import { getCompanyinfosPositioninfos } from "@/services/services";
+import { PositionInformation } from '@/services/types';
 import { key } from '@/stores';
-import { reactive, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 
 const store = useStore(key);
@@ -93,33 +95,35 @@ const navigationBarWidth = store.state.menuButtonInfo!.left - uni.upx2px(30)
 const expectationWidth = store.state.menuButtonInfo!.left - uni.upx2px(170)
 /* #endif */
 
-const jobDetails = ref<any>([
-])
-getCompanyinfosPositioninfos(
-  {}
-).then((res) => {
-  jobDetails.value = res.data.body
-
-})
-
-const companyDetails = ref<any>([])
-getCompanyinfos().then((res) => {
-  companyDetails.value = res.data.body
-  console.log(res.data.body);
-
-})
-
-const expects = reactive([
-  { name: '前端工程师' },
-  { name: '全栈工程师' },
-  { name: 'JAVA工程师' },
-])
 
 const city = ref('重庆')
 const activeIndex = ref(0)
 const showFirst = ref('true')
 const showSecond = ref('false')
 const showThird = ref('false')
+
+const expects = ref([
+  { name: '前端工程师' },
+  { name: '全栈工程师' },
+  { name: 'JAVA工程师' },
+])
+const jobDetails = ref<PositionInformation[]>([
+])
+onMounted(()=> {
+  getCompanyinfosPositioninfos(
+  {}
+).then((res) => {
+  jobDetails.value = res.data.body
+})
+})
+const changeJobType = (index: number) => {
+  activeIndex.value = index
+  getCompanyinfosPositioninfos(
+  {name: expects.value[index].name}
+).then((res) => {
+  jobDetails.value = res.data.body
+})
+}
 
 const image_5OnClick = () => {
   uni.navigateTo({ url: '/info/qiuzhiqiwang/qiuzhiqiwang' })
@@ -239,15 +243,6 @@ const jobDescription = (index: number) => {
     .image-2 {
       margin-left: 30rpx;
     }
-  }
-
-  .list-1 {
-    padding: 15rpx 25rpx 0rpx;
-
-    .list-item-1 {
-      margin-top: 20rpx;
-    }
-
   }
 
   .footer {
