@@ -96,15 +96,16 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { postUserinfosUserinfoidWorkexperiences } from "@/services/services";
+import { CompanyInformation, WorkExperience } from "@/services/types";
 import { key } from "@/stores";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const companyName = ref("");
-const companyType = ref("");
-const subject = ref("请选择");
+const companyName = ref<CompanyInformation["name"]>("");
+const companyType = ref<CompanyInformation["comprehension"]>("");
+const subject = ref<WorkExperience["positionType"]>("1");
 const subjectType = ref(["全职", "兼职", "实习", "其他"]);
 const startTime = ref("入职时间");
 const endTime = ref("离职时间");
@@ -135,7 +136,7 @@ const showWorkTime = () => {
 const workChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;
   if (sub.value) {
-    subject.value = subjectType.value[val[0]];
+    subject.value = val;
   } else {
     startTime.value = String(startYears.value[val[0]]);
     endTime.value = String(endYears.value[val[1]]);
@@ -144,13 +145,16 @@ const workChange = (e: { detail: { value: never } }) => {
 // 下一步
 const nextClick = () => {
   postUserinfosUserinfoidWorkexperiences(
-    { userinfoid: store.state.accountInfo.userInfoId },
+    store.state.accountInfo.userInformationId,
     {
       corporateName: companyName.value,
       companyIndustry: companyType.value,
       positionType: subject.value,
       startTime: startTime.value,
       endTime: endTime.value,
+      department: "",
+      jobContent: "",
+      positionName: "",
     }
   ).then((res) => {
     store.commit("exceptionJob", res.data.body);

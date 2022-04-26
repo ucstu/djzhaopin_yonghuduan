@@ -18,7 +18,7 @@
           class="flex-row justify-between items-center"
           @click="showEducation"
         >
-          <text class="input">{{ education }}</text>
+          <text class="input">{{ educationValue[education] }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
@@ -91,14 +91,16 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { postUserinfosUserinfoidEduexperiences } from "@/services/services";
+import { EducationExperience } from "@/services/types";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
 const schoolName = ref("");
-const education = ref("请选择");
+const education = ref<EducationExperience["education"]>("1");
 const subject = ref("");
 const startSchool = ref("入学时间");
 const endSchool = ref("毕业时间");
@@ -111,9 +113,10 @@ const educationValue = ref([
   "硕士",
   "博士",
 ]);
-const edChange = (e: { detail: { value: never } }) => {
-  let val = e.detail.value;
-  education.value = educationValue.value[val[0]];
+const edChange = (e: {
+  detail: { value: EducationExperience["education"] };
+}) => {
+  education.value = e.detail.value;
 };
 
 const date = new Date();
@@ -148,20 +151,22 @@ const schoolChange = (e: { detail: { value: never } }) => {
 };
 // 下一步
 const nextClick = () => {
-  postUserinfosUserinfoidEduexperiences(store.state.accountInfo.userInfoId, {
-    schoolName: schoolName.value,
-    education: education.value,
-    major: subject.value,
-    admissionTime: startSchool.value,
-    araduationTime: endSchool.value,
-  })
+  postUserinfosUserinfoidEduexperiences(
+    store.state.accountInfo.userInformationId,
+    {
+      schoolName: schoolName.value,
+      education: education.value,
+      major: subject.value,
+      admissionTime: startSchool.value,
+      graduationTime: endSchool.value,
+    }
+  )
     .then((res) => {
-      console.log(res);
+      uni.navigateTo({
+        url: "/init/wanshangongzuojingli/wanshangongzuojingli",
+      });
     })
-    .catch((err) => {
-      console.log(err);
-    });
-  uni.navigateTo({ url: "/init/wanshangongzuojingli/wanshangongzuojingli" });
+    .catch(failResponseHandler);
 };
 
 const skip = () => {

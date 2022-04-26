@@ -140,8 +140,7 @@ const registeredAccount = () => {
       password: password.value,
     })
       .then((res) => {
-        store.commit("setToken", res.data.body.token);
-        store.commit("setAccountInfo", res.data.body.accountInfo);
+        store.commit("setAccountInfo", res.data.body);
         uni.navigateTo({
           url: "/init/wanchengjianli/wanchengjianli",
         });

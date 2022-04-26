@@ -98,7 +98,6 @@
           </picker-view-column>
         </picker-view>
       </wybPopup>
-      <view>{{ store.state.accountInfo }}</view>
     </view>
     <view class="justify-center next-click">
       <button class="justify-center items-center next-box" @click="nextClick">
@@ -113,13 +112,12 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { putUserinfosUserinfoid } from "@/services/services";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
-
-console.log(store);
 
 const firstName = ref(""); // 姓
 const lastName = ref(""); // 名
@@ -182,6 +180,16 @@ const nextClick = () => {
       icon: "none",
       duration: 500,
     });
+  } else if (
+    !/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(
+      emailValue.value
+    )
+  ) {
+    uni.showToast({
+      title: "邮箱格式不正确",
+      icon: "none",
+      duration: 500,
+    });
   } else {
     putUserinfosUserinfoid(store.state.accountInfo.userInformationId, {
       userInformationId: store.state.accountInfo.userInformationId,
@@ -206,13 +214,11 @@ const nextClick = () => {
     })
       .then((res) => {
         store.commit("setUserInfo", res.data.body);
-        console.log(res);
+        uni.navigateTo({
+          url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli",
+        });
       })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    uni.navigateTo({ url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli" });
+      .catch(failResponseHandler);
   }
 };
 
