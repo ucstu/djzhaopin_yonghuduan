@@ -8,41 +8,43 @@ import { AxiosRequestConfig } from "axios";
 import { SwaggerResponse } from "./config";
 import { Http } from "./httpRequest";
 import {
-  GetUserinfosUserinfoidEduexperiencesQueryParams,
-  GetUserinfosUserinfoidJobexpectationsQueryParams,
-  GetDirectiontagsQueryParams,
-  GetUserinfosUserinfoidProjectexperiencesQueryParams,
-  GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
-  DeleteAccountsAccountidQueryParams,
-  GetUserinfosUserinfoidGarnerrecordsQueryParams,
-  GetUserinfosUserinfoidInspectionrecordsQueryParams,
-  GetCompanyinfosCompanyinfoidDeliveryrecordsQueryParams,
   GetUserinfosUserinfoidAttentionrecordsQueryParams,
-  GetAreaInformationsQueryParams,
-  GetCompanyinfosPositioninfosQueryParams,
+  GetUserinfosUserinfoidGarnerrecordsQueryParams,
+  GetDirectiontagsQueryParams,
+  GetUserinfosUserinfoidInspectionrecordsQueryParams,
   GetUserinfosUserinfoidWorkexperiencesQueryParams,
-  GetUserinfosQueryParams,
+  GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
+  GetUserinfosUserinfoidEduexperiencesQueryParams,
   GetUserinfosUserinfoidDeliveryrecordsQueryParams,
+  DeleteAccountsAccountidQueryParams,
+  GetCompanyinfosQueryParams,
   GetVerificationCodeQueryParams,
-  WorkExperience,
-  EducationExperience,
-  HRInformation,
-  CompanyInformation,
-  ProjectExperience,
+  GetUserinfosUserinfoidJobexpectationsQueryParams,
+  GetUserinfosQueryParams,
+  GetCompanyinfosPositioninfosQueryParams,
+  GetCompanyinfosCompanyinfoidDeliveryrecordsQueryParams,
+  GetHrinfosQueryParams,
+  GetAreaInformationsQueryParams,
+  GetUserinfosUserinfoidProjectexperiencesQueryParams,
   DeliveryRecord,
-  GarnerRecord,
-  DirectionTags,
-  MessageRecord,
-  PositionTypes,
-  AccountInformation,
-  FilterInformation,
-  JobExpectation,
-  UserInformation,
-  CityInformations,
   AttentionRecord,
+  AccountInformation,
+  ProjectExperience,
+  MessageRecord,
+  DirectionTags,
+  JobExpectation,
   AreaInformations,
-  InspectionRecord,
+  CompanyInformation,
+  GarnerRecord,
   PositionInformation,
+  WorkExperience,
+  UserInformation,
+  PositionTypes,
+  InspectionRecord,
+  HRInformation,
+  FilterInformation,
+  EducationExperience,
+  CityInformations,
 } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -714,6 +716,7 @@ getCityinfos.key = "/cityinfos";
  * 查询所有公司信息
  */
 export const getCompanyinfos = (
+  queryParams: GetCompanyinfosQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -745,7 +748,7 @@ export const getCompanyinfos = (
 > => {
   return Http.getRequest(
     getCompanyinfos.key,
-    undefined,
+    queryParams,
     undefined,
     undefined,
     overrideConfig(_CONSTANT0, configOverride)
@@ -1089,6 +1092,53 @@ export const getFilterinfos = (
 
 /** Key is end point string without base url */
 getFilterinfos.key = "/filterinfos";
+
+/**
+ *
+ * 查询所有HR信息
+ */
+export const getHrinfos = (
+  queryParams: GetHrinfosQueryParams,
+  configOverride?: AxiosRequestConfig
+): Promise<
+  SwaggerResponse<{
+    /**
+     *
+     * HR信息
+     *
+     */
+    body: HRInformation[];
+    /**
+     *
+     * 状态描述
+     *
+     */
+    message: string;
+    /**
+     *
+     * 响应状态
+     *
+     */
+    status: number;
+    /**
+     *
+     * 处理时间
+     *
+     */
+    timestamp: string;
+  }>
+> => {
+  return Http.getRequest(
+    getHrinfos.key,
+    queryParams,
+    undefined,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/** Key is end point string without base url */
+getHrinfos.key = "/hrinfos";
 
 /**
  *
@@ -2460,8 +2510,10 @@ export const postAvatars = (
      *
      * 头像
      * - Format: binary
+     * @example
+     *   file://C:\Users\19790\Pictures\Default.jpg
      */
-    avatar?: string;
+    avatar: string;
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
@@ -2619,7 +2671,7 @@ export const postCompanyinfosCompanyinfoidPositioninfos = (
      * 公司ID
      *
      */
-    companyId: string;
+    companyInformationId: string;
     /**
      *
      * 职位描述
@@ -2638,7 +2690,7 @@ export const postCompanyinfosCompanyinfoidPositioninfos = (
      * HRID
      *
      */
-    hrId: string;
+    hrInformationId: string;
     /**
      *
      * 职位名称
@@ -2789,8 +2841,10 @@ export const postFiles = (
      *
      * 文件
      * - Format: binary
+     * @example
+     *   file://C:\Users\19790\Downloads\东江人才招聘.md
      */
-    file?: string;
+    file: string;
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
@@ -2822,7 +2876,13 @@ export const postUserinfosUserinfoidAttentionrecords = (
      * 公司ID
      *
      */
-    companyId: string;
+    companyInformationId: string;
+    /**
+     *
+     * 用户ID
+     *
+     */
+    userInformationId: string;
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
@@ -2856,6 +2916,25 @@ export const postUserinfosUserinfoidDeliveryrecords = (
      *
      */
     jobInformationId: string;
+    /**
+     *
+     * 用户ID
+     *
+     */
+    userInformationId: string;
+    /**
+     *
+     * 面试时间
+     *
+     */
+    interviewTime?: string;
+    /**
+     *
+     * 投递状态
+     *
+     * {1:待查看,2:已查看,3:通过筛选,4:约面试,5:不合适}
+     */
+    state?: "1" | "2" | "3" | "4" | "5";
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
@@ -2891,17 +2970,17 @@ export const postUserinfosUserinfoidEduexperiences = (
     admissionTime: string;
     /**
      *
-     * 毕业时间
-     *
-     */
-    araduationTime: string;
-    /**
-     *
      * 学历层次
      *
      * {1:大专,2:本科,3:硕士,4:博士}
      */
     education: "1" | "2" | "3" | "4";
+    /**
+     *
+     * 毕业时间
+     *
+     */
+    graduationTime: string;
     /**
      *
      * 专业
@@ -2947,6 +3026,12 @@ export const postUserinfosUserinfoidGarnerrecords = (
      *
      */
     jobInformationId: string;
+    /**
+     *
+     * 用户信息·ID
+     *
+     */
+    userInformationId: string;
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
@@ -2989,10 +3074,10 @@ export const postUserinfosUserinfoidJobexpectations = (
     city: string;
     /**
      *
-     * 细分标签
+     * 职位名
      *
      */
-    directionTags: string[];
+    positionName: string;
     /**
      *
      * 职位类型
@@ -3007,6 +3092,12 @@ export const postUserinfosUserinfoidJobexpectations = (
      * 单位K
      */
     startingSalary: number;
+    /**
+     *
+     * 细分标签
+     *
+     */
+    directionTags?: string[];
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {

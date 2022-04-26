@@ -20,7 +20,7 @@
                   v-for="(name, i) in expects" :key="i" class="list-item" :class="activeIndex === i ? 'active' : ''"
                   @click="changeJobType(i)">
                   {{
-                    name.name
+                    name
                   }}
                 </text>
               </scroll-view>
@@ -36,6 +36,12 @@
             <view class="justify-between group-2">
               <view class="flex-row group-3">
                 <text
+                v-for="(item,i) in recommend"
+                :key="i"
+                style="margin-right: 20rpx;"
+                :class="showRecommend === i ? 'is-active' : ''"
+                @click="recommended(i)">{{item}}</text>
+                <!-- <text
                   :class="showFirst === 'true' ? 'is-active' : ''"
                   @click="showFirst = 'true'; showSecond = 'false'; showThird = 'false'">热门</text>
                 <text
@@ -43,7 +49,7 @@
                   @click="showFirst = 'false'; showSecond = 'true'; showThird = 'false'">附近</text>
                 <text
                   class="text-5" :class="showThird === 'true' ? 'is-active' : ''"
-                  @click="showFirst = 'false'; showSecond = 'false'; showThird = 'true'">最新</text>
+                  @click="showFirst = 'false'; showSecond = 'false'; showThird = 'true'">最新</text> -->
               </view>
               <view class="flex-row group-4">
                 <view class="flex-row">
@@ -65,11 +71,23 @@
               class="image-6" />
           </view>
           <view class="flex-col">
-            <view >
+            <scroll-view
+            :scroll-y="true"
+            :refresher-enabled="true"
+            :refresher-triggered="triggered"
+            :refresher-threshold="100"
+            class="job-detail"
+            @refresherpulling="onPulling"
+            @refresherrefresh="onRefresh"
+            @refresherrestore="onRestore"
+            @refresherabort="onAbort"
+            >
               <JobDetail
-              v-for="(jobDetail, i) in jobDetails" :key="i" :job-detail="jobDetail" @job-click="jobDescription(i)"></JobDetail>
-
-            </view>
+              v-for="(jobDetail, i) in jobDetails"
+              :key="i" :job-detail="jobDetail"
+              @job-click="jobDescription(i)">
+              </JobDetail>
+            </scroll-view>
           </view>
 </view>
 </template>
@@ -98,14 +116,18 @@ const expectationWidth = store.state.menuButtonInfo!.left - uni.upx2px(170)
 
 const city = ref('重庆')
 const activeIndex = ref(0)
-const showFirst = ref('true')
-const showSecond = ref('false')
-const showThird = ref('false')
+const showRecommend = ref(0)
+const triggered = ref(false)
 
 const expects = ref([
-  { name: '前端工程师' },
-  { name: '全栈工程师' },
-  { name: 'JAVA工程师' },
+   '综合',
+  '全栈工程师',
+  'JAVA工程师',
+])
+const recommend = ref([
+  "热门",
+  "附近",
+  "最新"
 ])
 const jobDetails = ref<PositionInformation[]>([
 ])
@@ -118,11 +140,41 @@ onMounted(()=> {
 })
 const changeJobType = (index: number) => {
   activeIndex.value = index
+
   getCompanyinfosPositioninfos(
   {name: expects.value[index].name}
 ).then((res) => {
   jobDetails.value = res.data.body
 })
+}
+
+const recommended = (index: number) => {
+  showRecommend.value = index
+  getCompanyinfosPositioninfos(
+  {name: expects.value[index].name}
+).then((res) => {
+  jobDetails.value = res.data.body
+})
+}
+
+const onPulling = () => {
+  triggered.value = true
+}
+const onRefresh = () => {
+  setTimeout(() => {
+  triggered.value = false;
+  },1000)
+}
+const onRestore = () => {
+   getCompanyinfosPositioninfos(
+  {name: expects.value[activeIndex.value].name}
+).then((res) => {
+  jobDetails.value = res.data.body
+})
+}
+const onAbort = () => {
+  // triggered.value = false
+  console.log(4444);
 }
 
 const image_5OnClick = () => {
@@ -301,6 +353,11 @@ const jobDescription = (index: number) => {
       width: 54rpx;
       height: 54rpx;
     }
+  }
+
+  .job-detail {
+    height: 830rpx;
+    overflow: hidden;
   }
 }
 </style>

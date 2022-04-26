@@ -14,7 +14,7 @@
         @click="jobExpectationClick(i)"
       >
         <view>
-          <text class="job-name">{{ jobExpectation.positonName }}</text>
+          <text class="job-name">{{ jobExpectation.positionName }}</text>
           <view class="direct-box">
             <text
               v-for="(direction, j) in jobExpectation.directionTags"
@@ -67,15 +67,17 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getUserinfosUserinfoidJobexpectations } from "@/services/services";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { ref } from "vue";
+import { getUserinfosUserinfoidJobexpectations } from "@/services/services";
+import { JobExpectation } from "@/services/types";
 import { key } from "@/stores";
+import { onShow } from "@dcloudio/uni-app";
+import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const jobExpectations = ref([]);
+const jobExpectations = ref<JobExpectation[]>([]);
 const entryTime = ref("请选择");
 const entryTimes = ref([
   "随时入职",
@@ -84,9 +86,15 @@ const entryTimes = ref([
   "一个月内入职",
 ]);
 
-getUserinfosUserinfoidJobexpectations({ userinfoid: "" }).then((res) => {
-  jobExpectations.value = res.data.body;
-  console.log(jobExpectations.value);
+onShow(() => {
+  getUserinfosUserinfoidJobexpectations(
+    store.state.accountInfo.userInformationId,
+    {}
+  ).then((res) => {
+    jobExpectations.value = res.data.body;
+    // store.commit("setJobExpectation", res.data.body);
+    console.log(jobExpectations.value);
+  });
 });
 
 const jobExpectationClick = (index: number) => {
@@ -106,7 +114,7 @@ const popup = ref();
 const jobStatus = () => {
   popup.value.show();
 };
-const entryChange = (e) => {
+const entryChange = (e: any) => {
   entryTime.value = entryTimes.value[e.detail.value[0]];
   popup.value.hide();
 };
