@@ -140,7 +140,6 @@ const registeredAccount = () => {
       password: password.value,
     })
       .then((res) => {
-        console.log(res.data.body);
         store.commit("setToken", res.data.body.token);
         store.commit("setAccountInfo", res.data.body.accountInfo);
         uni.navigateTo({

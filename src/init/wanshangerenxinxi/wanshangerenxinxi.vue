@@ -98,6 +98,7 @@
           </picker-view-column>
         </picker-view>
       </wybPopup>
+      <view>{{ store.state.accountInfo }}</view>
     </view>
     <view class="justify-center next-click">
       <button class="justify-center items-center next-box" @click="nextClick">
@@ -117,6 +118,8 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
+
+console.log(store);
 
 const firstName = ref(""); // 姓
 const lastName = ref(""); // 名
@@ -180,8 +183,8 @@ const nextClick = () => {
       duration: 500,
     });
   } else {
-    putUserinfosUserinfoid(store.state.accountInfo.userInfomationId, {
-      userInformationId: store.state.accountInfo.userInfomationId,
+    putUserinfosUserinfoid(store.state.accountInfo.userInformationId, {
+      userInformationId: store.state.accountInfo.userInformationId,
       createdAt: store.state.accountInfo.createdAt,
       updatedAt: store.state.accountInfo.updatedAt,
       avatar: "",
