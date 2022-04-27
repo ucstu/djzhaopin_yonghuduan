@@ -48,6 +48,7 @@ const saveAdvantage = () => {
     socialHomepage: store.state.userInfo.socialHomepage,
     pictureWorks: store.state.userInfo.pictureWorks,
     privacySettings: store.state.userInfo.privacySettings,
+    userInformationId: store.state.accountInfo.userInformationId,
   }).then(() => {
     uni.navigateBack({
       delta: 1,

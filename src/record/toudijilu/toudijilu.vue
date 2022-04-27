@@ -23,6 +23,7 @@
 </template>
 
 <script lang="ts" setup>
+// @ts-nocheck
 import JobPanel from "@/components/JobPanel/JobPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid } from "@/services/services";
