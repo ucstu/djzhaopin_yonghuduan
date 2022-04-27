@@ -159,7 +159,6 @@ const bindChange = (e: { detail: { value: never } }) => {
   day = days.value[val[2]];
   birthday.value = year + "-" + month + "-" + day;
   age.value = date.getFullYear() - year;
-  console.log(age.value);
 };
 /* 判断信息是否填写完整*/
 const sex = ref();

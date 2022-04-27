@@ -122,7 +122,6 @@ import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
-console.log(store.state.accountInfo);
 
 const userInformation = ref<UserInformation>({} as UserInformation);
 
@@ -138,9 +137,7 @@ const valueDay = ref();
 /* 上传头像 */
 const chooseImage = () => {
   postAvatars({ avatar: "" })
-    .then((res) => {
-      console.log(res);
-    })
+    .then((res) => {})
     .catch(failResponseHandler);
 };
 
@@ -170,7 +167,6 @@ onMounted(() => {
   /* 获取用户信息 */
   getUserinfosUserinfoid(store.state.accountInfo.userInformationId)
     .then((res) => {
-      console.log(res.data.body);
       userInformation.value = res.data.body;
       fullName.value =
         userInformation.value.firstName + userInformation.value.lastName;
@@ -204,7 +200,6 @@ const age = ref();
 const bindChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;
   year = years.value[val[0]];
-  console.log(typeof year);
 
   month = months.value[val[1]];
   day = days.value[val[2]];
@@ -299,7 +294,6 @@ const saveInfos = () => {
       .then((res) => {
         store.commit("setUserInfo", res.data.body);
         uni.navigateBack({ delta: 1 });
-        console.log(res);
       })
       .catch(failResponseHandler);
   }

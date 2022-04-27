@@ -62,7 +62,6 @@ const cities = computed(() => provinces[provinceIndexOf.value].cities);
 const provinceIndexOf = ref(0);
 const provinceIndex = (index: number) => {
   provinceIndexOf.value = index;
-  console.log(cities);
 };
 
 const cityIndex = (index: number) => {

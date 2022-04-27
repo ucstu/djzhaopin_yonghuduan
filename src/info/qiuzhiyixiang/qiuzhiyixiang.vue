@@ -95,7 +95,6 @@ onShow(() => {
     .then((res) => {
       jobExpectations.value = res.data.body;
       // store.commit("setJobExpectation", res.data.body);
-      console.log(jobExpectations.value);
     })
     .catch(failResponseHandler);
 });

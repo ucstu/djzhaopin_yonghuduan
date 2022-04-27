@@ -212,9 +212,7 @@ onLoad((e) => {
         overTime.value = res.data.body!.endTime;
         projectUrl.value = res.data.body!.projectLink;
       })
-      .catch((err) => {
-        console.log(err.msg);
-      });
+      .catch((err) => {});
   }
 });
 
@@ -249,12 +247,8 @@ const saveProjectExperience = () => {
           workExperienceId: "",
         }
       )
-        .then((res) => {
-          console.log(res.data.body);
-        })
-        .catch((err) => {
-          console.log(err.msg);
-        });
+        .then((res) => {})
+        .catch((err) => {});
     } else {
       // 添加项目经历
       postUserinfosUserinfoidProjectexperiences(
@@ -269,12 +263,8 @@ const saveProjectExperience = () => {
           workExperienceId: "",
         }
       )
-        .then((res) => {
-          console.log(res.data.body);
-        })
-        .catch((err) => {
-          console.log(err.msg);
-        });
+        .then((res) => {})
+        .catch((err) => {});
     }
     uni.navigateBack({ delta: 1 });
   }
@@ -290,15 +280,10 @@ const deleteProjectExperience = () => {
           store.state.accountInfo.userInformationId,
           projectId.value
         )
-          .then((res) => {
-            console.log(res.data.body);
-          })
-          .catch((err) => {
-            console.log(err.msg);
-          });
+          .then((res) => {})
+          .catch((err) => {});
         uni.navigateBack({ delta: 1 });
       } else if (res.cancel) {
-        console.log("用户点击取消");
       }
     },
   });

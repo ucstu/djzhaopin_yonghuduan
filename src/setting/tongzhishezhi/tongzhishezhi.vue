@@ -109,7 +109,6 @@ const bindChange = (e: { detail: { value: never } }) => {
   minute2.value = minutes.value[val[3]];
   noDisturbTime.value = `${hour1.value}:${minute1.value}-${hour2.value}:${minute2.value}`;
 };
-console.log(date);
 </script>
 
 <style lang="scss" scoped>

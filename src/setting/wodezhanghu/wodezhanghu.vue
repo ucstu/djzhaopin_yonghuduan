@@ -39,16 +39,13 @@ const deleteAccount = () => {
     verificationCode: "1234",
   })
     .then((res) => {
-      console.log(res.data.body);
       store.commit("setToken", null);
       store.commit("setAccountInfo", null);
       uni.navigateTo({
         url: "/account/denglu_zhuce/denglu",
       });
     })
-    .catch((err) => {
-      console.log(err.msg);
-    });
+    .catch((err) => {});
 };
 </script>
 

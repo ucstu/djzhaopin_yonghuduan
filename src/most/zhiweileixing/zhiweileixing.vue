@@ -95,7 +95,6 @@ const positions = computed(
 
 getPositiontypes().then((res) => {
   fields.push(...res.data.body);
-  console.log(res.data.body);
 });
 
 const showDirections = (index: number) => {

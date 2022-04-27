@@ -174,7 +174,6 @@ const onRestore = () => {
 }
 const onAbort = () => {
   // triggered.value = false
-  console.log(4444);
 }
 
 const image_5OnClick = () => {

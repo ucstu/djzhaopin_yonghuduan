@@ -101,8 +101,6 @@ const fullName = ref();
 onShow(() => {
   getUserinfosUserinfoid(store.state.accountInfo.userInformationId)
     .then((res) => {
-      console.log(res.data.body);
-
       userInfos.value = res.data.body;
       fullName.value = `${res.data.body.firstName} ${res.data.body.lastName}`;
     })

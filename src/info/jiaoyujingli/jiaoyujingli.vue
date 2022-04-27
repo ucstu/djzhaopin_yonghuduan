@@ -219,7 +219,6 @@ onLoad((e) => {
       store.state.accountInfo.userInformationId,
       educateId.value
     ).then((res) => {
-      console.log(res.data.body);
       schoolName.value = res.data.body.schoolName;
       education.value = res.data.body.education;
       subject.value = res.data.body.major;
@@ -264,12 +263,8 @@ const saveEducation = () => {
           updatedAt: "",
         }
       )
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        .then((res) => {})
+        .catch((err) => {});
     } else {
       postUserinfosUserinfoidEduexperiences(
         store.state.accountInfo.userInformationId,
@@ -281,12 +276,8 @@ const saveEducation = () => {
           graduationTime: overTime.value,
         }
       )
-        .then((res) => {
-          console.log(res.data.body);
-        })
-        .catch((err) => {
-          console.log(err.msg);
-        });
+        .then((res) => {})
+        .catch((err) => {});
     }
     uni.navigateBack({ delta: 1 });
   }
@@ -302,12 +293,9 @@ const deleteEducation = () => {
         deleteUserinfosUserinfoidEduexperiencesEduexperienceid(
           store.state.accountInfo.userInformationId,
           educateId.value
-        ).then((res) => {
-          console.log(res.data.body);
-        });
+        ).then((res) => {});
         uni.navigateBack({ delta: 1 });
       } else if (res.cancel) {
-        console.log("用户点击取消");
       }
     },
   });

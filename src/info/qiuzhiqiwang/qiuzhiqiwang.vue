@@ -149,7 +149,6 @@ onLoad((e) => {
           res.data.body.ceilingSalary +
           "k";
         city.value = res.data.body.city;
-        console.log(111);
       })
       .catch(failResponseHandler);
   }
@@ -221,9 +220,7 @@ const saveJobExcept = () => {
         .then((res) => {
           store.commit("setExceptionJob", res.data.body);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
       if (saveBtn.value === saveOver.value) {
         uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
       } else {

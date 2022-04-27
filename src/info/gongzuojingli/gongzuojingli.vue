@@ -174,7 +174,6 @@ onLoad((e) => {
       positionName.value = res.data.body.positionName;
       companyDepartment.value = res.data.body.department;
       companyContent.value = res.data.body.jobContent;
-      console.log(res.data.body);
     });
   }
   /* 接收职位名*/
@@ -201,7 +200,6 @@ const saveWorkExperience = () => {
     });
   } else {
     if (workId.value) {
-      console.log("修改工作经历");
     } else {
       postUserinfosUserinfoidWorkexperiences(
         store.state.accountInfo.userInformationId,
@@ -218,11 +216,8 @@ const saveWorkExperience = () => {
       )
         .then((res) => {
           store.commit("setWorkExperience", res.data.body);
-          console.log(res);
         })
-        .catch((err) => {
-          console.log(err.msg);
-        });
+        .catch((err) => {});
     }
     uni.showToast({
       title: "保存成功",
@@ -239,22 +234,16 @@ const deleteWorkExperience = () => {
     content: "确定删除该工作经历吗？",
     success: (res) => {
       if (res.confirm) {
-        console.log("用户点击确定");
         deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid(
           store.state.accountInfo.userInformationId,
           workId.value
         )
-          .then((res) => {
-            console.log(res.data.body);
-          })
-          .catch((err) => {
-            console.log(err.msg);
-          });
+          .then((res) => {})
+          .catch((err) => {});
         uni.navigateBack({
           delta: 1,
         });
       } else if (res.cancel) {
-        console.log("用户点击取消");
       }
     },
   });

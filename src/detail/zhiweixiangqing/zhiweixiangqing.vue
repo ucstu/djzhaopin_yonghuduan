@@ -124,9 +124,9 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  getCompanyinfosCompanyinfoid,
-  getCompanyinfosCompanyinfoidPositioninfosPositioninfoid,
-  postUserinfosUserinfoidDeliveryrecords,
+getCompanyinfosCompanyinfoid,
+getCompanyinfosCompanyinfoidPositioninfosPositioninfoid,
+postUserinfosUserinfoidDeliveryrecords
 } from "@/services/services";
 import { CompanyInformation, PositionInformation } from "@/services/types";
 import { key } from "@/stores";
@@ -183,9 +183,7 @@ const send = () => {
       jobInformationId: positionId.value,
       userInformationId: "",
     }
-  ).then((res) => {
-    console.log(res.data.body);
-  });
+  ).then((res) => {});
   popup.value.hide();
 };
 </script>

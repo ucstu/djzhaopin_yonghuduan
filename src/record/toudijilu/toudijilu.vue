@@ -51,7 +51,6 @@ onMounted(() => {
     }
   ).then((res) => {
     deliveryRecords.value = res.data.body;
-    console.log(deliveryRecords.value);
   });
 });
 
@@ -63,7 +62,6 @@ const sendTypeId = (index: number) => {
       state: sendType.value[sendId.value].key,
     }
   ).then((res) => {
-    console.log(sendId.value);
     deliveryRecords.value = res.data.body;
   });
 };
