@@ -8,41 +8,8 @@ import { AxiosRequestConfig } from "axios";
 import { SwaggerResponse } from "./config";
 import { Http } from "./httpRequest";
 import {
-  GetUserinfosUserinfoidEduexperiencesQueryParams,
-  GetUserinfosUserinfoidJobexpectationsQueryParams,
-  GetDirectiontagsQueryParams,
-  GetUserinfosUserinfoidProjectexperiencesQueryParams,
-  GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
-  DeleteAccountsAccountidQueryParams,
-  GetUserinfosUserinfoidGarnerrecordsQueryParams,
-  GetUserinfosUserinfoidInspectionrecordsQueryParams,
-  GetCompanyinfosCompanyinfoidDeliveryrecordsQueryParams,
-  GetUserinfosUserinfoidAttentionrecordsQueryParams,
-  GetAreaInformationsQueryParams,
-  GetCompanyinfosPositioninfosQueryParams,
-  GetUserinfosUserinfoidWorkexperiencesQueryParams,
-  GetUserinfosQueryParams,
-  GetUserinfosUserinfoidDeliveryrecordsQueryParams,
-  GetVerificationCodeQueryParams,
-  WorkExperience,
-  EducationExperience,
-  HRInformation,
-  CompanyInformation,
-  ProjectExperience,
-  DeliveryRecord,
-  GarnerRecord,
-  DirectionTags,
-  MessageRecord,
-  PositionTypes,
-  AccountInformation,
-  FilterInformation,
-  JobExpectation,
-  UserInformation,
-  CityInformations,
-  AttentionRecord,
-  AreaInformations,
-  InspectionRecord,
-  PositionInformation,
+  AccountInformation, AreaInformations, AttentionRecord, CityInformations, CompanyInformation, DeleteAccountinfosP0QueryParams, DeliveryRecord, DirectionTags, EducationExperience, FilterInformation, GarnerRecord, GetAreaInformationsQueryParams,
+  GetCompanyinfosP0DeliveryrecordsQueryParams, GetCompanyinfosP0PositioninfosQueryParams, GetCompanyinfosPositioninfosQueryParams, GetCompanyinfosQueryParams, GetDirectiontagsQueryParams, GetHrinfosQueryParams, GetUserinfosP0AttentionrecordsQueryParams, GetUserinfosP0DeliveryrecordsQueryParams, GetUserinfosP0EduexperiencesQueryParams, GetUserinfosP0GarnerrecordsQueryParams, GetUserinfosP0InspectionrecordsQueryParams, GetUserinfosP0JobexpectationsQueryParams, GetUserinfosP0ProjectexperiencesQueryParams, GetUserinfosP0WorkexperiencesQueryParams, GetUserinfosQueryParams, GetVerificationCodeQueryParams, HrInformation, InspectionRecord, JobExpectation, MessageRecord, PositionInformation, PositionTypes, ProjectExperience, UserInformation, WorkExperience
 } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -88,13 +55,13 @@ function objToForm(requestBody: object) {
  *
  * 注销账号
  */
-export const deleteAccountsAccountid = (
+export const deleteAccountinfosP0 = (
   /**
    *
    * 账号ID
    */
-  accountid: string,
-  queryParams: DeleteAccountsAccountidQueryParams,
+  accountinfoid: string,
+  queryParams: DeleteAccountinfosP0QueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -120,7 +87,7 @@ export const deleteAccountsAccountid = (
   }>
 > => {
   return Http.deleteRequest(
-    template(deleteAccountsAccountid.key, { accountid }),
+    template(deleteAccountinfosP0.key, { accountinfoid }),
     queryParams,
     undefined,
     undefined,
@@ -129,13 +96,13 @@ export const deleteAccountsAccountid = (
 };
 
 /** Key is end point string without base url */
-deleteAccountsAccountid.key = "/accounts/{accountid}";
+deleteAccountinfosP0.key = "/accountinfos/{accountinfoid}";
 
 /**
  *
  * 删除职位信息
  */
-export const deleteCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
+export const deleteCompanyinfosP0PositioninfosP1 = (
   /**
    *
    * 公司信息ID
@@ -171,7 +138,7 @@ export const deleteCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
   }>
 > => {
   return Http.deleteRequest(
-    template(deleteCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key, {
+    template(deleteCompanyinfosP0PositioninfosP1.key, {
       companyinfoid,
       positioninfoid,
     }),
@@ -183,14 +150,14 @@ export const deleteCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
 };
 
 /** Key is end point string without base url */
-deleteCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key =
+deleteCompanyinfosP0PositioninfosP1.key =
   "/companyinfos/{companyinfoid}/positioninfos/{positioninfoid}";
 
 /**
  *
  * 删除关注记录
  */
-export const deleteUserinfosUserinfoidAttentionrecordsAttentionrecordid = (
+export const deleteUserinfosP0AttentionrecordsP1 = (
   /**
    *
    * 用户信息ID
@@ -226,7 +193,7 @@ export const deleteUserinfosUserinfoidAttentionrecordsAttentionrecordid = (
   }>
 > => {
   return Http.deleteRequest(
-    template(deleteUserinfosUserinfoidAttentionrecordsAttentionrecordid.key, {
+    template(deleteUserinfosP0AttentionrecordsP1.key, {
       userinfoid,
       attentionrecordid,
     }),
@@ -238,14 +205,14 @@ export const deleteUserinfosUserinfoidAttentionrecordsAttentionrecordid = (
 };
 
 /** Key is end point string without base url */
-deleteUserinfosUserinfoidAttentionrecordsAttentionrecordid.key =
+deleteUserinfosP0AttentionrecordsP1.key =
   "/userinfos/{userinfoid}/attentionrecords/{attentionrecordid}";
 
 /**
  *
  * 删除投递记录
  */
-export const deleteUserinfosUserinfoidDeliveryrecordsDeliveryrecordid = (
+export const deleteUserinfosP0DeliveryrecordsP1 = (
   /**
    *
    * 用户信息ID
@@ -281,7 +248,7 @@ export const deleteUserinfosUserinfoidDeliveryrecordsDeliveryrecordid = (
   }>
 > => {
   return Http.deleteRequest(
-    template(deleteUserinfosUserinfoidDeliveryrecordsDeliveryrecordid.key, {
+    template(deleteUserinfosP0DeliveryrecordsP1.key, {
       userinfoid,
       deliveryrecordid,
     }),
@@ -293,14 +260,14 @@ export const deleteUserinfosUserinfoidDeliveryrecordsDeliveryrecordid = (
 };
 
 /** Key is end point string without base url */
-deleteUserinfosUserinfoidDeliveryrecordsDeliveryrecordid.key =
+deleteUserinfosP0DeliveryrecordsP1.key =
   "/userinfos/{userinfoid}/deliveryrecords/{deliveryrecordid}";
 
 /**
  *
  * 删除教育经历
  */
-export const deleteUserinfosUserinfoidEduexperiencesEduexperienceid = (
+export const deleteUserinfosP0EduexperiencesP1 = (
   /**
    *
    * 用户信息ID
@@ -336,7 +303,7 @@ export const deleteUserinfosUserinfoidEduexperiencesEduexperienceid = (
   }>
 > => {
   return Http.deleteRequest(
-    template(deleteUserinfosUserinfoidEduexperiencesEduexperienceid.key, {
+    template(deleteUserinfosP0EduexperiencesP1.key, {
       userinfoid,
       eduexperienceid,
     }),
@@ -348,14 +315,14 @@ export const deleteUserinfosUserinfoidEduexperiencesEduexperienceid = (
 };
 
 /** Key is end point string without base url */
-deleteUserinfosUserinfoidEduexperiencesEduexperienceid.key =
+deleteUserinfosP0EduexperiencesP1.key =
   "/userinfos/{userinfoid}/eduexperiences/{eduexperienceid}";
 
 /**
  *
  * 删除收藏记录
  */
-export const deleteUserinfosUserinfoidGarnerrecordsGarnerrecordid = (
+export const deleteUserinfosP0GarnerrecordsP1 = (
   /**
    *
    * 用户信息ID
@@ -391,7 +358,7 @@ export const deleteUserinfosUserinfoidGarnerrecordsGarnerrecordid = (
   }>
 > => {
   return Http.deleteRequest(
-    template(deleteUserinfosUserinfoidGarnerrecordsGarnerrecordid.key, {
+    template(deleteUserinfosP0GarnerrecordsP1.key, {
       userinfoid,
       garnerrecordid,
     }),
@@ -403,14 +370,14 @@ export const deleteUserinfosUserinfoidGarnerrecordsGarnerrecordid = (
 };
 
 /** Key is end point string without base url */
-deleteUserinfosUserinfoidGarnerrecordsGarnerrecordid.key =
+deleteUserinfosP0GarnerrecordsP1.key =
   "/userinfos/{userinfoid}/garnerrecords/{garnerrecordid}";
 
 /**
  *
  * 删除查看记录
  */
-export const deleteUserinfosUserinfoidInspectionrecordsInspectionrecordid = (
+export const deleteUserinfosP0InspectionrecordsP1 = (
   /**
    *
    * 用户信息ID
@@ -446,7 +413,7 @@ export const deleteUserinfosUserinfoidInspectionrecordsInspectionrecordid = (
   }>
 > => {
   return Http.deleteRequest(
-    template(deleteUserinfosUserinfoidInspectionrecordsInspectionrecordid.key, {
+    template(deleteUserinfosP0InspectionrecordsP1.key, {
       userinfoid,
       inspectionrecordid,
     }),
@@ -458,14 +425,14 @@ export const deleteUserinfosUserinfoidInspectionrecordsInspectionrecordid = (
 };
 
 /** Key is end point string without base url */
-deleteUserinfosUserinfoidInspectionrecordsInspectionrecordid.key =
+deleteUserinfosP0InspectionrecordsP1.key =
   "/userinfos/{userinfoid}/inspectionrecords/{inspectionrecordid}";
 
 /**
  *
  * 删除求职期望
  */
-export const deleteUserinfosUserinfoidJobexpectationsJobexpectationid = (
+export const deleteUserinfosP0JobexpectationsP1 = (
   /**
    *
    * 用户信息ID
@@ -501,7 +468,7 @@ export const deleteUserinfosUserinfoidJobexpectationsJobexpectationid = (
   }>
 > => {
   return Http.deleteRequest(
-    template(deleteUserinfosUserinfoidJobexpectationsJobexpectationid.key, {
+    template(deleteUserinfosP0JobexpectationsP1.key, {
       userinfoid,
       jobexpectationid,
     }),
@@ -513,14 +480,14 @@ export const deleteUserinfosUserinfoidJobexpectationsJobexpectationid = (
 };
 
 /** Key is end point string without base url */
-deleteUserinfosUserinfoidJobexpectationsJobexpectationid.key =
+deleteUserinfosP0JobexpectationsP1.key =
   "/userinfos/{userinfoid}/jobexpectations/{jobexpectationid}";
 
 /**
  *
  * 删除项目经历
  */
-export const deleteUserinfosUserinfoidProjectexperiencesProjectexperienceid = (
+export const deleteUserinfosP0ProjectexperiencesP1 = (
   /**
    *
    * 用户信息ID
@@ -556,10 +523,10 @@ export const deleteUserinfosUserinfoidProjectexperiencesProjectexperienceid = (
   }>
 > => {
   return Http.deleteRequest(
-    template(
-      deleteUserinfosUserinfoidProjectexperiencesProjectexperienceid.key,
-      { userinfoid, projectexperienceid }
-    ),
+    template(deleteUserinfosP0ProjectexperiencesP1.key, {
+      userinfoid,
+      projectexperienceid,
+    }),
     undefined,
     undefined,
     undefined,
@@ -568,14 +535,14 @@ export const deleteUserinfosUserinfoidProjectexperiencesProjectexperienceid = (
 };
 
 /** Key is end point string without base url */
-deleteUserinfosUserinfoidProjectexperiencesProjectexperienceid.key =
+deleteUserinfosP0ProjectexperiencesP1.key =
   "/userinfos/{userinfoid}/projectexperiences/{projectexperienceid}";
 
 /**
  *
  * 删除工作经历
  */
-export const deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid = (
+export const deleteUserinfosP0WorkexperiencesP1 = (
   /**
    *
    * 用户信息ID
@@ -611,7 +578,7 @@ export const deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid = (
   }>
 > => {
   return Http.deleteRequest(
-    template(deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid.key, {
+    template(deleteUserinfosP0WorkexperiencesP1.key, {
       userinfoid,
       workexperienceid,
     }),
@@ -623,7 +590,7 @@ export const deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid = (
 };
 
 /** Key is end point string without base url */
-deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid.key =
+deleteUserinfosP0WorkexperiencesP1.key =
   "/userinfos/{userinfoid}/workexperiences/{workexperienceid}";
 
 /**
@@ -672,7 +639,7 @@ getAreaInformations.key = "/areaInformations";
  *
  * 查询城市信息
  */
-export const getCityinfos = (
+export const getCityinformations = (
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -698,7 +665,7 @@ export const getCityinfos = (
   }>
 > => {
   return Http.getRequest(
-    getCityinfos.key,
+    getCityinformations.key,
     undefined,
     undefined,
     undefined,
@@ -707,13 +674,14 @@ export const getCityinfos = (
 };
 
 /** Key is end point string without base url */
-getCityinfos.key = "/cityinfos";
+getCityinformations.key = "/cityinformations";
 
 /**
  *
  * 查询所有公司信息
  */
 export const getCompanyinfos = (
+  queryParams: GetCompanyinfosQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -745,7 +713,7 @@ export const getCompanyinfos = (
 > => {
   return Http.getRequest(
     getCompanyinfos.key,
-    undefined,
+    queryParams,
     undefined,
     undefined,
     overrideConfig(_CONSTANT0, configOverride)
@@ -759,7 +727,7 @@ getCompanyinfos.key = "/companyinfos";
  *
  * 查询公司信息
  */
-export const getCompanyinfosCompanyinfoid = (
+export const getCompanyinfosP0 = (
   /**
    *
    * 公司信息ID
@@ -790,7 +758,7 @@ export const getCompanyinfosCompanyinfoid = (
   }>
 > => {
   return Http.getRequest(
-    template(getCompanyinfosCompanyinfoid.key, { companyinfoid }),
+    template(getCompanyinfosP0.key, { companyinfoid }),
     undefined,
     undefined,
     undefined,
@@ -799,15 +767,15 @@ export const getCompanyinfosCompanyinfoid = (
 };
 
 /** Key is end point string without base url */
-getCompanyinfosCompanyinfoid.key = "/companyinfos/{companyinfoid}";
+getCompanyinfosP0.key = "/companyinfos/{companyinfoid}";
 
 /**
  *
  * 查询所有投递记录
  */
-export const getCompanyinfosCompanyinfoidDeliveryrecords = (
+export const getCompanyinfosP0Deliveryrecords = (
   companyinfoid: string,
-  queryParams: GetCompanyinfosCompanyinfoidDeliveryrecordsQueryParams,
+  queryParams: GetCompanyinfosP0DeliveryrecordsQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -838,9 +806,7 @@ export const getCompanyinfosCompanyinfoidDeliveryrecords = (
   }>
 > => {
   return Http.getRequest(
-    template(getCompanyinfosCompanyinfoidDeliveryrecords.key, {
-      companyinfoid,
-    }),
+    template(getCompanyinfosP0Deliveryrecords.key, { companyinfoid }),
     queryParams,
     undefined,
     undefined,
@@ -849,20 +815,20 @@ export const getCompanyinfosCompanyinfoidDeliveryrecords = (
 };
 
 /** Key is end point string without base url */
-getCompanyinfosCompanyinfoidDeliveryrecords.key =
+getCompanyinfosP0Deliveryrecords.key =
   "/companyinfos/{companyinfoid}/deliveryrecords";
 
 /**
  *
  * 查询所有职位信息
  */
-export const getCompanyinfosCompanyinfoidPositioninfos = (
+export const getCompanyinfosP0Positioninfos = (
   /**
    *
    * 公司信息ID
    */
   companyinfoid: string,
-  queryParams: GetCompanyinfosCompanyinfoidPositioninfosQueryParams,
+  queryParams: GetCompanyinfosP0PositioninfosQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -893,7 +859,7 @@ export const getCompanyinfosCompanyinfoidPositioninfos = (
   }>
 > => {
   return Http.getRequest(
-    template(getCompanyinfosCompanyinfoidPositioninfos.key, { companyinfoid }),
+    template(getCompanyinfosP0Positioninfos.key, { companyinfoid }),
     queryParams,
     undefined,
     undefined,
@@ -902,14 +868,14 @@ export const getCompanyinfosCompanyinfoidPositioninfos = (
 };
 
 /** Key is end point string without base url */
-getCompanyinfosCompanyinfoidPositioninfos.key =
+getCompanyinfosP0Positioninfos.key =
   "/companyinfos/{companyinfoid}/positioninfos";
 
 /**
  *
  * 查询职位信息
  */
-export const getCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
+export const getCompanyinfosP0PositioninfosP1 = (
   /**
    *
    * 公司信息ID
@@ -945,7 +911,7 @@ export const getCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
   }>
 > => {
   return Http.getRequest(
-    template(getCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key, {
+    template(getCompanyinfosP0PositioninfosP1.key, {
       companyinfoid,
       positioninfoid,
     }),
@@ -957,7 +923,7 @@ export const getCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
 };
 
 /** Key is end point string without base url */
-getCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key =
+getCompanyinfosP0PositioninfosP1.key =
   "/companyinfos/{companyinfoid}/positioninfos/{positioninfoid}";
 
 /**
@@ -1053,7 +1019,7 @@ getDirectiontags.key = "/directiontags";
  *
  * 查询筛选信息
  */
-export const getFilterinfos = (
+export const getFilterinformation = (
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -1079,7 +1045,7 @@ export const getFilterinfos = (
   }>
 > => {
   return Http.getRequest(
-    getFilterinfos.key,
+    getFilterinformation.key,
     undefined,
     undefined,
     undefined,
@@ -1088,22 +1054,23 @@ export const getFilterinfos = (
 };
 
 /** Key is end point string without base url */
-getFilterinfos.key = "/filterinfos";
+getFilterinformation.key = "/filterinformation";
 
 /**
  *
- * 查询HR信息
+ * 查询所有HR信息
  */
-export const getHrinfosHrinfoid = (
-  /**
-   *
-   * 公司信息ID
-   */
-  hrinfoid: string,
+export const getHrinfos = (
+  queryParams: GetHrinfosQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
-    body: HRInformation;
+    /**
+     *
+     * HR信息
+     *
+     */
+    body: HrInformation[];
     /**
      *
      * 状态描述
@@ -1125,7 +1092,53 @@ export const getHrinfosHrinfoid = (
   }>
 > => {
   return Http.getRequest(
-    template(getHrinfosHrinfoid.key, { hrinfoid }),
+    getHrinfos.key,
+    queryParams,
+    undefined,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/** Key is end point string without base url */
+getHrinfos.key = "/hrinfos";
+
+/**
+ *
+ * 查询HR信息
+ */
+export const getHrinfosP0 = (
+  /**
+   *
+   * 公司信息ID
+   */
+  hrinfoid: string,
+  configOverride?: AxiosRequestConfig
+): Promise<
+  SwaggerResponse<{
+    body: HrInformation;
+    /**
+     *
+     * 状态描述
+     *
+     */
+    message: string;
+    /**
+     *
+     * 响应状态
+     *
+     */
+    status: number;
+    /**
+     *
+     * 处理时间
+     *
+     */
+    timestamp: string;
+  }>
+> => {
+  return Http.getRequest(
+    template(getHrinfosP0.key, { hrinfoid }),
     undefined,
     undefined,
     undefined,
@@ -1134,13 +1147,13 @@ export const getHrinfosHrinfoid = (
 };
 
 /** Key is end point string without base url */
-getHrinfosHrinfoid.key = "/hrinfos/{hrinfoid}";
+getHrinfosP0.key = "/hrinfos/{hrinfoid}";
 
 /**
  *
  * 查询所有消息
  */
-export const getMessages = (
+export const getMessagerecords = (
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -1171,7 +1184,7 @@ export const getMessages = (
   }>
 > => {
   return Http.getRequest(
-    getMessages.key,
+    getMessagerecords.key,
     undefined,
     undefined,
     undefined,
@@ -1180,7 +1193,7 @@ export const getMessages = (
 };
 
 /** Key is end point string without base url */
-getMessages.key = "/messages";
+getMessagerecords.key = "/messagerecords";
 
 /**
  *
@@ -1195,14 +1208,7 @@ export const getNewversion = (
      * 版本信息
      *
      */
-    body: {
-      /**
-       *
-       * 新版本号
-       *
-       */
-      newVersion: string;
-    };
+    body: number;
     /**
      *
      * 状态描述
@@ -1286,13 +1292,10 @@ export const getRecommendations = (
   SwaggerResponse<{
     /**
      *
-     * 人才列表
+     * 用户信息ID
      *
      */
-    body: {
-      jobExpectation: JobExpectation;
-      userInformation: UserInformation;
-    }[];
+    body: string[];
     /**
      *
      * 状态描述
@@ -1376,7 +1379,7 @@ getUserinfos.key = "/userinfos";
  *
  * 查询用户信息
  */
-export const getUserinfosUserinfoid = (
+export const getUserinfosP0 = (
   /**
    *
    * 用户信息ID
@@ -1407,7 +1410,7 @@ export const getUserinfosUserinfoid = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoid.key, { userinfoid }),
+    template(getUserinfosP0.key, { userinfoid }),
     undefined,
     undefined,
     undefined,
@@ -1416,19 +1419,19 @@ export const getUserinfosUserinfoid = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoid.key = "/userinfos/{userinfoid}";
+getUserinfosP0.key = "/userinfos/{userinfoid}";
 
 /**
  *
  * 查询所有关注记录
  */
-export const getUserinfosUserinfoidAttentionrecords = (
+export const getUserinfosP0Attentionrecords = (
   /**
    *
    * 用户信息ID
    */
   userinfoid: string,
-  queryParams: GetUserinfosUserinfoidAttentionrecordsQueryParams,
+  queryParams: GetUserinfosP0AttentionrecordsQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -1459,7 +1462,7 @@ export const getUserinfosUserinfoidAttentionrecords = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidAttentionrecords.key, { userinfoid }),
+    template(getUserinfosP0Attentionrecords.key, { userinfoid }),
     queryParams,
     undefined,
     undefined,
@@ -1468,14 +1471,13 @@ export const getUserinfosUserinfoidAttentionrecords = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidAttentionrecords.key =
-  "/userinfos/{userinfoid}/attentionrecords";
+getUserinfosP0Attentionrecords.key = "/userinfos/{userinfoid}/attentionrecords";
 
 /**
  *
  * 查询关注记录
  */
-export const getUserinfosUserinfoidAttentionrecordsAttentionrecordid = (
+export const getUserinfosP0AttentionrecordsP1 = (
   /**
    *
    * 用户信息ID
@@ -1511,7 +1513,7 @@ export const getUserinfosUserinfoidAttentionrecordsAttentionrecordid = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidAttentionrecordsAttentionrecordid.key, {
+    template(getUserinfosP0AttentionrecordsP1.key, {
       userinfoid,
       attentionrecordid,
     }),
@@ -1523,20 +1525,20 @@ export const getUserinfosUserinfoidAttentionrecordsAttentionrecordid = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidAttentionrecordsAttentionrecordid.key =
+getUserinfosP0AttentionrecordsP1.key =
   "/userinfos/{userinfoid}/attentionrecords/{attentionrecordid}";
 
 /**
  *
  * 查询所有投递记录
  */
-export const getUserinfosUserinfoidDeliveryrecords = (
+export const getUserinfosP0Deliveryrecords = (
   /**
    *
    * 用户信息ID
    */
   userinfoid: string,
-  queryParams: GetUserinfosUserinfoidDeliveryrecordsQueryParams,
+  queryParams: GetUserinfosP0DeliveryrecordsQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -1567,7 +1569,7 @@ export const getUserinfosUserinfoidDeliveryrecords = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidDeliveryrecords.key, { userinfoid }),
+    template(getUserinfosP0Deliveryrecords.key, { userinfoid }),
     queryParams,
     undefined,
     undefined,
@@ -1576,14 +1578,13 @@ export const getUserinfosUserinfoidDeliveryrecords = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidDeliveryrecords.key =
-  "/userinfos/{userinfoid}/deliveryrecords";
+getUserinfosP0Deliveryrecords.key = "/userinfos/{userinfoid}/deliveryrecords";
 
 /**
  *
  * 查询投递记录
  */
-export const getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid = (
+export const getUserinfosP0DeliveryrecordsP1 = (
   /**
    *
    * 用户信息ID
@@ -1619,7 +1620,7 @@ export const getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid.key, {
+    template(getUserinfosP0DeliveryrecordsP1.key, {
       userinfoid,
       deliveryrecordid,
     }),
@@ -1631,20 +1632,20 @@ export const getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid.key =
+getUserinfosP0DeliveryrecordsP1.key =
   "/userinfos/{userinfoid}/deliveryrecords/{deliveryrecordid}";
 
 /**
  *
  * 查询所有教育经历
  */
-export const getUserinfosUserinfoidEduexperiences = (
+export const getUserinfosP0Eduexperiences = (
   /**
    *
    * 用户信息ID
    */
   userinfoid: string,
-  queryParams: GetUserinfosUserinfoidEduexperiencesQueryParams,
+  queryParams: GetUserinfosP0EduexperiencesQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -1675,7 +1676,7 @@ export const getUserinfosUserinfoidEduexperiences = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidEduexperiences.key, { userinfoid }),
+    template(getUserinfosP0Eduexperiences.key, { userinfoid }),
     queryParams,
     undefined,
     undefined,
@@ -1684,14 +1685,13 @@ export const getUserinfosUserinfoidEduexperiences = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidEduexperiences.key =
-  "/userinfos/{userinfoid}/eduexperiences";
+getUserinfosP0Eduexperiences.key = "/userinfos/{userinfoid}/eduexperiences";
 
 /**
  *
  * 查询教育经历
  */
-export const getUserinfosUserinfoidEduexperiencesEduexperienceid = (
+export const getUserinfosP0EduexperiencesP1 = (
   /**
    *
    * 用户信息ID
@@ -1727,7 +1727,7 @@ export const getUserinfosUserinfoidEduexperiencesEduexperienceid = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidEduexperiencesEduexperienceid.key, {
+    template(getUserinfosP0EduexperiencesP1.key, {
       userinfoid,
       eduexperienceid,
     }),
@@ -1739,20 +1739,20 @@ export const getUserinfosUserinfoidEduexperiencesEduexperienceid = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidEduexperiencesEduexperienceid.key =
+getUserinfosP0EduexperiencesP1.key =
   "/userinfos/{userinfoid}/eduexperiences/{eduexperienceid}";
 
 /**
  *
  * 查询所有收藏记录
  */
-export const getUserinfosUserinfoidGarnerrecords = (
+export const getUserinfosP0Garnerrecords = (
   /**
    *
    * 用户信息ID
    */
   userinfoid: string,
-  queryParams: GetUserinfosUserinfoidGarnerrecordsQueryParams,
+  queryParams: GetUserinfosP0GarnerrecordsQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -1783,7 +1783,7 @@ export const getUserinfosUserinfoidGarnerrecords = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidGarnerrecords.key, { userinfoid }),
+    template(getUserinfosP0Garnerrecords.key, { userinfoid }),
     queryParams,
     undefined,
     undefined,
@@ -1792,14 +1792,13 @@ export const getUserinfosUserinfoidGarnerrecords = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidGarnerrecords.key =
-  "/userinfos/{userinfoid}/garnerrecords";
+getUserinfosP0Garnerrecords.key = "/userinfos/{userinfoid}/garnerrecords";
 
 /**
  *
  * 查询收藏记录
  */
-export const getUserinfosUserinfoidGarnerrecordsGarnerrecordid = (
+export const getUserinfosP0GarnerrecordsP1 = (
   /**
    *
    * 用户信息ID
@@ -1835,10 +1834,7 @@ export const getUserinfosUserinfoidGarnerrecordsGarnerrecordid = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidGarnerrecordsGarnerrecordid.key, {
-      userinfoid,
-      garnerrecordid,
-    }),
+    template(getUserinfosP0GarnerrecordsP1.key, { userinfoid, garnerrecordid }),
     undefined,
     undefined,
     undefined,
@@ -1847,20 +1843,20 @@ export const getUserinfosUserinfoidGarnerrecordsGarnerrecordid = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidGarnerrecordsGarnerrecordid.key =
+getUserinfosP0GarnerrecordsP1.key =
   "/userinfos/{userinfoid}/garnerrecords/{garnerrecordid}";
 
 /**
  *
  * 查询所有查看记录
  */
-export const getUserinfosUserinfoidInspectionrecords = (
+export const getUserinfosP0Inspectionrecords = (
   /**
    *
    * 用户信息ID
    */
   userinfoid: string,
-  queryParams: GetUserinfosUserinfoidInspectionrecordsQueryParams,
+  queryParams: GetUserinfosP0InspectionrecordsQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -1891,7 +1887,7 @@ export const getUserinfosUserinfoidInspectionrecords = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidInspectionrecords.key, { userinfoid }),
+    template(getUserinfosP0Inspectionrecords.key, { userinfoid }),
     queryParams,
     undefined,
     undefined,
@@ -1900,14 +1896,14 @@ export const getUserinfosUserinfoidInspectionrecords = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidInspectionrecords.key =
+getUserinfosP0Inspectionrecords.key =
   "/userinfos/{userinfoid}/inspectionrecords";
 
 /**
  *
  * 查询查看记录
  */
-export const getUserinfosUserinfoidInspectionrecordsInspectionrecordid = (
+export const getUserinfosP0InspectionrecordsP1 = (
   /**
    *
    * 用户信息ID
@@ -1943,7 +1939,7 @@ export const getUserinfosUserinfoidInspectionrecordsInspectionrecordid = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidInspectionrecordsInspectionrecordid.key, {
+    template(getUserinfosP0InspectionrecordsP1.key, {
       userinfoid,
       inspectionrecordid,
     }),
@@ -1955,20 +1951,20 @@ export const getUserinfosUserinfoidInspectionrecordsInspectionrecordid = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidInspectionrecordsInspectionrecordid.key =
+getUserinfosP0InspectionrecordsP1.key =
   "/userinfos/{userinfoid}/inspectionrecords/{inspectionrecordid}";
 
 /**
  *
  * 查询所有求职期望
  */
-export const getUserinfosUserinfoidJobexpectations = (
+export const getUserinfosP0Jobexpectations = (
   /**
    *
    * 用户信息ID
    */
   userinfoid: string,
-  queryParams: GetUserinfosUserinfoidJobexpectationsQueryParams,
+  queryParams: GetUserinfosP0JobexpectationsQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -1999,7 +1995,7 @@ export const getUserinfosUserinfoidJobexpectations = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidJobexpectations.key, { userinfoid }),
+    template(getUserinfosP0Jobexpectations.key, { userinfoid }),
     queryParams,
     undefined,
     undefined,
@@ -2008,14 +2004,13 @@ export const getUserinfosUserinfoidJobexpectations = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidJobexpectations.key =
-  "/userinfos/{userinfoid}/jobexpectations";
+getUserinfosP0Jobexpectations.key = "/userinfos/{userinfoid}/jobexpectations";
 
 /**
  *
  * 查询求职期望
  */
-export const getUserinfosUserinfoidJobexpectationsJobexpectationid = (
+export const getUserinfosP0JobexpectationsP1 = (
   /**
    *
    * 用户信息ID
@@ -2051,7 +2046,7 @@ export const getUserinfosUserinfoidJobexpectationsJobexpectationid = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidJobexpectationsJobexpectationid.key, {
+    template(getUserinfosP0JobexpectationsP1.key, {
       userinfoid,
       jobexpectationid,
     }),
@@ -2063,20 +2058,20 @@ export const getUserinfosUserinfoidJobexpectationsJobexpectationid = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidJobexpectationsJobexpectationid.key =
+getUserinfosP0JobexpectationsP1.key =
   "/userinfos/{userinfoid}/jobexpectations/{jobexpectationid}";
 
 /**
  *
  * 查询所有项目经历
  */
-export const getUserinfosUserinfoidProjectexperiences = (
+export const getUserinfosP0Projectexperiences = (
   /**
    *
    * 用户信息ID
    */
   userinfoid: string,
-  queryParams: GetUserinfosUserinfoidProjectexperiencesQueryParams,
+  queryParams: GetUserinfosP0ProjectexperiencesQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -2107,7 +2102,7 @@ export const getUserinfosUserinfoidProjectexperiences = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidProjectexperiences.key, { userinfoid }),
+    template(getUserinfosP0Projectexperiences.key, { userinfoid }),
     queryParams,
     undefined,
     undefined,
@@ -2116,14 +2111,14 @@ export const getUserinfosUserinfoidProjectexperiences = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidProjectexperiences.key =
+getUserinfosP0Projectexperiences.key =
   "/userinfos/{userinfoid}/projectexperiences";
 
 /**
  *
  * 查询项目经历
  */
-export const getUserinfosUserinfoidProjectexperiencesProjectexperienceid = (
+export const getUserinfosP0ProjectexperiencesP1 = (
   /**
    *
    * 用户信息ID
@@ -2159,7 +2154,7 @@ export const getUserinfosUserinfoidProjectexperiencesProjectexperienceid = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidProjectexperiencesProjectexperienceid.key, {
+    template(getUserinfosP0ProjectexperiencesP1.key, {
       userinfoid,
       projectexperienceid,
     }),
@@ -2171,20 +2166,20 @@ export const getUserinfosUserinfoidProjectexperiencesProjectexperienceid = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidProjectexperiencesProjectexperienceid.key =
+getUserinfosP0ProjectexperiencesP1.key =
   "/userinfos/{userinfoid}/projectexperiences/{projectexperienceid}";
 
 /**
  *
  * 查询所有工作经历
  */
-export const getUserinfosUserinfoidWorkexperiences = (
+export const getUserinfosP0Workexperiences = (
   /**
    *
    * 用户信息ID
    */
   userinfoid: string,
-  queryParams: GetUserinfosUserinfoidWorkexperiencesQueryParams,
+  queryParams: GetUserinfosP0WorkexperiencesQueryParams,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
@@ -2215,7 +2210,7 @@ export const getUserinfosUserinfoidWorkexperiences = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidWorkexperiences.key, { userinfoid }),
+    template(getUserinfosP0Workexperiences.key, { userinfoid }),
     queryParams,
     undefined,
     undefined,
@@ -2224,14 +2219,13 @@ export const getUserinfosUserinfoidWorkexperiences = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidWorkexperiences.key =
-  "/userinfos/{userinfoid}/workexperiences";
+getUserinfosP0Workexperiences.key = "/userinfos/{userinfoid}/workexperiences";
 
 /**
  *
  * 查询工作经历
  */
-export const getUserinfosUserinfoidWorkexperiencesWorkexperienceid = (
+export const getUserinfosP0WorkexperiencesP1 = (
   /**
    *
    * 用户信息ID
@@ -2267,7 +2261,7 @@ export const getUserinfosUserinfoidWorkexperiencesWorkexperienceid = (
   }>
 > => {
   return Http.getRequest(
-    template(getUserinfosUserinfoidWorkexperiencesWorkexperienceid.key, {
+    template(getUserinfosP0WorkexperiencesP1.key, {
       userinfoid,
       workexperienceid,
     }),
@@ -2279,7 +2273,7 @@ export const getUserinfosUserinfoidWorkexperiencesWorkexperienceid = (
 };
 
 /** Key is end point string without base url */
-getUserinfosUserinfoidWorkexperiencesWorkexperienceid.key =
+getUserinfosP0WorkexperiencesP1.key =
   "/userinfos/{userinfoid}/workexperiences/{workexperienceid}";
 
 /**
@@ -2291,19 +2285,6 @@ export const getVerificationCode = (
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
-    /**
-     *
-     * 发送状态
-     *
-     */
-    body: {
-      /**
-       *
-       * 状态内容
-       *
-       */
-      msg: string;
-    };
     /**
      *
      * 状态描述
@@ -2340,7 +2321,7 @@ getVerificationCode.key = "/verificationCode";
  *
  * 注册账号
  */
-export const postAccounts = (
+export const postAccountinfos = (
   requestBody: {
     /**
      *
@@ -2348,7 +2329,7 @@ export const postAccounts = (
      *
      * {1:用户,2:HR}
      */
-    accountType: "1" | "2";
+    accountType: 1 | 2;
     /**
      *
      * 密码
@@ -2371,7 +2352,7 @@ export const postAccounts = (
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
   return Http.postRequest(
-    postAccounts.key,
+    postAccountinfos.key,
     undefined,
     requestBody,
     undefined,
@@ -2380,13 +2361,13 @@ export const postAccounts = (
 };
 
 /** Key is end point string without base url */
-postAccounts.key = "/accounts";
+postAccountinfos.key = "/accountinfos";
 
 /**
  *
  * 登录账号
  */
-export const postAccountsLogin = (
+export const postAccountinfosLogin = (
   requestBody: {
     /**
      *
@@ -2439,7 +2420,7 @@ export const postAccountsLogin = (
   }>
 > => {
   return Http.postRequest(
-    postAccountsLogin.key,
+    postAccountinfosLogin.key,
     undefined,
     requestBody,
     undefined,
@@ -2448,7 +2429,7 @@ export const postAccountsLogin = (
 };
 
 /** Key is end point string without base url */
-postAccountsLogin.key = "/accounts/login";
+postAccountinfosLogin.key = "/accountinfos/login";
 
 /**
  *
@@ -2460,8 +2441,10 @@ export const postAvatars = (
      *
      * 头像
      * - Format: binary
+     * @example
+     *   file://C:\Users\19790\Pictures\Default.jpg
      */
-    avatar?: string;
+    avatar: string;
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
@@ -2485,13 +2468,65 @@ export const postCompanyinfos = (
   requestBody: {
     /**
      *
-     * 名称
+     * 公司福利
      *
      */
-    name: string;
+    benefits: string[];
     /**
      *
-     * 信息
+     * 所在城市
+     *
+     */
+    cityName: string;
+    /**
+     *
+     * 公司名称
+     *
+     */
+    companyName: string;
+    /**
+     *
+     * 领域名称
+     *
+     */
+    comprehensionName: string;
+    /**
+     *
+     * 融资阶段
+     *
+     * {1:未融资,2:天使轮,3:A轮,4:B轮,5:C轮,6:D轮及以上,7:上市公司,8:不需要融资}
+     * - max: 8
+     */
+    financingStage: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+    /**
+     *
+     * HR信息ID
+     *
+     */
+    hrInformationId: string;
+    /**
+     *
+     * LOGO地址
+     *
+     */
+    logoUrl: string;
+    /**
+     *
+     * 在招职位
+     *
+     */
+    recruitmentPosition: number;
+    /**
+     *
+     * 公司规模
+     *
+     * {1:少于15人,2:15-50人,3:50-150人,4:150-500人,5:500-2000人,6:2000以上}
+     * - max: 6
+     */
+    scale: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+    /**
+     *
+     * 扩展信息
      *
      */
     about?: string;
@@ -2503,47 +2538,17 @@ export const postCompanyinfos = (
     address?: string;
     /**
      *
-     * 福利
-     *
-     */
-    benefits?: string[];
-    /**
-     *
-     * 所在城市
-     *
-     */
-    city?: string;
-    /**
-     *
-     * 领域
-     *
-     */
-    comprehension?: string;
-    /**
-     *
      * 成立时间
      *
+     * - pattern: /^(\d{4})-(\d{2})-(\d{2})/
      */
     establishmentTime?: string;
     /**
      *
-     * 融资阶段
-     *
-     * {1:未融资,2:天使轮,3:A轮,4:B轮,5:C轮,6:D轮及以上,7:上市公司,8:不需要融资}
-     */
-    financingStage?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
-    /**
-     *
-     * 全称
+     * 公司全称
      *
      */
     fullName?: string;
-    /**
-     *
-     * HRID
-     *
-     */
-    hrId?: string;
     /**
      *
      * 法定代表人
@@ -2552,35 +2557,16 @@ export const postCompanyinfos = (
     legalRepresentative?: string;
     /**
      *
-     * LOGO
-     *
-     */
-    logo?: string;
-    /**
-     *
      * 机构类型
      *
      */
-    organizatioType?: string;
-    /**
-     *
-     * 在招职位
-     *
-     */
-    recruitmentPosition?: number;
+    organizationType?: string;
     /**
      *
      * 注册资本
      *
      */
     registeredCapital?: string;
-    /**
-     *
-     * 规模
-     *
-     * {1:少于15人,2:15-50人,3:50-150人,4:150-500人,5:500-2000人,6:2000以上}
-     */
-    scale?: "1" | "2" | "3" | "4" | "5" | "6";
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
@@ -2600,7 +2586,7 @@ postCompanyinfos.key = "/companyinfos";
  *
  * 增加职位信息
  */
-export const postCompanyinfosCompanyinfoidPositioninfos = (
+export const postCompanyinfosP0Positioninfos = (
   /**
    *
    * 公司信息ID
@@ -2616,10 +2602,10 @@ export const postCompanyinfosCompanyinfoidPositioninfos = (
     ceilingSalary: number;
     /**
      *
-     * 公司ID
+     * 公司信息ID
      *
      */
-    companyId: string;
+    companyInformationId: string;
     /**
      *
      * 职位描述
@@ -2628,30 +2614,32 @@ export const postCompanyinfosCompanyinfoidPositioninfos = (
     description: string;
     /**
      *
-     * 学历
+     * 学历要求
      *
-     * {0:不要求,1:大专,2:本科,3:硕士,4:博士}
+     * {1:不要求,2:大专,3:本科,4:硕士,5:博士}
+     * - max: 5
      */
-    education: "0" | "1" | "2" | "3" | "4";
+    education: 0 | 1 | 2 | 3 | 4 | 5;
     /**
      *
-     * HRID
+     * HR信息ID
      *
      */
-    hrId: string;
+    hrInformationId: string;
     /**
      *
      * 职位名称
      *
      */
-    name: string;
+    positionName: string;
     /**
      *
      * 职位类型
      *
      * {1:全职,2:兼职,3:实习}
+     * - max: 3
      */
-    positionType: "1" | "2" | "3";
+    positionType: 0 | 1 | 2 | 3;
     /**
      *
      * 起始薪资
@@ -2661,13 +2649,33 @@ export const postCompanyinfosCompanyinfoidPositioninfos = (
     startingSalary: number;
     /**
      *
+     * 工作地区
+     *
+     */
+    workAreaName: string;
+    /**
+     *
+     * 工作城市
+     *
+     */
+    workCityName: string;
+    /**
+     *
+     * 工作年限
+     *
+     * {1:经验不限,2:在校/应届,3:3年及以下,4:3-5年,5:5-10年,6:10年以上}
+     * - max: 6
+     */
+    workingYears: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+    /**
+     *
      * 所属部门
      *
      */
-    department?: string;
+    departmentName?: string;
     /**
      *
-     * 细化标签
+     * 细分标签
      *
      */
     directionTags?: string[];
@@ -2688,49 +2696,52 @@ export const postCompanyinfosCompanyinfoidPositioninfos = (
        * 面试说明
        *
        * {1:可周末面试,2:包含笔试,3:可下班面试,4:包含面试作业}
+       * - minimum: 1
+       * - max: 4
        */
-      illustrate: "1" | "2" | "3" | "4";
+      illustrate: 1 | 2 | 3 | 4;
       /**
        *
        * 面试形式
        *
        * {1:现场面试,2:视频面试,3:电话面试}
+       * - minimum: 1
+       * - max: 3
        */
-      situation: "1" | "2" | "3";
+      situation: 1 | 2 | 3;
       /**
        *
        * 面试时长
        *
        * {1:一天内完成,2:分多次完成}
+       * - minimum: 1
+       * - max: 2
        */
-      time: "1" | "2";
+      time: 1 | 2;
       /**
        *
        * 面试轮数
        *
        * {1:1-2轮次,2:3-4轮次,3:5-6轮次,4:暂不确定}
+       * - minimum: 1
+       * - max: 4
        */
-      wheel: "1" | "2" | "3" | "4";
+      wheel: 1 | 2 | 3 | 4;
     };
     /**
      *
-     * 发布日期
+     * 下班时间
      *
      */
-    releaseDate?: string;
+    overTime?: string;
     /**
      *
      * 周末休息时间
      *
-     * {1周末双休:,2:周末单休,3:大小周}
+     * {1:周末双休:,2:周末单休,3:大小周}
+     * - max: 3
      */
-    weekendReleseTime?: "1" | "2" | "3";
-    /**
-     *
-     * 工作地区
-     *
-     */
-    workArea?: string;
+    weekendReleseTime?: 0 | 1 | 2 | 3;
     /**
      *
      * 上班时间
@@ -2756,18 +2767,11 @@ export const postCompanyinfosCompanyinfoidPositioninfos = (
        */
       longitude: number;
     };
-    /**
-     *
-     * 工作年限
-     *
-     * {0:经验不限,1:在校/应届,2:3年及以下,3:3-5年,4:5-10年,5:10年以上}
-     */
-    workingYears?: "0" | "1" | "2" | "3" | "4" | "5";
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
   return Http.postRequest(
-    template(postCompanyinfosCompanyinfoidPositioninfos.key, { companyinfoid }),
+    template(postCompanyinfosP0Positioninfos.key, { companyinfoid }),
     undefined,
     requestBody,
     undefined,
@@ -2776,7 +2780,7 @@ export const postCompanyinfosCompanyinfoidPositioninfos = (
 };
 
 /** Key is end point string without base url */
-postCompanyinfosCompanyinfoidPositioninfos.key =
+postCompanyinfosP0Positioninfos.key =
   "/companyinfos/{companyinfoid}/positioninfos";
 
 /**
@@ -2789,8 +2793,10 @@ export const postFiles = (
      *
      * 文件
      * - Format: binary
+     * @example
+     *   file://C:\Users\19790\Downloads\东江人才招聘.md
      */
-    file?: string;
+    file: string;
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
@@ -2810,7 +2816,7 @@ postFiles.key = "/files";
  *
  * 增加关注记录
  */
-export const postUserinfosUserinfoidAttentionrecords = (
+export const postUserinfosP0Attentionrecords = (
   /**
    *
    * 用户信息ID
@@ -2819,15 +2825,21 @@ export const postUserinfosUserinfoidAttentionrecords = (
   requestBody: {
     /**
      *
-     * 公司ID
+     * 公司信息ID
      *
      */
-    companyId: string;
+    companyInformationId: string;
+    /**
+     *
+     * 用户信息ID
+     *
+     */
+    userInformationId: string;
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
   return Http.postRequest(
-    template(postUserinfosUserinfoidAttentionrecords.key, { userinfoid }),
+    template(postUserinfosP0Attentionrecords.key, { userinfoid }),
     undefined,
     requestBody,
     undefined,
@@ -2836,14 +2848,14 @@ export const postUserinfosUserinfoidAttentionrecords = (
 };
 
 /** Key is end point string without base url */
-postUserinfosUserinfoidAttentionrecords.key =
+postUserinfosP0Attentionrecords.key =
   "/userinfos/{userinfoid}/attentionrecords";
 
 /**
  *
  * 增加投递记录
  */
-export const postUserinfosUserinfoidDeliveryrecords = (
+export const postUserinfosP0Deliveryrecords = (
   /**
    *
    * 用户信息ID
@@ -2856,11 +2868,32 @@ export const postUserinfosUserinfoidDeliveryrecords = (
      *
      */
     jobInformationId: string;
+    /**
+     *
+     * 用户信息ID
+     *
+     */
+    userInformationId: string;
+    /**
+     *
+     * 面试时间
+     *
+     * - pattern: /^(\d{4})-(\d{2})-(\d{2})/
+     */
+    interviewTime?: string;
+    /**
+     *
+     * 投递状态
+     *
+     * {1:待查看,2:已查看,3:通过筛选,4:约面试,5:不合适}
+     * - max: 5
+     */
+    state?: 0 | 1 | 2 | 3 | 4 | 5;
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
   return Http.postRequest(
-    template(postUserinfosUserinfoidDeliveryrecords.key, { userinfoid }),
+    template(postUserinfosP0Deliveryrecords.key, { userinfoid }),
     undefined,
     requestBody,
     undefined,
@@ -2869,14 +2902,13 @@ export const postUserinfosUserinfoidDeliveryrecords = (
 };
 
 /** Key is end point string without base url */
-postUserinfosUserinfoidDeliveryrecords.key =
-  "/userinfos/{userinfoid}/deliveryrecords";
+postUserinfosP0Deliveryrecords.key = "/userinfos/{userinfoid}/deliveryrecords";
 
 /**
  *
  * 增加教育经历
  */
-export const postUserinfosUserinfoidEduexperiences = (
+export const postUserinfosP0Eduexperiences = (
   /**
    *
    * 用户信息ID
@@ -2887,27 +2919,30 @@ export const postUserinfosUserinfoidEduexperiences = (
      *
      * 入学时间
      *
+     * - pattern: /^(\d{4})-(\d{2})-(\d{2})/
      */
     admissionTime: string;
-    /**
-     *
-     * 毕业时间
-     *
-     */
-    araduationTime: string;
     /**
      *
      * 学历层次
      *
      * {1:大专,2:本科,3:硕士,4:博士}
+     * - max: 4
      */
-    education: "1" | "2" | "3" | "4";
+    education: 0 | 1 | 2 | 3 | 4;
     /**
      *
-     * 专业
+     * 毕业时间
+     *
+     * - pattern: /^(\d{4})-(\d{2})-(\d{2})/
+     */
+    graduationTime: string;
+    /**
+     *
+     * 专业名称
      *
      */
-    major: string;
+    majorName: string;
     /**
      *
      * 学校名称
@@ -2918,7 +2953,7 @@ export const postUserinfosUserinfoidEduexperiences = (
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
   return Http.postRequest(
-    template(postUserinfosUserinfoidEduexperiences.key, { userinfoid }),
+    template(postUserinfosP0Eduexperiences.key, { userinfoid }),
     undefined,
     requestBody,
     undefined,
@@ -2927,14 +2962,13 @@ export const postUserinfosUserinfoidEduexperiences = (
 };
 
 /** Key is end point string without base url */
-postUserinfosUserinfoidEduexperiences.key =
-  "/userinfos/{userinfoid}/eduexperiences";
+postUserinfosP0Eduexperiences.key = "/userinfos/{userinfoid}/eduexperiences";
 
 /**
  *
  * 增加收藏记录
  */
-export const postUserinfosUserinfoidGarnerrecords = (
+export const postUserinfosP0Garnerrecords = (
   /**
    *
    * 用户信息ID
@@ -2947,11 +2981,17 @@ export const postUserinfosUserinfoidGarnerrecords = (
      *
      */
     jobInformationId: string;
+    /**
+     *
+     * 用户信息ID
+     *
+     */
+    userInformationId: string;
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
   return Http.postRequest(
-    template(postUserinfosUserinfoidGarnerrecords.key, { userinfoid }),
+    template(postUserinfosP0Garnerrecords.key, { userinfoid }),
     undefined,
     requestBody,
     undefined,
@@ -2960,14 +3000,13 @@ export const postUserinfosUserinfoidGarnerrecords = (
 };
 
 /** Key is end point string without base url */
-postUserinfosUserinfoidGarnerrecords.key =
-  "/userinfos/{userinfoid}/garnerrecords";
+postUserinfosP0Garnerrecords.key = "/userinfos/{userinfoid}/garnerrecords";
 
 /**
  *
  * 增加求职期望
  */
-export const postUserinfosUserinfoidJobexpectations = (
+export const postUserinfosP0Jobexpectations = (
   /**
    *
    * 用户信息ID
@@ -2986,20 +3025,21 @@ export const postUserinfosUserinfoidJobexpectations = (
      * 期望城市
      *
      */
-    city: string;
+    cityName: string;
     /**
      *
-     * 细分标签
+     * 职位名称
      *
      */
-    directionTags: string[];
+    positionName: string;
     /**
      *
      * 职位类型
      *
      * {1:全职,2:兼职,3:实习}
+     * - max: 3
      */
-    positionType: "1" | "2" | "3";
+    positionType: 0 | 1 | 2 | 3;
     /**
      *
      * 起始薪资
@@ -3007,11 +3047,17 @@ export const postUserinfosUserinfoidJobexpectations = (
      * 单位K
      */
     startingSalary: number;
+    /**
+     *
+     * 细分标签
+     *
+     */
+    directionTags?: string[];
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
   return Http.postRequest(
-    template(postUserinfosUserinfoidJobexpectations.key, { userinfoid }),
+    template(postUserinfosP0Jobexpectations.key, { userinfoid }),
     undefined,
     requestBody,
     undefined,
@@ -3020,14 +3066,13 @@ export const postUserinfosUserinfoidJobexpectations = (
 };
 
 /** Key is end point string without base url */
-postUserinfosUserinfoidJobexpectations.key =
-  "/userinfos/{userinfoid}/jobexpectations";
+postUserinfosP0Jobexpectations.key = "/userinfos/{userinfoid}/jobexpectations";
 
 /**
  *
  * 增加项目经历
  */
-export const postUserinfosUserinfoidProjectexperiences = (
+export const postUserinfosP0Projectexperiences = (
   /**
    *
    * 用户信息ID
@@ -3038,6 +3083,7 @@ export const postUserinfosUserinfoidProjectexperiences = (
      *
      * 结束时间
      *
+     * - pattern: /^(\d{4})-(\d{2})-(\d{2})/
      */
     endTime: string;
     /**
@@ -3056,6 +3102,7 @@ export const postUserinfosUserinfoidProjectexperiences = (
      *
      * 开始时间
      *
+     * - pattern: /^(\d{4})-(\d{2})-(\d{2})/
      */
     startTime: string;
     /**
@@ -3080,7 +3127,7 @@ export const postUserinfosUserinfoidProjectexperiences = (
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
   return Http.postRequest(
-    template(postUserinfosUserinfoidProjectexperiences.key, { userinfoid }),
+    template(postUserinfosP0Projectexperiences.key, { userinfoid }),
     undefined,
     requestBody,
     undefined,
@@ -3089,14 +3136,14 @@ export const postUserinfosUserinfoidProjectexperiences = (
 };
 
 /** Key is end point string without base url */
-postUserinfosUserinfoidProjectexperiences.key =
+postUserinfosP0Projectexperiences.key =
   "/userinfos/{userinfoid}/projectexperiences";
 
 /**
  *
  * 增加工作经历
  */
-export const postUserinfosUserinfoidWorkexperiences = (
+export const postUserinfosP0Workexperiences = (
   /**
    *
    * 用户信息ID
@@ -3117,14 +3164,15 @@ export const postUserinfosUserinfoidWorkexperiences = (
     corporateName: string;
     /**
      *
-     * 所属部门
+     * 部门名称
      *
      */
-    department: string;
+    departmentName: string;
     /**
      *
      * 离职时间
      *
+     * - pattern: /^(\d{4})-(\d{2})-(\d{2})/
      */
     endTime: string;
     /**
@@ -3144,19 +3192,21 @@ export const postUserinfosUserinfoidWorkexperiences = (
      * 职位类型
      *
      * {1:全职,2:兼职,3:实习}
+     * - max: 3
      */
-    positionType: "1" | "2" | "3";
+    positionType: 0 | 1 | 2 | 3;
     /**
      *
      * 就职时间
      *
+     * - pattern: /^(\d{4})-(\d{2})-(\d{2})/
      */
     startTime: string;
   },
   configOverride?: AxiosRequestConfig
 ): Promise<SwaggerResponse<any>> => {
   return Http.postRequest(
-    template(postUserinfosUserinfoidWorkexperiences.key, { userinfoid }),
+    template(postUserinfosP0Workexperiences.key, { userinfoid }),
     undefined,
     requestBody,
     undefined,
@@ -3165,70 +3215,13 @@ export const postUserinfosUserinfoidWorkexperiences = (
 };
 
 /** Key is end point string without base url */
-postUserinfosUserinfoidWorkexperiences.key =
-  "/userinfos/{userinfoid}/workexperiences";
-
-/**
- *
- * 修改密码
- */
-export const putAccountsAccountid = (
-  accountid: string,
-  requestBody: {
-    /**
-     *
-     * 密码
-     *
-     */
-    password: string;
-    /**
-     *
-     * 验证码
-     *
-     */
-    verificationCode: string;
-  },
-  configOverride?: AxiosRequestConfig
-): Promise<
-  SwaggerResponse<{
-    body: AccountInformation;
-    /**
-     *
-     * 状态描述
-     *
-     */
-    message: string;
-    /**
-     *
-     * 响应状态
-     *
-     */
-    status: number;
-    /**
-     *
-     * 处理时间
-     *
-     */
-    timestamp: string;
-  }>
-> => {
-  return Http.putRequest(
-    template(putAccountsAccountid.key, { accountid }),
-    undefined,
-    requestBody,
-    undefined,
-    overrideConfig(_CONSTANT0, configOverride)
-  );
-};
-
-/** Key is end point string without base url */
-putAccountsAccountid.key = "/accounts/{accountid}";
+postUserinfosP0Workexperiences.key = "/userinfos/{userinfoid}/workexperiences";
 
 /**
  *
  * 忘记密码
  */
-export const putAccountsForget = (
+export const putAccountinfosForget = (
   requestBody: {
     /**
      *
@@ -3274,7 +3267,7 @@ export const putAccountsForget = (
   }>
 > => {
   return Http.putRequest(
-    putAccountsForget.key,
+    putAccountinfosForget.key,
     undefined,
     requestBody,
     undefined,
@@ -3283,13 +3276,69 @@ export const putAccountsForget = (
 };
 
 /** Key is end point string without base url */
-putAccountsForget.key = "/accounts/forget";
+putAccountinfosForget.key = "/accountinfos/forget";
+
+/**
+ *
+ * 修改密码
+ */
+export const putAccountinfosP0 = (
+  accountinfoid: string,
+  requestBody: {
+    /**
+     *
+     * 密码
+     *
+     */
+    password: string;
+    /**
+     *
+     * 验证码
+     *
+     */
+    verificationCode: string;
+  },
+  configOverride?: AxiosRequestConfig
+): Promise<
+  SwaggerResponse<{
+    body: AccountInformation;
+    /**
+     *
+     * 状态描述
+     *
+     */
+    message: string;
+    /**
+     *
+     * 响应状态
+     *
+     */
+    status: number;
+    /**
+     *
+     * 处理时间
+     *
+     */
+    timestamp: string;
+  }>
+> => {
+  return Http.putRequest(
+    template(putAccountinfosP0.key, { accountinfoid }),
+    undefined,
+    requestBody,
+    undefined,
+    overrideConfig(_CONSTANT0, configOverride)
+  );
+};
+
+/** Key is end point string without base url */
+putAccountinfosP0.key = "/accountinfos/{accountinfoid}";
 
 /**
  *
  * 修改公司信息
  */
-export const putCompanyinfosCompanyinfoid = (
+export const putCompanyinfosP0 = (
   /**
    *
    * 公司信息ID
@@ -3321,7 +3370,7 @@ export const putCompanyinfosCompanyinfoid = (
   }>
 > => {
   return Http.putRequest(
-    template(putCompanyinfosCompanyinfoid.key, { companyinfoid }),
+    template(putCompanyinfosP0.key, { companyinfoid }),
     undefined,
     requestBody,
     undefined,
@@ -3330,13 +3379,13 @@ export const putCompanyinfosCompanyinfoid = (
 };
 
 /** Key is end point string without base url */
-putCompanyinfosCompanyinfoid.key = "/companyinfos/{companyinfoid}";
+putCompanyinfosP0.key = "/companyinfos/{companyinfoid}";
 
 /**
  *
  * 修改职位信息
  */
-export const putCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
+export const putCompanyinfosP0PositioninfosP1 = (
   /**
    *
    * 公司信息ID
@@ -3373,7 +3422,7 @@ export const putCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
   }>
 > => {
   return Http.putRequest(
-    template(putCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key, {
+    template(putCompanyinfosP0PositioninfosP1.key, {
       companyinfoid,
       positioninfoid,
     }),
@@ -3385,24 +3434,24 @@ export const putCompanyinfosCompanyinfoidPositioninfosPositioninfoid = (
 };
 
 /** Key is end point string without base url */
-putCompanyinfosCompanyinfoidPositioninfosPositioninfoid.key =
+putCompanyinfosP0PositioninfosP1.key =
   "/companyinfos/{companyinfoid}/positioninfos/{positioninfoid}";
 
 /**
  *
  * 修改HR信息
  */
-export const putHrinfosHrinfoid = (
+export const putHrinfosP0 = (
   /**
    *
    * HR信息ID
    */
   hrinfoid: string,
-  requestBody: HRInformation,
+  requestBody: HrInformation,
   configOverride?: AxiosRequestConfig
 ): Promise<
   SwaggerResponse<{
-    body: HRInformation;
+    body: HrInformation;
     /**
      *
      * 状态描述
@@ -3424,7 +3473,7 @@ export const putHrinfosHrinfoid = (
   }>
 > => {
   return Http.putRequest(
-    template(putHrinfosHrinfoid.key, { hrinfoid }),
+    template(putHrinfosP0.key, { hrinfoid }),
     undefined,
     requestBody,
     undefined,
@@ -3433,13 +3482,13 @@ export const putHrinfosHrinfoid = (
 };
 
 /** Key is end point string without base url */
-putHrinfosHrinfoid.key = "/hrinfos/{hrinfoid}";
+putHrinfosP0.key = "/hrinfos/{hrinfoid}";
 
 /**
  *
  * 修改用户信息
  */
-export const putUserinfosUserinfoid = (
+export const putUserinfosP0 = (
   /**
    *
    * 用户信息ID
@@ -3471,7 +3520,7 @@ export const putUserinfosUserinfoid = (
   }>
 > => {
   return Http.putRequest(
-    template(putUserinfosUserinfoid.key, { userinfoid }),
+    template(putUserinfosP0.key, { userinfoid }),
     undefined,
     requestBody,
     undefined,
@@ -3480,13 +3529,13 @@ export const putUserinfosUserinfoid = (
 };
 
 /** Key is end point string without base url */
-putUserinfosUserinfoid.key = "/userinfos/{userinfoid}";
+putUserinfosP0.key = "/userinfos/{userinfoid}";
 
 /**
  *
  * 修改关注记录
  */
-export const putUserinfosUserinfoidAttentionrecordsAttentionrecordid = (
+export const putUserinfosP0AttentionrecordsP1 = (
   /**
    *
    * 用户信息ID
@@ -3523,7 +3572,7 @@ export const putUserinfosUserinfoidAttentionrecordsAttentionrecordid = (
   }>
 > => {
   return Http.putRequest(
-    template(putUserinfosUserinfoidAttentionrecordsAttentionrecordid.key, {
+    template(putUserinfosP0AttentionrecordsP1.key, {
       userinfoid,
       attentionrecordid,
     }),
@@ -3535,14 +3584,14 @@ export const putUserinfosUserinfoidAttentionrecordsAttentionrecordid = (
 };
 
 /** Key is end point string without base url */
-putUserinfosUserinfoidAttentionrecordsAttentionrecordid.key =
+putUserinfosP0AttentionrecordsP1.key =
   "/userinfos/{userinfoid}/attentionrecords/{attentionrecordid}";
 
 /**
  *
  * 修改投递记录
  */
-export const putUserinfosUserinfoidDeliveryrecordsDeliveryrecordid = (
+export const putUserinfosP0DeliveryrecordsP1 = (
   /**
    *
    * 用户信息ID
@@ -3579,7 +3628,7 @@ export const putUserinfosUserinfoidDeliveryrecordsDeliveryrecordid = (
   }>
 > => {
   return Http.putRequest(
-    template(putUserinfosUserinfoidDeliveryrecordsDeliveryrecordid.key, {
+    template(putUserinfosP0DeliveryrecordsP1.key, {
       userinfoid,
       deliveryrecordid,
     }),
@@ -3591,14 +3640,14 @@ export const putUserinfosUserinfoidDeliveryrecordsDeliveryrecordid = (
 };
 
 /** Key is end point string without base url */
-putUserinfosUserinfoidDeliveryrecordsDeliveryrecordid.key =
+putUserinfosP0DeliveryrecordsP1.key =
   "/userinfos/{userinfoid}/deliveryrecords/{deliveryrecordid}";
 
 /**
  *
  * 修改教育经历
  */
-export const putUserinfosUserinfoidEduexperiencesEduexperienceid = (
+export const putUserinfosP0EduexperiencesP1 = (
   /**
    *
    * 用户信息ID
@@ -3635,7 +3684,7 @@ export const putUserinfosUserinfoidEduexperiencesEduexperienceid = (
   }>
 > => {
   return Http.putRequest(
-    template(putUserinfosUserinfoidEduexperiencesEduexperienceid.key, {
+    template(putUserinfosP0EduexperiencesP1.key, {
       userinfoid,
       eduexperienceid,
     }),
@@ -3647,14 +3696,14 @@ export const putUserinfosUserinfoidEduexperiencesEduexperienceid = (
 };
 
 /** Key is end point string without base url */
-putUserinfosUserinfoidEduexperiencesEduexperienceid.key =
+putUserinfosP0EduexperiencesP1.key =
   "/userinfos/{userinfoid}/eduexperiences/{eduexperienceid}";
 
 /**
  *
  * 修改收藏记录
  */
-export const putUserinfosUserinfoidGarnerrecordsGarnerrecordid = (
+export const putUserinfosP0GarnerrecordsP1 = (
   /**
    *
    * 用户信息ID
@@ -3691,10 +3740,7 @@ export const putUserinfosUserinfoidGarnerrecordsGarnerrecordid = (
   }>
 > => {
   return Http.putRequest(
-    template(putUserinfosUserinfoidGarnerrecordsGarnerrecordid.key, {
-      userinfoid,
-      garnerrecordid,
-    }),
+    template(putUserinfosP0GarnerrecordsP1.key, { userinfoid, garnerrecordid }),
     undefined,
     requestBody,
     undefined,
@@ -3703,14 +3749,14 @@ export const putUserinfosUserinfoidGarnerrecordsGarnerrecordid = (
 };
 
 /** Key is end point string without base url */
-putUserinfosUserinfoidGarnerrecordsGarnerrecordid.key =
+putUserinfosP0GarnerrecordsP1.key =
   "/userinfos/{userinfoid}/garnerrecords/{garnerrecordid}";
 
 /**
  *
  * 修改求职期望
  */
-export const putUserinfosUserinfoidJobexpectationsJobexpectationid = (
+export const putUserinfosP0JobexpectationsP1 = (
   /**
    *
    * 用户信息ID
@@ -3747,7 +3793,7 @@ export const putUserinfosUserinfoidJobexpectationsJobexpectationid = (
   }>
 > => {
   return Http.putRequest(
-    template(putUserinfosUserinfoidJobexpectationsJobexpectationid.key, {
+    template(putUserinfosP0JobexpectationsP1.key, {
       userinfoid,
       jobexpectationid,
     }),
@@ -3759,14 +3805,14 @@ export const putUserinfosUserinfoidJobexpectationsJobexpectationid = (
 };
 
 /** Key is end point string without base url */
-putUserinfosUserinfoidJobexpectationsJobexpectationid.key =
+putUserinfosP0JobexpectationsP1.key =
   "/userinfos/{userinfoid}/jobexpectations/{jobexpectationid}";
 
 /**
  *
  * 修改项目经历
  */
-export const putUserinfosUserinfoidProjectexperiencesProjectexperienceid = (
+export const putUserinfosP0ProjectexperiencesP1 = (
   /**
    *
    * 用户信息ID
@@ -3803,7 +3849,7 @@ export const putUserinfosUserinfoidProjectexperiencesProjectexperienceid = (
   }>
 > => {
   return Http.putRequest(
-    template(putUserinfosUserinfoidProjectexperiencesProjectexperienceid.key, {
+    template(putUserinfosP0ProjectexperiencesP1.key, {
       userinfoid,
       projectexperienceid,
     }),
@@ -3815,14 +3861,14 @@ export const putUserinfosUserinfoidProjectexperiencesProjectexperienceid = (
 };
 
 /** Key is end point string without base url */
-putUserinfosUserinfoidProjectexperiencesProjectexperienceid.key =
+putUserinfosP0ProjectexperiencesP1.key =
   "/userinfos/{userinfoid}/projectexperiences/{projectexperienceid}";
 
 /**
  *
  * 修改工作经历
  */
-export const putUserinfosUserinfoidWorkexperiencesWorkexperienceid = (
+export const putUserinfosP0WorkexperiencesP1 = (
   /**
    *
    * 用户信息ID
@@ -3859,7 +3905,7 @@ export const putUserinfosUserinfoidWorkexperiencesWorkexperienceid = (
   }>
 > => {
   return Http.putRequest(
-    template(putUserinfosUserinfoidWorkexperiencesWorkexperienceid.key, {
+    template(putUserinfosP0WorkexperiencesP1.key, {
       userinfoid,
       workexperienceid,
     }),
@@ -3871,7 +3917,7 @@ export const putUserinfosUserinfoidWorkexperiencesWorkexperienceid = (
 };
 
 /** Key is end point string without base url */
-putUserinfosUserinfoidWorkexperiencesWorkexperienceid.key =
+putUserinfosP0WorkexperiencesP1.key =
   "/userinfos/{userinfoid}/workexperiences/{workexperienceid}";
 export const _CONSTANT0 = {
   headers: {
