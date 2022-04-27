@@ -147,7 +147,7 @@ const companyName = ref(""); // 公司名称
 const companyIndustry = ref(""); // 公司行业
 const companyStartTime = ref(""); // 入职时间
 const companyEndTime = ref(""); // 离职时间
-const companyPosition = ref<WorkExperience["positionType"]>("1"); // 职位类型
+const companyPosition = ref<WorkExperience["positionType"]>(1); // 职位类型
 const positionName = ref(""); // 职位名称
 const companyDepartment = ref(""); // 所属部门
 const companyContent = ref(""); // 工作内容
@@ -212,7 +212,7 @@ const saveWorkExperience = () => {
           startTime: companyStartTime.value,
           endTime: companyEndTime.value,
           positionName: positionName.value,
-          positionType: "1",
+          positionType: 1,
           department: companyDepartment.value,
           jobContent: companyContent.value,
         }

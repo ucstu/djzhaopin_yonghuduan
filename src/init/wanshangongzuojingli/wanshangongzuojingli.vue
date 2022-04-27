@@ -106,7 +106,7 @@ const store = useStore(key);
 
 const companyName = ref<CompanyInformation["name"]>("");
 const companyType = ref<CompanyInformation["comprehension"]>("");
-const subject = ref<WorkExperience["positionType"]>("1");
+const subject = ref<WorkExperience["positionType"]>(1);
 const subjectType = ref(["全职", "兼职", "实习", "其他"]);
 const startTime = ref("入职时间");
 const endTime = ref("离职时间");

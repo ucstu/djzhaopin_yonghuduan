@@ -26,10 +26,7 @@ const myViews = ref({});
 /* 查询所有查看记录 */
 getUserinfosUserinfoidInspectionrecords(
   store.state.accountInfo.userInformationId,
-  {
-    page: "1",
-    size: "10",
-  }
+  {}
 ).then((res) => {
   myViews.value = res.data.body;
 });

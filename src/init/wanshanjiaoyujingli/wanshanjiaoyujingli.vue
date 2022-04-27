@@ -18,7 +18,7 @@
           class="flex-row justify-between items-center"
           @click="showEducation"
         >
-          <text class="input">{{ educationValue[education] }}</text>
+          <text class="input">{{ educationValue[educationId] }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
@@ -100,23 +100,15 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const schoolName = ref("");
-const education = ref<EducationExperience["education"]>("1");
+const educationId = ref<EducationExperience["education"]>(1);
 const subject = ref("");
 const startSchool = ref("入学时间");
 const endSchool = ref("毕业时间");
-const educationValue = ref([
-  "初中",
-  "高中",
-  "中专",
-  "大专",
-  "本科",
-  "硕士",
-  "博士",
-]);
+const educationValue = ref(["不要求", "大专", "本科", "硕士", "博士"]);
 const edChange = (e: {
   detail: { value: EducationExperience["education"] };
 }) => {
-  education.value = e.detail.value;
+  educationId.value = e.detail.value;
 };
 
 const date = new Date();
@@ -155,7 +147,7 @@ const nextClick = () => {
     store.state.accountInfo.userInformationId,
     {
       schoolName: schoolName.value,
-      education: education.value,
+      education: educationId.value,
       major: subject.value,
       admissionTime: startSchool.value,
       graduationTime: endSchool.value,

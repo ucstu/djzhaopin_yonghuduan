@@ -24,10 +24,10 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const collectionPositions = ref({});
-getUserinfosUserinfoidGarnerrecords(store.state.accountInfo.userInformationId, {
-  page: "1",
-  size: "10",
-}).then((res) => {
+getUserinfosUserinfoidGarnerrecords(
+  store.state.accountInfo.userInformationId,
+  {}
+).then((res) => {
   collectionPositions.value = res.data.body;
 });
 const cancelCollection = ref("取消收藏");

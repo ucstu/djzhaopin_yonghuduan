@@ -204,12 +204,12 @@ const nextClick = () => {
       phoneNumber: store.state.accountInfo.userName,
       email: emailValue.value,
       workingYears: 1,
-      education: "2",
-      jobStatus: "1",
+      education: 2,
+      jobStatus: 1,
       personalAdvantage: "",
       socialHomepage: "",
       pictureWorks: [],
-      privacySettings: "1",
+      privacySettings: 1,
     })
       .then((res) => {
         store.commit("setUserInfo", res.data.body);

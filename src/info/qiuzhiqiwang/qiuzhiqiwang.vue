@@ -45,32 +45,37 @@
       <view class="flex-row justify-between" style="height: 80rpx">
         <view
           class="justify-center items-center"
-          style="width: 50%; font-size: 30rpx"
+          style="width: 25%; font-size: 30rpx"
         >
-          <text>起始薪资</text>
+          <text style="color: gray" @click="popup.hide()">取消</text>
         </view>
         <view
           class="justify-center items-center"
-          style="width: 50%; font-size: 30rpx"
+          style="width: 25%; font-size: 30rpx"
         >
-          <text>结束薪资</text>
+          <text>期望薪资</text>
+        </view>
+        <view
+          class="justify-center items-center"
+          style="width: 25%; font-size: 30rpx"
+        >
+          <text style="color: rgb(35 193 158)" @click="salaryExpectation"
+            >确认</text
+          >
         </view>
       </view>
-      <picker-view class="picker-view" @change="salaryChange">
+      <picker-view :value="value" class="picker-view" @change="salaryChange">
         <picker-view-column>
-          <view v-for="(start, i) in startSalary" :key="i" class="item"
-            >{{ start }}k</view
+          <view v-for="(item, i) in startSalary" :key="i" class="item"
+            >{{ item }}k</view
           >
         </picker-view-column>
         <picker-view-column>
-          <view v-for="(end, i) in endSalary" :key="i" class="item"
-            >{{ end }}k</view
+          <view v-for="(item, i) in endSalary" :key="i" class="item"
+            >{{ item }}k</view
           >
         </picker-view-column>
       </picker-view>
-      <view class="button-box">
-        <button class="button" @click="saveSalary">确认</button>
-      </view>
     </wybPopup>
     <view class="justify-center button-box">
       <button class="button" @click="saveJobExcept">{{ saveBtn }}</button>
@@ -110,21 +115,26 @@ const expectSalary = () => {
 
 const startSalary = ref<number[]>([]);
 const endSalary = ref<number[]>([]);
-let startsa = ref("");
-let endsa = ref("");
+let start = ref(0);
+let end = ref(0);
 for (let i = 1; i <= 90; i++) {
   startSalary.value.push(i);
 }
 for (let i = 5; i <= 100; i++) {
   endSalary.value.push(i);
 }
+const value = ref([5, 8]);
 const salaryChange = (e: any) => {
   let val = e.detail.value;
-  startsa.value = String(startSalary.value[val[0]]);
-  endsa.value = String(endSalary.value[val[1]]);
+  start.value = startSalary.value[val[0]];
+  end.value = endSalary.value[val[1]];
 };
-const saveSalary = () => {
-  salary.value = `${startsa.value}k-${endsa.value}k`;
+const salaryExpectation = () => {
+  if (start.value === 0 || end.value === 0) {
+    salary.value = `${6}k-${13}k`;
+  } else {
+    salary.value = `${start.value}k-${end.value}k`;
+  }
   popup.value.hide();
 };
 
@@ -191,6 +201,7 @@ onLoad((e) => {
   });
 });
 
+// 保存求职期望
 const saveJobExcept = () => {
   if (job.value === "" || salary.value === "" || city.value === "") {
     uni.showToast({
@@ -210,10 +221,10 @@ const saveJobExcept = () => {
         store.state.accountInfo.userInformationId,
         {
           positionName: job.value,
-          positionType: "1",
+          positionType: 1,
           directionTags: directionTags.value,
-          startingSalary: parseInt(startsa.value),
-          ceilingSalary: parseInt(endsa.value),
+          startingSalary: start.value,
+          ceilingSalary: end.value,
           city: city.value,
         }
       )

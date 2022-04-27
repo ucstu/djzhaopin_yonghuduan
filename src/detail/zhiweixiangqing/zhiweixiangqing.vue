@@ -43,7 +43,9 @@
       </view>
       <view class="items-center hr-info">
         <image class="hr" :src="companyInformation.logo" />
-        <text style="padding-left: 15rpx">{{ companyInformation.hrId }}</text>
+        <text style="padding-left: 15rpx">{{
+          companyInformation.hrInformationId
+        }}</text>
       </view>
       <view class="job-description">
         <text style="font-size: 30rpx; font-weight: 400">职位描述</text>
@@ -62,7 +64,7 @@
           </view>
           <view>职位描述：{{ jobInformation.description }}</view>
           <view>所属部门：{{ jobInformation.department }}</view>
-          <view>周末休息时间：{{ jobInformation.weekendReleaseTime }}</view>
+          <view>周末休息时间：{{ jobInformation.weekendReleseTime }}</view>
           <view>上班时间：{{ jobInformation.workTime }}</view>
           <view>工作地点：{{ jobInformation.workingPlace }}</view>
         </view>
@@ -189,10 +191,17 @@ const send = () => {
     store.state.accountInfo.userInformationId,
     {
       jobInformationId: positionId.value,
-      userInformationId: "",
+      userInformationId: store.state.accountInfo.userInformationId,
+      state: 1,
     }
   )
-    .then()
+    .then((res) => {
+      uni.showToast({
+        title: "投递成功",
+        icon: "none",
+        duration: 500,
+      });
+    })
     .catch(failResponseHandler);
   popup.value.hide();
 };

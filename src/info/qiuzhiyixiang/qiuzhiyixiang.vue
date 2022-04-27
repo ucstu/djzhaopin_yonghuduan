@@ -39,17 +39,17 @@
       <image class="image" src="@/static/icons/add-circle.png" />
       <text class="add">添加求职期望</text>
     </view>
-    <view class="items-center justify-between entry-time">
+    <view class="items-center justify-between entry-time" @click="jobStatus">
       <text>求职状态</text>
       <view class="flex-row justify-center items-center">
-        <text class="time" @click="jobStatus">{{ entryTime }}</text>
+        <text class="time">{{ entryTime }}</text>
         <image class="image" src="@/static/icons/arrow-right.png" />
       </view>
     </view>
     <wybPopup
       ref="popup"
       :show-close-icon="false"
-      :height="400"
+      :height="250"
       :radius="10"
       mode="size-auto"
       type="bottom"
@@ -68,11 +68,14 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { getUserinfosUserinfoidJobexpectations } from "@/services/services";
+import {
+  getUserinfosUserinfoidJobexpectations,
+  putUserinfosUserinfoid,
+} from "@/services/services";
 import { JobExpectation } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
-import { onShow } from "@dcloudio/uni-app";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -80,14 +83,12 @@ const store = useStore(key);
 
 const jobExpectations = ref<JobExpectation[]>([]);
 const entryTime = ref("请选择");
-const entryTimes = ref([
-  "随时入职",
-  "一周内入职",
-  "半个月内入职",
-  "一个月内入职",
-]);
+const entryTimes = ["请选择", "随时入职", "2周内入职", "一个月内入职"];
 
-onShow(() => {
+onLoad(() => {
+  if (store.state.userInfo.jobStatus !== null) {
+    entryTime.value = entryTimes[store.state.userInfo.jobStatus];
+  }
   getUserinfosUserinfoidJobexpectations(
     store.state.accountInfo.userInformationId,
     {}
@@ -117,7 +118,16 @@ const jobStatus = () => {
   popup.value.show();
 };
 const entryChange = (e: any) => {
-  entryTime.value = entryTimes.value[e.detail.value[0]];
+  entryTime.value = entryTimes[e.detail.value[0]];
+  store.state.userInfo.jobStatus = e.detail.value[0];
+  putUserinfosUserinfoid(
+    store.state.accountInfo.userInformationId,
+    store.state.userInfo
+  )
+    .then((res) => {
+      store.commit("userInfo", res.data.body);
+    })
+    .catch(failResponseHandler);
   popup.value.hide();
 };
 </script>

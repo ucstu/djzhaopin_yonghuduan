@@ -26,10 +26,7 @@ const store = useStore(key);
 const attentionCompanies = ref({});
 getUserinfosUserinfoidAttentionrecords(
   store.state.accountInfo.userInformationId,
-  {
-    page: "1",
-    size: "10",
-  }
+  {}
 ).then((res) => {
   attentionCompanies.value = res.data.body;
 });

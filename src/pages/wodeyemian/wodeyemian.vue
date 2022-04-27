@@ -102,7 +102,7 @@ onShow(() => {
   getUserinfosUserinfoid(store.state.accountInfo.userInformationId)
     .then((res) => {
       userInfos.value = res.data.body;
-      fullName.value = `${res.data.body.firstName} ${res.data.body.lastName}`;
+      fullName.value = `${res.data.body.firstName}${res.data.body.lastName}`;
     })
     .catch(failResponseHandler);
 });

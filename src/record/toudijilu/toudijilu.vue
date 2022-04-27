@@ -7,7 +7,7 @@
         :key="i"
         :class="sendId === i ? 'active' : ''"
         @click="sendTypeId(i)"
-        >{{ send.type }}</view
+        >{{ send }}</view
       >
     </view>
     <view class="flex-col list">
@@ -16,17 +16,16 @@
         :key="i"
         class="list-item"
         :collection-position="deliveryRecord"
-        :send-type="sendType[sendId].type"
+        :send-type="sendType[sendId]"
       />
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
-// @ts-nocheck
 import JobPanel from "@/components/JobPanel/JobPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid } from "@/services/services";
+import { getCompanyinfosCompanyinfoidDeliveryrecords } from "@/services/services";
 import { DeliveryRecord } from "@/services/types";
 import { key } from "@/stores";
 import { onMounted, ref } from "vue";
@@ -35,32 +34,28 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const deliveryRecords = ref<DeliveryRecord[]>([]);
-const sendType = ref([
-  { key: "0", type: "待查看" },
-  { key: "1", type: "已查看" },
-  { key: "2", type: "通过初筛" },
-  { key: "3", type: "约面试" },
-  { key: "4", type: "不合格" },
-]);
+const sendType = ["待查看", "已查看", "通过初筛", "约面试", "不合格"];
 const sendId = ref(0);
 
 onMounted(() => {
-  getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid(
+  /* 默认查看记录 */
+  getCompanyinfosCompanyinfoidDeliveryrecords(
     store.state.accountInfo.userInformationId,
     {
-      state: sendType.value[sendId.value].key,
+      state: sendType[sendId.value],
     }
   ).then((res) => {
     deliveryRecords.value = res.data.body;
   });
 });
 
+/* 查看不同状态记录 */
 const sendTypeId = (index: number) => {
   sendId.value = index;
-  getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid(
+  getCompanyinfosCompanyinfoidDeliveryrecords(
     store.state.accountInfo.userInformationId,
     {
-      state: sendType.value[sendId.value].key,
+      state: sendType[sendId.value],
     }
   ).then((res) => {
     deliveryRecords.value = res.data.body;

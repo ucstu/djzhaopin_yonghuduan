@@ -7,8 +7,8 @@
           <view class="flex-col" @click="changeInfo">
             <view class="flex-row items-center user">
               <text class="text-top" style="font-size: 40rpx; font-weight: 600"
-                >{{ userInformation.firstName }}
-                {{ userInformation.lastName }}</text
+                >{{ userInformation.firstName
+                }}{{ userInformation.lastName }}</text
               >
               <image class="image" src="@/static/icons/edit.png" />
             </view>

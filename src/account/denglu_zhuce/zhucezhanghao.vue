@@ -135,7 +135,7 @@ const registeredAccount = () => {
     postAccounts({
       userName: phoneNum.value,
       verificationCode: verification.value,
-      accountType: "1",
+      accountType: 1,
       password: password.value,
     })
       .then((res) => {

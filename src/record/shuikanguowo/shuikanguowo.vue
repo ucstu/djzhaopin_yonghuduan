@@ -26,10 +26,7 @@ const store = useStore(key);
 const lookForMes = ref({});
 getUserinfosUserinfoidInspectionrecords(
   store.state.accountInfo.userInformationId,
-  {
-    page: "1",
-    size: "10",
-  }
+  {}
 ).then((res) => {
   lookForMes.value = res.data.body;
 });

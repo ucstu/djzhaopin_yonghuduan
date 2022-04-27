@@ -149,20 +149,12 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const schoolName = ref(""); // 学校名称
-const education = ref<EducationExperience["education"]>("1"); // 学历
+const education = ref<EducationExperience["education"]>(1); // 学历
 const subject = ref(""); // 专业名称
 const startTime = ref("入学时间"); // 入学时间
 const overTime = ref("结束时间"); // 毕业时间
 // 学历高度
-const educations = ref([
-  "初中",
-  "高中",
-  "中专",
-  "大专",
-  "本科",
-  "硕士",
-  "博士",
-]);
+const educations = ref(["大专", "本科", "硕士", "博士", "其他"]);
 
 const start = ref(false);
 const end = ref(false);
@@ -204,8 +196,7 @@ const bindChange = (e: { detail: { value: never } }) => {
   } else if (end.value) {
     overTime.value = `${year}年${month}月`;
   } else {
-    // @ts-ignore
-    education.value = educations.value[val[0]];
+    education.value = val[0];
   }
 };
 
@@ -242,7 +233,7 @@ const saveEducation = () => {
       icon: "none",
       duration: 500,
     });
-  } else if (education.value === "1") {
+  } else if (education.value === 1) {
     uni.showToast({
       title: "请选择学历",
       icon: "none",
