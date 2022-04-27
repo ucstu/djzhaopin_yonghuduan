@@ -197,6 +197,7 @@ const bindChange = (e: { detail: { value: never } }) => {
   year = years.value[val[0]];
   month = months.value[val[1]];
   day = days.value[val[2]];
+  value.value = [val[0], val[1], val[2]];
   birthday.value = year + "-" + month + "-" + day;
   age.value = date.getFullYear() - year;
 };
@@ -255,29 +256,22 @@ const saveInfos = () => {
     } else {
       userInformation.value.sex = "女";
     }
-    let updateAt = year + "-" + month + "-" + day;
-
-    putUserinfosUserinfoid(store.state.accountInfo.userInformationId, {
-      userInformationId: store.state.accountInfo.userInformationId,
-      createdAt: userInformation.value.createdAt,
-      updatedAt: updateAt,
-      avatar: userInformation.value.avatar,
-      firstName: fullName.value.slice(0, 1),
-      lastName: fullName.value.slice(1, fullName.value.length),
-      dateOfBirth: userInformation.value.dateOfBirth,
-      sex: userInformation.value.sex,
-      age: userInformation.value.age,
-      city: userInformation.value.city,
-      phoneNumber: userInformation.value.phoneNumber,
-      email: userInformation.value.email,
-      workingYears: userInformation.value.workingYears,
-      education: userInformation.value.education,
-      jobStatus: userInformation.value.jobStatus,
-      personalAdvantage: userInformation.value.personalAdvantage,
-      socialHomepage: userInformation.value.socialHomepage,
-      pictureWorks: userInformation.value.pictureWorks,
-      privacySettings: userInformation.value.privacySettings,
-    })
+    store.state.userInfo.updatedAt = year + "-" + month + "-" + day;
+    store.state.userInfo.firstName = fullName.value.slice(0, 1);
+    store.state.userInfo.lastName = fullName.value.slice(
+      1,
+      fullName.value.length
+    );
+    store.state.userInfo.dateOfBirth = userInformation.value.dateOfBirth;
+    store.state.userInfo.sex = userInformation.value.sex;
+    store.state.userInfo.age = userInformation.value.age;
+    store.state.userInfo.city = userInformation.value.city;
+    store.state.userInfo.phoneNumber = userInformation.value.phoneNumber;
+    store.state.userInfo.email = userInformation.value.email;
+    putUserinfosUserinfoid(
+      store.state.accountInfo.userInformationId,
+      store.state.userInfo
+    )
       .then((res) => {
         store.commit("setUserInfo", res.data.body);
         uni.navigateBack({ delta: 1 });

@@ -54,7 +54,11 @@
       mode="size-auto"
       type="bottom"
     >
-      <picker-view class="picker-view" @change="entryChange">
+      <picker-view
+        :value="definedValue"
+        class="picker-view"
+        @change="entryChange"
+      >
         <picker-view-column>
           <view v-for="(start, i) in entryTimes" :key="i" class="item">{{
             start
@@ -75,7 +79,7 @@ import {
 import { JobExpectation } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad } from "@dcloudio/uni-app";
+import { onLoad, onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -84,6 +88,7 @@ const store = useStore(key);
 const jobExpectations = ref<JobExpectation[]>([]);
 const entryTime = ref("请选择");
 const entryTimes = ["请选择", "随时入职", "2周内入职", "一个月内入职"];
+const definedValue = ref([store.state.userInfo.jobStatus]);
 
 onLoad(() => {
   if (store.state.userInfo.jobStatus !== null) {
@@ -120,12 +125,13 @@ const jobStatus = () => {
 const entryChange = (e: any) => {
   entryTime.value = entryTimes[e.detail.value[0]];
   store.state.userInfo.jobStatus = e.detail.value[0];
+  definedValue.value = [e.detail.value[0]];
   putUserinfosUserinfoid(
     store.state.accountInfo.userInformationId,
     store.state.userInfo
   )
     .then((res) => {
-      store.commit("userInfo", res.data.body);
+      store.commit("setUserInfo", res.data.body);
     })
     .catch(failResponseHandler);
   popup.value.hide();
