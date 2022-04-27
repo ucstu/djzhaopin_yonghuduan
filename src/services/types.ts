@@ -43,11 +43,6 @@ export interface GetCompanyinfosP0DeliveryrecordsQueryParams {
   positionInfoId?: string;
   /**
    *
-   * 当前页
-   */
-  page?: number;
-  /**
-   *
    * 搜索内容
    */
   search?: string;
@@ -70,7 +65,7 @@ export interface GetCompanyinfosP0DeliveryrecordsQueryParams {
    *
    * 状态{1:待查看,2:已查看,3:通过筛选,4:约面试,5:不合适}
    */
-  state?: number;
+  state?: string;
   /**
    *
    * 工作经验{0:经验不限,1:在校/应届,2:3年及以下,3:3-5年,4:5-10年,5:10年以上}
@@ -113,7 +108,7 @@ export interface GetCompanyinfosP0PositioninfosQueryParams {
    *
    * 当前页
    */
-  page?: number;
+  page?: string;
   /**
    *
    * 职位类型枚举数组，{1:全职,2:兼职,3:实习}
@@ -133,7 +128,7 @@ export interface GetCompanyinfosP0PositioninfosQueryParams {
    *
    * 页大小
    */
-  size?: number;
+  size?: string;
   /**
    *
    * 排序方式
@@ -191,7 +186,7 @@ export interface GetCompanyinfosPositioninfosQueryParams {
    *
    * 当前页
    */
-  page?: number;
+  page?: string;
   /**
    *
    * 职位类型枚举数组，{1:全职,2:兼职,3:实习}
@@ -211,7 +206,7 @@ export interface GetCompanyinfosPositioninfosQueryParams {
    *
    * 页大小
    */
-  size?: number;
+  size?: string;
   /**
    *
    * 排序方式
@@ -265,12 +260,12 @@ export interface GetHrinfosQueryParams {
    *
    * 当前页
    */
-  page?: number;
+  page?: string;
   /**
    *
    * 页大小
    */
-  size?: number;
+  size?: string;
   /**
    *
    * 排序方式
@@ -283,12 +278,12 @@ export interface GetUserinfosP0AttentionrecordsQueryParams {
    *
    * 当前页
    */
-  page?: number;
+  page?: string;
   /**
    *
    * 页大小
    */
-  size?: number;
+  size?: string;
   /**
    *
    * 排序方式
@@ -306,12 +301,12 @@ export interface GetUserinfosP0DeliveryrecordsQueryParams {
    *
    * 当前页
    */
-  page?: number;
+  page?: string;
   /**
    *
    * 页大小
    */
-  size?: number;
+  size?: string;
   /**
    *
    * 排序方式
@@ -324,12 +319,12 @@ export interface GetUserinfosP0EduexperiencesQueryParams {
    *
    * 当前页
    */
-  page?: number;
+  page?: string;
   /**
    *
    * 页大小
    */
-  size?: number;
+  size?: string;
   /**
    *
    * 排序方式
@@ -342,12 +337,12 @@ export interface GetUserinfosP0GarnerrecordsQueryParams {
    *
    * 当前页
    */
-  page?: number;
+  page?: string;
   /**
    *
    * 页大小
    */
-  size?: number;
+  size?: string;
   /**
    *
    * 排序方式
@@ -360,12 +355,12 @@ export interface GetUserinfosP0InspectionrecordsQueryParams {
    *
    * 当前页
    */
-  page?: number;
+  page?: string;
   /**
    *
    * 页大小
    */
-  size?: number;
+  size?: string;
   /**
    *
    * 排序方式
@@ -378,12 +373,12 @@ export interface GetUserinfosP0JobexpectationsQueryParams {
    *
    * 当前页
    */
-  page?: number;
+  page?: string;
   /**
    *
    * 页大小
    */
-  size?: number;
+  size?: string;
   /**
    *
    * 排序方式
@@ -396,12 +391,12 @@ export interface GetUserinfosP0ProjectexperiencesQueryParams {
    *
    * 当前页
    */
-  page?: number;
+  page?: string;
   /**
    *
    * 页大小
    */
-  size?: number;
+  size?: string;
   /**
    *
    * 排序方式
@@ -414,12 +409,12 @@ export interface GetUserinfosP0WorkexperiencesQueryParams {
    *
    * 当前页
    */
-  page?: number;
+  page?: string;
   /**
    *
    * 页大小
    */
-  size?: number;
+  size?: string;
   /**
    *
    * 排序方式
@@ -1202,12 +1197,6 @@ export interface PositionInformation {
   overTime: string;
   /**
    *
-   * 下班时间
-   *
-   */
-  overTime: string;
-  /**
-   *
    * 职位信息ID
    *
    */
@@ -1261,12 +1250,6 @@ export interface PositionInformation {
    *
    */
   workCityName: string;
-  /**
-   *
-   * 工作城市
-   *
-   */
-  workCity: string;
   /**
    *
    * 上班时间
