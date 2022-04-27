@@ -14,7 +14,7 @@
           class="justify-center items-center text-checked"
           @click="
             label.checked = false;
-            checkeds.splice(checkeds.indexOf(label.id), 1);
+            checkeds.splice(checkeds.indexOf(label.subLabelsName), 1);
           "
           >{{ label.subLabelsName }}
           <image class="icon-close" src="@/static/icons/close.svg" />
@@ -74,7 +74,7 @@ const checkedSubLabels = ref<subDivisionLabels["subLabels"]>([]);
 
 onMounted(() => {
   getDirectiontags({ positionName: "撒辣椒粉" }).then((res) => {
-    checkedClassifyName.value = res.data.map((classify) => {
+    checkedClassifyName.value = res.data.body.map((classify) => {
       const checkedLabels = classify.subdivisionLabels.map((label) => {
         let checkableLabel = reactive({
           subLabelsName: label,
@@ -91,7 +91,7 @@ onMounted(() => {
   });
 });
 
-let checkeds = ref([]);
+let checkeds = ref<string[]>([]);
 const checkedInfo = (check: boolean) => {
   if (checkeds.value.length === 3 && check === false) {
     uni.showToast({
@@ -104,7 +104,7 @@ const checkedInfo = (check: boolean) => {
 
 const saveTags = () => {
   uni.$emit("saveTags", checkeds.value);
-  uni.navigateBack();
+  uni.navigateBack({ delta: 1 });
 };
 </script>
 

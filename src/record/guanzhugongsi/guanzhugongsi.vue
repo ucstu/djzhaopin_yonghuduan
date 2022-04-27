@@ -17,10 +17,11 @@
 import CompanyPanel from "@/components/CompanyPanel/CompanyPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getCompanyinfos } from "@/services/services";
+import { CompanyInformation } from "@/services/types";
 import { ref } from "vue";
 
-const attentionCompanies = ref([]);
-getCompanyinfos().then((res) => {
+const attentionCompanies = ref<CompanyInformation[]>([]);
+getCompanyinfos({}).then((res) => {
   attentionCompanies.value = res.data.body;
 });
 const unfollow = ref("取消关注");

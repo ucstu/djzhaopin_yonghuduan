@@ -88,7 +88,8 @@
   </view>
 </template>
 
-<script>
+<script lang="ts">
+// @ts-nocheck
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 export default {
   components: {

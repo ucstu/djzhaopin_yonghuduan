@@ -134,6 +134,7 @@ import {
   getUserinfosUserinfoidWorkexperiencesWorkexperienceid,
   postUserinfosUserinfoidWorkexperiences,
 } from "@/services/services";
+import { WorkExperience } from "@/services/types";
 import { key } from "@/stores";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
@@ -145,7 +146,7 @@ const companyName = ref(""); // 公司名称
 const companyIndustry = ref(""); // 公司行业
 const companyStartTime = ref(""); // 入职时间
 const companyEndTime = ref(""); // 离职时间
-const companyPosition = ref(""); // 职位类型
+const companyPosition = ref<WorkExperience["positionType"]>("1"); // 职位类型
 const positionName = ref(""); // 职位名称
 const companyDepartment = ref(""); // 所属部门
 const companyContent = ref(""); // 工作内容
@@ -162,8 +163,8 @@ onLoad((e) => {
   /* 查询工作经历 */
   if (workId.value !== undefined) {
     getUserinfosUserinfoidWorkexperiencesWorkexperienceid(
-      { userinfoid: store.state.accountInfo.userInfoId },
-      { workexperienceid: workId.value }
+      store.state.accountInfo.userInformationId,
+      workId.value
     ).then((res) => {
       companyName.value = res.data.body.corporateName;
       companyIndustry.value = res.data.body.companyIndustry;
@@ -203,7 +204,7 @@ const saveWorkExperience = () => {
       console.log("修改工作经历");
     } else {
       postUserinfosUserinfoidWorkexperiences(
-        { userinfoid: store.state.accountInfo.userInfoId },
+        store.state.accountInfo.userInformationId,
         {
           corporateName: companyName.value,
           companyIndustry: companyIndustry.value,
@@ -240,8 +241,8 @@ const deleteWorkExperience = () => {
       if (res.confirm) {
         console.log("用户点击确定");
         deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid(
-          { userinfoid: store.state.accountInfo.userInfoId },
-          { workexperienceid: workId.value }
+          store.state.accountInfo.userInformationId,
+          workId.value
         )
           .then((res) => {
             console.log(res.data.body);

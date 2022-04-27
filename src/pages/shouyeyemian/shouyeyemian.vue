@@ -142,7 +142,7 @@ const changeJobType = (index: number) => {
   activeIndex.value = index
 
   getCompanyinfosPositioninfos(
-  {name: expects.value[index].name}
+  {name: expects.value[index]}
 ).then((res) => {
   jobDetails.value = res.data.body
 })
@@ -151,7 +151,7 @@ const changeJobType = (index: number) => {
 const recommended = (index: number) => {
   showRecommend.value = index
   getCompanyinfosPositioninfos(
-  {name: expects.value[index].name}
+  {name: expects.value[index]}
 ).then((res) => {
   jobDetails.value = res.data.body
 })
@@ -167,7 +167,7 @@ const onRefresh = () => {
 }
 const onRestore = () => {
    getCompanyinfosPositioninfos(
-  {name: expects.value[activeIndex.value].name}
+  {name: expects.value[activeIndex.value]}
 ).then((res) => {
   jobDetails.value = res.data.body
 })
@@ -190,7 +190,7 @@ const text_23OnClick = () => {
   uni.navigateTo({ url: '/most/shaixuanyemian/shaixuanyemian' })
 }
 const jobDescription = (index: number) => {
-  let companyId = jobDetails.value[index].companyId;
+  let companyId = jobDetails.value[index].companyInformationId;
   let positionId = jobDetails.value[index].positionInformationId;
   uni.navigateTo({ url: '/detail/zhiweixiangqing/zhiweixiangqing?companyId=' + companyId +"&positionId="+positionId });
 }
