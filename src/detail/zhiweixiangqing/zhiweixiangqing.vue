@@ -181,6 +181,7 @@ const send = () => {
     store.state.accountInfo.userInformationId,
     {
       jobInformationId: positionId.value,
+      userInformationId: "",
     }
   ).then((res) => {
     console.log(res.data.body);

@@ -32,7 +32,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getCityinfos } from "@/services/services";
+import { getCityinformations } from "@/services/services";
 import { computed, reactive, ref } from "vue";
 
 const provinces = reactive([
@@ -54,7 +54,7 @@ const provinces = reactive([
     ],
   },
 ]);
-getCityinfos().then((res) => {
+getCityinformations().then((res) => {
   provinces.push(...res.data.body);
 });
 const cities = computed(() => provinces[provinceIndexOf.value].cities);

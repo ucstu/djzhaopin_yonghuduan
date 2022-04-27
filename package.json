@@ -17,20 +17,20 @@
     "dev:quickapp-webview": "uni -p quickapp-webview",
     "dev:quickapp-webview-huawei": "uni -p quickapp-webview-huawei",
     "dev:quickapp-webview-union": "uni -p quickapp-webview-union",
-    "build:app": "tsc --noEmit --skipLibCheck && uni build -p app",
-    "build:custom": "tsc --noEmit --skipLibCheck && uni build -p",
-    "build:h5": "tsc --noEmit --skipLibCheck && uni build",
-    "build:h5:ssr": "tsc --noEmit --skipLibCheck && uni build --ssr",
-    "build:mp-alipay": "tsc --noEmit --skipLibCheck && uni build -p mp-alipay",
-    "build:mp-baidu": "tsc --noEmit --skipLibCheck && uni build -p mp-baidu",
-    "build:mp-kuaishou": "tsc --noEmit --skipLibCheck && uni build -p mp-kuaishou",
-    "build:mp-lark": "tsc --noEmit --skipLibCheck && uni build -p mp-lark",
-    "build:mp-qq": "tsc --noEmit --skipLibCheck && uni build -p mp-qq",
-    "build:mp-toutiao": "tsc --noEmit --skipLibCheck && uni build -p mp-toutiao",
-    "build:mp-weixin": "tsc --noEmit --skipLibCheck && uni build -p mp-weixin",
-    "build:quickapp-webview": "tsc --noEmit --skipLibCheck && uni build -p quickapp-webview",
-    "build:quickapp-webview-huawei": "tsc --noEmit --skipLibCheck && uni build -p quickapp-webview-huawei",
-    "build:quickapp-webview-union": "tsc --noEmit --skipLibCheck && uni build -p quickapp-webview-union"
+    "build:app": "vue-tsc --noEmit --skipLibCheck && uni build -p app",
+    "build:custom": "vue-tsc --noEmit --skipLibCheck && uni build -p",
+    "build:h5": "vue-tsc --noEmit --skipLibCheck && uni build",
+    "build:h5:ssr": "vue-tsc --noEmit --skipLibCheck && uni build --ssr",
+    "build:mp-alipay": "vue-tsc --noEmit --skipLibCheck && uni build -p mp-alipay",
+    "build:mp-baidu": "vue-tsc --noEmit --skipLibCheck && uni build -p mp-baidu",
+    "build:mp-kuaishou": "vue-tsc --noEmit --skipLibCheck && uni build -p mp-kuaishou",
+    "build:mp-lark": "vue-tsc --noEmit --skipLibCheck && uni build -p mp-lark",
+    "build:mp-qq": "vue-tsc --noEmit --skipLibCheck && uni build -p mp-qq",
+    "build:mp-toutiao": "vue-tsc --noEmit --skipLibCheck && uni build -p mp-toutiao",
+    "build:mp-weixin": "vue-tsc --noEmit --skipLibCheck && uni build -p mp-weixin",
+    "build:quickapp-webview": "vue-tsc --noEmit --skipLibCheck && uni build -p quickapp-webview",
+    "build:quickapp-webview-huawei": "vue-tsc --noEmit --skipLibCheck && uni build -p quickapp-webview-huawei",
+    "build:quickapp-webview-union": "vue-tsc --noEmit --skipLibCheck && uni build -p quickapp-webview-union"
   },
   "dependencies": {
     "@dcloudio/uni-app": "^3.0.0-alpha-3040220220310005",
@@ -76,6 +76,7 @@
     "stylelint-config-standard": "^25.0.0",
     "stylelint-config-standard-scss": "^3.0.0",
     "typescript": "^4.6.3",
-    "vite": "^2.8.6"
+    "vite": "^2.8.6",
+    "vue-tsc": "^0.34.10"
   }
 }

@@ -17,10 +17,11 @@
 import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getCompanyinfos } from "@/services/services";
+import { CompanyInformation } from "@/services/types";
 import { ref } from "vue";
 
-const lookForMes = ref([]);
-getCompanyinfos().then((res) => {
+const lookForMes = ref<CompanyInformation[]>([]);
+getCompanyinfos({}).then((res) => {
   lookForMes.value = res.data.body;
 });
 

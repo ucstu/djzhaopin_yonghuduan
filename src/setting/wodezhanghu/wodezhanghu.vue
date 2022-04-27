@@ -20,7 +20,11 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybModal from "@/components/wyb-modal/wyb-modal.vue";
 import { deleteAccountsAccountid } from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore(key);
 
 const phoneNumber = ref("173****6235");
 
@@ -31,10 +35,9 @@ const showDelete = () => {
 };
 // 注销账号
 const deleteAccount = () => {
-  deleteAccountsAccountid(
-    { accountid: "5e9f8f8f-d9c1-4b5b-b8b7-d9c1b8b7d9c1" },
-    { verificationCode: "1234" }
-  )
+  deleteAccountsAccountid(store.state.accountInfo.accountInformationId, {
+    verificationCode: "1234",
+  })
     .then((res) => {
       console.log(res.data.body);
       store.commit("setToken", null);

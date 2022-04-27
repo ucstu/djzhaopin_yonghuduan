@@ -114,18 +114,19 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getFilterinfos } from "@/services/services";
+import { getFilterinformation } from "@/services/services";
+import { FilterInformation } from "@/services/types";
 import { ref } from "vue";
 
-const expectedSalaries = ref<any>([]);
-const workExperiences = ref<any>([]);
-const degreeRequires = ref<any>([]);
-const jobNatures = ref<any>([]);
-const companySizes = ref<any>([]);
-const financeStages = ref<any>([]);
-const industrySectors = ref<any>([]);
+const expectedSalaries = ref<FilterInformation["expectedSalary"]>([]);
+const workExperiences = ref<FilterInformation["workExperience"]>([]);
+const degreeRequires = ref<FilterInformation["education"]>([]);
+const jobNatures = ref<FilterInformation["natureWork"]>([]);
+const companySizes = ref<FilterInformation["companySize"]>([]);
+const financeStages = ref<FilterInformation["financingStage"]>([]);
+const industrySectors = ref<FilterInformation["industryField"]>([]);
 
-getFilterinfos().then((res) => {
+getFilterinformation().then((res) => {
   expectedSalaries.value.splice(
     0,
     expectedSalaries.value.length,
@@ -159,7 +160,7 @@ getFilterinfos().then((res) => {
   industrySectors.value.splice(
     0,
     industrySectors.value.length,
-    ...res.data.body.IndustryField
+    ...res.data.body.industryField
   );
 });
 

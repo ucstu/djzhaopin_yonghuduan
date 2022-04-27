@@ -15,10 +15,11 @@
 <script lang="ts" setup>
 import JobDetail from "@/components/JobDetail/JobDetail.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getCompanyinfosCompanyinfoidPositioninfos } from "@/services/services";
+import { getCompanyinfosPositioninfos } from "@/services/services";
+import { PositionInformation } from "@/services/types";
 import { ref } from "vue";
-const myViews = ref([]);
-getCompanyinfosCompanyinfoidPositioninfos().then((res) => {
+const myViews = ref<PositionInformation[]>([]);
+getCompanyinfosPositioninfos({}).then((res) => {
   myViews.value = res.data.body;
 });
 

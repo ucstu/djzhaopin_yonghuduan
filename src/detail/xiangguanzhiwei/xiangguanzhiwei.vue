@@ -17,13 +17,14 @@
 import JobDetail from "@/components/JobDetail/JobDetail.vue";
 import SearchAndFilter from "@/components/SearchAndFilter/SearchAndFilter.vue";
 import { getCompanyinfosCompanyinfoidPositioninfos } from "@/services/services";
+import { PositionInformation } from "@/services/types";
 import { key } from "@/stores";
 import { reactive } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const jobDetails = reactive([]);
+const jobDetails = reactive<PositionInformation[]>([]);
 
 getCompanyinfosCompanyinfoidPositioninfos(
   // @ts-ignore
