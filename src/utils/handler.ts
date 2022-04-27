@@ -13,8 +13,10 @@ const failResponseHandler = (responseError: RequestError) => {
           error.rejectedValue +
           "\n";
       }
+    } else if (responseError.response?.data.message) {
+      message = responseError.response.data.message;
     } else {
-      message = responseError.response!.data.message;
+      message = "请求有误";
     }
     uni.showToast({
       title: message,
