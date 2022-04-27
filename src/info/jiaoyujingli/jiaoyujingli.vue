@@ -141,6 +141,7 @@ import {
 } from "@/services/services";
 import { EducationExperience } from "@/services/types";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -263,8 +264,10 @@ const saveEducation = () => {
           updatedAt: "",
         }
       )
-        .then((res) => {})
-        .catch((err) => {});
+        .then((res) => {
+          uni.navigateBack({ delta: 1 });
+        })
+        .catch(failResponseHandler);
     } else {
       postUserinfosUserinfoidEduexperiences(
         store.state.accountInfo.userInformationId,
@@ -276,8 +279,10 @@ const saveEducation = () => {
           graduationTime: overTime.value,
         }
       )
-        .then((res) => {})
-        .catch((err) => {});
+        .then((res) => {
+          uni.navigateBack({ delta: 1 });
+        })
+        .catch(failResponseHandler);
     }
     uni.navigateBack({ delta: 1 });
   }
@@ -293,8 +298,11 @@ const deleteEducation = () => {
         deleteUserinfosUserinfoidEduexperiencesEduexperienceid(
           store.state.accountInfo.userInformationId,
           educateId.value
-        ).then((res) => {});
-        uni.navigateBack({ delta: 1 });
+        )
+          .then((res) => {
+            uni.navigateBack({ delta: 1 });
+          })
+          .catch(failResponseHandler);
       } else if (res.cancel) {
       }
     },
@@ -362,7 +370,6 @@ const deleteEducation = () => {
   .item {
     align-items: center;
     justify-content: center;
-    height: 50px;
     text-align: center;
   }
 }

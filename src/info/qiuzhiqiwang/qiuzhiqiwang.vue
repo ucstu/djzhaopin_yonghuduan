@@ -220,7 +220,7 @@ const saveJobExcept = () => {
         .then((res) => {
           store.commit("setExceptionJob", res.data.body);
         })
-        .catch((err) => {});
+        .catch(failResponseHandler);
       if (saveBtn.value === saveOver.value) {
         uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
       } else {

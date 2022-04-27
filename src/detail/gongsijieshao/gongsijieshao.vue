@@ -60,16 +60,19 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getCompanyinfosCompanyinfoid } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
+import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const companyInfo = ref<CompanyInformation>({} as CompanyInformation);
 
 onLoad((options) => {
-  if (options.companyinfoid) {
-    getCompanyinfosCompanyinfoid(options.companyinfoid).then((res) => {
-      companyInfo.value = res.data.body;
-    });
+  if (options.companyId) {
+    getCompanyinfosCompanyinfoid(options.companyId)
+      .then((res) => {
+        companyInfo.value = res.data.body;
+      })
+      .catch(failResponseHandler);
   } else {
     uni.showToast({
       title: "参数错误",

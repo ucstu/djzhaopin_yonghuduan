@@ -122,7 +122,6 @@ const userInformation = ref<UserInformation>({} as UserInformation);
 const fullName = ref(""); // 姓名
 
 const isActiveMan = ref(true);
-const isActiveWo = ref(false);
 
 const valueYear = ref();
 const valueMonth = ref();
@@ -131,7 +130,9 @@ const valueDay = ref();
 /* 上传头像 */
 const chooseImage = () => {
   postAvatars({ avatar: "" })
-    .then((res) => {})
+    .then((res) => {
+      console.log(res.data.body);
+    })
     .catch(failResponseHandler);
 };
 
@@ -182,7 +183,7 @@ onMounted(() => {
         10
       );
       value.value = [
-        year - valueYear.value - 2,
+        valueYear.value - 1960,
         valueMonth.value - 1,
         valueDay.value - 1,
       ];
@@ -194,18 +195,10 @@ const age = ref();
 const bindChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;
   year = years.value[val[0]];
-
   month = months.value[val[1]];
   day = days.value[val[2]];
   birthday.value = year + "-" + month + "-" + day;
   age.value = date.getFullYear() - year;
-  if (month < date.getMonth() + 1) {
-    age.value--;
-  } else if (month === date.getMonth() + 1) {
-    if (day < date.getDate()) {
-      age.value--;
-    }
-  }
 };
 const isConfirm = () => {
   userInformation.value.dateOfBirth = birthday.value;

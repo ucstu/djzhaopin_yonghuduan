@@ -136,6 +136,7 @@ import {
 } from "@/services/services";
 import { WorkExperience } from "@/services/types";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -165,16 +166,18 @@ onLoad((e) => {
     getUserinfosUserinfoidWorkexperiencesWorkexperienceid(
       store.state.accountInfo.userInformationId,
       workId.value
-    ).then((res) => {
-      companyName.value = res.data.body.corporateName;
-      companyIndustry.value = res.data.body.companyIndustry;
-      companyStartTime.value = res.data.body.startTime;
-      companyEndTime.value = res.data.body.endTime;
-      companyPosition.value = res.data.body.positionType;
-      positionName.value = res.data.body.positionName;
-      companyDepartment.value = res.data.body.department;
-      companyContent.value = res.data.body.jobContent;
-    });
+    )
+      .then((res) => {
+        companyName.value = res.data.body.corporateName;
+        companyIndustry.value = res.data.body.companyIndustry;
+        companyStartTime.value = res.data.body.startTime;
+        companyEndTime.value = res.data.body.endTime;
+        companyPosition.value = res.data.body.positionType;
+        positionName.value = res.data.body.positionName;
+        companyDepartment.value = res.data.body.department;
+        companyContent.value = res.data.body.jobContent;
+      })
+      .catch(failResponseHandler);
   }
   /* 接收职位名*/
   uni.$on("positiontypes", (data) => {
@@ -209,21 +212,21 @@ const saveWorkExperience = () => {
           startTime: companyStartTime.value,
           endTime: companyEndTime.value,
           positionName: positionName.value,
-          positionType: companyPosition.value,
+          positionType: "1",
           department: companyDepartment.value,
           jobContent: companyContent.value,
         }
       )
         .then((res) => {
           store.commit("setWorkExperience", res.data.body);
+          uni.showToast({
+            title: "保存成功",
+            icon: "none",
+            duration: 500,
+          });
         })
-        .catch((err) => {});
+        .catch(failResponseHandler);
     }
-    uni.showToast({
-      title: "保存成功",
-      icon: "success",
-      duration: 500,
-    });
   }
 };
 
@@ -238,12 +241,19 @@ const deleteWorkExperience = () => {
           store.state.accountInfo.userInformationId,
           workId.value
         )
-          .then((res) => {})
-          .catch((err) => {});
-        uni.navigateBack({
-          delta: 1,
-        });
+          .then((res) => {
+            uni.showToast({
+              title: "删除成功",
+              icon: "none",
+              duration: 500,
+            });
+            uni.navigateBack({
+              delta: 1,
+            });
+          })
+          .catch(failResponseHandler);
       } else if (res.cancel) {
+        return;
       }
     },
   });

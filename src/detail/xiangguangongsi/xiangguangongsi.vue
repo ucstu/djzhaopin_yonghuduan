@@ -18,14 +18,17 @@ import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
 import SearchAndFilter from "@/components/SearchAndFilter/SearchAndFilter.vue";
 import { getCompanyinfos, getFilterinformation } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
+import { failResponseHandler } from "@/utils/handler";
 import { reactive, ref } from "vue";
 
 const popup = ref();
 
 let attentionCompanies = reactive<CompanyInformation[]>([]);
-getCompanyinfos({}).then((res) => {
-  attentionCompanies.push(...res.data.body);
-});
+getCompanyinfos({})
+  .then((res) => {
+    attentionCompanies.push(...res.data.body);
+  })
+  .catch(failResponseHandler);
 const companySizes = reactive<string[]>([]); //公司规模
 const financeStages = reactive<string[]>([]); //融资阶段
 const industrySectors = reactive<string[]>([]); //行业领域

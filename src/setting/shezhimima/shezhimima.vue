@@ -57,7 +57,13 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { putAccountsAccountid } from "@/services/services";
+import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore(key);
 
 const password = ref("");
 const password2 = ref("");
@@ -86,11 +92,21 @@ const savePassWord = () => {
       duration: 500,
     });
   } else {
-    uni.showToast({
-      title: "保存成功",
-      icon: "none",
-      duration: 500,
-    });
+    putAccountsAccountid(store.state.accountInfo.accountInformationId, {
+      password: password.value,
+      verificationCode: "1234",
+    })
+      .then((res) => {
+        uni.showToast({
+          title: "保存成功",
+          icon: "none",
+          duration: 500,
+        });
+        uni.navigateBack({
+          delta: 1,
+        });
+      })
+      .catch(failResponseHandler);
   }
 };
 const changeWord = () => {

@@ -124,12 +124,13 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-getCompanyinfosCompanyinfoid,
-getCompanyinfosCompanyinfoidPositioninfosPositioninfoid,
-postUserinfosUserinfoidDeliveryrecords
+  getCompanyinfosCompanyinfoid,
+  getCompanyinfosCompanyinfoidPositioninfosPositioninfoid,
+  postUserinfosUserinfoidDeliveryrecords,
 } from "@/services/services";
 import { CompanyInformation, PositionInformation } from "@/services/types";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -156,16 +157,23 @@ onLoad((e) => {
   getCompanyinfosCompanyinfoidPositioninfosPositioninfoid(
     companyId.value,
     positionId.value
-  ).then((res) => {
-    jobInformation.value = res.data.body;
-  });
-  getCompanyinfosCompanyinfoid(companyId.value).then((res) => {
-    companyInformation.value = res.data.body;
-  });
+  )
+    .then((res) => {
+      jobInformation.value = res.data.body;
+    })
+    .catch(failResponseHandler);
+  getCompanyinfosCompanyinfoid(companyId.value)
+    .then((res) => {
+      companyInformation.value = res.data.body;
+    })
+    .catch(failResponseHandler);
 });
 // 相关公司
 const toCompanyIn = () => {
-  uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao" });
+  let companyId = companyInformation.value.companyInformationId;
+  uni.navigateTo({
+    url: "/detail/gongsijieshao/gongsijieshao?companyId" + companyId,
+  });
 };
 const popup = ref();
 // 沟通HR
@@ -183,7 +191,9 @@ const send = () => {
       jobInformationId: positionId.value,
       userInformationId: "",
     }
-  ).then((res) => {});
+  )
+    .then()
+    .catch(failResponseHandler);
   popup.value.hide();
 };
 </script>

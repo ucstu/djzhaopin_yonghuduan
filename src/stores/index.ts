@@ -13,7 +13,7 @@ export interface State {
   menuButtonInfo: UniApp.GetMenuButtonBoundingClientRectRes | null;
   accountInfo: AccountInformation;
   token: string | null;
-  userInfo: UserInformation | null;
+  userInfo: UserInformation;
   exceptionJob: JobExpectation | null;
   workExperience: WorkExperience | null;
   jobExpectation: JobExpectation | null;

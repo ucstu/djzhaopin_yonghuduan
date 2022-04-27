@@ -16,12 +16,21 @@
 <script lang="ts" setup>
 import CompanyPanel from "@/components/CompanyPanel/CompanyPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getCompanyinfos } from "@/services/services";
-import { CompanyInformation } from "@/services/types";
+import { getUserinfosUserinfoidAttentionrecords } from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
+import { useStore } from "vuex";
 
-const attentionCompanies = ref<CompanyInformation[]>([]);
-getCompanyinfos({}).then((res) => {
+const store = useStore(key);
+
+const attentionCompanies = ref({});
+getUserinfosUserinfoidAttentionrecords(
+  store.state.accountInfo.userInformationId,
+  {
+    page: "1",
+    size: "10",
+  }
+).then((res) => {
   attentionCompanies.value = res.data.body;
 });
 const unfollow = ref("取消关注");

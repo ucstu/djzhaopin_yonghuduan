@@ -25,7 +25,7 @@
 <script lang="ts" setup>
 import JobPanel from "@/components/JobPanel/JobPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getCompanyinfosCompanyinfoidDeliveryrecords } from "@/services/services";
+import { getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid } from "@/services/services";
 import { DeliveryRecord } from "@/services/types";
 import { key } from "@/stores";
 import { onMounted, ref } from "vue";
@@ -44,7 +44,7 @@ const sendType = ref([
 const sendId = ref(0);
 
 onMounted(() => {
-  getCompanyinfosCompanyinfoidDeliveryrecords(
+  getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid(
     store.state.accountInfo.userInformationId,
     {
       state: sendType.value[sendId.value].key,
@@ -56,7 +56,7 @@ onMounted(() => {
 
 const sendTypeId = (index: number) => {
   sendId.value = index;
-  getCompanyinfosCompanyinfoidDeliveryrecords(
+  getUserinfosUserinfoidDeliveryrecordsDeliveryrecordid(
     store.state.accountInfo.userInformationId,
     {
       state: sendType.value[sendId.value].key,

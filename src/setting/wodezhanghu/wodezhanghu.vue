@@ -21,6 +21,7 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybModal from "@/components/wyb-modal/wyb-modal.vue";
 import { deleteAccountsAccountid } from "@/services/services";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -45,7 +46,7 @@ const deleteAccount = () => {
         url: "/account/denglu_zhuce/denglu",
       });
     })
-    .catch((err) => {});
+    .catch(failResponseHandler);
 };
 </script>
 

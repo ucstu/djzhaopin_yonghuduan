@@ -63,9 +63,9 @@
             </view>
             <view style="font-size: 25rpx">
               <text>{{ jobExcept.city }}</text>
-              <text style="padding-left: 20rpx">{{
+              <!-- <text style="padding-left: 20rpx">{{
                 jobExcept.positionType
-              }}</text>
+              }}</text> -->
             </view>
           </view>
         </view>
@@ -80,7 +80,7 @@
           />
         </view>
         <view class="advantage-box">
-          <text>{{ personalAdvantage }}</text>
+          <text>{{ userInformation.personalAdvantage }}</text>
         </view>
       </view>
       <view class="group-box">
@@ -201,9 +201,6 @@ const personalAdvantage = ref("");
 
 onShow(() => {
   // 获取个人优势
-  uni.$on("advantage", (e) => {
-    personalAdvantage.value = e;
-  });
   getUserinfosUserinfoid(store.state.accountInfo.userInformationId)
     .then((res) => {
       userInformation.value = res.data.body;
@@ -214,6 +211,13 @@ onShow(() => {
       }
     })
     .catch(failResponseHandler);
+  // 查询所有工作经历
+  getUserinfosUserinfoidWorkexperiences(
+    store.state.accountInfo.userInformationId,
+    {}
+  ).then((res) => {
+    workExperiences.value = res.data.body;
+  });
 });
 
 // 修改个人信息
@@ -248,13 +252,7 @@ const addEducate = () => {
 const addProject = () => {
   uni.navigateTo({ url: "/info/xiangmujingli/xiangmujingli" });
 };
-// 查询所有工作经历
-getUserinfosUserinfoidWorkexperiences(
-  store.state.accountInfo.userInformationId,
-  {}
-).then((res) => {
-  workExperiences.value = res.data.body;
-});
+
 // 查看、修改、删除工作经历
 const alterWork = (index: number) => {
   let workId = workExperiences.value[index].workExperienceId;

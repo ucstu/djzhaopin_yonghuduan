@@ -16,12 +16,21 @@
 <script lang="ts" setup>
 import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getCompanyinfos } from "@/services/services";
-import { CompanyInformation } from "@/services/types";
+import { getUserinfosUserinfoidInspectionrecords } from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
+import { useStore } from "vuex";
 
-const lookForMes = ref<CompanyInformation[]>([]);
-getCompanyinfos({}).then((res) => {
+const store = useStore(key);
+
+const lookForMes = ref({});
+getUserinfosUserinfoidInspectionrecords(
+  store.state.accountInfo.userInformationId,
+  {
+    page: "1",
+    size: "10",
+  }
+).then((res) => {
   lookForMes.value = res.data.body;
 });
 

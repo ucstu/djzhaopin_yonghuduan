@@ -274,7 +274,6 @@ const choseCity = () => {
     .item {
       align-items: center;
       justify-content: center;
-      height: 300rpx;
       text-align: center;
     }
   }
