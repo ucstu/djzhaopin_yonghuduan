@@ -26,20 +26,14 @@
           <view
             class="flex-col items-center sex-wrapper"
             :class="isActiveMan ? 'active' : ''"
-            @click="
-              isActiveMan = !isActiveMan;
-              isActiveWo = !isActiveWo;
-            "
+            @click="isActiveMan = !isActiveMan"
           >
             <text>男</text>
           </view>
           <view
             class="flex-col items-center sex-wrapper"
-            :class="isActiveWo ? 'active' : ''"
-            @click="
-              isActiveWo = !isActiveWo;
-              isActiveMan = !isActiveMan;
-            "
+            :class="!isActiveMan ? 'active' : ''"
+            @click="isActiveMan = !isActiveMan"
           >
             <text>女</text>
           </view>
@@ -128,7 +122,7 @@ const userInformation = ref<UserInformation>({} as UserInformation);
 
 const fullName = ref(""); // 姓名
 
-const isActiveMan = ref(false);
+const isActiveMan = ref(true);
 const isActiveWo = ref(false);
 
 const valueYear = ref();
@@ -177,7 +171,7 @@ onMounted(() => {
       if (userInformation.value.sex === "男") {
         isActiveMan.value = true;
       } else {
-        isActiveWo.value = true;
+        isActiveMan.value = !isActiveMan.value;
       }
       valueYear.value = parseInt(
         userInformation.value.dateOfBirth.slice(0, 4),
