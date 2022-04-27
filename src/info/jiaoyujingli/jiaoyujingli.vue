@@ -134,33 +134,27 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import WybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  postUserinfosUserinfoidEduexperiences,
-  getUserinfosUserinfoidEduexperiencesEduexperienceid,
   deleteUserinfosUserinfoidEduexperiencesEduexperienceid,
+  getUserinfosUserinfoidEduexperiencesEduexperienceid,
+  postUserinfosUserinfoidEduexperiences,
   putUserinfosUserinfoidEduexperiencesEduexperienceid,
 } from "@/services/services";
+import { EducationExperience } from "@/services/types";
+import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
-import { key } from "@/stores";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
 const schoolName = ref(""); // 学校名称
-const education = ref("请选择"); // 学历
+const education = ref<EducationExperience["education"]>(1); // 学历
 const subject = ref(""); // 专业名称
 const startTime = ref("入学时间"); // 入学时间
 const overTime = ref("结束时间"); // 毕业时间
 // 学历高度
-const educations = ref([
-  "初中",
-  "高中",
-  "中专",
-  "大专",
-  "本科",
-  "硕士",
-  "博士",
-]);
+const educations = ref(["大专", "本科", "硕士", "博士", "其他"]);
 
 const start = ref(false);
 const end = ref(false);
@@ -202,7 +196,7 @@ const bindChange = (e: { detail: { value: never } }) => {
   } else if (end.value) {
     overTime.value = `${year}年${month}月`;
   } else {
-    education.value = educations.value[val[0]];
+    education.value = val[0];
   }
 };
 
@@ -214,15 +208,14 @@ onLoad((e) => {
   // 查询教育经历
   if (educateId.value !== undefined) {
     getUserinfosUserinfoidEduexperiencesEduexperienceid(
-      { userinfoid: store.state.accountInfo?.userInfoId },
-      { eduexperienceid: educateId.value }
+      store.state.accountInfo.userInformationId,
+      educateId.value
     ).then((res) => {
-      console.log(res.data.body);
       schoolName.value = res.data.body.schoolName;
       education.value = res.data.body.education;
       subject.value = res.data.body.major;
       startTime.value = res.data.body.admissionTime;
-      overTime.value = res.data.body.araduationTime;
+      overTime.value = res.data.body.graduationTime;
     });
   }
 });
@@ -240,7 +233,7 @@ const saveEducation = () => {
       icon: "none",
       duration: 500,
     });
-  } else if (education.value === "请选择") {
+  } else if (education.value === 1) {
     uni.showToast({
       title: "请选择学历",
       icon: "none",
@@ -249,40 +242,38 @@ const saveEducation = () => {
   } else {
     if (educateId.value !== undefined) {
       putUserinfosUserinfoidEduexperiencesEduexperienceid(
-        { userinfoid: store.state.accountInfo.userInfoId },
-        { eduexperienceid: educateId.value },
+        store.state.accountInfo.userInformationId,
+        educateId.value,
         {
           educationExperienceId: educateId.value,
           schoolName: schoolName.value,
           education: education.value,
           major: subject.value,
           admissionTime: startTime.value,
-          araduationTime: overTime.value,
+          graduationTime: overTime.value,
+          createdAt: "",
+          updatedAt: "",
         }
       )
         .then((res) => {
-          console.log(res);
+          uni.navigateBack({ delta: 1 });
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch(failResponseHandler);
     } else {
       postUserinfosUserinfoidEduexperiences(
-        { userinfoid: store.state.accountInfo?.userInfoId },
+        store.state.accountInfo.userInformationId,
         {
           schoolName: schoolName.value,
           education: education.value,
           major: subject.value,
           admissionTime: startTime.value,
-          araduationTime: overTime.value,
+          graduationTime: overTime.value,
         }
       )
         .then((res) => {
-          console.log(res.data.body);
+          uni.navigateBack({ delta: 1 });
         })
-        .catch((err) => {
-          console.log(err.msg);
-        });
+        .catch(failResponseHandler);
     }
     uni.navigateBack({ delta: 1 });
   }
@@ -296,14 +287,14 @@ const deleteEducation = () => {
     success: (res) => {
       if (res.confirm) {
         deleteUserinfosUserinfoidEduexperiencesEduexperienceid(
-          { userinfoid: store.state.accountInfo?.userInfoId },
-          { eduexperienceid: educateId.value }
-        ).then((res) => {
-          console.log(res.data.body);
-        });
-        uni.navigateBack({ delta: 1 });
+          store.state.accountInfo.userInformationId,
+          educateId.value
+        )
+          .then((res) => {
+            uni.navigateBack({ delta: 1 });
+          })
+          .catch(failResponseHandler);
       } else if (res.cancel) {
-        console.log("用户点击取消");
       }
     },
   });
@@ -370,7 +361,6 @@ const deleteEducation = () => {
   .item {
     align-items: center;
     justify-content: center;
-    height: 50px;
     text-align: center;
   }
 }

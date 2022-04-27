@@ -91,7 +91,6 @@ const getVerifiable = () => {
   } else if (/^1[3456789]\d{9}$/.test(phoneNum.value)) {
     getVerificationCode({ phoneNumber: phoneNum.value })
       .then((res) => {
-        console.log(res.data.body);
         uni.showToast({
           title: "验证码已发送",
           icon: "none",
@@ -136,13 +135,11 @@ const registeredAccount = () => {
     postAccounts({
       userName: phoneNum.value,
       verificationCode: verification.value,
-      accountType: "1",
+      accountType: 1,
       password: password.value,
     })
       .then((res) => {
-        console.log(res.data.body);
-        store.commit("setToken", res.data.body.token);
-        store.commit("setAccountInfo", res.data.body.accountInfo);
+        store.commit("setAccountInfo", res.data.body);
         uni.navigateTo({
           url: "/init/wanchengjianli/wanchengjianli",
         });

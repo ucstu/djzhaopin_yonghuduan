@@ -49,7 +49,7 @@ const store = useStore(key);
 
 const navigationBarTop = store.state.menuButtonInfo?.top;
 
-const navigationBarWidth = store.state.menuButtonInfo.left - uni.upx2px(30);
+const navigationBarWidth = store.state.menuButtonInfo!.left - uni.upx2px(30);
 
 /* #endif */
 

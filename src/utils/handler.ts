@@ -3,8 +3,20 @@ import { RequestError } from "@/services/config";
 const failResponseHandler = (responseError: RequestError) => {
   if (responseError.status === 400) {
     let message = "";
-    for (const error of responseError.response!.data.errors) {
-      message += error.msg + " ";
+    if (responseError.response?.data.errors) {
+      for (const error of responseError.response.data.errors) {
+        message +=
+          error.field +
+          ": " +
+          error.defaultMessage +
+          ", 实际收到的值为：" +
+          error.rejectedValue +
+          "\n";
+      }
+    } else if (responseError.response?.data.message) {
+      message = responseError.response.data.message;
+    } else {
+      message = "请求有误";
     }
     uni.showToast({
       title: message,

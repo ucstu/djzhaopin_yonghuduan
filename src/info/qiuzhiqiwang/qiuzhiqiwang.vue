@@ -21,7 +21,7 @@
       </view>
       <view class="flex-row items-center justify-between group-box">
         <text class="text-title">期望月薪</text>
-        <view class="items-center text-right" @click="expectSalry">
+        <view class="items-center text-right" @click="expectSalary">
           <text>{{ salary }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
@@ -45,26 +45,34 @@
       <view class="flex-row justify-between" style="height: 80rpx">
         <view
           class="justify-center items-center"
-          style="width: 50%; font-size: 30rpx"
+          style="width: 25%; font-size: 30rpx"
         >
-          <text>起始薪资</text>
+          <text style="color: gray" @click="popup.hide()">取消</text>
         </view>
         <view
           class="justify-center items-center"
-          style="width: 50%; font-size: 30rpx"
+          style="width: 25%; font-size: 30rpx"
         >
-          <text>结束薪资</text>
+          <text>期望薪资</text>
+        </view>
+        <view
+          class="justify-center items-center"
+          style="width: 25%; font-size: 30rpx"
+        >
+          <text style="color: rgb(35 193 158)" @click="salaryExpectation"
+            >确认</text
+          >
         </view>
       </view>
-      <picker-view class="picker-view" @change="salaryChange">
+      <picker-view :value="value" class="picker-view" @change="salaryChange">
         <picker-view-column>
-          <view v-for="(start, i) in startSalary" :key="i" class="item"
-            >{{ start }}k</view
+          <view v-for="(item, i) in startSalary" :key="i" class="item"
+            >{{ item }}k</view
           >
         </picker-view-column>
         <picker-view-column>
-          <view v-for="(end, i) in endSalary" :key="i" class="item"
-            >{{ end }}k</view
+          <view v-for="(item, i) in endSalary" :key="i" class="item"
+            >{{ item }}k</view
           >
         </picker-view-column>
       </picker-view>
@@ -79,18 +87,19 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  postUserinfosUserinfoidJobexpectations,
   getUserinfosUserinfoidJobexpectationsJobexpectationid,
+  postUserinfosUserinfoidJobexpectations,
 } from "@/services/services";
-import { onLoad } from "@dcloudio/uni-app";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
 const job = ref("");
-const directionTags = ref([]);
+const directionTags = ref<string[]>([]);
 const directionTag = ref("");
 const directionShow = ref(false);
 const salary = ref("");
@@ -100,45 +109,58 @@ const saveOver = ref("完成");
 const jobId = ref("");
 
 const popup = ref();
-const expectSalry = () => {
+const expectSalary = () => {
   popup.value.show();
 };
 
 const startSalary = ref<number[]>([]);
 const endSalary = ref<number[]>([]);
-let startsa = ref("");
-let endsa = ref("");
+let start = ref(0);
+let end = ref(0);
 for (let i = 1; i <= 90; i++) {
   startSalary.value.push(i);
 }
 for (let i = 5; i <= 100; i++) {
   endSalary.value.push(i);
 }
-const salaryChange = (e: { detail: { value: never } }) => {
+const value = ref([5, 8]);
+const salaryChange = (e: any) => {
   let val = e.detail.value;
-  startsa.value = String(startSalary.value[val[0]]);
-  endsa.value = String(endSalary.value[val[1]]);
-  salary.value = `${startsa.value}k-${endsa.value}k`;
+  start.value = startSalary.value[val[0]];
+  end.value = endSalary.value[val[1]];
+};
+const salaryExpectation = () => {
+  if (start.value === 0 || end.value === 0) {
+    salary.value = `${6}k-${13}k`;
+  } else {
+    salary.value = `${start.value}k-${end.value}k`;
+  }
+  popup.value.hide();
 };
 
 onLoad((e) => {
-  jobId.value = e.id;
+  if (e.id !== undefined) {
+    jobId.value = e.id;
+  }
   if (e.data === "true") {
     saveBtn.value = "保存";
   } else {
     saveBtn.value = "完成";
   }
-  if (jobId.value !== undefined) {
+  if (jobId.value) {
     getUserinfosUserinfoidJobexpectationsJobexpectationid(
-      {
-      userinfoid: "",
-      jobexpectationid: jobId.value,
-    }).then((res) => {
-      salary.value =
-        res.data.body.startingSalary + "k-" + res.data.body.ceilingSalary + "k";
-      city.value = res.data.body.city;
-      console.log(res.data.body);
-    });
+      store.state.accountInfo.userInformationId,
+      jobId.value
+    )
+      .then((res) => {
+        salary.value =
+          res.data.body.startingSalary +
+          "k-" +
+          res.data.body.ceilingSalary +
+          "k";
+        city.value = res.data.body.city;
+      })
+      .catch(failResponseHandler);
   }
   uni.$on("liveCity", (e) => {
     city.value = e;
@@ -179,6 +201,7 @@ onLoad((e) => {
   });
 });
 
+// 保存求职期望
 const saveJobExcept = () => {
   if (job.value === "" || salary.value === "" || city.value === "") {
     uni.showToast({
@@ -195,21 +218,20 @@ const saveJobExcept = () => {
       });
     } else {
       postUserinfosUserinfoidJobexpectations(
-        { userinfoid: "" },
+        store.state.accountInfo.userInformationId,
         {
-          positionType: "1",
+          positionName: job.value,
+          positionType: 1,
           directionTags: directionTags.value,
-          startingSalary: startsa.value,
-          ceilingSalary: endsa.value,
+          startingSalary: start.value,
+          ceilingSalary: end.value,
           city: city.value,
         }
       )
         .then((res) => {
           store.commit("setExceptionJob", res.data.body);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch(failResponseHandler);
       if (saveBtn.value === saveOver.value) {
         uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
       } else {
@@ -272,7 +294,6 @@ const expectCity = () => {
     .item {
       align-items: center;
       justify-content: center;
-      height: 300rpx;
       font-size: 30rpx;
       color: black;
       text-align: center;

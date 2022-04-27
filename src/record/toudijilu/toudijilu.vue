@@ -2,12 +2,13 @@
   <NavigationBar class="header" title="投递记录" />
   <view class="flex-col page">
     <view class="justify-between items-center group-1">
-      <view
+      <text
         v-for="(send, i) in sendType"
+        v-show="send !== ''"
         :key="i"
         :class="sendId === i ? 'active' : ''"
         @click="sendTypeId(i)"
-        >{{ send.type }}</view
+        >{{ send }}</text
       >
     </view>
     <view class="flex-col list">
@@ -16,7 +17,7 @@
         :key="i"
         class="list-item"
         :collection-position="deliveryRecord"
-        :send-type="sendType[sendId].type"
+        :send-type="sendType[sendId]"
       />
     </view>
   </view>
@@ -34,36 +35,32 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const deliveryRecords = ref<DeliveryRecord[]>([]);
-const sendType = ref([
-  { key: "0", type: "待查看" },
-  { key: "1", type: "已查看" },
-  { key: "2", type: "通过初筛" },
-  { key: "3", type: "约面试" },
-  { key: "4", type: "不合格" },
-]);
-const sendId = ref(0);
+const sendType = ["", "待查看", "已查看", "通过初筛", "约面试", "不合格"];
+const sendId = ref(1);
 
 onMounted(() => {
+  /* 默认查看记录 */
   getCompanyinfosCompanyinfoidDeliveryrecords(
     store.state.accountInfo.userInformationId,
     {
-      state: sendType.value[sendId.value].key,
+      state: 1,
     }
   ).then((res) => {
     deliveryRecords.value = res.data.body;
+    console.log(111);
     console.log(deliveryRecords.value);
   });
 });
 
+/* 查看不同状态记录 */
 const sendTypeId = (index: number) => {
   sendId.value = index;
   getCompanyinfosCompanyinfoidDeliveryrecords(
     store.state.accountInfo.userInformationId,
     {
-      state: sendType.value[sendId.value].key,
+      state: sendId.value,
     }
   ).then((res) => {
-    console.log(sendId.value);
     deliveryRecords.value = res.data.body;
   });
 };

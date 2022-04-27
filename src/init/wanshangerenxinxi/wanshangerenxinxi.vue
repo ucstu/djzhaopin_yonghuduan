@@ -112,6 +112,7 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { putUserinfosUserinfoid } from "@/services/services";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -158,7 +159,6 @@ const bindChange = (e: { detail: { value: never } }) => {
   day = days.value[val[2]];
   birthday.value = year + "-" + month + "-" + day;
   age.value = date.getFullYear() - year;
-  console.log(age.value);
 };
 /* 判断信息是否填写完整*/
 const sex = ref();
@@ -179,9 +179,19 @@ const nextClick = () => {
       icon: "none",
       duration: 500,
     });
+  } else if (
+    !/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(
+      emailValue.value
+    )
+  ) {
+    uni.showToast({
+      title: "邮箱格式不正确",
+      icon: "none",
+      duration: 500,
+    });
   } else {
-    putUserinfosUserinfoid(store.state.accountInfo.userInfomationId, {
-      userInformationId: store.state.accountInfo.userInfomationId,
+    putUserinfosUserinfoid(store.state.accountInfo.userInformationId, {
+      userInformationId: store.state.accountInfo.userInformationId,
       createdAt: store.state.accountInfo.createdAt,
       updatedAt: store.state.accountInfo.updatedAt,
       avatar: "",
@@ -194,22 +204,20 @@ const nextClick = () => {
       phoneNumber: store.state.accountInfo.userName,
       email: emailValue.value,
       workingYears: 1,
-      education: "2",
-      jobStatus: "1",
+      education: 2,
+      jobStatus: 1,
       personalAdvantage: "",
       socialHomepage: "",
       pictureWorks: [],
-      privacySettings: "1",
+      privacySettings: 1,
     })
       .then((res) => {
         store.commit("setUserInfo", res.data.body);
-        console.log(res);
+        uni.navigateTo({
+          url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli",
+        });
       })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    uni.navigateTo({ url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli" });
+      .catch(failResponseHandler);
   }
 };
 
@@ -266,7 +274,6 @@ const choseCity = () => {
     .item {
       align-items: center;
       justify-content: center;
-      height: 300rpx;
       text-align: center;
     }
   }

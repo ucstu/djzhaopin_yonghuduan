@@ -88,7 +88,8 @@
 import { getUserinfosUserinfoid } from "@/services/services";
 import { UserInformation } from "@/services/types";
 import { key } from "@/stores";
-import { onLoad } from "@dcloudio/uni-app";
+import { failResponseHandler } from "@/utils/handler";
+import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -97,13 +98,13 @@ const store = useStore(key);
 const userInfos = ref<UserInformation>({} as UserInformation);
 const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
 const fullName = ref();
-onLoad(() => {
-  getUserinfosUserinfoid(store.state.accountInfo.userInformationId).then(
-    (res) => {
+onShow(() => {
+  getUserinfosUserinfoid(store.state.accountInfo.userInformationId)
+    .then((res) => {
       userInfos.value = res.data.body;
-      fullName.value = `${res.data.body.firstName} ${res.data.body.lastName}`;
-    }
-  );
+      fullName.value = `${res.data.body.firstName}${res.data.body.lastName}`;
+    })
+    .catch(failResponseHandler);
 });
 
 const toSelfInfo = () => {

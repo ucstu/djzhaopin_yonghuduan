@@ -43,7 +43,9 @@
       </view>
       <view class="items-center hr-info">
         <image class="hr" :src="companyInformation.logo" />
-        <text style="padding-left: 15rpx">{{ companyInformation.hrId }}</text>
+        <text style="padding-left: 15rpx">{{
+          companyInformation.hrInformationId
+        }}</text>
       </view>
       <view class="job-description">
         <text style="font-size: 30rpx; font-weight: 400">职位描述</text>
@@ -62,7 +64,7 @@
           </view>
           <view>职位描述：{{ jobInformation.description }}</view>
           <view>所属部门：{{ jobInformation.department }}</view>
-          <view>周末休息时间：{{ jobInformation.weekendReleaseTime }}</view>
+          <view>周末休息时间：{{ jobInformation.weekendReleseTime }}</view>
           <view>上班时间：{{ jobInformation.workTime }}</view>
           <view>工作地点：{{ jobInformation.workingPlace }}</view>
         </view>
@@ -130,6 +132,7 @@ import {
 } from "@/services/services";
 import { CompanyInformation, PositionInformation } from "@/services/types";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -156,16 +159,23 @@ onLoad((e) => {
   getCompanyinfosCompanyinfoidPositioninfosPositioninfoid(
     companyId.value,
     positionId.value
-  ).then((res) => {
-    jobInformation.value = res.data.body;
-  });
-  getCompanyinfosCompanyinfoid(companyId.value).then((res) => {
-    companyInformation.value = res.data.body;
-  });
+  )
+    .then((res) => {
+      jobInformation.value = res.data.body;
+    })
+    .catch(failResponseHandler);
+  getCompanyinfosCompanyinfoid(companyId.value)
+    .then((res) => {
+      companyInformation.value = res.data.body;
+    })
+    .catch(failResponseHandler);
 });
 // 相关公司
 const toCompanyIn = () => {
-  uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao" });
+  let companyId = companyInformation.value.companyInformationId;
+  uni.navigateTo({
+    url: "/detail/gongsijieshao/gongsijieshao?companyId" + companyId,
+  });
 };
 const popup = ref();
 // 沟通HR
@@ -181,10 +191,18 @@ const send = () => {
     store.state.accountInfo.userInformationId,
     {
       jobInformationId: positionId.value,
+      userInformationId: store.state.accountInfo.userInformationId,
+      state: 1,
     }
-  ).then((res) => {
-    console.log(res.data.body);
-  });
+  )
+    .then((res) => {
+      uni.showToast({
+        title: "投递成功",
+        icon: "none",
+        duration: 500,
+      });
+    })
+    .catch(failResponseHandler);
   popup.value.hide();
 };
 </script>

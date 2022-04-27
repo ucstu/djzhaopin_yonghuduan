@@ -43,7 +43,7 @@
             </view>
             <view class="flex-row">
               <text>机构类型</text>
-              <text class="infos">{{ companyInfo.organizatioType }}</text>
+              <text class="infos">{{ companyInfo.organizationType }}</text>
             </view>
             <view class="flex-row">
               <text>成立时间</text>
@@ -60,11 +60,26 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getCompanyinfosCompanyinfoid } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
+import { failResponseHandler } from "@/utils/handler";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
-const companyInfo = ref<CompanyInformation>({});
-getCompanyinfosCompanyinfoid().then((res) => {
-  companyInfo.value = res.data.body;
+const companyInfo = ref<CompanyInformation>({} as CompanyInformation);
+
+onLoad((options) => {
+  if (options.companyId) {
+    getCompanyinfosCompanyinfoid(options.companyId)
+      .then((res) => {
+        companyInfo.value = res.data.body;
+      })
+      .catch(failResponseHandler);
+  } else {
+    uni.showToast({
+      title: "参数错误",
+      icon: "none",
+      duration: 500,
+    });
+  }
 });
 </script>
 

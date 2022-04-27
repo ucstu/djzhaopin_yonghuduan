@@ -25,12 +25,8 @@ const phonceNumber = ref("180******64");
 const getPhoneNum = () => {
   uni.getStorage({
     key: "tel",
-    success: (res) => {
-      console.log(res.data.body);
-    },
-    fail: (error) => {
-      console.log(error);
-    },
+    success: (res) => {},
+    fail: (error) => {},
   });
 };
 </script>

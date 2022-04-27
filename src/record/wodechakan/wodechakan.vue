@@ -15,10 +15,19 @@
 <script lang="ts" setup>
 import JobDetail from "@/components/JobDetail/JobDetail.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getCompanyinfosCompanyinfoidPositioninfos } from "@/services/services";
+import { getUserinfosUserinfoidInspectionrecords } from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
-const myViews = ref([]);
-getCompanyinfosCompanyinfoidPositioninfos().then((res) => {
+import { useStore } from "vuex";
+
+const store = useStore(key);
+
+const myViews = ref({});
+/* 查询所有查看记录 */
+getUserinfosUserinfoidInspectionrecords(
+  store.state.accountInfo.userInformationId,
+  {}
+).then((res) => {
   myViews.value = res.data.body;
 });
 

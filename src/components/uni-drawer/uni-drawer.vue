@@ -13,9 +13,9 @@
     <view
       class="uni-drawer__content"
       :class="{
-        'uni-drawer--right': rightMode;
-        'uni-drawer--left': !rightMode;
-        'uni-drawer__content--visible': showDrawer;
+        'uni-drawer--right': rightMode,
+        'uni-drawer--left': !rightMode,
+        'uni-drawer__content--visible': showDrawer,
       }"
       :style="{ width: drawerWidth + 'px' }"
     >
@@ -27,7 +27,8 @@
   </view>
 </template>
 
-<script>
+<script lang="ts">
+// @ts-nocheck
 // #ifdef H5
 import keypress from "./keypress.js";
 // #endif

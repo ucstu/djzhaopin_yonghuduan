@@ -201,8 +201,8 @@ onLoad((e) => {
   /*查询项目经历*/
   if (projectId.value !== undefined) {
     getUserinfosUserinfoidProjectexperiencesProjectexperienceid(
-      { userinfoid: store.state.accountInfo!.userInfoId },
-      { eduexperienceid: projectId.value }
+      store.state.accountInfo.userInformationId,
+      projectId.value
     )
       .then((res) => {
         projectName.value = res.data.body!.projectName;
@@ -212,9 +212,7 @@ onLoad((e) => {
         overTime.value = res.data.body!.endTime;
         projectUrl.value = res.data.body!.projectLink;
       })
-      .catch((err) => {
-        console.log(err.msg);
-      });
+      .catch((err) => {});
   }
 });
 
@@ -236,8 +234,8 @@ const saveProjectExperience = () => {
     if (projectId.value !== undefined) {
       // 修改项目经历
       putUserinfosUserinfoidProjectexperiencesProjectexperienceid(
-        { userinfoid: store.state.accountInfo!.userInfoId },
-        { projectexperienceid: projectId.value },
+        store.state.accountInfo.userInformationId,
+        projectId.value,
         {
           projectExperienceId: projectId.value,
           projectName: projectName.value,
@@ -246,18 +244,15 @@ const saveProjectExperience = () => {
           startTime: startTime.value,
           endTime: overTime.value,
           projectLink: projectUrl.value,
+          workExperienceId: "",
         }
       )
-        .then((res) => {
-          console.log(res.data.body);
-        })
-        .catch((err) => {
-          console.log(err.msg);
-        });
+        .then((res) => {})
+        .catch((err) => {});
     } else {
       // 添加项目经历
       postUserinfosUserinfoidProjectexperiences(
-        { userinfoid: store.state.accountInfo.userInfoId },
+        store.state.accountInfo.accountInformationId,
         {
           projectName: projectName.value,
           projectDescription: projectDescribe.value,
@@ -265,14 +260,11 @@ const saveProjectExperience = () => {
           startTime: startTime.value,
           endTime: overTime.value,
           projectLink: projectUrl.value,
+          workExperienceId: "",
         }
       )
-        .then((res) => {
-          console.log(res.data.body);
-        })
-        .catch((err) => {
-          console.log(err.msg);
-        });
+        .then((res) => {})
+        .catch((err) => {});
     }
     uni.navigateBack({ delta: 1 });
   }
@@ -285,18 +277,13 @@ const deleteProjectExperience = () => {
     success: (res) => {
       if (res.confirm) {
         deleteUserinfosUserinfoidProjectexperiencesProjectexperienceid(
-          { userinfoid: store.state.accountInfo.userInfoId },
-          { projectexperienceid: projectId.value }
+          store.state.accountInfo.userInformationId,
+          projectId.value
         )
-          .then((res) => {
-            console.log(res.data.body);
-          })
-          .catch((err) => {
-            console.log(err.msg);
-          });
+          .then((res) => {})
+          .catch((err) => {});
         uni.navigateBack({ delta: 1 });
       } else if (res.cancel) {
-        console.log("用户点击取消");
       }
     },
   });

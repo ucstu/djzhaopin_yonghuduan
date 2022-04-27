@@ -13,9 +13,10 @@ export interface State {
   menuButtonInfo: UniApp.GetMenuButtonBoundingClientRectRes | null;
   accountInfo: AccountInformation;
   token: string | null;
-  userInfo: UserInformation | null;
+  userInfo: UserInformation;
   exceptionJob: JobExpectation | null;
   workExperience: WorkExperience | null;
+  jobExpectation: JobExpectation | null;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -44,6 +45,7 @@ export const store = createStore<State>({
     userInfo: null,
     exceptionJob: null,
     workExperience: null,
+    jobExpectation: null,
   }),
   mutations: {
     setSystemInfo(state, systemInfo: UniApp.GetSystemInfoResult) {
@@ -69,6 +71,9 @@ export const store = createStore<State>({
     },
     setWorkExperience(state, workExperience: WorkExperience) {
       state.workExperience = workExperience;
+    },
+    setJobExpectation(state, jobExpectation: JobExpectation) {
+      state.jobExpectation = jobExpectation;
     },
   },
   modules: {},

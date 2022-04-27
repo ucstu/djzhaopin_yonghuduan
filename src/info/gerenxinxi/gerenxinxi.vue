@@ -26,20 +26,14 @@
           <view
             class="flex-col items-center sex-wrapper"
             :class="isActiveMan ? 'active' : ''"
-            @click="
-              isActiveMan = !isActiveMan;
-              isActiveWo = !isActiveWo;
-            "
+            @click="isActiveMan = !isActiveMan"
           >
             <text>男</text>
           </view>
           <view
             class="flex-col items-center sex-wrapper"
-            :class="isActiveWo ? 'active' : ''"
-            @click="
-              isActiveWo = !isActiveWo;
-              isActiveMan = !isActiveMan;
-            "
+            :class="!isActiveMan ? 'active' : ''"
+            @click="isActiveMan = !isActiveMan"
           >
             <text>女</text>
           </view>
@@ -115,20 +109,19 @@ import {
   putUserinfosUserinfoid,
 } from "@/services/services";
 import { UserInformation } from "@/services/types";
-import { onLoad } from "@dcloudio/uni-app";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
+import { onLoad } from "@dcloudio/uni-app";
 import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
-console.log(store.state.accountInfo);
 
 const userInformation = ref<UserInformation>({} as UserInformation);
 
 const fullName = ref(""); // 姓名
 
-const isActiveMan = ref(false);
-const isActiveWo = ref(false);
+const isActiveMan = ref(true);
 
 const valueYear = ref();
 const valueMonth = ref();
@@ -138,11 +131,9 @@ const valueDay = ref();
 const chooseImage = () => {
   postAvatars({ avatar: "" })
     .then((res) => {
-      console.log(res);
+      console.log(res.data.body);
     })
-    .catch((err) => {
-      console.log(err.msg);
-    });
+    .catch(failResponseHandler);
 };
 
 // 选择出生日期
@@ -169,15 +160,15 @@ for (let i = 1; i <= 31; i++) {
 const value = ref();
 onMounted(() => {
   /* 获取用户信息 */
-  getUserinfosUserinfoid(store.state.accountInfo.userInformationId).then(
-    (res) => {
+  getUserinfosUserinfoid(store.state.accountInfo.userInformationId)
+    .then((res) => {
       userInformation.value = res.data.body;
       fullName.value =
         userInformation.value.firstName + userInformation.value.lastName;
       if (userInformation.value.sex === "男") {
         isActiveMan.value = true;
       } else {
-        isActiveWo.value = true;
+        isActiveMan.value = !isActiveMan.value;
       }
       valueYear.value = parseInt(
         userInformation.value.dateOfBirth.slice(0, 4),
@@ -192,31 +183,23 @@ onMounted(() => {
         10
       );
       value.value = [
-        year - valueYear.value - 2,
+        valueYear.value - 1960,
         valueMonth.value - 1,
         valueDay.value - 1,
       ];
-    }
-  );
+    })
+    .catch(failResponseHandler);
 });
 const birthday = ref();
 const age = ref();
 const bindChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;
   year = years.value[val[0]];
-  console.log(typeof year);
-
   month = months.value[val[1]];
   day = days.value[val[2]];
+  value.value = [val[0], val[1], val[2]];
   birthday.value = year + "-" + month + "-" + day;
   age.value = date.getFullYear() - year;
-  if (month < date.getMonth() + 1) {
-    age.value--;
-  } else if (month === date.getMonth() + 1) {
-    if (day < date.getDate()) {
-      age.value--;
-    }
-  }
 };
 const isConfirm = () => {
   userInformation.value.dateOfBirth = birthday.value;
@@ -273,33 +256,27 @@ const saveInfos = () => {
     } else {
       userInformation.value.sex = "女";
     }
-    let updateAt = year + "-" + month + "-" + day;
-
-    putUserinfosUserinfoid(store.state.accountInfo.userInformationId, {
-      userInformationId: store.state.accountInfo.userInformationId,
-      createdAt: userInformation.value.createdAt,
-      updatedAt: updateAt,
-      avatar: userInformation.value.avatar,
-      firstName: fullName.value.slice(0, 1),
-      lastName: fullName.value.slice(1, fullName.value.length),
-      dateOfBirth: userInformation.value.dateOfBirth,
-      sex: userInformation.value.sex,
-      age: userInformation.value.age,
-      city: userInformation.value.city,
-      phoneNumber: userInformation.value.phoneNumber,
-      email: userInformation.value.email,
-      workingYears: userInformation.value.workingYears,
-      education: userInformation.value.education,
-      jobStatus: userInformation.value.jobStatus,
-      personalAdvantage: userInformation.value.personalAdvantage,
-      socialHomepage: userInformation.value.socialHomepage,
-      pictureWorks: userInformation.value.pictureWorks,
-      privacySettings: userInformation.value.privacySettings,
-    }).then((res) => {
-      store.commit("setUserInfo", res.data.body);
-      console.log(res);
-    });
-    // uni.navigateBack({ delta: 1 });
+    store.state.userInfo.updatedAt = year + "-" + month + "-" + day;
+    store.state.userInfo.firstName = fullName.value.slice(0, 1);
+    store.state.userInfo.lastName = fullName.value.slice(
+      1,
+      fullName.value.length
+    );
+    store.state.userInfo.dateOfBirth = userInformation.value.dateOfBirth;
+    store.state.userInfo.sex = userInformation.value.sex;
+    store.state.userInfo.age = userInformation.value.age;
+    store.state.userInfo.city = userInformation.value.city;
+    store.state.userInfo.phoneNumber = userInformation.value.phoneNumber;
+    store.state.userInfo.email = userInformation.value.email;
+    putUserinfosUserinfoid(
+      store.state.accountInfo.userInformationId,
+      store.state.userInfo
+    )
+      .then((res) => {
+        store.commit("setUserInfo", res.data.body);
+        uni.navigateBack({ delta: 1 });
+      })
+      .catch(failResponseHandler);
   }
 };
 </script>

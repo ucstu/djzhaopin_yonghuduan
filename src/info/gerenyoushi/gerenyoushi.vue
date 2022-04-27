@@ -20,13 +20,39 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { putUserinfosUserinfoid } from "@/services/services";
+import { key } from "@/stores";
 import { ref } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore(key);
 
 const inputValue = ref("");
 const saveAdvantage = () => {
-  uni.$emit("advantage", inputValue.value);
-  uni.navigateBack({
-    delta: 1,
+  putUserinfosUserinfoid(store.state.userInfo.userInformationId, {
+    createdAt: store.state.userInfo.createdAt,
+    updatedAt: "",
+    avatar: store.state.userInfo.avatar,
+    firstName: store.state.userInfo.firstName,
+    lastName: store.state.userInfo.lastName,
+    dateOfBirth: store.state.userInfo.dateOfBirth,
+    sex: store.state.userInfo.sex,
+    age: store.state.userInfo.age,
+    city: store.state.userInfo.city,
+    phoneNumber: store.state.userInfo.phoneNumber,
+    email: store.state.userInfo.email,
+    workingYears: store.state.userInfo.workingYears,
+    education: store.state.userInfo.education,
+    jobStatus: store.state.userInfo.jobStatus,
+    personalAdvantage: inputValue.value,
+    socialHomepage: store.state.userInfo.socialHomepage,
+    pictureWorks: store.state.userInfo.pictureWorks,
+    privacySettings: store.state.userInfo.privacySettings,
+    userInformationId: store.state.accountInfo.userInformationId,
+  }).then(() => {
+    uni.navigateBack({
+      delta: 1,
+    });
   });
 };
 </script>

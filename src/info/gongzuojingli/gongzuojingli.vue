@@ -134,7 +134,9 @@ import {
   getUserinfosUserinfoidWorkexperiencesWorkexperienceid,
   postUserinfosUserinfoidWorkexperiences,
 } from "@/services/services";
+import { WorkExperience } from "@/services/types";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -145,7 +147,7 @@ const companyName = ref(""); // 公司名称
 const companyIndustry = ref(""); // 公司行业
 const companyStartTime = ref(""); // 入职时间
 const companyEndTime = ref(""); // 离职时间
-const companyPosition = ref(""); // 职位类型
+const companyPosition = ref<WorkExperience["positionType"]>(1); // 职位类型
 const positionName = ref(""); // 职位名称
 const companyDepartment = ref(""); // 所属部门
 const companyContent = ref(""); // 工作内容
@@ -162,19 +164,20 @@ onLoad((e) => {
   /* 查询工作经历 */
   if (workId.value !== undefined) {
     getUserinfosUserinfoidWorkexperiencesWorkexperienceid(
-      { userinfoid: store.state.accountInfo.userInfoId },
-      { workexperienceid: workId.value }
-    ).then((res) => {
-      companyName.value = res.data.body.corporateName;
-      companyIndustry.value = res.data.body.companyIndustry;
-      companyStartTime.value = res.data.body.startTime;
-      companyEndTime.value = res.data.body.endTime;
-      companyPosition.value = res.data.body.positionType;
-      positionName.value = res.data.body.positionName;
-      companyDepartment.value = res.data.body.department;
-      companyContent.value = res.data.body.jobContent;
-      console.log(res.data.body);
-    });
+      store.state.accountInfo.userInformationId,
+      workId.value
+    )
+      .then((res) => {
+        companyName.value = res.data.body.corporateName;
+        companyIndustry.value = res.data.body.companyIndustry;
+        companyStartTime.value = res.data.body.startTime;
+        companyEndTime.value = res.data.body.endTime;
+        companyPosition.value = res.data.body.positionType;
+        positionName.value = res.data.body.positionName;
+        companyDepartment.value = res.data.body.department;
+        companyContent.value = res.data.body.jobContent;
+      })
+      .catch(failResponseHandler);
   }
   /* 接收职位名*/
   uni.$on("positiontypes", (data) => {
@@ -200,34 +203,30 @@ const saveWorkExperience = () => {
     });
   } else {
     if (workId.value) {
-      console.log("修改工作经历");
     } else {
       postUserinfosUserinfoidWorkexperiences(
-        { userinfoid: store.state.accountInfo.userInfoId },
+        store.state.accountInfo.userInformationId,
         {
           corporateName: companyName.value,
           companyIndustry: companyIndustry.value,
           startTime: companyStartTime.value,
           endTime: companyEndTime.value,
           positionName: positionName.value,
-          positionType: companyPosition.value,
+          positionType: 1,
           department: companyDepartment.value,
           jobContent: companyContent.value,
         }
       )
         .then((res) => {
           store.commit("setWorkExperience", res.data.body);
-          console.log(res);
+          uni.showToast({
+            title: "保存成功",
+            icon: "none",
+            duration: 500,
+          });
         })
-        .catch((err) => {
-          console.log(err.msg);
-        });
+        .catch(failResponseHandler);
     }
-    uni.showToast({
-      title: "保存成功",
-      icon: "success",
-      duration: 500,
-    });
   }
 };
 
@@ -238,22 +237,23 @@ const deleteWorkExperience = () => {
     content: "确定删除该工作经历吗？",
     success: (res) => {
       if (res.confirm) {
-        console.log("用户点击确定");
         deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid(
-          { userinfoid: store.state.accountInfo.userInfoId },
-          { workexperienceid: workId.value }
+          store.state.accountInfo.userInformationId,
+          workId.value
         )
           .then((res) => {
-            console.log(res.data.body);
+            uni.showToast({
+              title: "删除成功",
+              icon: "none",
+              duration: 500,
+            });
+            uni.navigateBack({
+              delta: 1,
+            });
           })
-          .catch((err) => {
-            console.log(err.msg);
-          });
-        uni.navigateBack({
-          delta: 1,
-        });
+          .catch(failResponseHandler);
       } else if (res.cancel) {
-        console.log("用户点击取消");
+        return;
       }
     },
   });
