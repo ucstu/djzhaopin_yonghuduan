@@ -29,27 +29,11 @@ const store = useStore(key);
 
 const inputValue = ref("");
 const saveAdvantage = () => {
-  putUserinfosP0(store.state.userInfo.userInformationId, {
-    createdAt: store.state.userInfo.createdAt,
-    updatedAt: "",
-    avatarUrl: store.state.userInfo.avatarUrl,
-    firstName: store.state.userInfo.firstName,
-    lastName: store.state.userInfo.lastName,
-    dateOfBirth: store.state.userInfo.dateOfBirth,
-    sex: store.state.userInfo.sex,
-    age: store.state.userInfo.age,
-    cityName: store.state.userInfo.cityName,
-    phoneNumber: store.state.userInfo.phoneNumber,
-    email: store.state.userInfo.email,
-    workingYears: store.state.userInfo.workingYears,
-    education: store.state.userInfo.education,
-    jobStatus: store.state.userInfo.jobStatus,
-    personalAdvantage: inputValue.value,
-    socialHomepage: store.state.userInfo.socialHomepage,
-    pictureWorks: store.state.userInfo.pictureWorks,
-    privacySettings: store.state.userInfo.privacySettings,
-    userInformationId: store.state.accountInfo.userInformationId,
-  }).then(() => {
+  store.state.userInfo.personalAdvantage = inputValue.value;
+  putUserinfosP0(
+    store.state.userInfo.userInformationId,
+    store.state.userInfo
+  ).then(() => {
     uni.navigateBack({
       delta: 1,
     });

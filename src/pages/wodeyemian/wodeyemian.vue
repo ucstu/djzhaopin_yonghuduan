@@ -99,6 +99,7 @@ const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
 const fullName = ref();
 onShow(() => {
   userInfos.value = store.state.userInfo;
+  fullName.value = userInfos.value.firstName + userInfos.value.lastName;
   // getUserinfosUserinfoid(store.state.accountInfo.userInformationId)
   //   .then((res) => {
   //     userInfos.value = res.data.body;

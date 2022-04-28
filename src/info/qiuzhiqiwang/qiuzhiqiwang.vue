@@ -128,6 +128,7 @@ const salaryChange = (e: any) => {
   let val = e.detail.value;
   start.value = startSalary.value[val[0]];
   end.value = endSalary.value[val[1]];
+  value.value = [val[0], val[1]];
 };
 const salaryExpectation = () => {
   if (start.value === 0 || end.value === 0) {
