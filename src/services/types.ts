@@ -25,7 +25,7 @@ export interface GetCompanyinfosP0DeliveryrecordsQueryParams {
    *
    * 年龄限制{1:18-25,2:25-35,3:35-45,4:45-55,5:55-65}
    */
-  age?: string;
+  age?: number;
   /**
    *
    * 投递日期
@@ -440,7 +440,7 @@ export interface GetUserinfosQueryParams {
   sort?: string;
 }
 
-export interface GetVerificationCodeQueryParams {
+export interface GetVerificationcodeQueryParams {
   /**
    *
    * 手机号码
