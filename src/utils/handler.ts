@@ -1,4 +1,5 @@
 import { RequestError } from "@/services/config";
+import { store } from "@/stores";
 
 const failResponseHandler = (responseError: RequestError) => {
   if (responseError.status === 400) {
@@ -29,6 +30,9 @@ const failResponseHandler = (responseError: RequestError) => {
       icon: "none",
       duration: 500,
     });
+    store.commit("setToken", null);
+    store.commit("setAccountInfo", null);
+    store.commit("setUserInfo", null);
     uni.reLaunch({
       url: "/account/denglu_zhuce/denglu",
     });
