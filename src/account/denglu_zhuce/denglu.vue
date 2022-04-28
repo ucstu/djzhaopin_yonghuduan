@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts" setup>
-import { postAccountinfosLogin } from "@/services/services";
+import { getUserinfosP0, postAccountinfosLogin } from "@/services/services";
 import { key } from "@/stores";
 import { throttle } from "@/utils/common";
 import { failResponseHandler } from "@/utils/handler";
@@ -90,7 +90,12 @@ const login = () => {
       .then((res) => {
         store.commit("setToken", res.data.body.token);
         store.commit("setAccountInfo", res.data.body.accountInfo);
-        uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+        getUserinfosP0(res.data.body.accountInfo.userInformationId)
+          .then((res) => {
+            store.commit("setUserInfo", res.data.body);
+            uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+          })
+          .catch(failResponseHandler);
       })
       .catch(failResponseHandler);
   }

@@ -1,8 +1,5 @@
 import {
-  AccountInformation,
-  JobExpectation,
-  UserInformation,
-  WorkExperience
+  AccountInformation, UserInformation
 } from "@/services/types";
 import { InjectionKey } from "vue";
 import { createStore, Store } from "vuex";
@@ -11,12 +8,9 @@ import VuexPersister from "vuex-persister";
 export interface State {
   systemInfo: UniApp.GetSystemInfoResult | null;
   menuButtonInfo: UniApp.GetMenuButtonBoundingClientRectRes | null;
-  accountInfo: AccountInformation;
   token: string | null;
+  accountInfo: AccountInformation;
   userInfo: UserInformation;
-  exceptionJob: JobExpectation | null;
-  workExperience: WorkExperience | null;
-  jobExpectation: JobExpectation | null;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -36,16 +30,12 @@ const vuexPersister = new VuexPersister<State>({
 });
 
 export const store = createStore<State>({
-  // @ts-ignore
   state: () => ({
     systemInfo: null,
     menuButtonInfo: null,
-    accountInfo: null,
     token: null,
-    userInfo: null,
-    exceptionJob: null,
-    workExperience: null,
-    jobExpectation: null,
+    accountInfo: {} as AccountInformation,
+    userInfo: {} as UserInformation,
   }),
   mutations: {
     setSystemInfo(state, systemInfo: UniApp.GetSystemInfoResult) {
@@ -65,15 +55,6 @@ export const store = createStore<State>({
     },
     setUserInfo(state, userInfo: UserInformation) {
       state.userInfo = userInfo;
-    },
-    setExceptionJob(state, exceptionJob: JobExpectation) {
-      state.exceptionJob = exceptionJob;
-    },
-    setWorkExperience(state, workExperience: WorkExperience) {
-      state.workExperience = workExperience;
-    },
-    setJobExpectation(state, jobExpectation: JobExpectation) {
-      state.jobExpectation = jobExpectation;
     },
   },
   modules: {},

@@ -3,6 +3,7 @@ import { key } from "@/stores";
 import { onLaunch } from "@dcloudio/uni-app";
 import { useStore } from "vuex";
 import { getAxiosInstance } from "./services/config";
+import { getUserinfosP0 } from "@/services/services";
 
 const store = useStore(key);
 
@@ -15,11 +16,26 @@ onLaunch(() => {
     store.commit("setMenuButtonInfo", uni.getMenuButtonBoundingClientRect());
   }
   /* #endif */
-  if (store.state.token === null) {
+  if (store.state.token === null || !store.state.accountInfo) {
     uni.reLaunch({ url: "/account/denglu_zhuce/denglu" });
   } else {
-    getAxiosInstance(undefined).defaults.headers.common["Authorization"] =
-      "Bearer " + store.state.token;
+    getUserinfosP0(store.state.accountInfo.userInformationId)
+      .then((res) => {
+        store.commit("setUserInfo", res.data.body);
+        getAxiosInstance(undefined).defaults.headers.common["Authorization"] =
+          "Bearer " + store.state.token;
+      })
+      .catch((err) => {
+        uni.showToast({
+          title: "登录失效，请重新登录",
+          icon: "none",
+          duration: 500,
+        });
+        store.commit("setToken", null);
+        store.commit("setAccountInfo", null);
+        store.commit("setUserInfo", null);
+        uni.reLaunch({ url: "/account/denglu_zhuce/denglu" });
+      });
   }
 });
 </script>

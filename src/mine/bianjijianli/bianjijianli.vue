@@ -63,9 +63,6 @@
             </view>
             <view style="font-size: 25rpx">
               <text>{{ jobExcept.cityName }}</text>
-              <!-- <text style="padding-left: 20rpx">{{
-                jobExcept.positionType
-              }}</text> -->
             </view>
           </view>
         </view>
@@ -163,7 +160,6 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
-  getUserinfosP0,
   getUserinfosP0Eduexperiences,
   getUserinfosP0Jobexpectations,
   getUserinfosP0Projectexperiences,
@@ -201,16 +197,17 @@ const personalAdvantage = ref("");
 
 onShow(() => {
   // 获取个人优势
-  getUserinfosP0(store.state.accountInfo.userInformationId)
-    .then((res) => {
-      userInformation.value = res.data.body;
-      if (userInformation.value.sex === "男") {
-        isSex.value = true;
-      } else {
-        isSex.value = false;
-      }
-    })
-    .catch(failResponseHandler);
+  userInformation.value = store.state.userInfo;
+  // getUserinfosP0(store.state.accountInfo.userInformationId)
+  //   .then((res) => {
+  //     userInformation.value = res.data.body;
+  //     if (userInformation.value.sex === "男") {
+  //       isSex.value = true;
+  //     } else {
+  //       isSex.value = false;
+  //     }
+  //   })
+  //   .catch(failResponseHandler);
   // 查询所有工作经历
   getUserinfosP0Workexperiences(
     store.state.accountInfo.userInformationId,

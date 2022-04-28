@@ -9,7 +9,7 @@
           <view class="flex-row items-center" style="margin-left: 20rpx">
             <text>姓</text>
             <input
-              v-model="firstName"
+              v-model="userInfo.firstName"
               class="input"
               type="text"
               placeholder="请输入"
@@ -18,7 +18,7 @@
           <view class="flex-row items-center">
             <text>名</text>
             <input
-              v-model="lastName"
+              v-model="userInfo.lastName"
               class="input"
               type="text"
               placeholder="请输入"
@@ -29,7 +29,7 @@
       <view class="group-self">
         <text class="text">出生日期</text>
         <view class="flex-row justify-between items-center" @click="showDate">
-          <text class="input">{{ birthday }}</text>
+          <text class="input">{{ userInfo.dateOfBirth }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
@@ -38,21 +38,15 @@
         <view class="flex-row items-center" style="height: auto">
           <text
             class="sex"
-            :class="isActiveMan ? 'active' : ''"
-            @click="
-              isActiveMan = !isActiveMan;
-              isActiveMo = !isActiveMo;
-            "
-            >{{ sexMan }}</text
+            :class="changeSex ? 'active' : ''"
+            @click="changeSex = !changeSex"
+            >男</text
           >
           <text
             class="sex"
-            :class="isActiveMo ? 'active' : ''"
-            @click="
-              isActiveMo = !isActiveMo;
-              isActiveMan = !isActiveMan;
-            "
-            >{{ sexMo }}</text
+            :class="!changeSex ? 'active' : ''"
+            @click="changeSex = !changeSex"
+            >女</text
           >
         </view>
       </view>
@@ -66,7 +60,7 @@
       <view class="group-self">
         <text class="text">邮箱</text>
         <input
-          v-model="emailValue"
+          v-model="userInfo.email"
           class="input"
           type="text"
           placeholder="请填写"
@@ -111,6 +105,7 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { putUserinfosP0 } from "@/services/services";
+import { UserInformation } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
@@ -119,15 +114,10 @@ import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const firstName = ref(""); // 姓
-const lastName = ref(""); // 名
-const isActiveMan = ref(true); // 判断性别
-const isActiveMo = ref(false); // 判断性别
-const sexMan = ref("男"); // 性别
-const sexMo = ref("女"); // 性别
-const city = ref<string>("请选择"); // 城市
-const emailValue = ref(""); // 邮箱
-const age = ref<number>(0); // 年龄
+const userInfo = ref<UserInformation>(store.state.userInfo);
+
+const changeSex = ref(true); // 判断性别
+const city = ref("请选择"); // 城市
 /* 获取时间 */
 const date = new Date();
 const years = ref<number[]>([]);
@@ -136,7 +126,6 @@ const months = ref<number[]>([]);
 let month = date.getMonth() + 1;
 const days = ref<number[]>([]);
 let day = date.getDate();
-let birthday = ref(year + "-" + month + "-" + day); /*出生日期*/
 /*弹出层 */
 const popup = ref();
 const showDate = () => {
@@ -157,8 +146,8 @@ const bindChange = (e: { detail: { value: never } }) => {
   year = years.value[val[0]];
   month = months.value[val[1]];
   day = days.value[val[2]];
-  birthday.value = year + "-" + month + "-" + day;
-  age.value = date.getFullYear() - year;
+  userInfo.value.dateOfBirth = year + "-" + month + "-" + day;
+  userInfo.value.age = date.getFullYear() - year;
   value.value = [val[0], val[1], val[2]];
 };
 
@@ -172,17 +161,16 @@ onLoad(() => {
 });
 
 /* 判断信息是否填写完整*/
-const sex = ref();
 const nextClick = () => {
   /* 判断性别 */
-  if (isActiveMan.value === true) {
-    sex.value = sexMan.value;
-  } else if (isActiveMo.value === true) {
-    sex.value = sexMo.value;
+  if (changeSex.value === true) {
+    userInfo.value.sex = "男";
+  } else {
+    userInfo.value.sex = "女";
   }
   if (
-    firstName.value === "" ||
-    lastName.value === "" ||
+    userInfo.value.firstName === "" ||
+    userInfo.value.lastName === "" ||
     city.value === "请选择"
   ) {
     uni.showToast({
@@ -192,7 +180,7 @@ const nextClick = () => {
     });
   } else if (
     !/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(
-      emailValue.value
+      userInfo.value.email
     )
   ) {
     uni.showToast({
@@ -201,31 +189,10 @@ const nextClick = () => {
       duration: 500,
     });
   } else {
-    putUserinfosP0(store.state.accountInfo.userInformationId, {
-      userInformationId: store.state.accountInfo.userInformationId,
-      createdAt: store.state.accountInfo.createdAt,
-      updatedAt: store.state.accountInfo.updatedAt,
-      avatarUrl: "",
-      firstName: firstName.value,
-      lastName: lastName.value,
-      dateOfBirth: birthday.value,
-      sex: sex.value,
-      age: age.value,
-      cityName: city.value,
-      phoneNumber: store.state.accountInfo.userName,
-      email: emailValue.value,
-      workingYears: 1,
-      education: 2,
-      jobStatus: 1,
-      personalAdvantage: "",
-      socialHomepage: "",
-      pictureWorks: [],
-      privacySettings: 1,
-    })
+    userInfo.value.cityName = city.value;
+    putUserinfosP0(store.state.accountInfo.userInformationId, userInfo.value)
       .then((res) => {
-        console.log(res.data.body);
         store.commit("setUserInfo", res.data.body);
-
         uni.navigateTo({
           url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli",
         });

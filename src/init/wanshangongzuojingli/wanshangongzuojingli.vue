@@ -156,7 +156,6 @@ const nextClick = () => {
     positionName: "",
   })
     .then((res) => {
-      store.commit("exceptionJob", res.data.body);
       uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=${value}` });
     })
     .catch(failResponseHandler);
