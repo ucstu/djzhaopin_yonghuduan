@@ -149,13 +149,14 @@ import {
   putUserinfosP0ProjectexperiencesP1,
 } from "@/services/services";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const projectName = ref(""); //项目名称
+const projectName = ref(); //项目名称
 const projectDescribe = ref(""); //项目描述
 const achievement = ref(""); //你的成就
 let startTime = ref("开始时间"); //项目开始时间
@@ -212,7 +213,7 @@ onLoad((e) => {
         overTime.value = res.data.body!.endTime;
         projectUrl.value = res.data.body!.projectLink;
       })
-      .catch((err) => {});
+      .catch(failResponseHandler);
   }
 });
 
@@ -247,8 +248,14 @@ const saveProjectExperience = () => {
           workExperienceId: "",
         }
       )
-        .then((res) => {})
-        .catch((err) => {});
+        .then((res) => {
+          uni.showToast({
+            title: "修改成功",
+            icon: "none",
+            duration: 500,
+          });
+        })
+        .catch(failResponseHandler);
     } else {
       // 添加项目经历
       postUserinfosP0Projectexperiences(
@@ -263,8 +270,14 @@ const saveProjectExperience = () => {
           workExperienceId: "",
         }
       )
-        .then((res) => {})
-        .catch((err) => {});
+        .then((res) => {
+          uni.showToast({
+            title: "添加成功",
+            icon: "none",
+            duration: 500,
+          });
+        })
+        .catch(failResponseHandler);
     }
     uni.navigateBack({ delta: 1 });
   }
@@ -280,8 +293,14 @@ const deleteProjectExperience = () => {
           store.state.accountInfo.userInformationId,
           projectId.value
         )
-          .then((res) => {})
-          .catch((err) => {});
+          .then((res) => {
+            uni.showToast({
+              title: "删除成功",
+              icon: "none",
+              duration: 500,
+            });
+          })
+          .catch(failResponseHandler);
         uni.navigateBack({ delta: 1 });
       } else if (res.cancel) {
       }
@@ -349,7 +368,6 @@ const deleteProjectExperience = () => {
   .item {
     align-items: center;
     justify-content: center;
-    height: 50px;
     text-align: center;
   }
 }

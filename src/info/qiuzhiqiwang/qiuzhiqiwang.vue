@@ -295,8 +295,6 @@ const expectCity = () => {
     .item {
       align-items: center;
       justify-content: center;
-      font-size: 30rpx;
-      color: black;
       text-align: center;
     }
   }

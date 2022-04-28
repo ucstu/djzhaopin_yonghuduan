@@ -137,7 +137,6 @@ const bindChange = (e: { detail: { value: never } }) => {
   .item {
     align-items: center;
     justify-content: center;
-    height: 50px;
     text-align: center;
   }
 }

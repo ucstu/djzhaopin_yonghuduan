@@ -104,7 +104,7 @@ const educationId = ref<EducationExperience["education"]>(1);
 const subject = ref("");
 const startSchool = ref("入学时间");
 const endSchool = ref("毕业时间");
-const educationValue = ref(["不要求", "大专", "本科", "硕士", "博士"]);
+const educationValue = ref(["大专", "本科", "硕士", "博士"]);
 const edChange = (e: {
   detail: { value: EducationExperience["education"] };
 }) => {
@@ -211,7 +211,6 @@ const skip = () => {
     .item {
       align-items: center;
       justify-content: center;
-      height: 300rpx;
       text-align: center;
     }
   }

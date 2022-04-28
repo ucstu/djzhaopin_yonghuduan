@@ -18,7 +18,12 @@
       </view>
       <view class="flex-col group-box">
         <text class="text-title">学历</text>
-        <text class="text-input" @click="showEducate">{{ education }}</text>
+        <view>
+          <text class="text-input" @click="showEducate">{{
+            educations[education]
+          }}</text>
+          <image class="image" src="@/static/icons/arrow-right.png" />
+        </view>
       </view>
       <view class="group-box">
         <text class="text-title">专业名称</text>
@@ -119,7 +124,12 @@
           }}</view>
         </picker-view-column>
       </picker-view>
-      <picker-view v-if="educate" class="picker-view" @change="bindChange">
+      <picker-view
+        v-if="educate"
+        :value="defaultEducation"
+        class="picker-view"
+        @change="bindChange"
+      >
         <picker-view-column>
           <view v-for="(item, i) in educations" :key="i" class="item">{{
             item
@@ -139,7 +149,6 @@ import {
   postUserinfosP0Eduexperiences,
   putUserinfosP0EduexperiencesP1,
 } from "@/services/services";
-import { EducationExperience } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
@@ -149,12 +158,13 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const schoolName = ref(""); // 学校名称
-const education = ref<EducationExperience["education"]>(1); // 学历
+const education = ref<1 | 2 | 3 | 4>(2); // 学历
+
 const subject = ref(""); // 专业名称
 const startTime = ref("入学时间"); // 入学时间
-const overTime = ref("结束时间"); // 毕业时间
-// 学历高度
-const educations = ref(["大专", "本科", "硕士", "博士", "其他"]);
+const overTime = ref("结束时间"); /* 毕业时间 */
+/* 学历高度 */
+const educations = ref(["大专", "本科", "硕士", "博士"]);
 
 const start = ref(false);
 const end = ref(false);
@@ -185,18 +195,22 @@ for (let i = 1960; i <= year; i++) {
 for (let i = 1; i <= 12; i++) {
   months.value.push(i);
 }
-const value1 = [years.value[0], months.value[0]];
-const value2 = [year, month - 1];
-const bindChange = (e: { detail: { value: never } }) => {
+const value1 = ref([years.value[0], months.value[0]]); /* 默认入学时间 */
+const value2 = ref([year, month - 1]); /* 默认毕业时间 */
+const defaultEducation = ref([education]); /* 默认学历 */
+const bindChange = (e: any) => {
   let val = e.detail.value;
   year = years.value[val[0]];
   month = months.value[val[1]];
   if (start.value) {
     startTime.value = `${year}年${month}月`;
+    value1.value = [val[0], val[1]];
   } else if (end.value) {
     overTime.value = `${year}年${month}月`;
+    value2.value = [val[0], val[1]];
   } else {
     education.value = val[0];
+    defaultEducation.value = [val[0]];
   }
 };
 
@@ -210,13 +224,15 @@ onLoad((e) => {
     getUserinfosP0EduexperiencesP1(
       store.state.accountInfo.userInformationId,
       educateId.value
-    ).then((res) => {
-      schoolName.value = res.data.body.schoolName;
-      education.value = res.data.body.education;
-      subject.value = res.data.body.majorName;
-      startTime.value = res.data.body.admissionTime;
-      overTime.value = res.data.body.graduationTime;
-    });
+    )
+      .then((res) => {
+        schoolName.value = res.data.body.schoolName;
+        education.value = res.data.body.education;
+        subject.value = res.data.body.majorName;
+        startTime.value = res.data.body.admissionTime;
+        overTime.value = res.data.body.graduationTime;
+      })
+      .catch(failResponseHandler);
   }
 });
 // 增加、修改教育经历
@@ -245,17 +261,17 @@ const saveEducation = () => {
         store.state.accountInfo.userInformationId,
         educateId.value,
         {
-          educationExperienceId: educateId.value,
           schoolName: schoolName.value,
           education: education.value,
           majorName: subject.value,
           admissionTime: startTime.value,
           graduationTime: overTime.value,
           createdAt: "",
+          educationExperienceId: "",
           updatedAt: "",
         }
       )
-        .then((res) => {
+        .then(() => {
           uni.navigateBack({ delta: 1 });
         })
         .catch(failResponseHandler);
@@ -267,7 +283,7 @@ const saveEducation = () => {
         admissionTime: startTime.value,
         graduationTime: overTime.value,
       })
-        .then((res) => {
+        .then(() => {
           uni.navigateBack({ delta: 1 });
         })
         .catch(failResponseHandler);
@@ -287,11 +303,12 @@ const deleteEducation = () => {
           store.state.accountInfo.userInformationId,
           educateId.value
         )
-          .then((res) => {
+          .then(() => {
             uni.navigateBack({ delta: 1 });
           })
           .catch(failResponseHandler);
       } else if (res.cancel) {
+        return;
       }
     },
   });
@@ -302,6 +319,11 @@ const deleteEducation = () => {
 .page {
   .active {
     color: rgb(35 193 158);
+  }
+
+  .image {
+    width: 35rpx;
+    height: 35rpx;
   }
 
   .group-all {

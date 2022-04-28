@@ -128,15 +128,6 @@ const valueYear = ref();
 const valueMonth = ref();
 const valueDay = ref();
 
-/* 上传头像 */
-const chooseImage = () => {
-  postAvatars({ avatar: "" })
-    .then((res) => {
-      console.log(res.data.body);
-    })
-    .catch(failResponseHandler);
-};
-
 // 选择出生日期
 const date = new Date();
 const years = ref<number[]>([]);
@@ -191,6 +182,41 @@ onMounted(() => {
     })
     .catch(failResponseHandler);
 });
+
+/* 上传头像 */
+const chooseImage = () => {
+  uni.chooseImage({
+    count: 1,
+    sizeType: ["original", "compressed"],
+    sourceType: ["album", "camera"],
+    success: (res) => {
+      const tempFilePaths = res.tempFilePaths;
+      if (tempFilePaths.length > 0) {
+        uni.showLoading({
+          title: "上传中",
+        });
+        postAvatars({ avatar: tempFilePaths[0] })
+          .then((r) => {
+            uni.showToast({
+              title: "上传成功",
+              icon: "success",
+              duration: 500,
+            });
+            userInformation.value.avatarUrl = r.data.body.avatarUrl;
+          })
+          .catch(failResponseHandler);
+      }
+    },
+    fail: () => {
+      uni.showToast({
+        title: "上传失败",
+        icon: "success",
+        duration: 500,
+      });
+    },
+  });
+};
+
 const birthday = ref();
 const age = ref();
 const bindChange = (e: { detail: { value: never } }) => {

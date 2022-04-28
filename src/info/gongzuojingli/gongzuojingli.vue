@@ -60,16 +60,16 @@
       <view class="group-box">
         <view>
           <text class="text-title">职位类型</text>
-          <text style="font-size: 28rpx; color: gray"
-            >(全职、兼职、实习、其他)</text
-          >
         </view>
-        <input
-          v-model="companyPosition"
-          class="text-input"
-          type="text"
-          placeholder="请填写"
-        />
+        <view
+          class="flex-row justify-between items-center"
+          @click="choosePosition"
+        >
+          <text class="text-input">{{
+            companyPositions[companyPosition]
+          }}</text>
+          <image class="image" src="@/static/icons/arrow-right.png" />
+        </view>
       </view>
       <view class="group-box">
         <text class="text-title">所属部门</text>
@@ -107,21 +107,34 @@
       mode="size-auto"
       type="bottom"
     >
-      <view class="flex-row justify-between items-center btn-box">
-        <text class="title">工作内容</text>
-        <view>
-          <text class="clear" @click="clearLength">清空</text>
-          <text class="save" @click="saveTextarea">确认</text>
+      <view v-if="!showPosition">
+        <view class="flex-row justify-between items-center btn-box">
+          <text class="title">工作内容</text>
+          <view>
+            <text class="clear" @click="clearLength">清空</text>
+            <text class="save" @click="saveTextarea">确认</text>
+          </view>
+        </view>
+        <view class="job-content-box">
+          <textarea
+            v-model="companyContent"
+            :maxlength="-1"
+            class="textarea"
+            placeholder="请填写相关的工作内容"
+          />
         </view>
       </view>
-      <view class="job-content-box">
-        <textarea
-          v-model="companyContent"
-          :maxlength="-1"
-          class="textarea"
-          placeholder="请填写相关的工作内容"
-        />
-      </view>
+      <picker-view
+        v-if="showPosition"
+        class="picker-view"
+        @change="positionChange"
+      >
+        <picker-view-column>
+          <view v-for="(item, i) in companyPositions" :key="i" class="item">{{
+            item
+          }}</view>
+        </picker-view-column>
+      </picker-view>
     </wybPopup>
   </view>
 </template>
@@ -134,7 +147,6 @@ import {
   getUserinfosP0WorkexperiencesP1,
   postUserinfosP0Workexperiences,
 } from "@/services/services";
-import { WorkExperience } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
@@ -147,7 +159,9 @@ const companyName = ref(""); // 公司名称
 const companyIndustry = ref(""); // 公司行业
 const companyStartTime = ref(""); // 入职时间
 const companyEndTime = ref(""); // 离职时间
-const companyPosition = ref<WorkExperience["positionType"]>(1); // 职位类型
+const companyPosition = ref(0); // 职位类型
+const companyPositions = ["请选择", "全职", "兼职", "实习"]; // 职位类型
+const showPosition = ref(false); // 显示职位类型
 const positionName = ref(""); // 职位名称
 const companyDepartment = ref(""); // 所属部门
 const companyContent = ref(""); // 工作内容
@@ -185,6 +199,15 @@ onLoad((e) => {
   });
 });
 
+/* 选择职位类型 */
+const choosePosition = () => {
+  showPosition.value = true;
+  popup.value.show();
+};
+const positionChange = (e: { detail: { value: number } }) => {
+  companyPosition.value = e.detail.value;
+};
+
 // 保存工作经历
 const saveWorkExperience = () => {
   if (
@@ -203,7 +226,6 @@ const saveWorkExperience = () => {
     });
   } else {
     if (workId.value) {
-    } else {
       postUserinfosP0Workexperiences(
         store.state.accountInfo.userInformationId,
         {
@@ -241,7 +263,7 @@ const deleteWorkExperience = () => {
           store.state.accountInfo.userInformationId,
           workId.value
         )
-          .then((res) => {
+          .then(() => {
             uni.showToast({
               title: "删除成功",
               icon: "none",
@@ -262,6 +284,7 @@ const deleteWorkExperience = () => {
 // 弹出层
 const popup = ref();
 const showTextarea = () => {
+  showPosition.value = false;
   popup.value.show();
 };
 const clearLength = () => {
@@ -363,6 +386,18 @@ const saveTextarea = () => {
       font-size: 28rpx;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+  }
+
+  .picker-view {
+    width: 750rpx;
+    height: 400rpx;
+    margin-top: 20rpx;
+
+    .item {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
   }
 }
