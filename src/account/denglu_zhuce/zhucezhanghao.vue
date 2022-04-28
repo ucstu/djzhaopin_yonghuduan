@@ -68,7 +68,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getVerificationCode, postAccounts } from "@/services/services";
+import { getVerificationCode, postAccountinfos } from "@/services/services";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
@@ -132,7 +132,7 @@ const registeredAccount = () => {
       duration: 500,
     });
   } else {
-    postAccounts({
+    postAccountinfos({
       userName: phoneNum.value,
       verificationCode: verification.value,
       accountType: 1,

@@ -87,8 +87,8 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  getUserinfosUserinfoidJobexpectationsJobexpectationid,
-  postUserinfosUserinfoidJobexpectations,
+  getUserinfosP0JobexpectationsP1,
+  postUserinfosP0Jobexpectations,
 } from "@/services/services";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
@@ -148,7 +148,7 @@ onLoad((e) => {
     saveBtn.value = "完成";
   }
   if (jobId.value) {
-    getUserinfosUserinfoidJobexpectationsJobexpectationid(
+    getUserinfosP0JobexpectationsP1(
       store.state.accountInfo.userInformationId,
       jobId.value
     )
@@ -158,7 +158,7 @@ onLoad((e) => {
           "k-" +
           res.data.body.ceilingSalary +
           "k";
-        city.value = res.data.body.city;
+        city.value = res.data.body.cityName;
       })
       .catch(failResponseHandler);
   }
@@ -217,7 +217,7 @@ const saveJobExcept = () => {
         duration: 500,
       });
     } else {
-      postUserinfosUserinfoidJobexpectations(
+      postUserinfosP0Jobexpectations(
         store.state.accountInfo.userInformationId,
         {
           positionName: job.value,
@@ -225,7 +225,7 @@ const saveJobExcept = () => {
           directionTags: directionTags.value,
           startingSalary: start.value,
           ceilingSalary: end.value,
-          city: city.value,
+          cityName: city.value,
         }
       )
         .then((res) => {

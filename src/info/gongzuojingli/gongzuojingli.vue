@@ -130,9 +130,9 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid,
-  getUserinfosUserinfoidWorkexperiencesWorkexperienceid,
-  postUserinfosUserinfoidWorkexperiences,
+  deleteUserinfosP0WorkexperiencesP1,
+  getUserinfosP0WorkexperiencesP1,
+  postUserinfosP0Workexperiences,
 } from "@/services/services";
 import { WorkExperience } from "@/services/types";
 import { key } from "@/stores";
@@ -163,7 +163,7 @@ onLoad((e) => {
   deleteWork.value = e.deleteWork; // 删除工作经历
   /* 查询工作经历 */
   if (workId.value !== undefined) {
-    getUserinfosUserinfoidWorkexperiencesWorkexperienceid(
+    getUserinfosP0WorkexperiencesP1(
       store.state.accountInfo.userInformationId,
       workId.value
     )
@@ -174,7 +174,7 @@ onLoad((e) => {
         companyEndTime.value = res.data.body.endTime;
         companyPosition.value = res.data.body.positionType;
         positionName.value = res.data.body.positionName;
-        companyDepartment.value = res.data.body.department;
+        companyDepartment.value = res.data.body.departmentName;
         companyContent.value = res.data.body.jobContent;
       })
       .catch(failResponseHandler);
@@ -204,7 +204,7 @@ const saveWorkExperience = () => {
   } else {
     if (workId.value) {
     } else {
-      postUserinfosUserinfoidWorkexperiences(
+      postUserinfosP0Workexperiences(
         store.state.accountInfo.userInformationId,
         {
           corporateName: companyName.value,
@@ -213,7 +213,7 @@ const saveWorkExperience = () => {
           endTime: companyEndTime.value,
           positionName: positionName.value,
           positionType: 1,
-          department: companyDepartment.value,
+          departmentName: companyDepartment.value,
           jobContent: companyContent.value,
         }
       )
@@ -237,7 +237,7 @@ const deleteWorkExperience = () => {
     content: "确定删除该工作经历吗？",
     success: (res) => {
       if (res.confirm) {
-        deleteUserinfosUserinfoidWorkexperiencesWorkexperienceid(
+        deleteUserinfosP0WorkexperiencesP1(
           store.state.accountInfo.userInformationId,
           workId.value
         )

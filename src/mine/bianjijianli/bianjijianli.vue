@@ -21,7 +21,7 @@
             </view>
           </view>
           <view class="image-box">
-            <image :src="userInformation.avatar" class="photo" />
+            <image :src="userInformation.avatarUrl" class="photo" />
             <image
               v-if="isSex"
               class="sex-image"
@@ -62,7 +62,7 @@
               >
             </view>
             <view style="font-size: 25rpx">
-              <text>{{ jobExcept.city }}</text>
+              <text>{{ jobExcept.cityName }}</text>
               <!-- <text style="padding-left: 20rpx">{{
                 jobExcept.positionType
               }}</text> -->
@@ -124,7 +124,7 @@
           @click="alterEducate(i)"
         >
           <text class="educate-school">{{ educate.schoolName }}</text>
-          <text>{{ educate.major }}</text>
+          <text>{{ educate.majorName }}</text>
           <view>
             <text>{{ educate.education }}</text
             >&nbsp;&nbsp;
@@ -163,11 +163,11 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
-  getUserinfosUserinfoid,
-  getUserinfosUserinfoidEduexperiences,
-  getUserinfosUserinfoidJobexpectations,
-  getUserinfosUserinfoidProjectexperiences,
-  getUserinfosUserinfoidWorkexperiences,
+  getUserinfosP0,
+  getUserinfosP0Eduexperiences,
+  getUserinfosP0Jobexpectations,
+  getUserinfosP0Projectexperiences,
+  getUserinfosP0Workexperiences,
 } from "@/services/services";
 import {
   EducationExperience,
@@ -201,7 +201,7 @@ const personalAdvantage = ref("");
 
 onShow(() => {
   // 获取个人优势
-  getUserinfosUserinfoid(store.state.accountInfo.userInformationId)
+  getUserinfosP0(store.state.accountInfo.userInformationId)
     .then((res) => {
       userInformation.value = res.data.body;
       if (userInformation.value.sex === "男") {
@@ -212,7 +212,7 @@ onShow(() => {
     })
     .catch(failResponseHandler);
   // 查询所有工作经历
-  getUserinfosUserinfoidWorkexperiences(
+  getUserinfosP0Workexperiences(
     store.state.accountInfo.userInformationId,
     {}
   ).then((res) => {
@@ -225,10 +225,7 @@ const changeInfo = () => {
   uni.navigateTo({ url: "/info/gerenxinxi/gerenxinxi" });
 };
 // 查询求职期望
-getUserinfosUserinfoidJobexpectations(
-  store.state.accountInfo.userInformationId,
-  {}
-)
+getUserinfosP0Jobexpectations(store.state.accountInfo.userInformationId, {})
   .then((res) => {
     jobExpectations.value = res.data.body;
   })
@@ -266,7 +263,7 @@ const alterWork = (index: number) => {
   });
 };
 // 查询所有教育经历
-getUserinfosUserinfoidEduexperiences(
+getUserinfosP0Eduexperiences(
   store.state.accountInfo.userInformationId,
   {}
 ).then((res) => {
@@ -285,7 +282,7 @@ const alterEducate = (index: number) => {
   });
 };
 // 查询所有项目经历
-getUserinfosUserinfoidProjectexperiences(
+getUserinfosP0Projectexperiences(
   store.state.accountInfo.userInformationId,
   {}
 ).then((res) => {

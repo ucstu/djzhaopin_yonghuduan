@@ -57,7 +57,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { putAccountsAccountid } from "@/services/services";
+import { putAccountinfosP0 } from "@/services/services";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
@@ -92,7 +92,7 @@ const savePassWord = () => {
       duration: 500,
     });
   } else {
-    putAccountsAccountid(store.state.accountInfo.accountInformationId, {
+    putAccountinfosP0(store.state.accountInfo.accountInformationId, {
       password: password.value,
       verificationCode: "1234",
     })

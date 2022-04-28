@@ -134,10 +134,10 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import WybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  deleteUserinfosUserinfoidEduexperiencesEduexperienceid,
-  getUserinfosUserinfoidEduexperiencesEduexperienceid,
-  postUserinfosUserinfoidEduexperiences,
-  putUserinfosUserinfoidEduexperiencesEduexperienceid,
+  deleteUserinfosP0EduexperiencesP1,
+  getUserinfosP0EduexperiencesP1,
+  postUserinfosP0Eduexperiences,
+  putUserinfosP0EduexperiencesP1,
 } from "@/services/services";
 import { EducationExperience } from "@/services/types";
 import { key } from "@/stores";
@@ -207,13 +207,13 @@ onLoad((e) => {
   deleteEd.value = e.deleteEducate;
   // 查询教育经历
   if (educateId.value !== undefined) {
-    getUserinfosUserinfoidEduexperiencesEduexperienceid(
+    getUserinfosP0EduexperiencesP1(
       store.state.accountInfo.userInformationId,
       educateId.value
     ).then((res) => {
       schoolName.value = res.data.body.schoolName;
       education.value = res.data.body.education;
-      subject.value = res.data.body.major;
+      subject.value = res.data.body.majorName;
       startTime.value = res.data.body.admissionTime;
       overTime.value = res.data.body.graduationTime;
     });
@@ -241,14 +241,14 @@ const saveEducation = () => {
     });
   } else {
     if (educateId.value !== undefined) {
-      putUserinfosUserinfoidEduexperiencesEduexperienceid(
+      putUserinfosP0EduexperiencesP1(
         store.state.accountInfo.userInformationId,
         educateId.value,
         {
           educationExperienceId: educateId.value,
           schoolName: schoolName.value,
           education: education.value,
-          major: subject.value,
+          majorName: subject.value,
           admissionTime: startTime.value,
           graduationTime: overTime.value,
           createdAt: "",
@@ -260,16 +260,13 @@ const saveEducation = () => {
         })
         .catch(failResponseHandler);
     } else {
-      postUserinfosUserinfoidEduexperiences(
-        store.state.accountInfo.userInformationId,
-        {
-          schoolName: schoolName.value,
-          education: education.value,
-          major: subject.value,
-          admissionTime: startTime.value,
-          graduationTime: overTime.value,
-        }
-      )
+      postUserinfosP0Eduexperiences(store.state.accountInfo.userInformationId, {
+        schoolName: schoolName.value,
+        education: education.value,
+        majorName: subject.value,
+        admissionTime: startTime.value,
+        graduationTime: overTime.value,
+      })
         .then((res) => {
           uni.navigateBack({ delta: 1 });
         })
@@ -286,7 +283,7 @@ const deleteEducation = () => {
     showCancel: true,
     success: (res) => {
       if (res.confirm) {
-        deleteUserinfosUserinfoidEduexperiencesEduexperienceid(
+        deleteUserinfosP0EduexperiencesP1(
           store.state.accountInfo.userInformationId,
           educateId.value
         )

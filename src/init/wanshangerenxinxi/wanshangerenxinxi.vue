@@ -110,7 +110,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { putUserinfosUserinfoid } from "@/services/services";
+import { putUserinfosP0 } from "@/services/services";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { onShow } from "@dcloudio/uni-app";
@@ -190,17 +190,17 @@ const nextClick = () => {
       duration: 500,
     });
   } else {
-    putUserinfosUserinfoid(store.state.accountInfo.userInformationId, {
+    putUserinfosP0(store.state.accountInfo.userInformationId, {
       userInformationId: store.state.accountInfo.userInformationId,
       createdAt: store.state.accountInfo.createdAt,
       updatedAt: store.state.accountInfo.updatedAt,
-      avatar: "",
+      avatarUrl: "",
       firstName: firstName.value,
       lastName: lastName.value,
       dateOfBirth: birthday.value,
       sex: sex.value,
       age: age.value,
-      city: city.value,
+      cityName: city.value,
       phoneNumber: store.state.accountInfo.userName,
       email: emailValue.value,
       workingYears: 1,
