@@ -31,7 +31,10 @@
         </view>
       </view>
       <view class="flex-row company-info" @click="toCompanyIn">
-        <image class="items-center logo" :src="companyInformation.logoUrl" />
+        <image
+          class="items-center logo"
+          :src="VITE_CDN_URL + companyInformation.logoUrl"
+        />
         <view class="flex-col com-infos">
           <text class="com-name">{{ companyInformation.companyName }}</text>
           <view class="com-info">
@@ -44,7 +47,7 @@
         </view>
       </view>
       <view class="items-center hr-info">
-        <image class="hr" :src="companyInformation.logoUrl" />
+        <image class="hr" :src="VITE_CDN_URL + companyInformation.logoUrl" />
         <text style="padding-left: 15rpx">{{
           companyInformation.hrInformationId
         }}</text>
@@ -139,6 +142,7 @@ import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
+const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useStore(key);
 
 const jobInformation = ref<PositionInformation>({} as PositionInformation); // 职位信息
