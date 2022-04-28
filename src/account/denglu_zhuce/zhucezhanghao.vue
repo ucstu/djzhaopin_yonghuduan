@@ -68,7 +68,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getVerificationCode, postAccountinfos } from "@/services/services";
+import { getVerificationcode, postAccountinfos } from "@/services/services";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
@@ -89,7 +89,7 @@ const getVerifiable = () => {
       duration: 500,
     });
   } else if (/^1[3456789]\d{9}$/.test(phoneNum.value)) {
-    getVerificationCode({ phoneNumber: phoneNum.value })
+    getVerificationcode({ phoneNumber: phoneNum.value })
       .then((res) => {
         uni.showToast({
           title: "验证码已发送",
@@ -139,6 +139,7 @@ const registeredAccount = () => {
       password: password.value,
     })
       .then((res) => {
+        console.log(res.data.body);
         store.commit("setAccountInfo", res.data.body);
         uni.navigateTo({
           url: "/init/wanchengjianli/wanchengjianli",

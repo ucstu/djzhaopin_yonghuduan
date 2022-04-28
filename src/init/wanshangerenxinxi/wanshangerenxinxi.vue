@@ -113,7 +113,7 @@ import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { putUserinfosP0 } from "@/services/services";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
-import { onShow } from "@dcloudio/uni-app";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -125,9 +125,9 @@ const isActiveMan = ref(true); // 判断性别
 const isActiveMo = ref(false); // 判断性别
 const sexMan = ref("男"); // 性别
 const sexMo = ref("女"); // 性别
-let city = ref<string>("请选择"); // 城市
+const city = ref<string>("请选择"); // 城市
 const emailValue = ref(""); // 邮箱
-const age = ref(); // 年龄
+const age = ref<number>(0); // 年龄
 /* 获取时间 */
 const date = new Date();
 const years = ref<number[]>([]);
@@ -159,7 +159,18 @@ const bindChange = (e: { detail: { value: never } }) => {
   day = days.value[val[2]];
   birthday.value = year + "-" + month + "-" + day;
   age.value = date.getFullYear() - year;
+  value.value = [val[0], val[1], val[2]];
 };
+
+const choseCity = () => {
+  uni.navigateTo({ url: "/most/chengshixuanze/chengshixuanze" });
+};
+onLoad(() => {
+  uni.$on("liveCity", (e) => {
+    city.value = e;
+  });
+});
+
 /* 判断信息是否填写完整*/
 const sex = ref();
 const nextClick = () => {
@@ -212,22 +223,15 @@ const nextClick = () => {
       privacySettings: 1,
     })
       .then((res) => {
+        console.log(res.data.body);
         store.commit("setUserInfo", res.data.body);
+
         uni.navigateTo({
           url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli",
         });
       })
       .catch(failResponseHandler);
   }
-};
-
-onShow(() => {
-  uni.$on("liveCity", (e) => {
-    city.value = e;
-  });
-});
-const choseCity = () => {
-  uni.navigateTo({ url: "/most/chengshixuanze/chengshixuanze" });
 };
 </script>
 

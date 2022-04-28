@@ -65,7 +65,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
-  getVerificationCode,
+  getVerificationcode,
   putAccountinfosForget,
 } from "@/services/services";
 import { failResponseHandler } from "@/utils/handler";
@@ -84,7 +84,7 @@ const getVerifiable = () => {
       duration: 500,
     });
   } else if (/^1[3456789]\d{9}$/.test(phoneNum.value)) {
-    getVerificationCode({ phoneNumber: phoneNum.value })
+    getVerificationcode({ phoneNumber: phoneNum.value })
       .then((res) => {
         uni.showToast({
           title: "验证码已发送",
