@@ -21,7 +21,7 @@
             </view>
           </view>
           <view class="image-box">
-            <image :src="userInformation.avatar" class="photo" />
+            <image :src="userInformation.avatarUrl" class="photo" />
             <image
               v-if="isSex"
               class="sex-image"
@@ -62,7 +62,7 @@
               >
             </view>
             <view style="font-size: 25rpx">
-              <text>{{ jobExcept.city }}</text>
+              <text>{{ jobExcept.cityName }}</text>
               <!-- <text style="padding-left: 20rpx">{{
                 jobExcept.positionType
               }}</text> -->

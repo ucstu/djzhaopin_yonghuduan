@@ -143,10 +143,10 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import WybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  deleteUserinfosUserinfoidProjectexperiencesProjectexperienceid,
-  getUserinfosUserinfoidProjectexperiencesProjectexperienceid,
-  postUserinfosUserinfoidProjectexperiences,
-  putUserinfosUserinfoidProjectexperiencesProjectexperienceid,
+  deleteUserinfosP0ProjectexperiencesP1,
+  getUserinfosP0ProjectexperiencesP1,
+  postUserinfosP0Projectexperiences,
+  putUserinfosP0ProjectexperiencesP1,
 } from "@/services/services";
 import { key } from "@/stores";
 import { onLoad } from "@dcloudio/uni-app";
@@ -200,7 +200,7 @@ onLoad((e) => {
   deleteProject.value = e.deleteProject;
   /*查询项目经历*/
   if (projectId.value !== undefined) {
-    getUserinfosUserinfoidProjectexperiencesProjectexperienceid(
+    getUserinfosP0ProjectexperiencesP1(
       store.state.accountInfo.userInformationId,
       projectId.value
     )
@@ -233,7 +233,7 @@ const saveProjectExperience = () => {
   } else {
     if (projectId.value !== undefined) {
       // 修改项目经历
-      putUserinfosUserinfoidProjectexperiencesProjectexperienceid(
+      putUserinfosP0ProjectexperiencesP1(
         store.state.accountInfo.userInformationId,
         projectId.value,
         {
@@ -251,7 +251,7 @@ const saveProjectExperience = () => {
         .catch((err) => {});
     } else {
       // 添加项目经历
-      postUserinfosUserinfoidProjectexperiences(
+      postUserinfosP0Projectexperiences(
         store.state.accountInfo.accountInformationId,
         {
           projectName: projectName.value,
@@ -276,7 +276,7 @@ const deleteProjectExperience = () => {
     content: "确定删除该项目经历吗？",
     success: (res) => {
       if (res.confirm) {
-        deleteUserinfosUserinfoidProjectexperiencesProjectexperienceid(
+        deleteUserinfosP0ProjectexperiencesP1(
           store.state.accountInfo.userInformationId,
           projectId.value
         )

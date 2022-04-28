@@ -146,7 +146,7 @@ const nextClick = () => {
   postUserinfosP0Eduexperiences(store.state.accountInfo.userInformationId, {
     schoolName: schoolName.value,
     education: educationId.value,
-    major: subject.value,
+    majorName: subject.value,
     admissionTime: startSchool.value,
     graduationTime: endSchool.value,
   })

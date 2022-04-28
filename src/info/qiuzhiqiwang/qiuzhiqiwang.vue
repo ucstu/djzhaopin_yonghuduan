@@ -158,7 +158,7 @@ onLoad((e) => {
           "k-" +
           res.data.body.ceilingSalary +
           "k";
-        city.value = res.data.body.city;
+        city.value = res.data.body.cityName;
       })
       .catch(failResponseHandler);
   }
@@ -225,7 +225,7 @@ const saveJobExcept = () => {
           directionTags: directionTags.value,
           startingSalary: start.value,
           ceilingSalary: end.value,
-          city: city.value,
+          cityName: city.value,
         }
       )
         .then((res) => {
