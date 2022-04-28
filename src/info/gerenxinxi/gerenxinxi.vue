@@ -5,7 +5,7 @@
       <view class="justify-between group-box">
         <text class="portrait">头像</text>
         <image
-          :src="userInformation.avatarUrl"
+          :src="VITE_CDN_URL + userInformation.avatarUrl"
           class="photo"
           @click="chooseImage"
         />
@@ -115,6 +115,7 @@ import { onLoad } from "@dcloudio/uni-app";
 import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
+const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useStore(key);
 
 const userInformation = ref<UserInformation>({} as UserInformation);

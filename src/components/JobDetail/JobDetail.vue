@@ -21,7 +21,7 @@
       </view>
       <view class="flex-row company-infos">
         <view class="flex-row items-center name-info">
-          <image class="logo" :src="companyInfo.logoUrl" />
+          <image class="logo" :src="VITE_CDN_URL + companyInfo.logoUrl" />
           <text class="company">{{ companyInfo.companyName }}</text>
           <text class="company">{{
             financingStage[companyInfo.financingStage]
@@ -45,6 +45,7 @@ import { getCompanyinfosP0 } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
 import { ref } from "vue";
 
+const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const props = defineProps({
   // eslint-disable-next-line vue/require-default-prop
   jobDetail: {

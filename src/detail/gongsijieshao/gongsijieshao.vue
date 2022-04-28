@@ -5,7 +5,7 @@
       <view class="flex-row items-center company-infos">
         <image class="logo" :src="companyInfo" />
         <view class="flex-col name-require">
-          <text style="font-weight: 700">{{ companyInfo.logoUrl }}</text>
+          <image :src="VITE_CDN_URL + companyInfo.logoUrl" mode="scaleToFill" />
           <text class="require"
             >{{ companyInfo.cityName }} | {{ companyInfo.financingStage }} |
             {{ companyInfo.scale }} | {{ companyInfo.comprehensionName }}</text
@@ -64,6 +64,7 @@ import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
+const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const companyInfo = ref<CompanyInformation>({} as CompanyInformation);
 
 onLoad((options) => {
