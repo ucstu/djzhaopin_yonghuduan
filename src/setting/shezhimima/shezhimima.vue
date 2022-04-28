@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="设置密码" />
+  <NavigationBar title="设置密码" />
   <view class="flex-col page">
     <view class="group-box">
       <text class="text-title">设置密码</text>

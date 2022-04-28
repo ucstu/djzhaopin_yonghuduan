@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="投递记录" />
+  <NavigationBar title="投递记录" />
   <view class="flex-col page">
     <view class="justify-between items-center group-1">
       <text

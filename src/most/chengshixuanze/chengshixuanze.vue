@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="选择城市" />
+  <NavigationBar title="选择城市" />
   <view class="flex-col page">
     <view class="flex-row">
       <scroll-view class="group-left" :scroll-y="true">

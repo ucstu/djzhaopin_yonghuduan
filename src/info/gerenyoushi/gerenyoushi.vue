@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" right="保存" @right-click="saveAdvantage" />
+  <NavigationBar right="保存" @right-click="saveAdvantage" />
   <view class="flex-col page">
     <view class="flex-col group-1">
       <text class="text-title">个人优势</text>

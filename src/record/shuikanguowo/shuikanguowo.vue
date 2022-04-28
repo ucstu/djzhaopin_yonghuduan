@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="谁看过我" />
+  <NavigationBar title="谁看过我" />
   <view class="flex-col page">
     <view class="flex-col list">
       <CompanyDetail

@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="在线简历" />
+  <NavigationBar title="在线简历" />
   <view class="flex-col page">
     <view class="flex-col group-all">
       <view class="flex-col group-user">

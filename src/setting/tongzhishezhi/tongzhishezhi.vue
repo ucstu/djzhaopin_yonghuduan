@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="通知设置" />
+  <NavigationBar title="通知设置" />
   <view class="flex-col page">
     <view class="justify-between items-center group-box">
       <text class="text-title">新消息通知</text>

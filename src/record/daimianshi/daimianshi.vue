@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="待面试" />
+  <NavigationBar title="待面试" />
   <view class="flex-col page">
     <view class="flex-col list">
       <JobPanel

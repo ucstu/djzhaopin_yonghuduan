@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="隐私设置" />
+  <NavigationBar title="隐私设置" />
   <view class="flex-col page">
     <view class="group-1">匿名展示</view>
     <view class="justify-between items-center group-2">

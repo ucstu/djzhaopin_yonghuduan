@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="我的查看" />
+  <NavigationBar title="我的查看" />
   <view class="flex-col page">
     <view class="flex-col list">
       <JobDetail

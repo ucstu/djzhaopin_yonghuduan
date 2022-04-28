@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="职位详情" />
+  <NavigationBar title="职位详情" />
   <view class="flex-col page">
     <view class="job-information">
       <view class="flex-row name-salary">

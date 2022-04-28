@@ -10,10 +10,7 @@
   },
   "pages": [
     {
-      "path": "pages/shouyeyemian/shouyeyemian",
-      "style": {
-        "enablePullDownRefresh": true
-      }
+      "path": "pages/shouyeyemian/shouyeyemian"
     },
     {
       "path": "pages/wodeyemian/wodeyemian"

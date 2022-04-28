@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="用户协议" />
+  <NavigationBar title="用户协议" />
   <view class="flex-col items-start page"> </view>
 </template>
 

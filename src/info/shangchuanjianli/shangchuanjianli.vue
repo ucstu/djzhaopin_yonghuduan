@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="文件管理" />
+  <NavigationBar title="文件管理" />
   <view class="flex-col page">
     <view class="flex-row items-center group-1">
       <image src="@/static/icons/storage.png" class="image-1" />

@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" />
+  <NavigationBar />
   <view class="flex-row page">
     <scroll-view class="group-view" :scroll-y="true">
       <view class="flex-col group-top">

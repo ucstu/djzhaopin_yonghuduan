@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="设置" />
+  <NavigationBar title="设置" />
   <view class="flex-col page">
     <view class="justify-between items-center group-box" @click="toMyAccount">
       <text class="text-title">我的账户</text>

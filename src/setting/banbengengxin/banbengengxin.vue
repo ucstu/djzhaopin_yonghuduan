@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="版本更新" />
+  <NavigationBar title="版本更新" />
   <view class="flex-row page">
     <view class="flex-col main">
       <image

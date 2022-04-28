@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="个人信息" />
+  <NavigationBar title="个人信息" />
   <view class="flex-col page">
     <view class="flex-col justify-center group-all">
       <view class="justify-between group-box">

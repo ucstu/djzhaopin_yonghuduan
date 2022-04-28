@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="隐私政策" />
+  <NavigationBar title="隐私政策" />
   <view class="flex-col items-start page"> </view>
 </template>
 

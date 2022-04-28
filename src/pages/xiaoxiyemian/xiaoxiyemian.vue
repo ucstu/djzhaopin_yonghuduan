@@ -1,10 +1,10 @@
 <template>
   <view class="flex-col page">
     <view class="group-top">
-      <vew class="justify-between items-center top-box">
+      <view class="justify-between items-center top-box">
         <text class="info-title">消息</text>
         <text class="items-center info-del">一键已读</text>
-      </vew>
+      </view>
     </view>
     <view class="justify-center group-cent">
       <view class="flex-row justify-between group-button">

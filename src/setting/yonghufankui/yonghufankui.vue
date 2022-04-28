@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="用户反馈" />
+  <NavigationBar title="用户反馈" />
   <view class="flex-col page">
     <view class="user-feedback">
       <view class="retroaction-type">

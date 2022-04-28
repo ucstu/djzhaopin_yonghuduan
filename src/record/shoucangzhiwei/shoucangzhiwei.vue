@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="收藏职位" />
+  <NavigationBar title="收藏职位" />
   <view class="flex-col page">
     <view class="flex-col list">
       <JobPanel

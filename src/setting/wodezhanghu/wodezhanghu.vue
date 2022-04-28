@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="我的账户" />
+  <NavigationBar title="我的账户" />
   <view class="flex-col page">
     <view class="justify-between items-center section">
       <text class="phone">手机号</text>

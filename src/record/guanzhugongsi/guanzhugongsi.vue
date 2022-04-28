@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" title="关注公司" />
+  <NavigationBar title="关注公司" />
   <view class="flex-col page">
     <view class="flex-col list">
       <CompanyPanel

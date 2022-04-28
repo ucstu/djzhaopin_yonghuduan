@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="header" />
+  <NavigationBar />
   <view class="flex-col page">
     <view class="job-expect">
       <text class="expect">求职期望</text>
