@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import JobPanel from "@/components/JobPanel/JobPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getUserinfosUserinfoidGarnerrecords } from "@/services/services";
+import { getUserinfosP0Garnerrecords } from "@/services/services";
 import { key } from "@/stores";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -24,12 +24,11 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const collectionPositions = ref({});
-getUserinfosUserinfoidGarnerrecords(
-  store.state.accountInfo.userInformationId,
-  {}
-).then((res) => {
-  collectionPositions.value = res.data.body;
-});
+getUserinfosP0Garnerrecords(store.state.accountInfo.userInformationId, {}).then(
+  (res) => {
+    collectionPositions.value = res.data.body;
+  }
+);
 const cancelCollection = ref("取消收藏");
 </script>
 

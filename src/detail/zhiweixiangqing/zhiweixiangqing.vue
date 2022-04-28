@@ -3,7 +3,7 @@
   <view class="flex-col page">
     <view class="job-information">
       <view class="flex-row name-salary">
-        <view class="name">{{ jobInformation.name }}</view>
+        <view class="name">{{ jobInformation.positionName }}</view>
         <view class="justify-end salary">
           {{ jobInformation.startingSalary }}k-{{
             jobInformation.ceilingSalary
@@ -13,7 +13,9 @@
       <view class="flex-row area-require">
         <view class="items-center" style="margin-right: 25rpx">
           <image src="@/static/icons/map.png" />
-          <text style="margin-left: 15rpx">{{ jobInformation.workArea }}</text>
+          <text style="margin-left: 15rpx">{{
+            jobInformation.workAreaName
+          }}</text>
         </view>
         <view class="items-center" style="margin-right: 25rpx">
           <image src="@/static/icons/work.png" />
@@ -29,20 +31,20 @@
         </view>
       </view>
       <view class="flex-row company-info" @click="toCompanyIn">
-        <image class="items-center logo" :src="companyInformation.logo" />
+        <image class="items-center logo" :src="companyInformation.logoUrl" />
         <view class="flex-col com-infos">
-          <text class="com-name">{{ companyInformation.name }}</text>
+          <text class="com-name">{{ companyInformation.companyName }}</text>
           <view class="com-info">
             <text>
               {{ companyInformation.financingStage }} |
               {{ companyInformation.scale }} |
-              {{ companyInformation.comprehension }}
+              {{ companyInformation.comprehensionName }}
             </text>
           </view>
         </view>
       </view>
       <view class="items-center hr-info">
-        <image class="hr" :src="companyInformation.logo" />
+        <image class="hr" :src="companyInformation.logoUrl" />
         <text style="padding-left: 15rpx">{{
           companyInformation.hrInformationId
         }}</text>
@@ -63,7 +65,7 @@
             >
           </view>
           <view>职位描述：{{ jobInformation.description }}</view>
-          <view>所属部门：{{ jobInformation.department }}</view>
+          <view>所属部门：{{ jobInformation.departmentName }}</view>
           <view>周末休息时间：{{ jobInformation.weekendReleseTime }}</view>
           <view>上班时间：{{ jobInformation.workTime }}</view>
           <view>工作地点：{{ jobInformation.workingPlace }}</view>
@@ -126,9 +128,9 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  getCompanyinfosCompanyinfoid,
-  getCompanyinfosCompanyinfoidPositioninfosPositioninfoid,
-  postUserinfosUserinfoidDeliveryrecords,
+  getCompanyinfosP0,
+  getCompanyinfosP0PositioninfosP1,
+  postUserinfosP0Deliveryrecords,
 } from "@/services/services";
 import { CompanyInformation, PositionInformation } from "@/services/types";
 import { key } from "@/stores";
@@ -156,15 +158,12 @@ onLoad((e) => {
     positionId.value = e.positionId;
   }
   /* 获取职位信息 */
-  getCompanyinfosCompanyinfoidPositioninfosPositioninfoid(
-    companyId.value,
-    positionId.value
-  )
+  getCompanyinfosP0PositioninfosP1(companyId.value, positionId.value)
     .then((res) => {
       jobInformation.value = res.data.body;
     })
     .catch(failResponseHandler);
-  getCompanyinfosCompanyinfoid(companyId.value)
+  getCompanyinfosP0(companyId.value)
     .then((res) => {
       companyInformation.value = res.data.body;
     })
@@ -187,14 +186,11 @@ const sendResume = () => {
 };
 // 投递简历
 const send = () => {
-  postUserinfosUserinfoidDeliveryrecords(
-    store.state.accountInfo.userInformationId,
-    {
-      jobInformationId: positionId.value,
-      userInformationId: store.state.accountInfo.userInformationId,
-      state: 1,
-    }
-  )
+  postUserinfosP0Deliveryrecords(store.state.accountInfo.userInformationId, {
+    positionInformationId: positionId.value,
+    userInformationId: store.state.accountInfo.userInformationId,
+    state: 1,
+  })
     .then((res) => {
       uni.showToast({
         title: "投递成功",

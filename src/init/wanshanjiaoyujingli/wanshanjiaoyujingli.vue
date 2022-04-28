@@ -90,7 +90,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { postUserinfosUserinfoidEduexperiences } from "@/services/services";
+import { postUserinfosP0Eduexperiences } from "@/services/services";
 import { EducationExperience } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
@@ -143,16 +143,13 @@ const schoolChange = (e: { detail: { value: never } }) => {
 };
 // 下一步
 const nextClick = () => {
-  postUserinfosUserinfoidEduexperiences(
-    store.state.accountInfo.userInformationId,
-    {
-      schoolName: schoolName.value,
-      education: educationId.value,
-      major: subject.value,
-      admissionTime: startSchool.value,
-      graduationTime: endSchool.value,
-    }
-  )
+  postUserinfosP0Eduexperiences(store.state.accountInfo.userInformationId, {
+    schoolName: schoolName.value,
+    education: educationId.value,
+    major: subject.value,
+    admissionTime: startSchool.value,
+    graduationTime: endSchool.value,
+  })
     .then((res) => {
       uni.navigateTo({
         url: "/init/wanshangongzuojingli/wanshangongzuojingli",

@@ -3,12 +3,12 @@
   <view class="flex-col page">
     <view class="flex-col company-description">
       <view class="flex-row items-center company-infos">
-        <image class="logo" :src="companyInfo.logo" />
+        <image class="logo" :src="companyInfo" />
         <view class="flex-col name-require">
-          <text style="font-weight: 700">{{ companyInfo.name }}</text>
+          <text style="font-weight: 700">{{ companyInfo.logoUrl }}</text>
           <text class="require"
-            >{{ companyInfo.city }} | {{ companyInfo.financingStage }} |
-            {{ companyInfo.scale }} | {{ companyInfo.comprehension }}</text
+            >{{ companyInfo.cityName }} | {{ companyInfo.financingStage }} |
+            {{ companyInfo.scale }} | {{ companyInfo.comprehensionName }}</text
           >
         </view>
       </view>
@@ -58,7 +58,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getCompanyinfosCompanyinfoid } from "@/services/services";
+import { getCompanyinfosP0 } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
@@ -68,7 +68,7 @@ const companyInfo = ref<CompanyInformation>({} as CompanyInformation);
 
 onLoad((options) => {
   if (options.companyId) {
-    getCompanyinfosCompanyinfoid(options.companyId)
+    getCompanyinfosP0(options.companyId)
       .then((res) => {
         companyInfo.value = res.data.body;
       })

@@ -20,7 +20,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { putUserinfosUserinfoid } from "@/services/services";
+import { putUserinfosP0 } from "@/services/services";
 import { key } from "@/stores";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -29,16 +29,16 @@ const store = useStore(key);
 
 const inputValue = ref("");
 const saveAdvantage = () => {
-  putUserinfosUserinfoid(store.state.userInfo.userInformationId, {
+  putUserinfosP0(store.state.userInfo.userInformationId, {
     createdAt: store.state.userInfo.createdAt,
     updatedAt: "",
-    avatar: store.state.userInfo.avatar,
+    avatarUrl: store.state.userInfo.avatarUrl,
     firstName: store.state.userInfo.firstName,
     lastName: store.state.userInfo.lastName,
     dateOfBirth: store.state.userInfo.dateOfBirth,
     sex: store.state.userInfo.sex,
     age: store.state.userInfo.age,
-    city: store.state.userInfo.city,
+    cityName: store.state.userInfo.cityName,
     phoneNumber: store.state.userInfo.phoneNumber,
     email: store.state.userInfo.email,
     workingYears: store.state.userInfo.workingYears,

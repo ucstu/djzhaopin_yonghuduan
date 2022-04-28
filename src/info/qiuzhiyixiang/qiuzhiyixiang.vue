@@ -24,7 +24,7 @@
             >
           </view>
           <view class="city-salary">
-            <text class="job-city">{{ jobExpectation.city }}</text>
+            <text class="job-city">{{ jobExpectation.cityName }}</text>
             <text class="job-salary"
               >{{ jobExpectation.startingSalary }}k-{{
                 jobExpectation.ceilingSalary
@@ -73,13 +73,13 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  getUserinfosUserinfoidJobexpectations,
-  putUserinfosUserinfoid,
+  getUserinfosP0Jobexpectations,
+  putUserinfosP0,
 } from "@/services/services";
 import { JobExpectation } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad, onShow } from "@dcloudio/uni-app";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -94,10 +94,7 @@ onLoad(() => {
   if (store.state.userInfo.jobStatus !== null) {
     entryTime.value = entryTimes[store.state.userInfo.jobStatus];
   }
-  getUserinfosUserinfoidJobexpectations(
-    store.state.accountInfo.userInformationId,
-    {}
-  )
+  getUserinfosP0Jobexpectations(store.state.accountInfo.userInformationId, {})
     .then((res) => {
       jobExpectations.value = res.data.body;
       // store.commit("setJobExpectation", res.data.body);
@@ -126,7 +123,7 @@ const entryChange = (e: any) => {
   entryTime.value = entryTimes[e.detail.value[0]];
   store.state.userInfo.jobStatus = e.detail.value[0];
   definedValue.value = [e.detail.value[0]];
-  putUserinfosUserinfoid(
+  putUserinfosP0(
     store.state.accountInfo.userInformationId,
     store.state.userInfo
   )

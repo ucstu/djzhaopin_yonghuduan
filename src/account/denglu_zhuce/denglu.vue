@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts" setup>
-import { postAccountsLogin } from "@/services/services";
+import { postAccountinfosLogin } from "@/services/services";
 import { key } from "@/stores";
 import { throttle } from "@/utils/common";
 import { failResponseHandler } from "@/utils/handler";
@@ -83,7 +83,7 @@ const login = () => {
       mask: true,
     });
   } else {
-    postAccountsLogin({
+    postAccountinfosLogin({
       userName: phoneNum.value,
       password: password.value,
     })

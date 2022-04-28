@@ -5,7 +5,7 @@
       <view class="justify-between group-box">
         <text class="portrait">头像</text>
         <image
-          :src="userInformation.avatar"
+          :src="userInformation.avatarUrl"
           class="photo"
           @click="chooseImage"
         />
@@ -42,7 +42,7 @@
       <view class="flex-col group-box">
         <text class="caption">所在城市</text>
         <view class="justify-between group_4" @click="changeCity">
-          <text class="user-value">{{ userInformation.city }}</text>
+          <text class="user-value">{{ userInformation.cityName }}</text>
           <image src="@/static/icons/arrow-right.png" class="image" />
         </view>
       </view>
@@ -104,9 +104,9 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  getUserinfosUserinfoid,
+  getUserinfosP0,
   postAvatars,
-  putUserinfosUserinfoid,
+  putUserinfosP0,
 } from "@/services/services";
 import { UserInformation } from "@/services/types";
 import { key } from "@/stores";
@@ -160,7 +160,7 @@ for (let i = 1; i <= 31; i++) {
 const value = ref();
 onMounted(() => {
   /* 获取用户信息 */
-  getUserinfosUserinfoid(store.state.accountInfo.userInformationId)
+  getUserinfosP0(store.state.accountInfo.userInformationId)
     .then((res) => {
       userInformation.value = res.data.body;
       fullName.value =
@@ -216,7 +216,7 @@ const changeCity = () => {
 
 onLoad(() => {
   uni.$on("liveCity", (data) => {
-    userInformation.value.city = data;
+    userInformation.value.cityName = data;
   });
 });
 
@@ -265,10 +265,10 @@ const saveInfos = () => {
     store.state.userInfo.dateOfBirth = userInformation.value.dateOfBirth;
     store.state.userInfo.sex = userInformation.value.sex;
     store.state.userInfo.age = userInformation.value.age;
-    store.state.userInfo.city = userInformation.value.city;
+    store.state.userInfo.cityName = userInformation.value.cityName;
     store.state.userInfo.phoneNumber = userInformation.value.phoneNumber;
     store.state.userInfo.email = userInformation.value.email;
-    putUserinfosUserinfoid(
+    putUserinfosP0(
       store.state.accountInfo.userInformationId,
       store.state.userInfo
     )

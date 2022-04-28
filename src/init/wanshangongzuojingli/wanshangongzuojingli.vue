@@ -95,7 +95,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { postUserinfosUserinfoidWorkexperiences } from "@/services/services";
+import { postUserinfosP0Workexperiences } from "@/services/services";
 import { CompanyInformation, WorkExperience } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
@@ -145,19 +145,16 @@ const workChange = (e: { detail: { value: never } }) => {
 };
 // 下一步
 const nextClick = () => {
-  postUserinfosUserinfoidWorkexperiences(
-    store.state.accountInfo.userInformationId,
-    {
-      corporateName: companyName.value,
-      companyIndustry: companyType.value,
-      positionType: subject.value,
-      startTime: startTime.value,
-      endTime: endTime.value,
-      department: "",
-      jobContent: "",
-      positionName: "",
-    }
-  )
+  postUserinfosP0Workexperiences(store.state.accountInfo.userInformationId, {
+    corporateName: companyName.value,
+    companyIndustry: companyType.value,
+    positionType: subject.value,
+    startTime: startTime.value,
+    endTime: endTime.value,
+    department: "",
+    jobContent: "",
+    positionName: "",
+  })
     .then((res) => {
       store.commit("exceptionJob", res.data.body);
       uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=${value}` });

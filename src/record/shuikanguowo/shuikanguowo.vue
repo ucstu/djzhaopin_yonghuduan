@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getUserinfosUserinfoidInspectionrecords } from "@/services/services";
+import { getUserinfosP0Inspectionrecords } from "@/services/services";
 import { key } from "@/stores";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -24,7 +24,7 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const lookForMes = ref({});
-getUserinfosUserinfoidInspectionrecords(
+getUserinfosP0Inspectionrecords(
   store.state.accountInfo.userInformationId,
   {}
 ).then((res) => {

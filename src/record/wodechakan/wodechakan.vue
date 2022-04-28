@@ -15,7 +15,7 @@
 <script lang="ts" setup>
 import JobDetail from "@/components/JobDetail/JobDetail.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getUserinfosUserinfoidInspectionrecords } from "@/services/services";
+import { getUserinfosP0Inspectionrecords } from "@/services/services";
 import { key } from "@/stores";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -24,7 +24,7 @@ const store = useStore(key);
 
 const myViews = ref({});
 /* 查询所有查看记录 */
-getUserinfosUserinfoidInspectionrecords(
+getUserinfosP0Inspectionrecords(
   store.state.accountInfo.userInformationId,
   {}
 ).then((res) => {

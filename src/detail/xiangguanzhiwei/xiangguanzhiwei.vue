@@ -16,22 +16,18 @@
 <script lang="ts" setup>
 import JobDetail from "@/components/JobDetail/JobDetail.vue";
 import SearchAndFilter from "@/components/SearchAndFilter/SearchAndFilter.vue";
-import { getCompanyinfosCompanyinfoidPositioninfos } from "@/services/services";
-import { PositionInformation } from "@/services/types";
+import { getCompanyinfos } from "@/services/services";
+import { CompanyInformation } from "@/services/types";
 import { key } from "@/stores";
-import { reactive } from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const jobDetails = reactive<PositionInformation[]>([]);
+const jobDetails = ref<CompanyInformation[]>([]);
 
-getCompanyinfosCompanyinfoidPositioninfos(
-  // @ts-ignore
-  { name: "前端开发" },
-  { salary: "2k-3k" }
-).then((res) => {
-  jobDetails.push(...res.data.body);
+getCompanyinfos({}).then((res) => {
+  jobDetails.value = res.data.body;
 });
 
 const toPositions = () => {

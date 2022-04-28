@@ -21,8 +21,8 @@
       </view>
       <view class="flex-row company-infos">
         <view class="flex-row items-center name-info">
-          <image class="logo" :src="companyInfo.logo" />
-          <text class="company">{{ companyInfo.name }}</text>
+          <image class="logo" :src="companyInfo.logoUrl" />
+          <text class="company">{{ companyInfo.companyName }}</text>
           <text class="company">{{
             financingStage[companyInfo.financingStage]
           }}</text>
@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getCompanyinfosCompanyinfoid } from "@/services/services";
+import { getCompanyinfosP0 } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
 import { ref } from "vue";
 
@@ -72,11 +72,9 @@ const scale = ref([
   "2000人以上",
 ]);
 const companyInfo = ref<CompanyInformation>({} as CompanyInformation);
-getCompanyinfosCompanyinfoid(props.jobDetail?.companyInformationId).then(
-  (res) => {
-    companyInfo.value = res.data.body;
-  }
-);
+getCompanyinfosP0(props.jobDetail?.companyInformationId).then((res) => {
+  companyInfo.value = res.data.body;
+});
 const emit = defineEmits(["jobClick"]);
 const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
 </script>
