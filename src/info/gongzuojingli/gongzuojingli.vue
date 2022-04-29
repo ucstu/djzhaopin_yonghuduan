@@ -1,6 +1,5 @@
 <template>
   <NavigationBar
-    class="header"
     title="工作经历"
     :right="deleteWork"
     @right-click="deleteWorkExperience"
@@ -27,19 +26,14 @@
       </view>
       <view class="group-box">
         <text class="text-title">在职时间</text>
-        <view class="flex-row justify-between items-center">
-          <input
-            v-model="companyStartTime"
-            class="text-input"
-            type="text"
-            placeholder="入职时间"
-          />
-          <input
-            v-model="companyEndTime"
-            class="text-input"
-            type="text"
-            placeholder="至今"
-          />
+        <view
+          class="flex-row justify-between items-center"
+          @click="choosePositionTime"
+        >
+          <text style="width: 48%; margin-left: 20rpx; font-size: 28rpx">{{
+            companyStartTime
+          }}</text>
+          <text style="width: 48%; font-size: 28rpx">{{ companyEndTime }}</text>
         </view>
       </view>
       <view class="group-box">
@@ -102,12 +96,91 @@
     <wybPopup
       ref="popup"
       :show-close-icon="false"
-      :height="800"
+      :height="heightValue"
       :radius="10"
       mode="size-auto"
       type="bottom"
     >
-      <view v-if="!showPosition">
+      <view v-if="showTime">
+        <view class="flex-row justify-between items-center">
+          <view
+            class="flex-col justify-center items-center"
+            style="width: 50%"
+            @click="start = true"
+          >
+            <text>入职时间</text>
+            <text style="font-size: 25rpx" :class="start ? 'active' : ''">{{
+              companyStartTime
+            }}</text>
+          </view>
+          <view
+            class="flex-col justify-center items-center"
+            style="width: 50%"
+            @click="start = false"
+          >
+            <text>离职时间</text>
+            <text style="font-size: 25rpx" :class="!start ? 'active' : ''">{{
+              companyEndTime
+            }}</text>
+          </view>
+        </view>
+        <picker-view
+          v-if="start"
+          :value="defaultStart"
+          class="picker-view"
+          @change="bindChange"
+        >
+          <picker-view-column>
+            <view v-for="(item, i) in years" :key="i" class="item">{{
+              item
+            }}</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view v-for="(item, i) in months" :key="i" class="item">{{
+              item
+            }}</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view v-for="(item, i) in days" :key="i" class="item">{{
+              item
+            }}</view>
+          </picker-view-column>
+        </picker-view>
+        <picker-view
+          v-if="!start"
+          :value="defaultEnd"
+          class="picker-view"
+          @change="bindChange"
+        >
+          <picker-view-column>
+            <view v-for="(item, i) in years" :key="i" class="item">{{
+              item
+            }}</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view v-for="(item, i) in months" :key="i" class="item">{{
+              item
+            }}</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view v-for="(item, i) in days" :key="i" class="item">{{
+              item
+            }}</view>
+          </picker-view-column>
+        </picker-view>
+      </view>
+
+      <view v-if="showPositionType">
+        <picker-view class="picker-view" @change="positionChange">
+          <picker-view-column>
+            <view v-for="(item, i) in companyPositions" :key="i" class="item">{{
+              item
+            }}</view>
+          </picker-view-column>
+        </picker-view>
+      </view>
+
+      <view v-if="showPositionText">
         <view class="flex-row justify-between items-center btn-box">
           <text class="title">工作内容</text>
           <view>
@@ -124,17 +197,6 @@
           />
         </view>
       </view>
-      <picker-view
-        v-if="showPosition"
-        class="picker-view"
-        @change="positionChange"
-      >
-        <picker-view-column>
-          <view v-for="(item, i) in companyPositions" :key="i" class="item">{{
-            item
-          }}</view>
-        </picker-view-column>
-      </picker-view>
     </wybPopup>
   </view>
 </template>
@@ -147,6 +209,7 @@ import {
   getUserinfosP0WorkexperiencesP1,
   postUserinfosP0Workexperiences,
 } from "@/services/services";
+import { WorkExperience } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
@@ -157,11 +220,14 @@ const store = useStore(key);
 
 const companyName = ref(""); // 公司名称
 const companyIndustry = ref(""); // 公司行业
-const companyStartTime = ref(""); // 入职时间
-const companyEndTime = ref(""); // 离职时间
-const companyPosition = ref(0); // 职位类型
-const companyPositions = ["请选择", "全职", "兼职", "实习"]; // 职位类型
-const showPosition = ref(false); // 显示职位类型
+const companyStartTime = ref("入职时间"); // 入职时间
+const companyEndTime = ref("离职时间"); // 离职时间
+const companyPosition = ref<1 | 2 | 3>(0 as 1); // 职位类型
+const companyPositions = ["全职", "兼职", "实习"]; // 职位类型
+const showPositionType = ref(false); // 显示职位类型
+const showPositionText = ref(false); // 显示工作内容
+const showTime = ref(true); // 显示在职时间
+const start = ref(true); // 开始时间
 const positionName = ref(""); // 职位名称
 const companyDepartment = ref(""); // 所属部门
 const companyContent = ref(""); // 工作内容
@@ -198,14 +264,77 @@ onLoad((e) => {
     positionName.value = data;
   });
 });
+/* 就职时间 */
+const date = new Date();
+const years = ref<number[]>([]);
+const months = ref<number[]>([]);
+const days = ref<number[]>([]);
+let year = date.getFullYear();
+let month = date.getMonth() + 1;
+let day = date.getDate();
+for (let i = 1960; i <= year; i++) {
+  years.value.push(i);
+}
+for (let i = 1; i <= 12; i++) {
+  months.value.push(i);
+}
+for (let i = 1; i <= 31; i++) {
+  days.value.push(i);
+}
+const defaultStart = ref([year, month, day]); /* 默认入职时间 */
+const defaultEnd = ref([year, month, day]); /* 默认离职时间 */
+const bindChange = (e: any) => {
+  let val = e.detail.value;
+  year = years.value[val[0]];
+  month = months.value[val[1]];
+  day = days.value[val[2]];
+  if (start.value) {
+    companyStartTime.value = `${year}-${month}-${day}`;
+    defaultStart.value = [val[0], val[1], val[2]];
+  } else {
+    companyEndTime.value = `${year}-${month}-${day}`;
+    defaultEnd.value = [val[0], val[1], val[2]];
+  }
+};
 
+// 弹出层
+const popup = ref();
+const heightValue = ref();
+/* 在职时间 */
+const choosePositionTime = () => {
+  popup.value.show();
+  heightValue.value = 400;
+  showTime.value = true;
+  showPositionType.value = false;
+  showPositionText.value = false;
+};
 /* 选择职位类型 */
 const choosePosition = () => {
-  showPosition.value = true;
   popup.value.show();
+  heightValue.value = 300;
+  showTime.value = false;
+  showPositionType.value = true;
+  showPositionText.value = false;
 };
-const positionChange = (e: { detail: { value: number } }) => {
-  companyPosition.value = e.detail.value;
+const positionChange = (e: {
+  detail: { value: WorkExperience["positionType"][] };
+}) => {
+  companyPosition.value = (e.detail.value[0] + 1) as 1 | 2 | 3;
+  popup.value.hide();
+};
+/* 工作内容 */
+const showTextarea = () => {
+  popup.value.show();
+  heightValue.value = 700;
+  showTime.value = false;
+  showPositionType.value = false;
+  showPositionText.value = true;
+};
+const clearLength = () => {
+  companyContent.value = "";
+};
+const saveTextarea = () => {
+  popup.value.hide();
 };
 
 // 保存工作经历
@@ -213,8 +342,6 @@ const saveWorkExperience = () => {
   if (
     !companyName.value ||
     !companyIndustry.value ||
-    !companyStartTime.value ||
-    !companyEndTime.value ||
     !companyPosition.value ||
     !companyDepartment.value ||
     !companyContent.value
@@ -224,31 +351,35 @@ const saveWorkExperience = () => {
       icon: "none",
       duration: 500,
     });
+  } else if (
+    companyStartTime.value === "入职时间" ||
+    companyEndTime.value === "离职时间"
+  ) {
+    uni.showToast({
+      title: "请完善就职时间",
+      icon: "none",
+      duration: 500,
+    });
   } else {
-    if (workId.value) {
-      postUserinfosP0Workexperiences(
-        store.state.accountInfo.userInformationId,
-        {
-          corporateName: companyName.value,
-          companyIndustry: companyIndustry.value,
-          startTime: companyStartTime.value,
-          endTime: companyEndTime.value,
-          positionName: positionName.value,
-          positionType: 1,
-          departmentName: companyDepartment.value,
-          jobContent: companyContent.value,
-        }
-      )
-        .then((res) => {
-          store.commit("setWorkExperience", res.data.body);
-          uni.showToast({
-            title: "保存成功",
-            icon: "none",
-            duration: 500,
-          });
-        })
-        .catch(failResponseHandler);
-    }
+    postUserinfosP0Workexperiences(store.state.accountInfo.userInformationId, {
+      corporateName: companyName.value,
+      companyIndustry: companyIndustry.value,
+      startTime: companyStartTime.value,
+      endTime: companyEndTime.value,
+      positionName: positionName.value,
+      positionType: companyPosition.value,
+      departmentName: companyDepartment.value,
+      jobContent: companyContent.value,
+    })
+      .then((res) => {
+        uni.showToast({
+          title: "保存成功",
+          icon: "none",
+          duration: 500,
+        });
+        console.log(res.data.body);
+      })
+      .catch(failResponseHandler);
   }
 };
 
@@ -280,23 +411,14 @@ const deleteWorkExperience = () => {
     },
   });
 };
-
-// 弹出层
-const popup = ref();
-const showTextarea = () => {
-  showPosition.value = false;
-  popup.value.show();
-};
-const clearLength = () => {
-  companyContent.value = "";
-};
-const saveTextarea = () => {
-  popup.value.hide();
-};
 </script>
 
 <style lang="scss" scoped>
 .page {
+  .active {
+    color: rgb(35 193 158);
+  }
+
   .group-all {
     width: 710rpx;
     height: auto;

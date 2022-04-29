@@ -1,6 +1,5 @@
 <template>
   <NavigationBar
-    class="header"
     title="编辑教育经历"
     :right="deleteEd"
     @right-click="deleteEducation"
@@ -18,10 +17,11 @@
       </view>
       <view class="flex-col group-box">
         <text class="text-title">学历</text>
-        <view>
-          <text class="text-input" @click="showEducate">{{
-            educations[education]
-          }}</text>
+        <view
+          class="flex-row justify-between items-center"
+          @click="showEducate"
+        >
+          <text class="text-input">{{ educations[education] }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
@@ -106,6 +106,11 @@
             item
           }}</view>
         </picker-view-column>
+        <picker-view-column>
+          <view v-for="(item, i) in days" :key="i" class="item">{{
+            item
+          }}</view>
+        </picker-view-column>
       </picker-view>
       <picker-view
         v-if="end"
@@ -120,6 +125,11 @@
         </picker-view-column>
         <picker-view-column>
           <view v-for="(item, i) in months" :key="i" class="item">{{
+            item
+          }}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view v-for="(item, i) in days" :key="i" class="item">{{
             item
           }}</view>
         </picker-view-column>
@@ -158,7 +168,7 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const schoolName = ref(""); // 学校名称
-const education = ref<1 | 2 | 3 | 4>(2); // 学历
+const education = ref<1 | 2 | 3 | 4>(0 as 1); // 学历
 
 const subject = ref(""); // 专业名称
 const startTime = ref("入学时间"); // 入学时间
@@ -187,29 +197,39 @@ const showSchool = () => {
 const date = new Date();
 const years = ref<number[]>([]);
 const months = ref<number[]>([]);
+const days = ref<number[]>([]);
 let year = date.getFullYear();
 let month = date.getMonth() + 1;
+let day = date.getDate();
 for (let i = 1960; i <= year; i++) {
   years.value.push(i);
 }
 for (let i = 1; i <= 12; i++) {
   months.value.push(i);
 }
-const value1 = ref([years.value[0], months.value[0]]); /* 默认入学时间 */
-const value2 = ref([year, month - 1]); /* 默认毕业时间 */
+for (let i = 1; i <= 31; i++) {
+  days.value.push(i);
+}
+const value1 = ref([
+  years.value[0],
+  months.value[0],
+  days.value[0],
+]); /* 默认入学时间 */
+const value2 = ref([year, month - 1, day - 1]); /* 默认毕业时间 */
 const defaultEducation = ref([education]); /* 默认学历 */
 const bindChange = (e: any) => {
   let val = e.detail.value;
   year = years.value[val[0]];
   month = months.value[val[1]];
+  day = days.value[val[2]];
   if (start.value) {
-    startTime.value = `${year}年${month}月`;
-    value1.value = [val[0], val[1]];
+    startTime.value = `${year}-${month}-${day}`;
+    value1.value = [val[0], val[1], val[2]];
   } else if (end.value) {
-    overTime.value = `${year}年${month}月`;
-    value2.value = [val[0], val[1]];
+    overTime.value = `${year}-${month}-${day}`;
+    value2.value = [val[0], val[1], val[2]];
   } else {
-    education.value = val[0];
+    education.value = (val[0] + 1) as 1 | 2 | 3 | 4;
     defaultEducation.value = [val[0]];
   }
 };
@@ -249,12 +269,6 @@ const saveEducation = () => {
       icon: "none",
       duration: 500,
     });
-  } else if (education.value === 1) {
-    uni.showToast({
-      title: "请选择学历",
-      icon: "none",
-      duration: 500,
-    });
   } else {
     if (educateId.value !== undefined) {
       putUserinfosP0EduexperiencesP1(
@@ -267,7 +281,7 @@ const saveEducation = () => {
           admissionTime: startTime.value,
           graduationTime: overTime.value,
           createdAt: "",
-          educationExperienceId: "",
+          educationExperienceId: educateId.value,
           updatedAt: "",
         }
       )
@@ -288,7 +302,6 @@ const saveEducation = () => {
         })
         .catch(failResponseHandler);
     }
-    uni.navigateBack({ delta: 1 });
   }
 };
 // 删除教育经历

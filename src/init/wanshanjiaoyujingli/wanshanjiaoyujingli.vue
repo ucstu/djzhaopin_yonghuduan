@@ -100,7 +100,7 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const schoolName = ref("");
-const educationId = ref<EducationExperience["education"]>(1);
+const educationId = ref<0 | 1 | 2 | 3 | 4>(1);
 const subject = ref("");
 const startSchool = ref("入学时间");
 const endSchool = ref("毕业时间");

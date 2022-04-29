@@ -175,9 +175,9 @@ onLoad((e) => {
 });
 // 相关公司
 const toCompanyIn = () => {
-  let companyId = companyInformation.value.companyInformationId;
+  companyId.value = companyInformation.value.companyInformationId;
   uni.navigateTo({
-    url: "/detail/gongsijieshao/gongsijieshao?companyId" + companyId,
+    url: "/detail/gongsijieshao/gongsijieshao?companyId" + companyId.value,
   });
 };
 const popup = ref();
@@ -185,6 +185,7 @@ const popup = ref();
 const communication = () => {
   uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });
 };
+// 投递简历
 const sendResume = () => {
   popup.value.show();
 };
@@ -193,7 +194,6 @@ const send = () => {
   postUserinfosP0Deliveryrecords(store.state.accountInfo.userInformationId, {
     positionInformationId: positionId.value,
     userInformationId: store.state.accountInfo.userInformationId,
-    state: 1,
   })
     .then((res) => {
       uni.showToast({

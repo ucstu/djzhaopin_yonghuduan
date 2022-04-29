@@ -96,8 +96,9 @@ onLoad(() => {
   }
   getUserinfosP0Jobexpectations(store.state.accountInfo.userInformationId, {})
     .then((res) => {
+      console.log(res);
+
       jobExpectations.value = res.data.body;
-      // store.commit("setJobExpectation", res.data.body);
     })
     .catch(failResponseHandler);
 });

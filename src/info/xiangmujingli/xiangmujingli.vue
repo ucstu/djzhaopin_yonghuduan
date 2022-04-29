@@ -1,6 +1,5 @@
 <template>
   <NavigationBar
-    class="header"
     title="编辑项目经历"
     :right="deleteProject"
     @right-click="deleteProjectExperience"
@@ -10,7 +9,7 @@
       <view class="group-box">
         <text class="text-title">项目名称</text>
         <input
-          v-model="projectName"
+          v-model="projectExperience.projectName"
           class="text-input"
           type="text"
           placeholder="请填写"
@@ -19,7 +18,7 @@
       <view class="group-box">
         <text class="text-title">项目描述</text>
         <input
-          v-model="projectDescribe"
+          v-model="projectExperience.projectDescription"
           class="text-input"
           type="text"
           placeholder="请填写"
@@ -28,7 +27,7 @@
       <view class="group-box">
         <text class="text-title">你的成就</text>
         <input
-          v-model="achievement"
+          v-model="projectExperience.achievement"
           class="text-input"
           type="text"
           placeholder="请填写"
@@ -38,17 +37,21 @@
         <text class="text-title">项目时间</text>
         <view class="flex-row justify-between" @click="showTime">
           <view class="justify-center items-center" style="width: 50%">
-            <text style="font-size: 28rpx">{{ startTime }}</text>
+            <text style="font-size: 28rpx">{{
+              projectExperience.startTime
+            }}</text>
           </view>
           <view class="justify-center items-center" style="width: 50%">
-            <text style="font-size: 28rpx">{{ overTime }}</text>
+            <text style="font-size: 28rpx">{{
+              projectExperience.endTime
+            }}</text>
           </view>
         </view>
       </view>
       <view class="group-box">
         <text class="text-title">项目链接</text>
         <input
-          v-model="projectUrl"
+          v-model="projectExperience.projectLink"
           class="text-input"
           type="text"
           placeholder="请填写(选填)"
@@ -84,7 +87,7 @@
         >
           <text>开始时间</text>
           <text style="font-size: 25rpx" :class="start ? 'active' : ''">{{
-            startTime
+            projectExperience.startTime
           }}</text>
         </view>
         <view
@@ -97,7 +100,7 @@
         >
           <text>结束时间</text>
           <text style="font-size: 25rpx" :class="end ? 'active' : ''">{{
-            overTime
+            projectExperience.endTime
           }}</text>
         </view>
       </view>
@@ -148,6 +151,7 @@ import {
   postUserinfosP0Projectexperiences,
   putUserinfosP0ProjectexperiencesP1,
 } from "@/services/services";
+import { ProjectExperience } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
@@ -156,12 +160,18 @@ import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const projectName = ref(); //项目名称
-const projectDescribe = ref(""); //项目描述
-const achievement = ref(""); //你的成就
-let startTime = ref("开始时间"); //项目开始时间
-let overTime = ref("结束时间"); //项目结束时间
-const projectUrl = ref(""); //项目链接
+const projectExperience = ref<ProjectExperience>({
+  projectExperienceId: "",
+  workExperienceId: "",
+  projectName: "", //项目名称
+  projectDescription: "", //项目描述
+  achievement: "", //你的成就
+  startTime: "开始时间", //项目开始时间
+  endTime: "结束时间", //项目结束时间
+  projectLink: "", //项目链接
+  createdAt: "",
+  updatedAt: "",
+});
 
 const start = ref(true);
 const end = ref(false);
@@ -173,24 +183,32 @@ const showTime = () => {
 const date = new Date();
 const years = ref<number[]>([]);
 const months = ref<number[]>([]);
+const days = ref<number[]>([]);
 let year = date.getFullYear();
 let month = date.getMonth() + 1;
+let day = date.getDate();
 for (let i = 1960; i <= year; i++) {
   years.value.push(i);
 }
 for (let i = 1; i <= 12; i++) {
   months.value.push(i);
 }
-const value1 = [years.value[0], months.value[0]];
-const value2 = [year, month - 1];
+for (let i = 1; i <= 31; i++) {
+  days.value.push(i);
+}
+const value1 = ref([years.value[0], months.value[0], days.value[0]]);
+const value2 = ref([year, month - 1, day]);
 const bindChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;
   year = years.value[val[0]];
   month = months.value[val[1]];
+  day = days.value[val[2]];
   if (start.value) {
-    startTime.value = `${year}年${month}月`;
+    projectExperience.value.startTime = `${year}-${month}-${day}`;
+    value1.value = [val[0], val[1], val[2]];
   } else {
-    overTime.value = `${year}年${month}月`;
+    projectExperience.value.endTime = `${year}-${month}-${day}`;
+    value2.value = [val[0], val[1], val[2]];
   }
 };
 
@@ -206,12 +224,7 @@ onLoad((e) => {
       projectId.value
     )
       .then((res) => {
-        projectName.value = res.data.body!.projectName;
-        projectDescribe.value = res.data.body!.projectDescription;
-        achievement.value = res.data.body!.achievement;
-        startTime.value = res.data.body!.startTime;
-        overTime.value = res.data.body!.endTime;
-        projectUrl.value = res.data.body!.projectLink;
+        projectExperience.value = res.data.body as ProjectExperience;
       })
       .catch(failResponseHandler);
   }
@@ -219,13 +232,20 @@ onLoad((e) => {
 
 // 添加、修改项目经历
 const saveProjectExperience = () => {
-  if (!projectName.value || !projectDescribe.value || !achievement.value) {
+  if (
+    !projectExperience.value.projectName ||
+    !projectExperience.value.projectDescription ||
+    !projectExperience.value.achievement
+  ) {
     uni.showToast({
       title: "请填写完整信息",
       icon: "none",
       duration: 500,
     });
-  } else if (startTime.value === "开始时间" || overTime.value === "结束时间") {
+  } else if (
+    projectExperience.value.startTime === "开始时间" ||
+    projectExperience.value.endTime === "结束时间"
+  ) {
     uni.showToast({
       title: "请选择项目时间",
       icon: "none",
@@ -237,18 +257,9 @@ const saveProjectExperience = () => {
       putUserinfosP0ProjectexperiencesP1(
         store.state.accountInfo.userInformationId,
         projectId.value,
-        {
-          projectExperienceId: projectId.value,
-          projectName: projectName.value,
-          projectDescription: projectDescribe.value,
-          achievement: achievement.value,
-          startTime: startTime.value,
-          endTime: overTime.value,
-          projectLink: projectUrl.value,
-          workExperienceId: "",
-        }
+        projectExperience.value
       )
-        .then((res) => {
+        .then(() => {
           uni.showToast({
             title: "修改成功",
             icon: "none",
@@ -260,17 +271,9 @@ const saveProjectExperience = () => {
       // 添加项目经历
       postUserinfosP0Projectexperiences(
         store.state.accountInfo.accountInformationId,
-        {
-          projectName: projectName.value,
-          projectDescription: projectDescribe.value,
-          achievement: achievement.value,
-          startTime: startTime.value,
-          endTime: overTime.value,
-          projectLink: projectUrl.value,
-          workExperienceId: "",
-        }
+        projectExperience.value
       )
-        .then((res) => {
+        .then(() => {
           uni.showToast({
             title: "添加成功",
             icon: "none",
@@ -293,7 +296,7 @@ const deleteProjectExperience = () => {
           store.state.accountInfo.userInformationId,
           projectId.value
         )
-          .then((res) => {
+          .then(() => {
             uni.showToast({
               title: "删除成功",
               icon: "none",
@@ -303,6 +306,7 @@ const deleteProjectExperience = () => {
           .catch(failResponseHandler);
         uni.navigateBack({ delta: 1 });
       } else if (res.cancel) {
+        return;
       }
     },
   });

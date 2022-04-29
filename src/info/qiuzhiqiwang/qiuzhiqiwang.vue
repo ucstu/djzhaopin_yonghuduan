@@ -230,7 +230,7 @@ const saveJobExcept = () => {
         }
       )
         .then((res) => {
-          store.commit("setExceptionJob", res.data.body);
+          console.log(res.data.body);
         })
         .catch(failResponseHandler);
       if (saveBtn.value === saveOver.value) {

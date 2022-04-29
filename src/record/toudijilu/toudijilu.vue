@@ -26,7 +26,7 @@
 <script lang="ts" setup>
 import JobPanel from "@/components/JobPanel/JobPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getCompanyinfosP0Deliveryrecords } from "@/services/services";
+import { getUserinfosP0Deliveryrecords } from "@/services/services";
 import { DeliveryRecord } from "@/services/types";
 import { key } from "@/stores";
 import { onMounted, ref } from "vue";
@@ -40,20 +40,19 @@ const sendId = ref(1);
 
 onMounted(() => {
   /* 默认查看记录 */
-  getCompanyinfosP0Deliveryrecords(store.state.accountInfo.userInformationId, {
-    state: "1",
+  getUserinfosP0Deliveryrecords(store.state.accountInfo.userInformationId, {
+    status: "1",
   }).then((res) => {
+    console.log(res.data.body);
     deliveryRecords.value = res.data.body;
-    console.log(111);
-    console.log(deliveryRecords.value);
   });
 });
 
 /* 查看不同状态记录 */
 const sendTypeId = (index: number) => {
   sendId.value = index;
-  getCompanyinfosP0Deliveryrecords(store.state.accountInfo.userInformationId, {
-    state: sendId.value.toString(),
+  getUserinfosP0Deliveryrecords(store.state.accountInfo.userInformationId, {
+    status: sendId.value.toString(),
   }).then((res) => {
     deliveryRecords.value = res.data.body;
   });

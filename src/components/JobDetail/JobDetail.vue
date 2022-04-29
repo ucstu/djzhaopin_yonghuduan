@@ -3,10 +3,10 @@
     <view class="flex-col group-1">
       <view class="flex-col job-infos">
         <text class="name"
-          >{{ jobDetail!.name }}{{jobDetail!.positonName}}</text
+          >{{ jobDetail!.name }}{{jobDetail!.positionName}}</text
         >
         <view class="flex-row area-educate">
-          <text class="area">{{ jobDetail!.workArea }}</text>
+          <text class="area">{{ jobDetail!.workAreaName }}</text>
           <text class="educate">{{ education[jobDetail!.education] }}</text>
         </view>
         <view class="flex-row items-center directions">

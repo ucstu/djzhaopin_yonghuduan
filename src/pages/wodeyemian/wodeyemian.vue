@@ -2,7 +2,7 @@
   <view class="flex-col page">
     <view class="group-top">
       <view class="flex-row user-infos" @click="toSelfInfo">
-        <image class="avatar" :src="userInfos.avatarUrl" />
+        <image class="avatar" :src="VITE_CDN_URL + userInfos.avatarUrl" />
         <view class="flex-col user-info">
           <text class="name">{{ fullName }}</text>
           <text class="age-educate"
@@ -86,26 +86,32 @@
 
 <script lang="ts" setup>
 // import { getUserinfosUserinfoid } from "@/services/services";
+import { getUserinfosP0 } from "@/services/services";
 import { UserInformation } from "@/services/types";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { onShow } from "@dcloudio/uni-app";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
+const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useStore(key);
 
 const userInfos = ref<UserInformation>({} as UserInformation);
 const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
 const fullName = ref();
+
+onMounted(() => {
+  getUserinfosP0(store.state.accountInfo.userInformationId)
+    .then((res) => {
+      store.state.userInfo.avatarUrl = res.data.body.avatarUrl;
+    })
+    .catch(failResponseHandler);
+});
+
 onShow(() => {
   userInfos.value = store.state.userInfo;
   fullName.value = userInfos.value.firstName + userInfos.value.lastName;
-  // getUserinfosUserinfoid(store.state.accountInfo.userInformationId)
-  //   .then((res) => {
-  //     userInfos.value = res.data.body;
-  //     fullName.value = `${res.data.body.firstName}${res.data.body.lastName}`;
-  //   })
-  //   .catch(failResponseHandler);
 });
 
 const toSelfInfo = () => {

@@ -84,7 +84,8 @@
             >
               <JobDetail
               v-for="(jobDetail, i) in jobDetails"
-              :key="i" :job-detail="jobDetail"
+              :key="i"
+              :job-detail="jobDetail"
               @job-click="jobDescription(i)">
               </JobDetail>
             </scroll-view>
@@ -129,6 +130,7 @@ const recommend = ref([
   "附近",
   "最新"
 ])
+/* 职位信息 */
 const jobDetails = ref<PositionInformation[]>([
 ])
 onMounted(()=> {

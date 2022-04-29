@@ -21,7 +21,10 @@
             </view>
           </view>
           <view class="image-box">
-            <image :src="userInformation.avatarUrl" class="photo" />
+            <image
+              :src="VITE_CDN_URL + userInformation.avatarUrl"
+              class="photo"
+            />
             <image
               v-if="isSex"
               class="sex-image"
@@ -160,6 +163,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
+  getUserinfosP0,
   getUserinfosP0Eduexperiences,
   getUserinfosP0Jobexpectations,
   getUserinfosP0Projectexperiences,
@@ -174,10 +178,11 @@ import {
 } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
-import { onShow } from "@dcloudio/uni-app";
-import { ref } from "vue";
+import { onLoad, onShow } from "@dcloudio/uni-app";
+import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
+const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useStore(key);
 
 const userInformation = ref<UserInformation>({} as UserInformation); // 用户信息
@@ -192,41 +197,45 @@ const workExperiences = ref<WorkExperience[]>([]);
 const educationExperiences = ref<EducationExperience[]>([]);
 // 项目经历
 const projectExperiences = ref<ProjectExperience[]>([]);
-// 个人优势
-const personalAdvantage = ref("");
 
-onShow(() => {
-  // 获取个人优势
+onMounted(() => {
+  getUserinfosP0(store.state.accountInfo.userInformationId)
+    .then((res) => {
+      store.state.userInfo.avatarUrl = res.data.body.avatarUrl;
+    })
+    .catch(failResponseHandler);
+});
+
+onLoad(() => {
+  // 获取个人信息
   userInformation.value = store.state.userInfo;
-  // getUserinfosP0(store.state.accountInfo.userInformationId)
-  //   .then((res) => {
-  //     userInformation.value = res.data.body;
-  //     if (userInformation.value.sex === "男") {
-  //       isSex.value = true;
-  //     } else {
-  //       isSex.value = false;
-  //     }
-  //   })
-  //   .catch(failResponseHandler);
+});
+onShow(() => {
   // 查询所有工作经历
-  getUserinfosP0Workexperiences(
-    store.state.accountInfo.userInformationId,
-    {}
-  ).then((res) => {
-    workExperiences.value = res.data.body;
-  });
+  getUserinfosP0Workexperiences(store.state.accountInfo.userInformationId, {})
+    .then((res) => {
+      workExperiences.value = res.data.body;
+    })
+    .catch(failResponseHandler);
+  // 查询求职期望
+  getUserinfosP0Jobexpectations(store.state.accountInfo.userInformationId, {})
+    .then((res) => {
+      jobExpectations.value = res.data.body;
+    })
+    .catch(failResponseHandler);
+  // 查询所有教育经历
+  getUserinfosP0Eduexperiences(store.state.accountInfo.userInformationId, {})
+    .then((res) => {
+      educationExperiences.value = res.data.body;
+    })
+    .catch(failResponseHandler);
 });
 
 // 修改个人信息
 const changeInfo = () => {
   uni.navigateTo({ url: "/info/gerenxinxi/gerenxinxi" });
 };
-// 查询求职期望
-getUserinfosP0Jobexpectations(store.state.accountInfo.userInformationId, {})
-  .then((res) => {
-    jobExpectations.value = res.data.body;
-  })
-  .catch(failResponseHandler);
+// 查看求职期望
 const ToJobExpectation = () => {
   uni.navigateTo({ url: "/info/qiuzhiyixiang/qiuzhiyixiang" });
 };
@@ -259,13 +268,7 @@ const alterWork = (index: number) => {
       deleteWork.value,
   });
 };
-// 查询所有教育经历
-getUserinfosP0Eduexperiences(
-  store.state.accountInfo.userInformationId,
-  {}
-).then((res) => {
-  educationExperiences.value = res.data.body;
-});
+
 // 查看、修改、删除教育经历
 const alterEducate = (index: number) => {
   let educateId = educationExperiences.value[index].educationExperienceId;
