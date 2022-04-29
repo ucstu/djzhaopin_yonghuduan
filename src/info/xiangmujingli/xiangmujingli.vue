@@ -162,7 +162,6 @@ const store = useStore(key);
 
 const projectExperience = ref<ProjectExperience>({
   projectExperienceId: "",
-  workExperienceId: "",
   projectName: "", //项目名称
   projectDescription: "", //项目描述
   achievement: "", //你的成就
