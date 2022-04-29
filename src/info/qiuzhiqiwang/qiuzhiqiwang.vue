@@ -87,8 +87,8 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  getUserinfosP0JobexpectationsP1,
-  postUserinfosP0Jobexpectations,
+  getUserInfosP0JobExpectationsP1,
+  postUserInfosP0JobExpectations,
 } from "@/services/services";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
@@ -149,7 +149,7 @@ onLoad((e) => {
     saveBtn.value = "完成";
   }
   if (jobId.value) {
-    getUserinfosP0JobexpectationsP1(
+    getUserInfosP0JobExpectationsP1(
       store.state.accountInfo.userInformationId,
       jobId.value
     )
@@ -218,7 +218,7 @@ const saveJobExcept = () => {
         duration: 500,
       });
     } else {
-      postUserinfosP0Jobexpectations(
+      postUserInfosP0JobExpectations(
         store.state.accountInfo.userInformationId,
         {
           positionName: job.value,

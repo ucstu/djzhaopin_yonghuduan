@@ -69,10 +69,10 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
-getUserinfosP0,
-getVerificationcode,
-postAccountinfos,
-postAccountinfosLogin
+  getUserInfosP0,
+  getVerificationCode,
+  postAccountInfos,
+  postAccountInfosLogin,
 } from "@/services/services";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
@@ -94,7 +94,7 @@ const getVerifiable = () => {
       duration: 500,
     });
   } else if (/^1[3456789]\d{9}$/.test(phoneNum.value)) {
-    getVerificationcode({ phoneNumber: phoneNum.value })
+    getVerificationCode({ phoneNumber: phoneNum.value })
       .then((res) => {
         uni.showToast({
           title: "验证码已发送",
@@ -137,7 +137,7 @@ const registeredAccount = () => {
       duration: 500,
     });
   } else {
-    postAccountinfos({
+    postAccountInfos({
       userName: phoneNum.value,
       verificationCode: verification.value,
       accountType: 1,
@@ -145,14 +145,14 @@ const registeredAccount = () => {
     })
       .then((res) => {
         store.commit("setAccountInfo", res.data.body);
-        postAccountinfosLogin({
+        postAccountInfosLogin({
           userName: phoneNum.value,
           password: password.value,
         })
           .then((res) => {
             store.commit("setToken", res.data.body.token);
             store.commit("setAccountInfo", res.data.body.accountInfo);
-            getUserinfosP0(res.data.body.accountInfo.userInformationId)
+            getUserInfosP0(res.data.body.accountInfo.userInformationId)
               .then((res) => {
                 store.commit("setUserInfo", res.data.body);
                 uni.showToast({

@@ -104,7 +104,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { putUserinfosP0 } from "@/services/services";
+import { putUserInfosP0 } from "@/services/services";
 import { UserInformation } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
@@ -190,7 +190,7 @@ const nextClick = () => {
     });
   } else {
     userInfo.value.cityName = city.value;
-    putUserinfosP0(store.state.accountInfo.userInformationId, userInfo.value)
+    putUserInfosP0(store.state.accountInfo.userInformationId, userInfo.value)
       .then((res) => {
         store.commit("setUserInfo", res.data.body);
         uni.navigateTo({

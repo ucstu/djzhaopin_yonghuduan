@@ -58,7 +58,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getDirectiontags } from "@/services/services";
+import { getDirectionTags } from "@/services/services";
 import { onMounted, reactive, ref } from "vue";
 
 interface subDivisionLabels {
@@ -73,7 +73,7 @@ const checkedClassifyName = ref<subDivisionLabels[]>([]);
 const checkedSubLabels = ref<subDivisionLabels["subLabels"]>([]);
 
 onMounted(() => {
-  getDirectiontags({ positionName: "撒辣椒粉" }).then((res) => {
+  getDirectionTags({ positionName: "撒辣椒粉" }).then((res) => {
     checkedClassifyName.value = res.data.body.map((classify) => {
       const checkedLabels = classify.subdivisionLabels.map((label) => {
         let checkableLabel = reactive({

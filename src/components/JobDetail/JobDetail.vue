@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getCompanyinfosP0 } from "@/services/services";
+import { getCompanyInfosP0 } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
 import { ref } from "vue";
 
@@ -73,7 +73,7 @@ const scale = ref([
   "2000人以上",
 ]);
 const companyInfo = ref<CompanyInformation>({} as CompanyInformation);
-getCompanyinfosP0(props.jobDetail?.companyInformationId).then((res) => {
+getCompanyInfosP0(props.jobDetail?.companyInformationId).then((res) => {
   companyInfo.value = res.data.body;
 });
 const emit = defineEmits(["jobClick"]);

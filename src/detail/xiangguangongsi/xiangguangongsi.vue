@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
 import SearchAndFilter from "@/components/SearchAndFilter/SearchAndFilter.vue";
-import { getCompanyinfos, getFilterinformation } from "@/services/services";
+import { getCompanyInfos, getFilterInformation } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
 import { failResponseHandler } from "@/utils/handler";
 import { reactive, ref } from "vue";
@@ -24,7 +24,7 @@ import { reactive, ref } from "vue";
 const popup = ref();
 
 let attentionCompanies = reactive<CompanyInformation[]>([]);
-getCompanyinfos({})
+getCompanyInfos({})
   .then((res) => {
     attentionCompanies.push(...res.data.body);
   })
@@ -32,7 +32,7 @@ getCompanyinfos({})
 const companySizes = reactive<string[]>([]); //公司规模
 const financeStages = reactive<string[]>([]); //融资阶段
 const industrySectors = reactive<string[]>([]); //行业领域
-getFilterinformation().then((res) => {
+getFilterInformation().then((res) => {
   companySizes.push(...res.data.body.companySize);
   financeStages.push(...res.data.body.financingStage);
   industrySectors.push(...res.data.body.industryField);

@@ -95,7 +95,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { postUserinfosP0Workexperiences } from "@/services/services";
+import { postUserInfosP0WorkExperiences } from "@/services/services";
 import { CompanyInformation, WorkExperience } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
@@ -145,7 +145,7 @@ const workChange = (e: { detail: { value: never } }) => {
 };
 // 下一步
 const nextClick = () => {
-  postUserinfosP0Workexperiences(store.state.accountInfo.userInformationId, {
+  postUserInfosP0WorkExperiences(store.state.accountInfo.userInformationId, {
     corporateName: companyName.value,
     companyIndustry: companyType.value,
     positionType: subject.value,

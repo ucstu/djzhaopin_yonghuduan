@@ -85,8 +85,8 @@
 </template>
 
 <script lang="ts" setup>
-// import { getUserinfosUserinfoid } from "@/services/services";
-import { getUserinfosP0 } from "@/services/services";
+// import { getUserInfosUserinfoid } from "@/services/services";
+import { getUserInfosP0 } from "@/services/services";
 import { UserInformation } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
@@ -102,7 +102,7 @@ const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
 const fullName = ref();
 
 onMounted(() => {
-  getUserinfosP0(store.state.accountInfo.userInformationId)
+  getUserInfosP0(store.state.accountInfo.userInformationId)
     .then((res) => {
       store.state.userInfo.avatarUrl = res.data.body.avatarUrl;
     })

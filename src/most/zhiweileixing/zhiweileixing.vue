@@ -76,7 +76,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { getPositiontypes } from "@/services/services";
+import { getPositionTypes } from "@/services/services";
 import { PositionTypes } from "@/services/types";
 import { onLoad } from "@dcloudio/uni-app";
 import { computed, nextTick, onMounted, reactive, ref } from "vue";
@@ -93,7 +93,7 @@ const positions = computed(
   () => directions.value[activeDirectionIndex.value].positions
 );
 
-getPositiontypes().then((res) => {
+getPositionTypes().then((res) => {
   fields.push(...res.data.body);
 });
 

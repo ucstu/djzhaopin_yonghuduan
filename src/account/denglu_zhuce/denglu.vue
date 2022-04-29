@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getUserinfosP0, postAccountinfosLogin } from "@/services/services";
+import { getUserInfosP0, postAccountInfosLogin } from "@/services/services";
 import { key } from "@/stores";
 import { throttle } from "@/utils/common";
 import { failResponseHandler } from "@/utils/handler";
@@ -83,14 +83,14 @@ const login = () => {
       mask: true,
     });
   } else {
-    postAccountinfosLogin({
+    postAccountInfosLogin({
       userName: phoneNum.value,
       password: password.value,
     })
       .then((res) => {
         store.commit("setToken", res.data.body.token);
         store.commit("setAccountInfo", res.data.body.accountInfo);
-        getUserinfosP0(res.data.body.accountInfo.userInformationId)
+        getUserInfosP0(res.data.body.accountInfo.userInformationId)
           .then((res) => {
             store.commit("setUserInfo", res.data.body);
             uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });

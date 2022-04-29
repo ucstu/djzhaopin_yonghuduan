@@ -95,7 +95,7 @@
 
 <script lang="ts" setup>
 import JobDetail from '@/components/JobDetail/JobDetail.vue';
-import { getCompanyinfosPositioninfos } from "@/services/services";
+import { getCompanyInfosPositionInfos } from "@/services/services";
 import { PositionInformation } from '@/services/types';
 import { key } from '@/stores';
 import { onMounted, ref } from 'vue';
@@ -134,7 +134,7 @@ const recommend = ref([
 const jobDetails = ref<PositionInformation[]>([
 ])
 onMounted(()=> {
-  getCompanyinfosPositioninfos(
+  getCompanyInfosPositionInfos(
   {}
 ).then((res) => {
   jobDetails.value = res.data.body
@@ -143,7 +143,7 @@ onMounted(()=> {
 const changeJobType = (index: number) => {
   activeIndex.value = index
 
-  getCompanyinfosPositioninfos(
+  getCompanyInfosPositionInfos(
   {name: expects.value[index]}
 ).then((res) => {
   jobDetails.value = res.data.body
@@ -152,7 +152,7 @@ const changeJobType = (index: number) => {
 
 const recommended = (index: number) => {
   showRecommend.value = index
-  getCompanyinfosPositioninfos(
+  getCompanyInfosPositionInfos(
   {name: expects.value[index]}
 ).then((res) => {
   jobDetails.value = res.data.body
@@ -168,7 +168,7 @@ const onRefresh = () => {
   },1000)
 }
 const onRestore = () => {
-   getCompanyinfosPositioninfos(
+   getCompanyInfosPositionInfos(
   {name: expects.value[activeIndex.value]}
 ).then((res) => {
   jobDetails.value = res.data.body

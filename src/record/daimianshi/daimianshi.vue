@@ -16,12 +16,12 @@
 <script lang="ts" setup>
 import JobPanel from "@/components/JobPanel/JobPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getCompanyinfosPositioninfos } from "@/services/services";
+import { getCompanyInfosPositionInfos } from "@/services/services";
 import { PositionInformation } from "@/services/types";
 import { ref } from "vue";
 
 const interviewedJobs = ref<PositionInformation[]>([]);
-getCompanyinfosPositioninfos({}).then((res) => {
+getCompanyInfosPositionInfos({}).then((res) => {
   interviewedJobs.value = res.data.body;
 });
 const sendType = ref("放弃面试");
