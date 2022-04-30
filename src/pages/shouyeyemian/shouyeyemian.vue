@@ -86,7 +86,7 @@
 
 <script lang="ts" setup>
 import JobDetail from '@/components/JobDetail/JobDetail.vue';
-import { getCompanyInfosPositionInfos, getUserInfosP0JobExpectations } from "@/services/services";
+import { getCompanyInfosPositionInfos } from "@/services/services";
 import { PositionInformation } from '@/services/types';
 import { key } from '@/stores';
 import { failResponseHandler } from '@/utils/handler';
@@ -109,6 +109,7 @@ const expectationWidth = store.state.menuButtonInfo!.left - uni.upx2px(170)
 
 
 const city = ref();
+const cityValue = ref<string[]>([]);
 const activeIndex = ref(0);
 const showRecommend = ref(0);
 const triggered = ref(false);
@@ -120,23 +121,22 @@ const recommend = ref([
   "最新"
 ])
 /* 职位信息 */
-const jobDetails = ref<PositionInformation[]>([
-])
+const jobDetails = ref<PositionInformation[]>([])
 /* 默认 */
-onMounted(()=> {
-  getUserInfosP0JobExpectations(
-    store.state.accountInfo.userInformationId,
-    {}
-  ).then((res) => {
-    expects.value.push(...res.data.body.map((item) => item.positionName))
-    city.value = res.data.body[0].cityName
-  }).catch(failResponseHandler)
+onMounted(() => {
+  console.log(store.state.jobExpectation);
+
+  expects.value = store.state.jobExpectation.map(item => item.positionName)
+  cityValue.value = store.state.jobExpectation.map(item => item.cityName)
+  city.value = cityValue.value[0]
+
   getCompanyInfosPositionInfos(
   {}
   ).then((res) => {
     jobDetails.value = res.data.body
   }).catch(failResponseHandler)
 })
+
 /* 切换城市 */
 onLoad(() => {
   uni.$on("liveCity", (data) => {
@@ -147,12 +147,7 @@ onLoad(() => {
 /* 切换职位 */
 const changeJobType = (index: number) => {
   activeIndex.value = index;
-  getUserInfosP0JobExpectations(
-    store.state.accountInfo.userInformationId,
-    {}
-  ).then((res) => {
-    city.value = res.data.body[index - 1].cityName;
-  }).catch(failResponseHandler)
+  city.value = cityValue.value[index]
   getCompanyInfosPositionInfos(
   {name: expects.value[index]}
 ).then((res) => {

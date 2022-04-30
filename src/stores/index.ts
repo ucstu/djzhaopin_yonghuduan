@@ -1,5 +1,7 @@
 import {
-  AccountInformation, UserInformation
+  AccountInformation,
+  JobExpectation,
+  UserInformation
 } from "@/services/types";
 import { InjectionKey } from "vue";
 import { createStore, Store } from "vuex";
@@ -11,6 +13,7 @@ export interface State {
   token: string | null;
   accountInfo: AccountInformation;
   userInfo: UserInformation;
+  jobExpectation: Array<JobExpectation>;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -36,6 +39,7 @@ export const store = createStore<State>({
     token: null,
     accountInfo: {} as AccountInformation,
     userInfo: {} as UserInformation,
+    jobExpectation: [],
   }),
   mutations: {
     setSystemInfo(state, systemInfo: UniApp.GetSystemInfoResult) {
@@ -55,6 +59,9 @@ export const store = createStore<State>({
     },
     setUserInfo(state, userInfo: UserInformation) {
       state.userInfo = userInfo;
+    },
+    setJobExpectation(state, jobExpectation: JobExpectation) {
+      state.jobExpectation.push(jobExpectation);
     },
   },
   modules: {},

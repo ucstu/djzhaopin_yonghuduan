@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="heard" title="注册账号" />
+  <NavigationBar title="注册账号" />
   <view class="flex-col items-center page">
     <view class="flex-col group-1">
       <text>注册账号</text>

@@ -273,6 +273,7 @@ const send = () => {
   postUserInfosP0DeliveryRecords(store.state.accountInfo.userInformationId, {
     positionInformationId: positionId.value,
     userInformationId: store.state.accountInfo.userInformationId,
+    companyInformationId: companyId.value,
   })
     .then(() => {
       uni.showToast({

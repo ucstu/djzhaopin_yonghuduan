@@ -1,35 +1,49 @@
 <template>
-  <NavigationBar title="求职期望" />
+  <NavigationBar
+    title="求职期望"
+    :right="deleteEx"
+    @right-click="deleteExpectation"
+  />
   <view class="flex-row page">
     <view class="group-all">
-      <view class="flex-row items-center justify-between group-box">
+      <view
+        class="flex-row items-center justify-between group-box"
+        @click="expectJob"
+      >
         <text class="text-title">期望职位</text>
-        <view class="items-center text-right" @click="expectJob">
-          <text>{{ job }}</text>
+        <view class="items-center text-right">
+          <text>{{ jobExpectation.positionName }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
       <view
         v-if="directionShow"
         class="flex-row items-center justify-between group-box"
+        @click="directTag"
       >
         <text class="text-title">细分标签</text>
-        <view class="items-center text-right" @click="directTag">
+        <view class="items-center text-right">
           <text class="direction">{{ directionTag }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
-      <view class="flex-row items-center justify-between group-box">
+      <view
+        class="flex-row items-center justify-between group-box"
+        @click="expectSalary"
+      >
         <text class="text-title">期望月薪</text>
-        <view class="items-center text-right" @click="expectSalary">
-          <text>{{ salary }}</text>
+        <view class="items-center text-right">
+          <text>{{ jobExpectation.salary }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
-      <view class="flex-row items-center justify-between group-box">
+      <view
+        class="flex-row items-center justify-between group-box"
+        @click="expectCity"
+      >
         <text class="text-title">期望城市</text>
-        <view class="items-center text-right" @click="expectCity">
-          <text>{{ city }}</text>
+        <view class="items-center text-right">
+          <text>{{ jobExpectation.city }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
@@ -87,8 +101,10 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
+  deleteUserInfosP0JobExpectationsP1,
   getUserInfosP0JobExpectationsP1,
   postUserInfosP0JobExpectations,
+  putUserInfosP0JobExpectationsP1,
 } from "@/services/services";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
@@ -98,15 +114,19 @@ import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const job = ref("");
-const directionTags = ref<string[]>([]);
+const jobExpectation = ref({
+  positionName: "",
+  directionTags: <string[]>[],
+  salary: "",
+  city: "",
+});
+
 const directionTag = ref("");
 const directionShow = ref(false);
-const salary = ref("");
-const city = ref("");
 const saveBtn = ref("保存");
 const saveOver = ref("完成");
-const jobId = ref("");
+const deleteEx = ref("");
+const jobId = ref(""); // 求职期望id
 
 const popup = ref();
 const expectSalary = () => {
@@ -132,9 +152,9 @@ const salaryChange = (e: { detail: { value: number[] } }) => {
 };
 const salaryExpectation = () => {
   if (start.value === 0 || end.value === 0) {
-    salary.value = `${6}k-${13}k`;
+    jobExpectation.value.salary = `${6}k-${13}k`;
   } else {
-    salary.value = `${start.value}k-${end.value}k`;
+    jobExpectation.value.salary = `${start.value}k-${end.value}k`;
   }
   popup.value.hide();
 };
@@ -149,26 +169,32 @@ onLoad((e) => {
     saveBtn.value = "完成";
   }
   if (jobId.value) {
+    deleteEx.value = "删除";
     getUserInfosP0JobExpectationsP1(
       store.state.accountInfo.userInformationId,
       jobId.value
     )
       .then((res) => {
-        salary.value =
+        jobExpectation.value.salary =
           res.data.body.startingSalary +
           "k-" +
           res.data.body.ceilingSalary +
           "k";
-        city.value = res.data.body.cityName;
+        jobExpectation.value.city = res.data.body.cityName;
+        jobExpectation.value.positionName = res.data.body.positionName;
+        jobExpectation.value.directionTags = res.data.body.directionTags;
+        if (jobExpectation.value.directionTags.length !== 0) {
+          directionShow.value = true;
+        }
       })
       .catch(failResponseHandler);
   }
   uni.$on("liveCity", (date) => {
-    city.value = date;
+    jobExpectation.value.city = date;
   });
   uni.$on("positiontypes", (t) => {
-    job.value = t;
-    if (job.value !== "") {
+    jobExpectation.value.positionName = t;
+    if (jobExpectation.value.positionName !== "") {
       directionShow.value = true;
     } else {
       directionShow.value = false;
@@ -177,9 +203,9 @@ onLoad((e) => {
   uni.$on("saveTags", (tag) => {
     if (tag.length !== 0) {
       directionTag.value = "";
-      directionTags.value.length = 0;
+      jobExpectation.value.directionTags.length = 0;
       for (const element of tag) {
-        directionTags.value.push(element);
+        jobExpectation.value.directionTags.push(element as string);
         directionTag.value += element + "、";
       }
       if (directionTag.value.length > 0) {
@@ -204,7 +230,11 @@ onLoad((e) => {
 
 // 保存求职期望
 const saveJobExcept = () => {
-  if (job.value === "" || salary.value === "" || city.value === "") {
+  if (
+    jobExpectation.value.positionName === "" ||
+    jobExpectation.value.salary === "" ||
+    jobExpectation.value.city === ""
+  ) {
     uni.showToast({
       title: "请填写完整信息",
       icon: "none",
@@ -217,31 +247,57 @@ const saveJobExcept = () => {
         icon: "none",
         duration: 500,
       });
+    }
+  } else if (jobId.value !== null) {
+    let jobExpectation = ref();
+    jobExpectation.value = store.state.jobExpectation.find(
+      (item) => item.jobExpectationId === jobId.value
+    );
+    putUserInfosP0JobExpectationsP1(
+      store.state.accountInfo.userInformationId,
+      jobId.value,
+      jobExpectation.value
+    ).then(() => {
+      uni.showToast({
+        title: "修改成功",
+        icon: "none",
+        duration: 500,
+      });
+    });
+  } else {
+    postUserInfosP0JobExpectations(store.state.accountInfo.userInformationId, {
+      positionName: jobExpectation.value.positionName,
+      positionType: 1,
+      directionTags: jobExpectation.value.directionTags,
+      startingSalary: start.value,
+      ceilingSalary: end.value,
+      cityName: jobExpectation.value.city,
+    })
+      .then((res) => {
+        store.commit("setJobExpectation", res.data.body);
+      })
+      .catch(failResponseHandler);
+    if (saveBtn.value === saveOver.value) {
+      uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
     } else {
-      postUserInfosP0JobExpectations(
-        store.state.accountInfo.userInformationId,
-        {
-          positionName: job.value,
-          positionType: 1,
-          directionTags: directionTags.value,
-          startingSalary: start.value,
-          ceilingSalary: end.value,
-          cityName: city.value,
-        }
-      )
-        .then((res) => {
-          console.log(res.data.body);
-        })
-        .catch(failResponseHandler);
-      if (saveBtn.value === saveOver.value) {
-        uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
-      } else {
-        uni.navigateBack({
-          delta: 1,
-        });
-      }
+      uni.navigateBack({
+        delta: 1,
+      });
     }
   }
+};
+// 删除求职期望
+const deleteExpectation = () => {
+  deleteUserInfosP0JobExpectationsP1(
+    store.state.accountInfo.userInformationId,
+    jobId.value
+  ).then(() => {
+    uni.showToast({
+      title: "删除成功",
+      icon: "none",
+      duration: 500,
+    });
+  });
 };
 
 const expectJob = () => {
