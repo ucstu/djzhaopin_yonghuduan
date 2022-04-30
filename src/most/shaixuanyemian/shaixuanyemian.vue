@@ -114,7 +114,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getFilterinformation } from "@/services/services";
+import { getFilterInformation } from "@/services/services";
 import { FilterInformation } from "@/services/types";
 import { ref } from "vue";
 
@@ -126,7 +126,7 @@ const companySizes = ref<FilterInformation["companySize"]>([]);
 const financeStages = ref<FilterInformation["financingStage"]>([]);
 const industrySectors = ref<FilterInformation["industryField"]>([]);
 
-getFilterinformation().then((res) => {
+getFilterInformation().then((res) => {
   expectedSalaries.value.splice(
     0,
     expectedSalaries.value.length,

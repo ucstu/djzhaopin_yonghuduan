@@ -146,10 +146,10 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import WybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  deleteUserinfosP0ProjectexperiencesP1,
-  getUserinfosP0ProjectexperiencesP1,
-  postUserinfosP0Projectexperiences,
-  putUserinfosP0ProjectexperiencesP1,
+  deleteUserInfosP0ProjectExperiencesP1,
+  getUserInfosP0ProjectExperiencesP1,
+  postUserInfosP0ProjectExperiences,
+  putUserInfosP0ProjectExperiencesP1,
 } from "@/services/services";
 import { ProjectExperience } from "@/services/types";
 import { key } from "@/stores";
@@ -218,7 +218,7 @@ onLoad((e) => {
   deleteProject.value = e.deleteProject;
   /*查询项目经历*/
   if (projectId.value !== undefined) {
-    getUserinfosP0ProjectexperiencesP1(
+    getUserInfosP0ProjectExperiencesP1(
       store.state.accountInfo.userInformationId,
       projectId.value
     )
@@ -253,7 +253,7 @@ const saveProjectExperience = () => {
   } else {
     if (projectId.value !== undefined) {
       // 修改项目经历
-      putUserinfosP0ProjectexperiencesP1(
+      putUserInfosP0ProjectExperiencesP1(
         store.state.accountInfo.userInformationId,
         projectId.value,
         projectExperience.value
@@ -268,7 +268,7 @@ const saveProjectExperience = () => {
         .catch(failResponseHandler);
     } else {
       // 添加项目经历
-      postUserinfosP0Projectexperiences(
+      postUserInfosP0ProjectExperiences(
         store.state.accountInfo.accountInformationId,
         projectExperience.value
       )
@@ -291,7 +291,7 @@ const deleteProjectExperience = () => {
     content: "确定删除该项目经历吗？",
     success: (res) => {
       if (res.confirm) {
-        deleteUserinfosP0ProjectexperiencesP1(
+        deleteUserInfosP0ProjectExperiencesP1(
           store.state.accountInfo.userInformationId,
           projectId.value
         )

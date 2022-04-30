@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import JobPanel from "@/components/JobPanel/JobPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getUserinfosP0Garnerrecords } from "@/services/services";
+import { getUserInfosP0GarnerRecords } from "@/services/services";
 import { key } from "@/stores";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -25,7 +25,7 @@ const store = useStore(key);
 const cancelCollection = ref("取消收藏");
 
 const collectionPositions = ref({});
-getUserinfosP0Garnerrecords(store.state.accountInfo.userInformationId, {}).then(
+getUserInfosP0GarnerRecords(store.state.accountInfo.userInformationId, {}).then(
   (res) => {
     collectionPositions.value = res.data.body;
   }

@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import JobDetail from "@/components/JobDetail/JobDetail.vue";
 import SearchAndFilter from "@/components/SearchAndFilter/SearchAndFilter.vue";
-import { getCompanyinfos } from "@/services/services";
+import { getCompanyInfos } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
 import { key } from "@/stores";
 import { ref } from "vue";
@@ -26,7 +26,7 @@ const store = useStore(key);
 
 const jobDetails = ref<CompanyInformation[]>([]);
 
-getCompanyinfos({}).then((res) => {
+getCompanyInfos({}).then((res) => {
   jobDetails.value = res.data.body;
 });
 

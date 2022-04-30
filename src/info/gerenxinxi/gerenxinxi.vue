@@ -104,9 +104,9 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  getUserinfosP0,
+  getUserInfosP0,
   postAvatars,
-  putUserinfosP0,
+  putUserInfosP0,
 } from "@/services/services";
 import { UserInformation } from "@/services/types";
 import { key } from "@/stores";
@@ -152,7 +152,7 @@ for (let i = 1; i <= 31; i++) {
 const value = ref();
 onMounted(() => {
   /* 获取用户信息 */
-  getUserinfosP0(store.state.accountInfo.userInformationId)
+  getUserInfosP0(store.state.accountInfo.userInformationId)
     .then((res) => {
       userInformation.value = res.data.body;
       fullName.value =
@@ -295,7 +295,7 @@ const saveInfos = () => {
     store.state.userInfo.cityName = userInformation.value.cityName;
     store.state.userInfo.phoneNumber = userInformation.value.phoneNumber;
     store.state.userInfo.email = userInformation.value.email;
-    putUserinfosP0(
+    putUserInfosP0(
       store.state.accountInfo.userInformationId,
       store.state.userInfo
     )

@@ -19,7 +19,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybModal from "@/components/wyb-modal/wyb-modal.vue";
-import { deleteAccountinfosP0 } from "@/services/services";
+import { deleteAccountInfosP0 } from "@/services/services";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
@@ -36,7 +36,7 @@ const showDelete = () => {
 };
 // 注销账号
 const deleteAccount = () => {
-  deleteAccountinfosP0(store.state.accountInfo.accountInformationId, {
+  deleteAccountInfosP0(store.state.accountInfo.accountInformationId, {
     verificationCode: "1234",
   })
     .then((res) => {

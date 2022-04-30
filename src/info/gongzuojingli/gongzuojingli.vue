@@ -205,9 +205,9 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  deleteUserinfosP0WorkexperiencesP1,
-  getUserinfosP0WorkexperiencesP1,
-  postUserinfosP0Workexperiences,
+  deleteUserInfosP0WorkExperiencesP1,
+  getUserInfosP0WorkExperiencesP1,
+  postUserInfosP0WorkExperiences,
 } from "@/services/services";
 import { WorkExperience } from "@/services/types";
 import { key } from "@/stores";
@@ -243,7 +243,7 @@ onLoad((e) => {
   deleteWork.value = e.deleteWork; // 删除工作经历
   /* 查询工作经历 */
   if (workId.value !== undefined) {
-    getUserinfosP0WorkexperiencesP1(
+    getUserInfosP0WorkExperiencesP1(
       store.state.accountInfo.userInformationId,
       workId.value
     )
@@ -361,7 +361,7 @@ const saveWorkExperience = () => {
       duration: 500,
     });
   } else {
-    postUserinfosP0Workexperiences(store.state.accountInfo.userInformationId, {
+    postUserInfosP0WorkExperiences(store.state.accountInfo.userInformationId, {
       corporateName: companyName.value,
       companyIndustry: companyIndustry.value,
       startTime: companyStartTime.value,
@@ -390,7 +390,7 @@ const deleteWorkExperience = () => {
     content: "确定删除该工作经历吗？",
     success: (res) => {
       if (res.confirm) {
-        deleteUserinfosP0WorkexperiencesP1(
+        deleteUserInfosP0WorkExperiencesP1(
           store.state.accountInfo.userInformationId,
           workId.value
         )

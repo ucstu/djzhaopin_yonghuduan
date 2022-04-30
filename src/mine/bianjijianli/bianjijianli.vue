@@ -163,11 +163,11 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
-  getUserinfosP0,
-  getUserinfosP0Eduexperiences,
-  getUserinfosP0Jobexpectations,
-  getUserinfosP0Projectexperiences,
-  getUserinfosP0Workexperiences,
+  getUserInfosP0,
+  getUserInfosP0EduExperiences,
+  getUserInfosP0JobExpectations,
+  getUserInfosP0ProjectExperiences,
+  getUserInfosP0WorkExperiences,
 } from "@/services/services";
 import {
   EducationExperience,
@@ -199,7 +199,7 @@ const educationExperiences = ref<EducationExperience[]>([]);
 const projectExperiences = ref<ProjectExperience[]>([]);
 
 onMounted(() => {
-  getUserinfosP0(store.state.accountInfo.userInformationId)
+  getUserInfosP0(store.state.accountInfo.userInformationId)
     .then((res) => {
       store.state.userInfo.avatarUrl = res.data.body.avatarUrl;
     })
@@ -212,19 +212,19 @@ onLoad(() => {
 });
 onShow(() => {
   // 查询所有工作经历
-  getUserinfosP0Workexperiences(store.state.accountInfo.userInformationId, {})
+  getUserInfosP0WorkExperiences(store.state.accountInfo.userInformationId, {})
     .then((res) => {
       workExperiences.value = res.data.body;
     })
     .catch(failResponseHandler);
   // 查询求职期望
-  getUserinfosP0Jobexpectations(store.state.accountInfo.userInformationId, {})
+  getUserInfosP0JobExpectations(store.state.accountInfo.userInformationId, {})
     .then((res) => {
       jobExpectations.value = res.data.body;
     })
     .catch(failResponseHandler);
   // 查询所有教育经历
-  getUserinfosP0Eduexperiences(store.state.accountInfo.userInformationId, {})
+  getUserInfosP0EduExperiences(store.state.accountInfo.userInformationId, {})
     .then((res) => {
       educationExperiences.value = res.data.body;
     })
@@ -282,7 +282,7 @@ const alterEducate = (index: number) => {
   });
 };
 // 查询所有项目经历
-getUserinfosP0Projectexperiences(
+getUserInfosP0ProjectExperiences(
   store.state.accountInfo.userInformationId,
   {}
 ).then((res) => {

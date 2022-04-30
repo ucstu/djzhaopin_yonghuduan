@@ -90,7 +90,7 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { postUserinfosP0Eduexperiences } from "@/services/services";
+import { postUserInfosP0EduExperiences } from "@/services/services";
 import { EducationExperience } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
@@ -143,7 +143,7 @@ const schoolChange = (e: { detail: { value: never } }) => {
 };
 // 下一步
 const nextClick = () => {
-  postUserinfosP0Eduexperiences(store.state.accountInfo.userInformationId, {
+  postUserInfosP0EduExperiences(store.state.accountInfo.userInformationId, {
     schoolName: schoolName.value,
     education: educationId.value,
     majorName: subject.value,

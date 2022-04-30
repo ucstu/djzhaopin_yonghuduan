@@ -1,9 +1,9 @@
 <script lang="ts" setup>
+import { getUserInfosP0 } from "@/services/services";
 import { key } from "@/stores";
 import { onLaunch } from "@dcloudio/uni-app";
 import { useStore } from "vuex";
 import { getAxiosInstance } from "./services/config";
-import { getUserinfosP0 } from "@/services/services";
 
 const store = useStore(key);
 
@@ -19,7 +19,7 @@ onLaunch(() => {
   if (store.state.token === null || !store.state.accountInfo) {
     uni.reLaunch({ url: "/account/denglu_zhuce/denglu" });
   } else {
-    getUserinfosP0(store.state.accountInfo.userInformationId)
+    getUserInfosP0(store.state.accountInfo.userInformationId)
       .then((res) => {
         store.commit("setUserInfo", res.data.body);
         getAxiosInstance(undefined).defaults.headers.common["Authorization"] =

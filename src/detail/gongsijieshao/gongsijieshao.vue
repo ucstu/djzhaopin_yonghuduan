@@ -71,7 +71,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getCompanyinfosP0 } from "@/services/services";
+import { getCompanyInfosP0 } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
@@ -102,9 +102,8 @@ const scales = [
 ];
 
 onLoad((options) => {
-  console.log(options);
-  if (options.companyId !== undefined) {
-    getCompanyinfosP0(options.companyId)
+  if (options.companyId) {
+    getCompanyInfosP0(options.companyId)
       .then((res) => {
         console.log(res.data.body);
         companyInfo.value = res.data.body;

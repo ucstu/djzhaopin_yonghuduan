@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 import CompanyPanel from "@/components/CompanyPanel/CompanyPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getUserinfosP0Attentionrecords } from "@/services/services";
+import { getUserInfosP0AttentionRecords } from "@/services/services";
 import { key } from "@/stores";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -24,7 +24,7 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const attentionCompanies = ref({});
-getUserinfosP0Attentionrecords(
+getUserInfosP0AttentionRecords(
   store.state.accountInfo.userInformationId,
   {}
 ).then((res) => {

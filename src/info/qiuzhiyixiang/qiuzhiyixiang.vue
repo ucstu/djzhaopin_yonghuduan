@@ -73,8 +73,8 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  getUserinfosP0Jobexpectations,
-  putUserinfosP0,
+  getUserInfosP0JobExpectations,
+  putUserInfosP0,
 } from "@/services/services";
 import { JobExpectation } from "@/services/types";
 import { key } from "@/stores";
@@ -94,7 +94,7 @@ onLoad(() => {
   if (store.state.userInfo.jobStatus !== null) {
     entryTime.value = entryTimes[store.state.userInfo.jobStatus];
   }
-  getUserinfosP0Jobexpectations(store.state.accountInfo.userInformationId, {})
+  getUserInfosP0JobExpectations(store.state.accountInfo.userInformationId, {})
     .then((res) => {
       console.log(res);
 
@@ -124,7 +124,7 @@ const entryChange = (e: any) => {
   entryTime.value = entryTimes[e.detail.value[0]];
   store.state.userInfo.jobStatus = e.detail.value[0];
   definedValue.value = [e.detail.value[0]];
-  putUserinfosP0(
+  putUserInfosP0(
     store.state.accountInfo.userInformationId,
     store.state.userInfo
   )

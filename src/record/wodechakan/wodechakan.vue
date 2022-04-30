@@ -3,9 +3,9 @@
   <view class="flex-col page">
     <view class="flex-col list">
       <JobDetail
-        v-for="(myview, i) in myViews"
+        v-for="(myView, i) in myViews"
         :key="i"
-        :job-detail="myview"
+        :job-detail="myView"
         @click="view_2OnClick"
       />
     </view>
@@ -15,7 +15,7 @@
 <script lang="ts" setup>
 import JobDetail from "@/components/JobDetail/JobDetail.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getUserinfosP0Inspectionrecords } from "@/services/services";
+import { getUserInfosP0InspectionRecords } from "@/services/services";
 import { key } from "@/stores";
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -24,7 +24,7 @@ const store = useStore(key);
 
 const myViews = ref({});
 /* 查询所有查看记录 */
-getUserinfosP0Inspectionrecords(
+getUserInfosP0InspectionRecords(
   store.state.accountInfo.userInformationId,
   {}
 ).then((res) => {

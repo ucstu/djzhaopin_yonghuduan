@@ -154,10 +154,10 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import WybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  deleteUserinfosP0EduexperiencesP1,
-  getUserinfosP0EduexperiencesP1,
-  postUserinfosP0Eduexperiences,
-  putUserinfosP0EduexperiencesP1,
+  deleteUserInfosP0EduExperiencesP1,
+  getUserInfosP0EduExperiencesP1,
+  postUserInfosP0EduExperiences,
+  putUserInfosP0EduExperiencesP1,
 } from "@/services/services";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
@@ -241,7 +241,7 @@ onLoad((e) => {
   deleteEd.value = e.deleteEducate;
   // 查询教育经历
   if (educateId.value !== undefined) {
-    getUserinfosP0EduexperiencesP1(
+    getUserInfosP0EduExperiencesP1(
       store.state.accountInfo.userInformationId,
       educateId.value
     )
@@ -271,7 +271,7 @@ const saveEducation = () => {
     });
   } else {
     if (educateId.value !== undefined) {
-      putUserinfosP0EduexperiencesP1(
+      putUserInfosP0EduExperiencesP1(
         store.state.accountInfo.userInformationId,
         educateId.value,
         {
@@ -290,7 +290,7 @@ const saveEducation = () => {
         })
         .catch(failResponseHandler);
     } else {
-      postUserinfosP0Eduexperiences(store.state.accountInfo.userInformationId, {
+      postUserInfosP0EduExperiences(store.state.accountInfo.userInformationId, {
         schoolName: schoolName.value,
         education: education.value,
         majorName: subject.value,
@@ -312,7 +312,7 @@ const deleteEducation = () => {
     showCancel: true,
     success: (res) => {
       if (res.confirm) {
-        deleteUserinfosP0EduexperiencesP1(
+        deleteUserInfosP0EduExperiencesP1(
           store.state.accountInfo.userInformationId,
           educateId.value
         )

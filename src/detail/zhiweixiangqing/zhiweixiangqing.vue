@@ -69,7 +69,7 @@
           </view>
           <view>职位描述：{{ jobInformation.description }}</view>
           <view>所属部门：{{ jobInformation.departmentName }}</view>
-          <view>周末休息时间：{{ jobInformation.weekendReleseTime }}</view>
+          <view>周末休息时间：{{ jobInformation.weekendReleaseTime }}</view>
           <view>上班时间：{{ jobInformation.workTime }}</view>
           <view>工作地点：{{ jobInformation.workingPlace }}</view>
         </view>
@@ -135,11 +135,11 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  deleteUserinfosP0GarnerrecordsP1,
-  getCompanyinfosP0,
-  getCompanyinfosP0PositioninfosP1,
-  postUserinfosP0Deliveryrecords,
-  postUserinfosP0Garnerrecords,
+  deleteUserInfosP0GarnerRecordsP1,
+  getCompanyInfosP0,
+  getCompanyInfosP0PositionInfosP1,
+  postUserInfosP0DeliveryRecords,
+  postUserInfosP0GarnerRecords,
 } from "@/services/services";
 import { CompanyInformation, PositionInformation } from "@/services/types";
 import { key } from "@/stores";
@@ -168,12 +168,12 @@ onLoad((e) => {
     positionId.value = e.positionId;
   }
   /* 获取职位信息 */
-  getCompanyinfosP0PositioninfosP1(companyId.value, positionId.value)
+  getCompanyInfosP0PositionInfosP1(companyId.value, positionId.value)
     .then((res) => {
       jobInformation.value = res.data.body;
     })
     .catch(failResponseHandler);
-  getCompanyinfosP0(companyId.value)
+  getCompanyInfosP0(companyId.value)
     .then((res) => {
       companyInformation.value = res.data.body;
     })
@@ -198,7 +198,7 @@ const collection = () => {
     positionInformationId: "",
   };
   if (isCollection.value) {
-    postUserinfosP0Garnerrecords(store.state.accountInfo.userInformationId, {
+    postUserInfosP0GarnerRecords(store.state.accountInfo.userInformationId, {
       positionInformationId: positionId.value,
       userInformationId: store.state.accountInfo.userInformationId,
     })
@@ -212,7 +212,7 @@ const collection = () => {
       })
       .catch(failResponseHandler);
   } else {
-    deleteUserinfosP0GarnerrecordsP1(
+    deleteUserInfosP0GarnerRecordsP1(
       collectionInfo.userInformationId,
       collectionInfo.garnerRecordId
     )
@@ -236,7 +236,7 @@ const sendResume = () => {
 };
 // 投递简历
 const send = () => {
-  postUserinfosP0Deliveryrecords(store.state.accountInfo.userInformationId, {
+  postUserInfosP0DeliveryRecords(store.state.accountInfo.userInformationId, {
     positionInformationId: positionId.value,
     userInformationId: store.state.accountInfo.userInformationId,
   })
