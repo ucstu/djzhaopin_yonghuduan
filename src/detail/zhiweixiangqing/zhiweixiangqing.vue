@@ -75,20 +75,24 @@
         </view>
       </view>
     </view>
-    <view>
-      <!-- <view class="page-body">
-        <view class="page-section page-section-gap">
-          <map
-            style="width: 100%; height: 300px"
-            :latitude="35"
-            :longitude="95"
-            :markers="covers"
-          ></map>
-        </view>
-      </view> -->
-    </view>
+    <view> </view>
   </view>
   <view class="flex-row items-center justify-between btn-box">
+    <view class="flex-col justify-center items-center">
+      <image
+        v-if="!isCollection"
+        class="image-collection"
+        src="@/static/icons/collection.svg"
+        @click="collection"
+      />
+      <image
+        v-if="isCollection"
+        class="image-collection"
+        src="@/static/icons/collection-fill.svg"
+        @click="collection"
+      />
+      <text>收藏</text>
+    </view>
     <button
       class="justify-center items-center btn-common"
       @click="communication"
@@ -131,9 +135,11 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
+  deleteUserinfosP0GarnerrecordsP1,
   getCompanyinfosP0,
   getCompanyinfosP0PositioninfosP1,
   postUserinfosP0Deliveryrecords,
+  postUserinfosP0Garnerrecords,
 } from "@/services/services";
 import { CompanyInformation, PositionInformation } from "@/services/types";
 import { key } from "@/stores";
@@ -177,10 +183,49 @@ onLoad((e) => {
 const toCompanyIn = () => {
   companyId.value = companyInformation.value.companyInformationId;
   uni.navigateTo({
-    url: "/detail/gongsijieshao/gongsijieshao?companyId" + companyId.value,
+    url: "/detail/gongsijieshao/gongsijieshao?companyId=" + companyId.value,
   });
 };
 const popup = ref();
+const isCollection = ref(false);
+// 收藏职位
+const collection = () => {
+  console.log(positionId.value);
+  isCollection.value = !isCollection.value;
+  let collectionInfo = {
+    garnerRecordId: "",
+    userInformationId: "",
+    positionInformationId: "",
+  };
+  if (isCollection.value) {
+    postUserinfosP0Garnerrecords(store.state.accountInfo.userInformationId, {
+      positionInformationId: positionId.value,
+      userInformationId: store.state.accountInfo.userInformationId,
+    })
+      .then((res) => {
+        collectionInfo = res.data.body;
+        uni.showToast({
+          title: "收藏成功",
+          icon: "none",
+          duration: 500,
+        });
+      })
+      .catch(failResponseHandler);
+  } else {
+    deleteUserinfosP0GarnerrecordsP1(
+      collectionInfo.userInformationId,
+      collectionInfo.garnerRecordId
+    )
+      .then(() => {
+        uni.showToast({
+          title: "取消收藏",
+          icon: "none",
+          duration: 500,
+        });
+      })
+      .catch(failResponseHandler);
+  }
+};
 // 沟通HR
 const communication = () => {
   uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });
@@ -195,7 +240,7 @@ const send = () => {
     positionInformationId: positionId.value,
     userInformationId: store.state.accountInfo.userInformationId,
   })
-    .then((res) => {
+    .then(() => {
       uni.showToast({
         title: "投递成功",
         icon: "none",
@@ -291,12 +336,19 @@ const send = () => {
 .btn-box {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  width: 92%;
   height: 100rpx;
+  margin-left: 4%;
+
+  .image-collection {
+    width: 60rpx;
+    height: 60rpx;
+  }
 
   .btn-common {
-    width: 30%;
+    width: 35%;
     height: 70rpx;
+    margin: 0rpx;
     font-size: 30rpx;
     color: rgb(35 193 158);
     background-color: rgb(230 230 220);
@@ -304,8 +356,9 @@ const send = () => {
   }
 
   .btn-send-resume {
-    width: 60%;
+    width: 45%;
     height: 70rpx;
+    margin: 0rpx;
     font-size: 30rpx;
     color: #fff;
     background-color: rgb(35 193 158);

@@ -2,18 +2,31 @@
   <NavigationBar title="公司介绍" />
   <view class="flex-col page">
     <view class="flex-col company-description">
-      <view class="flex-row items-center company-infos">
-        <image class="logo" :src="companyInfo" />
+      <view class="flex-row items-center">
+        <image class="logo" :src="VITE_CDN_URL + companyInfo.logoUrl" />
         <view class="flex-col name-require">
-          <image :src="VITE_CDN_URL + companyInfo.logoUrl" mode="scaleToFill" />
-          <text class="require"
-            >{{ companyInfo.cityName }} | {{ companyInfo.financingStage }} |
-            {{ companyInfo.scale }} | {{ companyInfo.comprehensionName }}</text
+          <text style="font-size: 35rpx; font-weight: bold">{{
+            companyInfo.companyName
+          }}</text>
+          <text class="items-center require"
+            >{{ companyInfo.cityName }} |
+            {{ financingStages[companyInfo.financingStage] }} |
+            {{ scales[companyInfo.scale] }} |
+            {{ companyInfo.comprehensionName }}</text
           >
+          <view class="require">
+            <text>福利:</text>
+            <text
+              v-for="(benefit, i) in companyInfo.benefits"
+              :key="i"
+              style="margin-left: 10rpx"
+              >{{ benefit }}</text
+            >
+          </view>
         </view>
       </view>
       <view class="flex-row items-center address">
-        <image class="image" src="@/static/icons/map.png" />
+        <image class="image" src="@/static/icons/map.svg" />
         <text style="padding-left: 20rpx; font-size: 25rpx">{{
           companyInfo.address
         }}</text>
@@ -23,7 +36,7 @@
         <view class="flex-col abstract">
           <text class="us">关于我们</text>
           <view class="abstract-info">
-            <text class="about">{{ companyInfo.about }}</text>
+            <text>{{ companyInfo.about }}</text>
           </view>
         </view>
         <view class="flex-col business-information">
@@ -67,10 +80,33 @@ import { ref } from "vue";
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const companyInfo = ref<CompanyInformation>({} as CompanyInformation);
 
+const financingStages = [
+  "",
+  "未融资",
+  "天使轮",
+  "A轮",
+  "B轮",
+  "C轮",
+  "D轮及以上",
+  "上市公司",
+  "不需要融资",
+];
+const scales = [
+  "",
+  "少于15人",
+  "15-50人",
+  "50-150人",
+  "150-500人",
+  "500-2000人",
+  "2000人以上",
+];
+
 onLoad((options) => {
-  if (options.companyId) {
+  console.log(options);
+  if (options.companyId !== undefined) {
     getCompanyinfosP0(options.companyId)
       .then((res) => {
+        console.log(res.data.body);
         companyInfo.value = res.data.body;
       })
       .catch(failResponseHandler);
@@ -103,14 +139,11 @@ onLoad((options) => {
 
     .name-require {
       width: 570rpx;
-      height: 120rpx;
       padding-left: 20rpx;
       line-height: 50rpx;
 
       .require {
-        overflow: hidden;
         font-size: 25rpx;
-        white-space: nowrap;
       }
     }
   }
@@ -126,7 +159,7 @@ onLoad((options) => {
 
     .profile {
       height: 80rpx;
-      padding-left: 40rpx;
+      padding-left: 20rpx;
       border-bottom: 2rpx solid rgb(230 230 230);
     }
 
@@ -170,8 +203,8 @@ onLoad((options) => {
   }
 
   .image {
-    width: 35rpx;
-    height: 35rpx;
+    width: 45rpx;
+    height: 45rpx;
   }
 }
 </style>

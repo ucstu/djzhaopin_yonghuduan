@@ -22,6 +22,7 @@ import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
+const cancelCollection = ref("取消收藏");
 
 const collectionPositions = ref({});
 getUserinfosP0Garnerrecords(store.state.accountInfo.userInformationId, {}).then(
@@ -29,7 +30,6 @@ getUserinfosP0Garnerrecords(store.state.accountInfo.userInformationId, {}).then(
     collectionPositions.value = res.data.body;
   }
 );
-const cancelCollection = ref("取消收藏");
 </script>
 
 <style lang="scss" scoped>

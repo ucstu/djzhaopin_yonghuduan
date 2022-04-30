@@ -124,7 +124,7 @@ for (let i = 5; i <= 100; i++) {
   endSalary.value.push(i);
 }
 const value = ref([5, 8]);
-const salaryChange = (e: any) => {
+const salaryChange = (e: { detail: { value: number[] } }) => {
   let val = e.detail.value;
   start.value = startSalary.value[val[0]];
   end.value = endSalary.value[val[1]];
@@ -163,22 +163,22 @@ onLoad((e) => {
       })
       .catch(failResponseHandler);
   }
-  uni.$on("liveCity", (e) => {
-    city.value = e;
+  uni.$on("liveCity", (date) => {
+    city.value = date;
   });
-  uni.$on("positiontypes", (e) => {
-    job.value = e;
+  uni.$on("positiontypes", (t) => {
+    job.value = t;
     if (job.value !== "") {
       directionShow.value = true;
     } else {
       directionShow.value = false;
     }
   });
-  uni.$on("saveTags", (e) => {
-    if (e.length !== 0) {
+  uni.$on("saveTags", (tag) => {
+    if (tag.length !== 0) {
       directionTag.value = "";
       directionTags.value.length = 0;
-      for (const element of e) {
+      for (const element of tag) {
         directionTags.value.push(element);
         directionTag.value += element + "、";
       }
@@ -189,7 +189,7 @@ onLoad((e) => {
         );
       }
     } else {
-      for (const element of e) {
+      for (const element of tag) {
         directionTag.value += element + "、";
       }
       if (directionTag.value.length > 0) {
