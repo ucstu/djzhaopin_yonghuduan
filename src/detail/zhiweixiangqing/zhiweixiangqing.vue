@@ -32,6 +32,7 @@
       </view>
       <view class="flex-row company-info" @click="toCompanyIn">
         <image
+          v-if="companyInformation.logoUrl"
           class="items-center logo"
           :src="VITE_CDN_URL + companyInformation.logoUrl"
         />
@@ -39,15 +40,19 @@
           <text class="com-name">{{ companyInformation.companyName }}</text>
           <view class="com-info">
             <text>
-              {{ companyInformation.financingStage }} |
-              {{ companyInformation.scale }} |
+              {{ financingStages[companyInformation.financingStage] }} |
+              {{ scales[companyInformation.scale] }} |
               {{ companyInformation.comprehensionName }}
             </text>
           </view>
         </view>
       </view>
       <view class="items-center hr-info">
-        <image class="hr" :src="VITE_CDN_URL + companyInformation.logoUrl" />
+        <image
+          v-if="companyInformation.logoUrl"
+          class="hr"
+          :src="VITE_CDN_URL + companyInformation.logoUrl"
+        />
         <text style="padding-left: 15rpx">{{
           companyInformation.hrInformationId
         }}</text>
@@ -156,6 +161,26 @@ const jobInformation = ref<PositionInformation>({} as PositionInformation); // �
 const educates = ref(["不要求", "大专", "本科", "硕士", "博士"]);
 const workYears = ref(["经验不限", "在校/应届", "3年以下", "3-5年", "5-10年"]);
 const positionType = ref(["", "全职", "兼职", "实习"]);
+const financingStages = [
+  "",
+  "未融资",
+  "天使轮",
+  "A轮",
+  "B轮",
+  "C轮",
+  "D轮及以上",
+  "上市公司",
+  "不需要融资",
+];
+const scales = [
+  "",
+  "少于15人",
+  "15-50人",
+  "50-150人",
+  "150-500人",
+  "500-2000人",
+  "2000人以上",
+];
 
 const companyInformation = ref<CompanyInformation>({} as CompanyInformation); // 公司信息
 const companyId = ref(""); // 公司id
@@ -190,7 +215,6 @@ const popup = ref();
 const isCollection = ref(false);
 // 收藏职位
 const collection = () => {
-  console.log(positionId.value);
   isCollection.value = !isCollection.value;
   let collectionInfo = {
     garnerRecordId: "",

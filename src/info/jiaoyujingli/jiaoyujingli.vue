@@ -174,7 +174,7 @@ const subject = ref(""); // 专业名称
 const startTime = ref("入学时间"); // 入学时间
 const overTime = ref("结束时间"); /* 毕业时间 */
 /* 学历高度 */
-const educations = ref(["大专", "本科", "硕士", "博士"]);
+const educations = ref(["请选择", "大专", "本科", "硕士", "博士"]);
 
 const start = ref(false);
 const end = ref(false);

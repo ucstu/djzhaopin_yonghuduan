@@ -126,7 +126,7 @@
           <text class="educate-school">{{ educate.schoolName }}</text>
           <text>{{ educate.majorName }}</text>
           <view>
-            <text>{{ educate.education }}</text
+            <text>{{ education[educate.education] }}</text
             >&nbsp;&nbsp;
             <text
               >{{ educate.admissionTime }}-{{ educate.graduationTime }}</text
@@ -187,7 +187,7 @@ const store = useStore(key);
 
 const userInformation = ref<UserInformation>({} as UserInformation); // 用户信息
 const isSex = ref<boolean>(true); // 性别
-const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
+const education = ref(["大专", "本科", "硕士", "博士"]);
 
 // 求职期望
 const jobExpectations = ref<JobExpectation[]>([]);

@@ -79,7 +79,7 @@ import {
 import { JobExpectation } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad } from "@dcloudio/uni-app";
+import { onLoad, onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -94,10 +94,11 @@ onLoad(() => {
   if (store.state.userInfo.jobStatus !== null) {
     entryTime.value = entryTimes[store.state.userInfo.jobStatus];
   }
+});
+
+onShow(() => {
   getUserInfosP0JobExpectations(store.state.accountInfo.userInformationId, {})
     .then((res) => {
-      console.log(res);
-
       jobExpectations.value = res.data.body;
     })
     .catch(failResponseHandler);

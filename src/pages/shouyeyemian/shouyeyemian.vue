@@ -41,15 +41,6 @@
                 style="margin-right: 20rpx;"
                 :class="showRecommend === i ? 'is-active' : ''"
                 @click="recommended(i)">{{item}}</text>
-                <!-- <text
-                  :class="showFirst === 'true' ? 'is-active' : ''"
-                  @click="showFirst = 'true'; showSecond = 'false'; showThird = 'false'">热门</text>
-                <text
-                  class="text-4" :class="showSecond === 'true' ? 'is-active' : ''"
-                  @click="showFirst = 'false'; showSecond = 'true'; showThird = 'false'">附近</text>
-                <text
-                  class="text-5" :class="showThird === 'true' ? 'is-active' : ''"
-                  @click="showFirst = 'false'; showSecond = 'false'; showThird = 'true'">最新</text> -->
               </view>
               <view class="flex-row group-4">
                 <view class="flex-row">

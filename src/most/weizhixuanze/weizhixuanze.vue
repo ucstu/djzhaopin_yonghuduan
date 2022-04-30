@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="top-group" :title="country" />
+  <NavigationBar :title="country" right="切换城市" @right-click="changeCity" />
   <view class="flex-col page">
     <view class="flex-row group-all">
       <view class="justify-center group-left">商圈</view>
@@ -77,6 +77,12 @@ const countriesIndexOf = (index: number) => {
   country.value = countries[index].countyName;
 };
 
+const changeCity = () => {
+  uni.navigateTo({
+    url: "/most/chengshixuanze/chengshixuanze",
+  });
+};
+
 const areasIndex = ref([0]);
 const areasIndexOf = (index: number) => {
   if (areasIndex.value.includes(index)) {
@@ -103,10 +109,6 @@ const savePlace = () => {
   margin-top: -50rpx;
   margin-left: 20rpx;
   background-color: rgb(255 255 255);
-
-  .top-group {
-    position: relative;
-  }
 
   .group-all {
     height: 1120rpx;
