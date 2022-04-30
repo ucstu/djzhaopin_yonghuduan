@@ -9,42 +9,42 @@ import { SwaggerResponse } from "./config";
 import { Http } from "./httpRequest";
 import {
   GetUserInfosP0ProjectExperiencesQueryParams,
-  GetUserInfosP0JobExpectationsQueryParams,
-  GetCompanyInfosP0PositionInfosQueryParams,
-  GetDirectionTagsQueryParams,
-  GetUserInfosP0EduExperiencesQueryParams,
   GetUserInfosP0GarnerRecordsQueryParams,
-  GetCompanyInfosP0DeliveryRecordsQueryParams,
-  GetUserInfosP0WorkExperiencesQueryParams,
-  GetHrInfosQueryParams,
+  GetUserInfosP0InspectionRecordsQueryParams,
   DeleteAccountInfosP0QueryParams,
+  GetCompanyInfosQueryParams,
+  GetUserInfosP0DeliveryRecordsQueryParams,
+  GetCompanyInfosP0DeliveryRecordsQueryParams,
+  GetUserInfosP0JobExpectationsQueryParams,
+  GetDirectionTagsQueryParams,
   GetUserInfosP0AttentionRecordsQueryParams,
+  GetUserInfosP0WorkExperiencesQueryParams,
+  GetCompanyInfosP0PositionInfosQueryParams,
+  GetAreaInformationsQueryParams,
+  GetUserInfosP0EduExperiencesQueryParams,
+  GetHrInfosQueryParams,
   GetVerificationCodeQueryParams,
   GetCompanyInfosPositionInfosQueryParams,
-  GetAreaInformationsQueryParams,
-  GetUserInfosP0DeliveryRecordsQueryParams,
-  GetCompanyInfosQueryParams,
-  GetUserInfosP0InspectionRecordsQueryParams,
   GetUserInfosQueryParams,
-  EducationExperience,
-  PositionInformation,
-  DeliveryRecord,
-  JobExpectation,
-  CityInformations,
-  PositionTypes,
-  CompanyInformation,
-  InspectionRecord,
   AttentionRecord,
-  AreaInformations,
-  MessageRecord,
-  FilterInformation,
+  InspectionRecord,
+  JobExpectation,
+  PositionInformation,
+  EducationExperience,
+  DeliveryRecord,
   HrInformation,
-  GarnerRecord,
-  DirectionTags,
-  WorkExperience,
-  ProjectExperience,
+  CompanyInformation,
   UserInformation,
+  AreaInformations,
+  ProjectExperience,
+  WorkExperience,
+  PositionTypes,
   AccountInformation,
+  FilterInformation,
+  MessageRecord,
+  GarnerRecord,
+  CityInformations,
+  DirectionTags,
 } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -2883,6 +2883,12 @@ export const postUserInfosP0DeliveryRecords = (
    */
   userInfoId: string,
   requestBody: {
+    /**
+     *
+     * 公司信息ID
+     *
+     */
+    companyInformationId: string;
     /**
      *
      * 职位信息ID
