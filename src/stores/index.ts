@@ -1,4 +1,6 @@
-import { AccountInformation, UserInformation } from "@/services/types";
+import {
+  AccountInformation, UserInformation
+} from "@/services/types";
 import { InjectionKey } from "vue";
 import { createStore, Store } from "vuex";
 import VuexPersister from "vuex-persister";

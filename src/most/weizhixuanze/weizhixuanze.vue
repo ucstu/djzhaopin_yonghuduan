@@ -51,6 +51,8 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getAreaInformations } from "@/services/services";
 import { AreaInformations } from "@/services/types";
+import { failResponseHandler } from "@/utils/handler";
+import { onLoad } from "@dcloudio/uni-app";
 import { computed, reactive, ref } from "vue";
 
 const countries = reactive<AreaInformations>([
@@ -61,15 +63,27 @@ const countries = reactive<AreaInformations>([
 ]);
 getAreaInformations({
   city: "北京市",
-}).then((res) => {
-  countries.push(...res.data.body);
-});
+})
+  .then((res) => {
+    countries.push(...res.data.body);
+  })
+  .catch(failResponseHandler);
 const areas = computed(() => {
   return countries[countriesIndex.value].areas;
 });
 
 const countriesIndex = ref(0);
 const country = ref("位置");
+
+onLoad((e) => {
+  if (e.city) {
+    country.value = e.city;
+  }
+  uni.$on("liveCity", (city) => {
+    country.value = city;
+  });
+});
+
 const countriesIndexOf = (index: number) => {
   countriesIndex.value = index;
   areasIndex.value.splice(1, areasIndex.value.length);

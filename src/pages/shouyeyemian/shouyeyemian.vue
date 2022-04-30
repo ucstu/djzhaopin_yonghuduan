@@ -86,9 +86,11 @@
 
 <script lang="ts" setup>
 import JobDetail from '@/components/JobDetail/JobDetail.vue';
-import { getCompanyInfosPositionInfos } from "@/services/services";
+import { getCompanyInfosPositionInfos, getUserInfosP0JobExpectations } from "@/services/services";
 import { PositionInformation } from '@/services/types';
 import { key } from '@/stores';
+import { failResponseHandler } from '@/utils/handler';
+import { onLoad } from '@dcloudio/uni-app';
 import { onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 
@@ -106,16 +108,12 @@ const expectationWidth = store.state.menuButtonInfo!.left - uni.upx2px(170)
 /* #endif */
 
 
-const city = ref('重庆')
-const activeIndex = ref(0)
-const showRecommend = ref(0)
-const triggered = ref(false)
+const city = ref();
+const activeIndex = ref(0);
+const showRecommend = ref(0);
+const triggered = ref(false);
 
-const expects = ref([
-   '综合',
-  '全栈工程师',
-  'JAVA工程师',
-])
+const expects = ref<string[]>([])
 const recommend = ref([
   "热门",
   "附近",
@@ -124,32 +122,54 @@ const recommend = ref([
 /* 职位信息 */
 const jobDetails = ref<PositionInformation[]>([
 ])
+/* 默认 */
 onMounted(()=> {
+  getUserInfosP0JobExpectations(
+    store.state.accountInfo.userInformationId,
+    {}
+  ).then((res) => {
+    expects.value.push(...res.data.body.map((item) => item.positionName))
+    city.value = res.data.body[0].cityName
+  }).catch(failResponseHandler)
   getCompanyInfosPositionInfos(
   {}
-).then((res) => {
-  jobDetails.value = res.data.body
+  ).then((res) => {
+    jobDetails.value = res.data.body
+  }).catch(failResponseHandler)
 })
+/* 切换城市 */
+onLoad(() => {
+  uni.$on("liveCity", (data) => {
+    city.value = data
+  })
 })
-const changeJobType = (index: number) => {
-  activeIndex.value = index
 
+/* 切换职位 */
+const changeJobType = (index: number) => {
+  activeIndex.value = index;
+  getUserInfosP0JobExpectations(
+    store.state.accountInfo.userInformationId,
+    {}
+  ).then((res) => {
+    city.value = res.data.body[index - 1].cityName;
+  }).catch(failResponseHandler)
   getCompanyInfosPositionInfos(
   {name: expects.value[index]}
 ).then((res) => {
   jobDetails.value = res.data.body
-})
+}).catch(failResponseHandler)
 }
-
+/* 切换热门、附近、最新职位 */
 const recommended = (index: number) => {
   showRecommend.value = index
   getCompanyInfosPositionInfos(
   {name: expects.value[index]}
 ).then((res) => {
   jobDetails.value = res.data.body
-})
+}).catch(failResponseHandler)
 }
 
+/* 自定义下拉刷新 */
 const onPulling = () => {
   triggered.value = true
 }
@@ -175,8 +195,9 @@ const image_5OnClick = () => {
 const image_6OnClick = () => {
   uni.navigateTo({ url: '/most/sousuoyemian/sousuoyemian' })
 }
+/* 位置选择 */
 const text_22OnClick = () => {
-  uni.navigateTo({ url: '/most/weizhixuanze/weizhixuanze' })
+  uni.navigateTo({ url: `/most/weizhixuanze/weizhixuanze?city=` + city.value })
 }
 const text_23OnClick = () => {
   uni.navigateTo({ url: '/most/shaixuanyemian/shaixuanyemian' })

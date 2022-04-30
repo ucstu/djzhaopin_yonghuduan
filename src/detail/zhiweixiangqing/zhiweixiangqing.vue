@@ -143,6 +143,7 @@ import {
   deleteUserInfosP0GarnerRecordsP1,
   getCompanyInfosP0,
   getCompanyInfosP0PositionInfosP1,
+  getUserInfosP0GarnerRecords,
   postUserInfosP0DeliveryRecords,
   postUserInfosP0GarnerRecords,
 } from "@/services/services";
@@ -150,7 +151,7 @@ import { CompanyInformation, PositionInformation } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useStore } from "vuex";
 
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
@@ -212,22 +213,31 @@ const toCompanyIn = () => {
   });
 };
 const popup = ref();
-const isCollection = ref(false);
 // 收藏职位
+const isCollection = ref(false);
+const garnerRecordId = ref("");
+onMounted(() => {
+  getUserInfosP0GarnerRecords(store.state.accountInfo.userInformationId, {})
+    .then((res) => {
+      let collectionPosition = res.data.body.find((item) => {
+        return item.positionInformationId === positionId.value;
+      });
+      if (collectionPosition) {
+        isCollection.value = true;
+        garnerRecordId.value = collectionPosition.garnerRecordId;
+      }
+    })
+    .catch(failResponseHandler);
+});
+
 const collection = () => {
   isCollection.value = !isCollection.value;
-  let collectionInfo = {
-    garnerRecordId: "",
-    userInformationId: "",
-    positionInformationId: "",
-  };
   if (isCollection.value) {
     postUserInfosP0GarnerRecords(store.state.accountInfo.userInformationId, {
       positionInformationId: positionId.value,
       userInformationId: store.state.accountInfo.userInformationId,
     })
       .then((res) => {
-        collectionInfo = res.data.body;
         uni.showToast({
           title: "收藏成功",
           icon: "none",
@@ -237,8 +247,8 @@ const collection = () => {
       .catch(failResponseHandler);
   } else {
     deleteUserInfosP0GarnerRecordsP1(
-      collectionInfo.userInformationId,
-      collectionInfo.garnerRecordId
+      store.state.accountInfo.userInformationId,
+      garnerRecordId.value
     )
       .then(() => {
         uni.showToast({
