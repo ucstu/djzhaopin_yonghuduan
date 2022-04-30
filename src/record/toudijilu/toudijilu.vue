@@ -43,7 +43,6 @@ onMounted(() => {
   getUserInfosP0DeliveryRecords(store.state.accountInfo.userInformationId, {
     status: 1,
   }).then((res) => {
-    console.log(res.data.body);
     deliveryRecords.value = res.data.body;
   });
 });

@@ -105,7 +105,6 @@ onLoad((options) => {
   if (options.companyId) {
     getCompanyInfosP0(options.companyId)
       .then((res) => {
-        console.log(res.data.body);
         companyInfo.value = res.data.body;
       })
       .catch(failResponseHandler);

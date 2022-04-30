@@ -124,12 +124,9 @@ const recommend = ref([
 const jobDetails = ref<PositionInformation[]>([])
 /* 默认 */
 onMounted(() => {
-  console.log(store.state.jobExpectation);
-
   expects.value = store.state.jobExpectation.map(item => item.positionName)
   cityValue.value = store.state.jobExpectation.map(item => item.cityName)
   city.value = cityValue.value[0]
-
   getCompanyInfosPositionInfos(
   {}
   ).then((res) => {

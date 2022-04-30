@@ -26,9 +26,7 @@ const cancelCollection = ref("取消收藏");
 
 const collectionPositions = ref({});
 getUserInfosP0GarnerRecords(store.state.accountInfo.userInformationId, {}).then(
-  (res) => {
-    console.log(res.data.body);
-  }
+  (res) => {}
 );
 </script>
 

@@ -4,5 +4,12 @@ import checker from "vite-plugin-checker";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "~@/uni.scss";`,
+      },
+    },
+  },
   plugins: [uni(), checker({ typescript: true })],
 });

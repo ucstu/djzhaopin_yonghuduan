@@ -377,7 +377,6 @@ const saveWorkExperience = () => {
           icon: "none",
           duration: 500,
         });
-        console.log(res.data.body);
       })
       .catch(failResponseHandler);
   }
