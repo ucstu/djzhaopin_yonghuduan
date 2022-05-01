@@ -33,7 +33,7 @@
       >
         <text class="text-title">期望月薪</text>
         <view class="items-center text-right">
-          <text>{{ jobExpectation.salary }}</text>
+          <text>{{ salary }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
@@ -43,7 +43,7 @@
       >
         <text class="text-title">期望城市</text>
         <view class="items-center text-right">
-          <text>{{ jobExpectation.city }}</text>
+          <text>{{ jobExpectation.cityName }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
@@ -115,11 +115,17 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const jobExpectation = ref({
+  jobExpectationId: "",
+  createdAt: "",
+  updatedAt: "",
+  positionType: 1 as 1 | 2 | 3,
   positionName: "",
   directionTags: <string[]>[],
-  salary: "",
-  city: "",
+  startingSalary: 0,
+  ceilingSalary: 0,
+  cityName: "",
 });
+const salary = ref("");
 
 const directionTag = ref("");
 const directionShow = ref(false);
@@ -152,9 +158,13 @@ const salaryChange = (e: { detail: { value: number[] } }) => {
 };
 const salaryExpectation = () => {
   if (start.value === 0 || end.value === 0) {
-    jobExpectation.value.salary = `${6}k-${13}k`;
+    jobExpectation.value.startingSalary = 6;
+    jobExpectation.value.ceilingSalary = 13;
+    salary.value = "6k-13k";
   } else {
-    jobExpectation.value.salary = `${start.value}k-${end.value}k`;
+    jobExpectation.value.startingSalary = start.value;
+    jobExpectation.value.ceilingSalary = end.value;
+    salary.value = `${start.value}k-${end.value}k`;
   }
   popup.value.hide();
 };
@@ -171,26 +181,31 @@ onLoad((e) => {
   if (jobId.value) {
     deleteEx.value = "删除";
     getUserInfosP0JobExpectationsP1(
-      store.state.accountInfo.userInformationId,
+      store.state.accountInfo.fullInformationId,
       jobId.value
     )
       .then((res) => {
-        jobExpectation.value.salary =
-          res.data.body.startingSalary +
-          "k-" +
-          res.data.body.ceilingSalary +
-          "k";
-        jobExpectation.value.city = res.data.body.cityName;
-        jobExpectation.value.positionName = res.data.body.positionName;
-        jobExpectation.value.directionTags = res.data.body.directionTags;
+        jobExpectation.value = res.data.body;
+        salary.value = `${
+          jobExpectation.value.startingSalary
+        }k-${`${jobExpectation.value.ceilingSalary}k`}`;
         if (jobExpectation.value.directionTags.length !== 0) {
           directionShow.value = true;
+          for (const element of jobExpectation.value.directionTags) {
+            directionTag.value += element + "、";
+          }
+          if (directionTag.value.length > 0) {
+            directionTag.value = directionTag.value.substring(
+              0,
+              directionTag.value.length - 1
+            );
+          }
         }
       })
       .catch(failResponseHandler);
   }
   uni.$on("liveCity", (date) => {
-    jobExpectation.value.city = date;
+    jobExpectation.value.cityName = date;
   });
   uni.$on("positiontypes", (t) => {
     jobExpectation.value.positionName = t;
@@ -232,8 +247,8 @@ onLoad((e) => {
 const saveJobExcept = () => {
   if (
     jobExpectation.value.positionName === "" ||
-    jobExpectation.value.salary === "" ||
-    jobExpectation.value.city === ""
+    salary.value === "" ||
+    jobExpectation.value.cityName === ""
   ) {
     uni.showToast({
       title: "请填写完整信息",
@@ -247,56 +262,76 @@ const saveJobExcept = () => {
         icon: "none",
         duration: 500,
       });
-    }
-  } else if (jobId.value !== null) {
-    let jobExpectation = ref();
-    jobExpectation.value = store.state.jobExpectation.find(
-      (item) => item.jobExpectationId === jobId.value
-    );
-    putUserInfosP0JobExpectationsP1(
-      store.state.accountInfo.userInformationId,
-      jobId.value,
-      jobExpectation.value
-    ).then(() => {
-      uni.showToast({
-        title: "修改成功",
-        icon: "none",
-        duration: 500,
-      });
-    });
-  } else {
-    postUserInfosP0JobExpectations(store.state.accountInfo.userInformationId, {
-      positionName: jobExpectation.value.positionName,
-      positionType: 1,
-      directionTags: jobExpectation.value.directionTags,
-      startingSalary: start.value,
-      ceilingSalary: end.value,
-      cityName: jobExpectation.value.city,
-    })
-      .then((res) => {
-        store.commit("setJobExpectation", res.data.body);
-      })
-      .catch(failResponseHandler);
-    if (saveBtn.value === saveOver.value) {
-      uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
     } else {
-      uni.navigateBack({
-        delta: 1,
-      });
+      if (jobId.value) {
+        /* 修改求职期望 */
+        putUserInfosP0JobExpectationsP1(
+          store.state.accountInfo.fullInformationId,
+          jobId.value,
+          jobExpectation.value
+        )
+          .then((res) => {
+            store.state.jobExpectation[
+              store.state.jobExpectation.findIndex(
+                (item) =>
+                  item.jobExpectationId === res.data.body.jobExpectationId
+              )
+            ] = res.data.body;
+            uni.showToast({
+              title: "修改成功",
+              icon: "none",
+              duration: 500,
+            });
+          })
+          .catch(failResponseHandler);
+      } else {
+        /* 新增求职期望 */
+        postUserInfosP0JobExpectations(
+          store.state.accountInfo.fullInformationId,
+          {
+            positionType: jobExpectation.value.positionType,
+            directionTags: jobExpectation.value.directionTags,
+            positionName: jobExpectation.value.positionName,
+            startingSalary: jobExpectation.value.startingSalary,
+            ceilingSalary: jobExpectation.value.ceilingSalary,
+            cityName: jobExpectation.value.cityName,
+          }
+        )
+          .then((res) => {
+            store.commit("setJobExpectation", res.data.body);
+            if (saveBtn.value === saveOver.value) {
+              uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+            } else {
+              uni.navigateBack({
+                delta: 1,
+              });
+            }
+          })
+          .catch(failResponseHandler);
+      }
     }
   }
 };
 // 删除求职期望
 const deleteExpectation = () => {
   deleteUserInfosP0JobExpectationsP1(
-    store.state.accountInfo.userInformationId,
+    store.state.accountInfo.fullInformationId,
     jobId.value
-  ).then(() => {
+  ).then((res) => {
+    store.state.jobExpectation.slice(
+      store.state.jobExpectation.findIndex(
+        (item) => item.jobExpectationId === res.data.body.jobExpectationId
+      ),
+      1
+    );
     uni.showToast({
       title: "删除成功",
       icon: "none",
       duration: 500,
     });
+    // uni.navigateBack({
+    //   delta: 1,
+    // });
   });
 };
 

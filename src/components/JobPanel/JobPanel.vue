@@ -2,7 +2,10 @@
   <view class="flex-col component">
     <JobDetail :job-detail="collectionPosition" @click="view_4OnClick" />
     <view class="flex-row group-8">
-      <view class="flex-col items-center text-wrapper-2">
+      <view
+        class="flex-col items-center text-wrapper-2"
+        @click="emit('stateClick')"
+      >
         <test>{{ sendType }}</test>
       </view>
       <view class="flex-col items-center image-wrapper" @click="view_11OnClick">
@@ -24,6 +27,8 @@ defineProps({
   },
 });
 
+const emit = defineEmits(["stateClick"]);
+
 const view_4OnClick = () => {
   uni.navigateTo({ url: "/detail/zhiweixiangqing/zhiweixiangqing" });
 };
@@ -34,7 +39,7 @@ const view_11OnClick = () => {
 
 <style lang="scss" scoped>
 .component {
-  height: 270rpx;
+  height: auto;
   padding-top: 20rpx;
   overflow: hidden;
   border: solid 2rpx rgb(229 229 229);

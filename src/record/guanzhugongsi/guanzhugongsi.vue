@@ -25,7 +25,7 @@ const store = useStore(key);
 
 const attentionCompanies = ref({});
 getUserInfosP0AttentionRecords(
-  store.state.accountInfo.userInformationId,
+  store.state.accountInfo.fullInformationId,
   {}
 ).then((res) => {
   attentionCompanies.value = res.data.body;

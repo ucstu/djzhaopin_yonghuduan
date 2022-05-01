@@ -24,7 +24,7 @@
       <view class="group-self">
         <text class="text">职位类型</text>
         <view class="flex-row justify-between" @click="subType">
-          <text class="input">{{ subject }}</text>
+          <text class="input">{{ subjectType[subject] }}</text>
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>
@@ -47,41 +47,82 @@
         mode="size-auto"
         type="bottom"
       >
-        <view
-          v-if="!sub"
-          class="flex-row justify-between"
-          style="margin-top: 20rpx"
-        >
-          <view
-            class="justify-center items-center"
-            style="width: 50%; height: 60rpx"
-            ><text>入职时间</text></view
+        <view v-if="!sub">
+          <view class="flex-row justify-between" style="margin-top: 20rpx">
+            <view
+              class="flex-col justify-center items-center"
+              style="width: 50%; height: 60rpx"
+              @click="start = !start"
+              ><text>入职时间</text>
+              <text style="font-size: 25rpx" :class="start ? 'active' : ''">{{
+                startTime
+              }}</text>
+            </view>
+            <view
+              class="flex-col justify-center items-center"
+              style="width: 50%; height: 60rpx"
+              @click="start = !start"
+              ><text>离职时间</text>
+              <text style="font-size: 25rpx" :class="start ? 'active' : ''">{{
+                endTime
+              }}</text>
+            </view>
+          </view>
+          <picker-view
+            v-if="start"
+            :value="startValue"
+            class="picker-view"
+            @change="workChange"
           >
-          <view
-            class="justify-center items-center"
-            style="width: 50%; height: 60rpx"
-            ><text>离职时间</text></view
+            <picker-view-column>
+              <view v-for="(item, i) in years" :key="i" class="item">{{
+                item
+              }}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view v-for="(item, i) in months" :key="i" class="item">{{
+                item
+              }}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view v-for="(item, i) in days" :key="i" class="item">{{
+                item
+              }}</view>
+            </picker-view-column>
+          </picker-view>
+          <picker-view
+            v-if="!start"
+            :value="endValue"
+            class="picker-view"
+            @change="workChange"
           >
+            <picker-view-column>
+              <view v-for="(item, i) in years" :key="i" class="item">{{
+                item
+              }}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view v-for="(item, i) in months" :key="i" class="item">{{
+                item
+              }}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view v-for="(item, i) in days" :key="i" class="item">{{
+                item
+              }}</view>
+            </picker-view-column>
+          </picker-view>
         </view>
-        <picker-view v-if="!sub" class="picker-view" @change="workChange">
-          <picker-view-column>
-            <view v-for="(start, i) in startYears" :key="i" class="item">{{
-              start
-            }}</view>
-          </picker-view-column>
-          <picker-view-column>
-            <view v-for="(end, i) in endYears" :key="i" class="item">{{
-              end
-            }}</view>
-          </picker-view-column>
-        </picker-view>
-        <picker-view v-if="sub" class="picker-view" @change="workChange">
-          <picker-view-column>
-            <view v-for="(item, i) in subjectType" :key="i" class="item">{{
-              item
-            }}</view>
-          </picker-view-column>
-        </picker-view>
+        <!-- 职位类型 -->
+        <view v-if="sub">
+          <picker-view class="picker-view" @change="workChange">
+            <picker-view-column>
+              <view v-for="(item, i) in subjectType" :key="i" class="item">{{
+                item
+              }}</view>
+            </picker-view-column>
+          </picker-view>
+        </view>
       </wybPopup>
     </view>
     <view class="justify-center next-click">
@@ -96,7 +137,7 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { postUserInfosP0WorkExperiences } from "@/services/services";
-import { CompanyInformation, WorkExperience } from "@/services/types";
+import { CompanyInformation } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
@@ -106,46 +147,64 @@ const store = useStore(key);
 
 const companyName = ref<CompanyInformation["companyName"]>("");
 const companyType = ref<CompanyInformation["comprehensionName"]>("");
-const subject = ref<WorkExperience["positionType"]>(1);
-const subjectType = ref(["全职", "兼职", "实习", "其他"]);
+const subject = ref<0 | 1 | 2 | 3>(0);
+const subjectType = ref(["请选择", "全职", "兼职", "实习"]);
 const startTime = ref("入职时间");
 const endTime = ref("离职时间");
 const sub = ref(false);
-
-const date = new Date();
-const startYears = ref<number[]>([]);
-const endYears = ref<number[]>([]);
-let year = date.getFullYear();
-
-for (let i = 1970; i <= year; i++) {
-  startYears.value.push(i);
-  endYears.value.push(i);
-}
+const start = ref(true);
 
 const popup = ref();
-
 const subType = () => {
   sub.value = true;
   popup.value.show();
 };
-
 const showWorkTime = () => {
   sub.value = false;
   popup.value.show();
 };
 
-const workChange = (e: { detail: { value: never } }) => {
+const date = new Date();
+// const startYears = ref<number[]>([]);
+// const endYears = ref<number[]>([]);
+const years = ref<number[]>([]);
+const months = ref<number[]>([]);
+const days = ref<number[]>([]);
+let year = date.getFullYear();
+let month = date.getMonth() + 1;
+let day = date.getDate();
+for (let i = 1970; i <= year; i++) {
+  years.value.push(i);
+}
+for (let i = 1; i <= 12; i++) {
+  months.value.push(i);
+}
+for (let i = 1; i <= 31; i++) {
+  days.value.push(i);
+}
+const startValue = ref([year, month - 1, day - 1]);
+const endValue = ref([year, month - 1, day - 1]);
+
+const workChange = (e: { detail: { value: number[] } }) => {
   let val = e.detail.value;
+  year = years.value[val[0]];
+  month = months.value[val[1]];
+  day = days.value[val[2]];
   if (sub.value) {
-    subject.value = val;
+    subject.value = val[0] as 0 | 1 | 2 | 3;
   } else {
-    startTime.value = String(startYears.value[val[0]]);
-    endTime.value = String(endYears.value[val[1]]);
+    if (start.value) {
+      startTime.value = `${year}-${month}-${day}`;
+      startValue.value = [val[0], val[1], val[2]];
+    } else {
+      endTime.value = `${year}-${month}-${day}`;
+      endValue.value = [val[0], val[1], val[2]];
+    }
   }
 };
 // 下一步
 const nextClick = () => {
-  postUserInfosP0WorkExperiences(store.state.accountInfo.userInformationId, {
+  postUserInfosP0WorkExperiences(store.state.accountInfo.fullInformationId, {
     corporateName: companyName.value,
     companyIndustry: companyType.value,
     positionType: subject.value,
@@ -155,7 +214,7 @@ const nextClick = () => {
     jobContent: "",
     positionName: "",
   })
-    .then((res) => {
+    .then(() => {
       uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=${value}` });
     })
     .catch(failResponseHandler);
@@ -170,7 +229,7 @@ const skip = () => {
 <style lang="scss" scoped>
 .page {
   .active {
-    background-color: rgb(35 193 158);
+    color: rgb(35 193 158);
   }
 
   .group-all {

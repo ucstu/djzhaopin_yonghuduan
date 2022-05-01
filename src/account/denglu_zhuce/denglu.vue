@@ -90,7 +90,7 @@ const login = () => {
       .then((res) => {
         store.commit("setToken", res.data.body.token);
         store.commit("setAccountInfo", res.data.body.accountInfo);
-        getUserInfosP0(res.data.body.accountInfo.userInformationId)
+        getUserInfosP0(res.data.body.accountInfo.fullInformationId)
           .then((res) => {
             store.commit("setUserInfo", res.data.body);
             uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });

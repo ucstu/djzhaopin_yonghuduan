@@ -26,34 +26,52 @@
 <script lang="ts" setup>
 import JobPanel from "@/components/JobPanel/JobPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getUserInfosP0DeliveryRecords } from "@/services/services";
-import { DeliveryRecord } from "@/services/types";
+import {
+  getCompanyInfosP0PositionInfosP1,
+  getUserInfosP0DeliveryRecords,
+} from "@/services/services";
+import { DeliveryRecord, PositionInformation } from "@/services/types";
 import { key } from "@/stores";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const deliveryRecords = ref<DeliveryRecord[]>([]);
+const deliveryRecords = ref<PositionInformation[]>([]);
+const deliveryLength = ref<number>(0);
 const sendType = ["", "待查看", "已查看", "通过初筛", "约面试", "不合格"];
 const sendId = ref<DeliveryRecord["status"]>(1);
 
-onMounted(() => {
-  /* 默认查看记录 */
-  getUserInfosP0DeliveryRecords(store.state.accountInfo.userInformationId, {
-    status: 1,
-  }).then((res) => {
-    deliveryRecords.value = res.data.body;
-  });
+/* 默认查看记录 */
+getUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
+  status: 1,
+}).then((res) => {
+  deliveryLength.value = res.data.body.length;
+  for (const delivery of res.data.body) {
+    getCompanyInfosP0PositionInfosP1(
+      delivery.companyInformationId,
+      delivery.positionInformationId
+    ).then((res) => {
+      deliveryRecords.value.push(res.data.body);
+    });
+  }
 });
 
 /* 查看不同状态记录 */
 const sendTypeId = (index: number) => {
   sendId.value = index as DeliveryRecord["status"];
-  getUserInfosP0DeliveryRecords(store.state.accountInfo.userInformationId, {
+  getUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
     status: sendId.value,
   }).then((res) => {
-    deliveryRecords.value = res.data.body;
+    deliveryRecords.value.length = 0;
+    for (const delivery of res.data.body) {
+      getCompanyInfosP0PositionInfosP1(
+        delivery.companyInformationId,
+        delivery.positionInformationId
+      ).then((res) => {
+        deliveryRecords.value.push(res.data.body);
+      });
+    }
   });
 };
 </script>

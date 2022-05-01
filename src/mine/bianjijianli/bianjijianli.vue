@@ -199,7 +199,7 @@ const educationExperiences = ref<EducationExperience[]>([]);
 const projectExperiences = ref<ProjectExperience[]>([]);
 
 onMounted(() => {
-  getUserInfosP0(store.state.accountInfo.userInformationId)
+  getUserInfosP0(store.state.accountInfo.fullInformationId)
     .then((res) => {
       store.state.userInfo.avatarUrl = res.data.body.avatarUrl;
     })
@@ -212,19 +212,19 @@ onLoad(() => {
 });
 onShow(() => {
   // 查询所有工作经历
-  getUserInfosP0WorkExperiences(store.state.accountInfo.userInformationId, {})
+  getUserInfosP0WorkExperiences(store.state.accountInfo.fullInformationId, {})
     .then((res) => {
       workExperiences.value = res.data.body;
     })
     .catch(failResponseHandler);
   // 查询求职期望
-  getUserInfosP0JobExpectations(store.state.accountInfo.userInformationId, {})
+  getUserInfosP0JobExpectations(store.state.accountInfo.fullInformationId, {})
     .then((res) => {
       jobExpectations.value = res.data.body;
     })
     .catch(failResponseHandler);
   // 查询所有教育经历
-  getUserInfosP0EduExperiences(store.state.accountInfo.userInformationId, {})
+  getUserInfosP0EduExperiences(store.state.accountInfo.fullInformationId, {})
     .then((res) => {
       educationExperiences.value = res.data.body;
     })
@@ -283,7 +283,7 @@ const alterEducate = (index: number) => {
 };
 // 查询所有项目经历
 getUserInfosP0ProjectExperiences(
-  store.state.accountInfo.userInformationId,
+  store.state.accountInfo.fullInformationId,
   {}
 ).then((res) => {
   projectExperiences.value = res.data.body;

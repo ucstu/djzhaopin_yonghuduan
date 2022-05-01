@@ -1,47 +1,49 @@
 <template>
-  <view class="justify-between border" @click="emit('jobClick')">
-    <view class="flex-col group-1">
-      <view class="flex-col job-infos">
-        <text class="name"
-          >{{ jobDetail!.name }}{{jobDetail!.positionName}}</text
-        >
-        <view class="flex-row area-educate">
-          <text class="area">{{ jobDetail!.workAreaName }}</text>
-          <text class="educate">{{ education[jobDetail!.education] }}</text>
-        </view>
-        <view class="flex-row items-center directions">
-          <view
-            v-for="(directionTag, i) in jobDetail!.directionTags"
-            :key="i"
-            class="flex-col text-wrapper tags"
+  <view style="background-color: #fff">
+    <view class="justify-between border" @click="emit('jobClick')">
+      <view class="flex-col group-1">
+        <view class="flex-col job-infos">
+          <text class="name"
+            >{{ jobDetail!.name }}{{jobDetail!.positionName}}</text
           >
-            <text class="tag">{{ directionTag }}</text>
+          <view class="flex-row area-educate">
+            <text class="area">{{ jobDetail!.workAreaName }}</text>
+            <text class="educate">{{ education[jobDetail!.education] }}</text>
+          </view>
+          <view class="flex-row items-center directions">
+            <view
+              v-for="(directionTag, i) in jobDetail!.directionTags"
+              :key="i"
+              class="flex-col text-wrapper tags"
+            >
+              <text class="tag">{{ directionTag }}</text>
+            </view>
+          </view>
+        </view>
+        <view class="flex-row company-infos">
+          <view class="flex-row items-center name-info">
+            <image
+              v-if="companyInfo.logoUrl"
+              class="logo"
+              :src="VITE_CDN_URL + companyInfo.logoUrl"
+            />
+            <text class="company">{{ companyInfo.companyName }}</text>
+            <text class="company">{{
+              financingStage[companyInfo.financingStage]
+            }}</text>
+            <text class="company">{{ scale[companyInfo.scale] }}</text>
           </view>
         </view>
       </view>
-      <view class="flex-row company-infos">
-        <view class="flex-row items-center name-info">
-          <image
-            v-if="companyInfo.logoUrl"
-            class="logo"
-            :src="VITE_CDN_URL + companyInfo.logoUrl"
-          />
-          <text class="company">{{ companyInfo.companyName }}</text>
-          <text class="company">{{
-            financingStage[companyInfo.financingStage]
-          }}</text>
-          <text class="company">{{ scale[companyInfo.scale] }}</text>
-        </view>
+      <view class="flex-col items-end group-2">
+        <text class="salary"
+          >{{ jobDetail!.startingSalary }}k-{{ jobDetail!.ceilingSalary}}k</text
+        >
+        <text class="date">{{ jobDetail!.releaseDate }}</text>
       </view>
     </view>
-    <view class="flex-col items-end group-2">
-      <text class="salary"
-        >{{ jobDetail!.startingSalary }}k-{{ jobDetail!.ceilingSalary }}k</text
-      >
-      <text class="date">{{ jobDetail!.releaseDate }}</text>
-    </view>
   </view>
-  <view class="box"></view>
+  <!-- <view class="box"></view> -->
 </template>
 
 <script lang="ts" setup>
@@ -89,6 +91,7 @@ const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
   width: 92%;
   margin-top: 20rpx;
   margin-left: 4%;
+  background-color: #fff;
   border-bottom: 1px solid rgb(235 235 235);
 
   .group-1 {
@@ -99,7 +102,8 @@ const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
       line-height: 40rpx;
 
       .name {
-        font-size: 28rpx;
+        padding-top: 10rpx;
+        font-size: 30rpx;
         font-weight: bold;
       }
 
@@ -162,22 +166,13 @@ const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
   }
 
   .group-2 {
-    width: 140rpx;
-
-    .salary {
-      font-size: 24rpx;
-      color: rgb(35 193 158);
-    }
-
-    .date {
-      font-size: 24rpx;
-    }
+    padding-top: 10rpx;
+    font-size: 30rpx;
+    color: rgb(35 193 158);
   }
-}
 
-.box {
-  width: 100%;
-  height: 15rpx;
-  background-color: rgb(230 230 230);
+  .date {
+    font-size: 24rpx;
+  }
 }
 </style>

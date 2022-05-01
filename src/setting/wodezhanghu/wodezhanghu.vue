@@ -42,6 +42,8 @@ const deleteAccount = () => {
     .then((res) => {
       store.commit("setToken", null);
       store.commit("setAccountInfo", null);
+      store.commit("setUserInfo", null);
+      store.commit("setJobExpectation", null);
       uni.navigateTo({
         url: "/account/denglu_zhuce/denglu",
       });

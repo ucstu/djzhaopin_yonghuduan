@@ -19,7 +19,7 @@ onLaunch(() => {
   if (store.state.token === null || !store.state.accountInfo) {
     uni.reLaunch({ url: "/account/denglu_zhuce/denglu" });
   } else {
-    getUserInfosP0(store.state.accountInfo.userInformationId)
+    getUserInfosP0(store.state.accountInfo.fullInformationId)
       .then((res) => {
         store.commit("setUserInfo", res.data.body);
         getAxiosInstance(undefined).defaults.headers.common["Authorization"] =

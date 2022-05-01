@@ -97,13 +97,14 @@ onLoad(() => {
 });
 
 onShow(() => {
-  getUserInfosP0JobExpectations(store.state.accountInfo.userInformationId, {})
+  getUserInfosP0JobExpectations(store.state.accountInfo.fullInformationId, {})
     .then((res) => {
       jobExpectations.value = res.data.body;
     })
     .catch(failResponseHandler);
 });
 
+/* 查看、修改、删除求职期望 */
 const jobExpectationClick = (index: number) => {
   let value = true;
   let jobId = jobExpectations.value[index].jobExpectationId;
@@ -112,21 +113,30 @@ const jobExpectationClick = (index: number) => {
   });
 };
 
+/* 添加求职期望 */
 const addExcept = () => {
-  let value = true;
-  uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=${value}` });
+  if (jobExpectations.value.length >= 3) {
+    uni.showToast({
+      title: "最多只能添加3个求职期望",
+      icon: "none",
+      duration: 500,
+    });
+  } else {
+    let value = true;
+    uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=${value}` });
+  }
 };
 
 const popup = ref();
 const jobStatus = () => {
   popup.value.show();
 };
-const entryChange = (e: any) => {
+const entryChange = (e: { detail: { value: number[] } }) => {
   entryTime.value = entryTimes[e.detail.value[0]];
-  store.state.userInfo.jobStatus = e.detail.value[0];
-  definedValue.value = [e.detail.value[0]];
+  store.state.userInfo.jobStatus = e.detail.value[0] as 1 | 2 | 3;
+  definedValue.value = [e.detail.value[0] as 1 | 2 | 3];
   putUserInfosP0(
-    store.state.accountInfo.userInformationId,
+    store.state.accountInfo.fullInformationId,
     store.state.userInfo
   )
     .then((res) => {

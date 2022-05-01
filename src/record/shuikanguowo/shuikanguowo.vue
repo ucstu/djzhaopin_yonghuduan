@@ -25,7 +25,7 @@ const store = useStore(key);
 
 const lookForMes = ref({});
 getUserInfosP0InspectionRecords(
-  store.state.accountInfo.userInformationId,
+  store.state.accountInfo.fullInformationId,
   {}
 ).then((res) => {
   lookForMes.value = res.data.body;

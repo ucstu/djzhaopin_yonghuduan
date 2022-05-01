@@ -61,7 +61,15 @@ export const store = createStore<State>({
       state.userInfo = userInfo;
     },
     setJobExpectation(state, jobExpectation: JobExpectation) {
-      state.jobExpectation.push(jobExpectation);
+      if (state.jobExpectation.length === 0) {
+        state.jobExpectation.push(jobExpectation);
+      } else {
+        if (jobExpectation === null) {
+          state.jobExpectation.length = 0;
+        } else {
+          state.jobExpectation.push(jobExpectation);
+        }
+      }
     },
   },
   modules: {},

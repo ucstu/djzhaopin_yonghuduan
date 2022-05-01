@@ -217,7 +217,7 @@ const popup = ref();
 const isCollection = ref(false);
 const garnerRecordId = ref("");
 onMounted(() => {
-  getUserInfosP0GarnerRecords(store.state.accountInfo.userInformationId, {})
+  getUserInfosP0GarnerRecords(store.state.accountInfo.fullInformationId, {})
     .then((res) => {
       let collectionPosition = res.data.body.find((item) => {
         return item.positionInformationId === positionId.value;
@@ -233,9 +233,9 @@ onMounted(() => {
 const collection = () => {
   isCollection.value = !isCollection.value;
   if (isCollection.value) {
-    postUserInfosP0GarnerRecords(store.state.accountInfo.userInformationId, {
+    postUserInfosP0GarnerRecords(store.state.accountInfo.fullInformationId, {
       positionInformationId: positionId.value,
-      userInformationId: store.state.accountInfo.userInformationId,
+      userInformationId: store.state.accountInfo.fullInformationId,
     })
       .then((res) => {
         uni.showToast({
@@ -247,7 +247,7 @@ const collection = () => {
       .catch(failResponseHandler);
   } else {
     deleteUserInfosP0GarnerRecordsP1(
-      store.state.accountInfo.userInformationId,
+      store.state.accountInfo.fullInformationId,
       garnerRecordId.value
     )
       .then(() => {
@@ -270,9 +270,9 @@ const sendResume = () => {
 };
 // 投递简历
 const send = () => {
-  postUserInfosP0DeliveryRecords(store.state.accountInfo.userInformationId, {
+  postUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
     positionInformationId: positionId.value,
-    userInformationId: store.state.accountInfo.userInformationId,
+    userInformationId: store.state.accountInfo.fullInformationId,
     companyInformationId: companyId.value,
   })
     .then(() => {

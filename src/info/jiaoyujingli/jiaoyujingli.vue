@@ -242,12 +242,12 @@ onLoad((e) => {
   // 查询教育经历
   if (educateId.value !== undefined) {
     getUserInfosP0EduExperiencesP1(
-      store.state.accountInfo.userInformationId,
+      store.state.accountInfo.fullInformationId,
       educateId.value
     )
       .then((res) => {
         schoolName.value = res.data.body.schoolName;
-        education.value = res.data.body.education;
+        education.value = (res.data.body.education + 1) as 1 | 2 | 3 | 4;
         subject.value = res.data.body.majorName;
         startTime.value = res.data.body.admissionTime;
         overTime.value = res.data.body.graduationTime;
@@ -272,7 +272,7 @@ const saveEducation = () => {
   } else {
     if (educateId.value !== undefined) {
       putUserInfosP0EduExperiencesP1(
-        store.state.accountInfo.userInformationId,
+        store.state.accountInfo.fullInformationId,
         educateId.value,
         {
           schoolName: schoolName.value,
@@ -290,7 +290,7 @@ const saveEducation = () => {
         })
         .catch(failResponseHandler);
     } else {
-      postUserInfosP0EduExperiences(store.state.accountInfo.userInformationId, {
+      postUserInfosP0EduExperiences(store.state.accountInfo.fullInformationId, {
         schoolName: schoolName.value,
         education: education.value,
         majorName: subject.value,
@@ -313,7 +313,7 @@ const deleteEducation = () => {
     success: (res) => {
       if (res.confirm) {
         deleteUserInfosP0EduExperiencesP1(
-          store.state.accountInfo.userInformationId,
+          store.state.accountInfo.fullInformationId,
           educateId.value
         )
           .then(() => {

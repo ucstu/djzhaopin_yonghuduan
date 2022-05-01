@@ -13,7 +13,7 @@
       <view class="flex-row justify-between apply-infos">
         <view class="flex-col items-center justify-center" @click="onClick_1">
           <text>投递简历</text>
-          <text>0</text>
+          <text>{{ deliveryNum }}</text>
         </view>
         <view class="flex-col items-center justify-center" @click="onClick_2">
           <text>收藏职位</text>
@@ -100,9 +100,10 @@ const store = useStore(key);
 const userInfos = ref<UserInformation>({} as UserInformation);
 const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
 const fullName = ref();
+const deliveryNum = ref(0);
 
 onMounted(() => {
-  getUserInfosP0(store.state.accountInfo.userInformationId)
+  getUserInfosP0(store.state.accountInfo.fullInformationId)
     .then((res) => {
       store.state.userInfo.avatarUrl = res.data.body.avatarUrl;
     })
@@ -112,6 +113,7 @@ onMounted(() => {
 onShow(() => {
   userInfos.value = store.state.userInfo;
   fullName.value = userInfos.value.firstName + userInfos.value.lastName;
+  // deliveryNum.value =
 });
 
 const toSelfInfo = () => {

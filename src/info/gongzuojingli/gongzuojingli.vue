@@ -244,7 +244,7 @@ onLoad((e) => {
   /* 查询工作经历 */
   if (workId.value !== undefined) {
     getUserInfosP0WorkExperiencesP1(
-      store.state.accountInfo.userInformationId,
+      store.state.accountInfo.fullInformationId,
       workId.value
     )
       .then((res) => {
@@ -361,7 +361,7 @@ const saveWorkExperience = () => {
       duration: 500,
     });
   } else {
-    postUserInfosP0WorkExperiences(store.state.accountInfo.userInformationId, {
+    postUserInfosP0WorkExperiences(store.state.accountInfo.fullInformationId, {
       corporateName: companyName.value,
       companyIndustry: companyIndustry.value,
       startTime: companyStartTime.value,
@@ -390,7 +390,7 @@ const deleteWorkExperience = () => {
     success: (res) => {
       if (res.confirm) {
         deleteUserInfosP0WorkExperiencesP1(
-          store.state.accountInfo.userInformationId,
+          store.state.accountInfo.fullInformationId,
           workId.value
         )
           .then(() => {

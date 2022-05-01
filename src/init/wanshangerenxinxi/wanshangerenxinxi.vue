@@ -190,7 +190,7 @@ const nextClick = () => {
     });
   } else {
     userInfo.value.cityName = city.value;
-    putUserInfosP0(store.state.accountInfo.userInformationId, userInfo.value)
+    putUserInfosP0(store.state.accountInfo.fullInformationId, userInfo.value)
       .then((res) => {
         store.commit("setUserInfo", res.data.body);
         uni.navigateTo({

@@ -219,7 +219,7 @@ onLoad((e) => {
   /*查询项目经历*/
   if (projectId.value !== undefined) {
     getUserInfosP0ProjectExperiencesP1(
-      store.state.accountInfo.userInformationId,
+      store.state.accountInfo.fullInformationId,
       projectId.value
     )
       .then((res) => {
@@ -254,7 +254,7 @@ const saveProjectExperience = () => {
     if (projectId.value !== undefined) {
       // 修改项目经历
       putUserInfosP0ProjectExperiencesP1(
-        store.state.accountInfo.userInformationId,
+        store.state.accountInfo.fullInformationId,
         projectId.value,
         projectExperience.value
       )
@@ -292,7 +292,7 @@ const deleteProjectExperience = () => {
     success: (res) => {
       if (res.confirm) {
         deleteUserInfosP0ProjectExperiencesP1(
-          store.state.accountInfo.userInformationId,
+          store.state.accountInfo.fullInformationId,
           projectId.value
         )
           .then(() => {

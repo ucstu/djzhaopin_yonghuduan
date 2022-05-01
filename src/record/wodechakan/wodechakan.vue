@@ -25,7 +25,7 @@ const store = useStore(key);
 const myViews = ref({});
 /* 查询所有查看记录 */
 getUserInfosP0InspectionRecords(
-  store.state.accountInfo.userInformationId,
+  store.state.accountInfo.fullInformationId,
   {}
 ).then((res) => {
   myViews.value = res.data.body;

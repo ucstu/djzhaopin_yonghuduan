@@ -152,7 +152,7 @@ for (let i = 1; i <= 31; i++) {
 const value = ref();
 onMounted(() => {
   /* 获取用户信息 */
-  getUserInfosP0(store.state.accountInfo.userInformationId)
+  getUserInfosP0(store.state.accountInfo.fullInformationId)
     .then((res) => {
       userInformation.value = res.data.body;
       fullName.value =
@@ -296,7 +296,7 @@ const saveInfos = () => {
     store.state.userInfo.phoneNumber = userInformation.value.phoneNumber;
     store.state.userInfo.email = userInformation.value.email;
     putUserInfosP0(
-      store.state.accountInfo.userInformationId,
+      store.state.accountInfo.fullInformationId,
       store.state.userInfo
     )
       .then((res) => {

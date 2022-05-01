@@ -171,7 +171,7 @@ const saveTags = () => {
 
         .segment-tag {
           flex-wrap: wrap;
-          width: 220rpx;
+          width: 210rpx;
           height: 60rpx;
           margin: 10rpx;
           text-align: center;

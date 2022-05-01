@@ -60,23 +60,80 @@
             >
           </picker-view-column>
         </picker-view>
-        <picker-view
-          v-if="isShowSchool"
-          :value="value"
-          class="picker-view"
-          @change="schoolChange"
-        >
-          <picker-view-column>
-            <view v-for="(start, i) in startYears" :key="i" class="item">{{
-              start
-            }}</view>
-          </picker-view-column>
-          <picker-view-column>
-            <view v-for="(end, i) in endYears" :key="i" class="item">{{
-              end
-            }}</view>
-          </picker-view-column>
-        </picker-view>
+        <view v-if="isShowSchool">
+          <view class="flex-row">
+            <view
+              class="flex-col justify-center items-center"
+              style="width: 50%"
+              @click="
+                start = true;
+                end = false;
+              "
+            >
+              <text>入学时间</text>
+              <text style="font-size: 25rpx" :class="start ? 'active' : ''">{{
+                startSchool
+              }}</text>
+            </view>
+            <view
+              class="flex-col justify-center items-center"
+              style="width: 50%"
+              @click="
+                end = true;
+                start = false;
+              "
+            >
+              <text>毕业时间</text>
+              <text style="font-size: 25rpx" :class="end ? 'active' : ''">{{
+                endSchool
+              }}</text>
+            </view>
+          </view>
+          <picker-view
+            v-show="start"
+            :value="startValue"
+            class="picker-view"
+            @change="schoolChange"
+          >
+            <picker-view-column>
+              <view v-for="(item, i) in years" :key="i" class="item">{{
+                item
+              }}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view v-for="(item, i) in months" :key="i" class="item">{{
+                item
+              }}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view v-for="(item, i) in days" :key="i" class="item">{{
+                item
+              }}</view>
+            </picker-view-column>
+          </picker-view>
+          <picker-view
+            v-show="end"
+            :value="endValue"
+            class="picker-view"
+            @change="schoolChange"
+          >
+            <picker-view-column>
+              <view v-for="(item, i) in years" :key="i" class="item">{{
+                item
+              }}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view v-for="(item, i) in months" :key="i" class="item">{{
+                item
+              }}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view v-for="(item, i) in days" :key="i" class="item">{{
+                item
+              }}</view>
+            </picker-view-column>
+          </picker-view>
+        </view>
       </wybPopup>
     </view>
     <view class="justify-center next-click">
@@ -91,7 +148,6 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { postUserInfosP0EduExperiences } from "@/services/services";
-import { EducationExperience } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
@@ -100,31 +156,18 @@ import { useStore } from "vuex";
 const store = useStore(key);
 
 const schoolName = ref("");
-const educationId = ref<0 | 1 | 2 | 3 | 4>(1);
+const educationId = ref<0 | 1 | 2 | 3 | 4>(0);
 const subject = ref("");
 const startSchool = ref("入学时间");
 const endSchool = ref("毕业时间");
-const educationValue = ref(["大专", "本科", "硕士", "博士"]);
-const edChange = (e: {
-  detail: { value: EducationExperience["education"] };
-}) => {
-  educationId.value = e.detail.value;
-};
-
-const date = new Date();
-const startYears = ref<number[]>([]);
-const endYears = ref<number[]>([]);
-let year = date.getFullYear();
-const value = ref([year - 2, year]);
-for (let i = 1970; i <= year; i++) {
-  startYears.value.push(i - 2);
-  endYears.value.push(i);
-}
+const educationValue = ref(["请选择", "大专", "本科", "硕士", "博士"]);
 
 const popup = ref();
 
 const isShowEd = ref(false);
 const isShowSchool = ref(false);
+const start = ref(true); // 入学时间
+const end = ref(false); // 毕业时间
 const showEducation = () => {
   isShowEd.value = true;
   isShowSchool.value = false;
@@ -136,14 +179,48 @@ const showSchool = () => {
   popup.value.show();
 };
 
+const edChange = (e: { detail: { value: number[] } }) => {
+  educationId.value = e.detail.value[0] as 0 | 1 | 2 | 3 | 4;
+  console.log(educationId.value);
+  popup.value.hide();
+};
+
+const date = new Date();
+// const startYears = ref<number[]>([]);
+// const endYears = ref<number[]>([]);
+const years = ref<number[]>([]);
+const months = ref<number[]>([]);
+const days = ref<number[]>([]);
+let year = date.getFullYear();
+let month = date.getMonth() + 1;
+let day = date.getDate();
+for (let i = 1970; i <= year; i++) {
+  years.value.push(i);
+}
+for (let i = 1; i <= 12; i++) {
+  months.value.push(i);
+}
+for (let i = 1; i <= 31; i++) {
+  days.value.push(i);
+}
+const startValue = ref([year, month - 1, day - 1]);
+const endValue = ref([year, month - 1, day - 1]);
 const schoolChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;
-  startSchool.value = String(startYears.value[val[0]]);
-  endSchool.value = String(endYears.value[val[1]]);
+  year = years.value[val[0]];
+  month = months.value[val[1]];
+  day = days.value[val[2]];
+  if (start.value) {
+    startSchool.value = `${year}-${month}-${day}`;
+    startValue.value = [val[0], val[1], val[2]];
+  } else {
+    endSchool.value = `${year}-${month}-${day}`;
+    endValue.value = [val[0], val[1], val[2]];
+  }
 };
 // 下一步
 const nextClick = () => {
-  postUserInfosP0EduExperiences(store.state.accountInfo.userInformationId, {
+  postUserInfosP0EduExperiences(store.state.accountInfo.fullInformationId, {
     schoolName: schoolName.value,
     education: educationId.value,
     majorName: subject.value,
@@ -166,7 +243,7 @@ const skip = () => {
 <style lang="scss" scoped>
 .page {
   .active {
-    background-color: rgb(35 193 158);
+    color: rgb(35 193 158);
   }
 
   .group-all {

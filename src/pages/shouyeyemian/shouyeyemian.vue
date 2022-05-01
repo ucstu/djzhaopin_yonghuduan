@@ -78,6 +78,7 @@
               :key="i"
               :job-detail="jobDetail"
               @job-click="jobDescription(i)">
+              <view class="box">11</view>
               </JobDetail>
             </scroll-view>
           </view>
@@ -90,7 +91,7 @@ import { getCompanyInfosPositionInfos } from "@/services/services";
 import { PositionInformation } from '@/services/types';
 import { key } from '@/stores';
 import { failResponseHandler } from '@/utils/handler';
-import { onLoad } from '@dcloudio/uni-app';
+import { onLoad, onShow } from '@dcloudio/uni-app';
 import { onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 
@@ -124,14 +125,17 @@ const recommend = ref([
 const jobDetails = ref<PositionInformation[]>([])
 /* 默认 */
 onMounted(() => {
-  expects.value = store.state.jobExpectation.map(item => item.positionName)
-  cityValue.value = store.state.jobExpectation.map(item => item.cityName)
-  city.value = cityValue.value[0]
   getCompanyInfosPositionInfos(
   {}
   ).then((res) => {
+    console.log(res.data.body)
     jobDetails.value = res.data.body
   }).catch(failResponseHandler)
+})
+onShow(() => {
+  expects.value = store.state.jobExpectation.map(item => item.positionName)
+  cityValue.value = store.state.jobExpectation.map(item => item.cityName)
+  city.value = cityValue.value[0]
 })
 
 /* 切换城市 */
@@ -363,6 +367,7 @@ const jobDescription = (index: number) => {
   .job-detail {
     height: 830rpx;
     overflow: hidden;
+  background-color: rgb(240 240 240);
   }
 }
 </style>
