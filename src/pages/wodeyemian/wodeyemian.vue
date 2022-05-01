@@ -86,8 +86,11 @@
 
 <script lang="ts" setup>
 // import { getUserInfosUserinfoid } from "@/services/services";
-import { getUserInfosP0 } from "@/services/services";
-import { UserInformation } from "@/services/types";
+import {
+  getUserInfosP0,
+  getUserInfosP0DeliveryRecords,
+} from "@/services/services";
+import { DeliveryRecord, UserInformation } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { onShow } from "@dcloudio/uni-app";
@@ -98,9 +101,10 @@ const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useStore(key);
 
 const userInfos = ref<UserInformation>({} as UserInformation);
-const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
+const education = ref(["大专", "本科", "硕士", "博士"]);
 const fullName = ref();
 const deliveryNum = ref(0);
+const deliveryInfo = ref<DeliveryRecord[]>([]);
 
 onMounted(() => {
   getUserInfosP0(store.state.accountInfo.fullInformationId)
@@ -113,14 +117,21 @@ onMounted(() => {
 onShow(() => {
   userInfos.value = store.state.userInfo;
   fullName.value = userInfos.value.firstName + userInfos.value.lastName;
-  // deliveryNum.value =
+  getUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
+    status: 1,
+  }).then((res) => {
+    deliveryNum.value = res.data.body.length;
+    deliveryInfo.value = res.data.body;
+  });
 });
 
 const toSelfInfo = () => {
   uni.navigateTo({ url: "/mine/bianjijianli/bianjijianli" });
 };
 const onClick_1 = () => {
-  uni.navigateTo({ url: "/record/toudijilu/toudijilu" });
+  uni.navigateTo({
+    url: "/record/toudijilu/toudijilu",
+  });
 };
 const onClick_2 = () => {
   uni.navigateTo({ url: "/record/shoucangzhiwei/shoucangzhiwei" });

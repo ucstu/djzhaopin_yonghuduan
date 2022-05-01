@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar title="投递记录" />
+  <NavigationBar title="投递记录" right="清空" @right-click="clearRecord" />
   <view class="flex-col page">
     <view class="justify-between items-center group-1">
       <text
@@ -27,34 +27,41 @@
 import JobPanel from "@/components/JobPanel/JobPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
+  deleteUserInfosP0DeliveryRecordsP1,
   getCompanyInfosP0PositionInfosP1,
   getUserInfosP0DeliveryRecords,
 } from "@/services/services";
 import { DeliveryRecord, PositionInformation } from "@/services/types";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
+import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
 const deliveryRecords = ref<PositionInformation[]>([]);
-const deliveryLength = ref<number>(0);
+const deliveryLength = ref();
 const sendType = ["", "待查看", "已查看", "通过初筛", "约面试", "不合格"];
 const sendId = ref<DeliveryRecord["status"]>(1);
 
 /* 默认查看记录 */
-getUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
-  status: 1,
-}).then((res) => {
-  deliveryLength.value = res.data.body.length;
-  for (const delivery of res.data.body) {
-    getCompanyInfosP0PositionInfosP1(
-      delivery.companyInformationId,
-      delivery.positionInformationId
-    ).then((res) => {
-      deliveryRecords.value.push(res.data.body);
-    });
-  }
+onShow(() => {
+  getUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
+    status: 1,
+  }).then((res) => {
+    deliveryLength.value = res.data.body;
+    for (const delivery of res.data.body) {
+      getCompanyInfosP0PositionInfosP1(
+        delivery.companyInformationId,
+        delivery.positionInformationId
+      )
+        .then((res) => {
+          deliveryRecords.value.push(res.data.body);
+        })
+        .catch(failResponseHandler);
+    }
+  });
 });
 
 /* 查看不同状态记录 */
@@ -62,17 +69,34 @@ const sendTypeId = (index: number) => {
   sendId.value = index as DeliveryRecord["status"];
   getUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
     status: sendId.value,
-  }).then((res) => {
-    deliveryRecords.value.length = 0;
-    for (const delivery of res.data.body) {
-      getCompanyInfosP0PositionInfosP1(
-        delivery.companyInformationId,
-        delivery.positionInformationId
-      ).then((res) => {
-        deliveryRecords.value.push(res.data.body);
-      });
-    }
-  });
+  })
+    .then((res) => {
+      deliveryRecords.value.length = 0;
+      for (const delivery of res.data.body) {
+        getCompanyInfosP0PositionInfosP1(
+          delivery.companyInformationId,
+          delivery.positionInformationId
+        )
+          .then((res) => {
+            deliveryRecords.value.push(res.data.body);
+          })
+          .catch(failResponseHandler);
+      }
+    })
+    .catch(failResponseHandler);
+};
+/* 清空记录 */
+const clearRecord = () => {
+  for (const delivery of deliveryLength.value) {
+    deleteUserInfosP0DeliveryRecordsP1(
+      store.state.accountInfo.fullInformationId,
+      delivery.deliveryRecordId
+    )
+      .then(() => {
+        deliveryRecords.value.length = 0;
+      })
+      .catch(failResponseHandler);
+  }
 };
 </script>
 

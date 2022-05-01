@@ -271,12 +271,6 @@ const saveJobExcept = () => {
           jobExpectation.value
         )
           .then((res) => {
-            store.state.jobExpectation[
-              store.state.jobExpectation.findIndex(
-                (item) =>
-                  item.jobExpectationId === res.data.body.jobExpectationId
-              )
-            ] = res.data.body;
             uni.showToast({
               title: "修改成功",
               icon: "none",
@@ -297,8 +291,7 @@ const saveJobExcept = () => {
             cityName: jobExpectation.value.cityName,
           }
         )
-          .then((res) => {
-            store.commit("setJobExpectation", res.data.body);
+          .then(() => {
             if (saveBtn.value === saveOver.value) {
               uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
             } else {
@@ -317,13 +310,7 @@ const deleteExpectation = () => {
   deleteUserInfosP0JobExpectationsP1(
     store.state.accountInfo.fullInformationId,
     jobId.value
-  ).then((res) => {
-    store.state.jobExpectation.slice(
-      store.state.jobExpectation.findIndex(
-        (item) => item.jobExpectationId === res.data.body.jobExpectationId
-      ),
-      1
-    );
+  ).then(() => {
     uni.showToast({
       title: "删除成功",
       icon: "none",

@@ -87,11 +87,11 @@
 
 <script lang="ts" setup>
 import JobDetail from '@/components/JobDetail/JobDetail.vue';
-import { getCompanyInfosPositionInfos } from "@/services/services";
+import { getCompanyInfosPositionInfos, getUserInfosP0JobExpectations } from "@/services/services";
 import { PositionInformation } from '@/services/types';
 import { key } from '@/stores';
 import { failResponseHandler } from '@/utils/handler';
-import { onLoad, onShow } from '@dcloudio/uni-app';
+import { onLoad } from '@dcloudio/uni-app';
 import { onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 
@@ -128,14 +128,20 @@ onMounted(() => {
   getCompanyInfosPositionInfos(
   {}
   ).then((res) => {
-    console.log(res.data.body)
     jobDetails.value = res.data.body
   }).catch(failResponseHandler)
 })
-onShow(() => {
-  expects.value = store.state.jobExpectation.map(item => item.positionName)
-  cityValue.value = store.state.jobExpectation.map(item => item.cityName)
-  city.value = cityValue.value[0]
+onLoad(() => {
+  if(store.state.token !== ''){
+    getUserInfosP0JobExpectations(
+      store.state.accountInfo.fullInformationId,
+      {}
+    ).then((res) => {
+      expects.value = res.data.body.map(item => item.positionName);
+      cityValue.value = res.data.body.map(item => item.cityName);
+      city.value = cityValue.value[0]
+    })
+  }
 })
 
 /* 切换城市 */

@@ -163,7 +163,6 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
-  getUserInfosP0,
   getUserInfosP0EduExperiences,
   getUserInfosP0JobExpectations,
   getUserInfosP0ProjectExperiences,
@@ -199,11 +198,7 @@ const educationExperiences = ref<EducationExperience[]>([]);
 const projectExperiences = ref<ProjectExperience[]>([]);
 
 onMounted(() => {
-  getUserInfosP0(store.state.accountInfo.fullInformationId)
-    .then((res) => {
-      store.state.userInfo.avatarUrl = res.data.body.avatarUrl;
-    })
-    .catch(failResponseHandler);
+  userInformation.value = store.state.userInfo;
 });
 
 onLoad(() => {

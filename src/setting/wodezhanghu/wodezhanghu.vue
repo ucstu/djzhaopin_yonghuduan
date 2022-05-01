@@ -27,7 +27,10 @@ import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const phoneNumber = ref("173****6235");
+const phoneNumber = store.state.accountInfo.userName.replace(
+  /(\d{3})\d{4}(\d{4})/,
+  "$1****$2"
+);
 
 // 注销账号消息提示
 const modal = ref();
@@ -43,7 +46,6 @@ const deleteAccount = () => {
       store.commit("setToken", null);
       store.commit("setAccountInfo", null);
       store.commit("setUserInfo", null);
-      store.commit("setJobExpectation", null);
       uni.navigateTo({
         url: "/account/denglu_zhuce/denglu",
       });
