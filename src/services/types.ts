@@ -26,22 +26,16 @@ export interface AccountInformation {
   createdAt: string;
   /**
    *
-   * HR信息ID
+   * 详细信息ID
    *
    */
-  hrInformationId: string;
+  fullInformationId: string;
   /**
    *
    * 更新时间
    *
    */
   updatedAt: string;
-  /**
-   *
-   * 用户信息ID
-   *
-   */
-  userInformationId: string;
   /**
    *
    * 用户名
@@ -450,9 +444,9 @@ export interface GarnerRecord {
 export interface GetAreaInformationsQueryParams {
   /**
    *
-   * 城市
+   * 城市名称
    */
-  city: string;
+  cityName: string;
 }
 
 export interface GetCompanyInfosP0DeliveryRecordsQueryParams {
@@ -675,7 +669,7 @@ export interface GetCompanyInfosQueryParams {
 export interface GetDirectionTagsQueryParams {
   /**
    *
-   * 职位类型
+   * 职位名称
    */
   positionName: string;
 }
