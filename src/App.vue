@@ -19,11 +19,11 @@ onLaunch(() => {
   if (store.state.token === null || !store.state.accountInfo) {
     uni.reLaunch({ url: "/account/denglu_zhuce/denglu" });
   } else {
+    getAxiosInstance(undefined).defaults.headers.common["Authorization"] =
+      "Bearer " + store.state.token;
     getUserInfosP0(store.state.accountInfo.fullInformationId)
       .then((res) => {
         store.commit("setUserInfo", res.data.body);
-        getAxiosInstance(undefined).defaults.headers.common["Authorization"] =
-          "Bearer " + store.state.token;
       })
       .catch((err) => {
         uni.showToast({

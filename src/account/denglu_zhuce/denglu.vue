@@ -50,6 +50,7 @@
 </template>
 
 <script lang="ts" setup>
+import { getAxiosInstance } from "@/services/config";
 import { getUserInfosP0, postAccountInfosLogin } from "@/services/services";
 import { key } from "@/stores";
 import { throttle } from "@/utils/common";
@@ -90,6 +91,9 @@ const login = () => {
       .then((res) => {
         store.commit("setToken", res.data.body.token);
         store.commit("setAccountInfo", res.data.body.accountInfo);
+        getAxiosInstance(undefined).defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${res.data.body.token}`;
         getUserInfosP0(res.data.body.accountInfo.fullInformationId)
           .then((res) => {
             store.commit("setUserInfo", res.data.body);
