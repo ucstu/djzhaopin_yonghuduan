@@ -68,6 +68,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { getAxiosInstance } from "@/services/config";
 import {
   getUserInfosP0,
   getVerificationCode,
@@ -152,6 +153,9 @@ const registeredAccount = () => {
           .then((res) => {
             store.commit("setToken", res.data.body.token);
             store.commit("setAccountInfo", res.data.body.accountInfo);
+            getAxiosInstance(undefined).defaults.headers.common[
+              "Authorization"
+            ] = "Bearer " + res.data.body.token;
             getUserInfosP0(res.data.body.accountInfo.fullInformationId)
               .then((res) => {
                 store.commit("setUserInfo", res.data.body);
