@@ -180,7 +180,6 @@ const showSchool = () => {
 
 const edChange = (e: { detail: { value: number[] } }) => {
   educationId.value = e.detail.value[0] as 0 | 1 | 2 | 3 | 4;
-  console.log(educationId.value);
   popup.value.hide();
 };
 

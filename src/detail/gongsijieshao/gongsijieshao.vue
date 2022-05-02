@@ -182,7 +182,6 @@ const focusOn = () => {
           icon: "none",
           duration: 1000,
         });
-        console.log(res.data.body);
       })
       .catch(failResponseHandler);
   } else {

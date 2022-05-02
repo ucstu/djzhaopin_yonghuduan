@@ -7,31 +7,31 @@
           <view class="flex-col" @click="changeInfo">
             <view class="flex-row items-center user">
               <text class="text-top" style="font-size: 40rpx; font-weight: 600"
-                >{{ userInformation.firstName
-                }}{{ userInformation.lastName }}</text
+                >{{ store.userInformation.firstName
+                }}{{ store.userInformation.lastName }}</text
               >
               <image class="image" src="@/static/icons/edit.png" />
             </view>
             <view>
               <text style="font-size: 30rpx"
-                >{{ userInformation.age }}岁/{{
-                  education[userInformation.education]
+                >{{ store.userInformation.age }}岁/{{
+                  education[store.userInformation.education]
                 }}</text
               >
             </view>
           </view>
           <view class="image-box">
             <image
-              :src="VITE_CDN_URL + userInformation.avatarUrl"
+              :src="VITE_CDN_URL + store.userInformation.avatarUrl"
               class="photo"
             />
             <image
-              v-if="isSex"
+              v-if="store.userInformation.sex == '男'"
               class="sex-image"
               src="@/static/icons/man.png"
             />
             <image
-              v-if="!isSex"
+              v-if="store.userInformation.sex == '女'"
               class="sex-image"
               src="@/static/icons/woman.png"
             />
@@ -42,7 +42,7 @@
             <text class="text-top">求职期望</text>
           </view>
           <view
-            v-for="(jobExcept, i) in jobExpectations"
+            v-for="(jobExcept, i) in store.jobExpectations"
             :key="i"
             class="flex-col"
             style="margin-top: 20rpx"
@@ -80,7 +80,7 @@
           />
         </view>
         <view class="advantage-box">
-          <text>{{ userInformation.personalAdvantage }}</text>
+          <text>{{ store.userInformation.personalAdvantage }}</text>
         </view>
       </view>
       <view class="group-box">
@@ -164,31 +164,24 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
   getUserInfosP0EduExperiences,
-  getUserInfosP0JobExpectations,
   getUserInfosP0ProjectExperiences,
   getUserInfosP0WorkExperiences,
 } from "@/services/services";
 import {
   EducationExperience,
-  JobExpectation,
   ProjectExperience,
-  UserInformation,
   WorkExperience,
 } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad, onShow } from "@dcloudio/uni-app";
-import { onMounted, ref } from "vue";
+import { onShow } from "@dcloudio/uni-app";
+import { ref } from "vue";
 
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useMainStore();
 
-const userInformation = ref<UserInformation>({} as UserInformation); // 用户信息
-const isSex = ref<boolean>(true); // 性别
 const education = ref(["大专", "本科", "硕士", "博士"]);
 
-// 求职期望
-const jobExpectations = ref<JobExpectation[]>([]);
 // 工作经历
 const workExperiences = ref<WorkExperience[]>([]);
 // 教育经历
@@ -196,14 +189,6 @@ const educationExperiences = ref<EducationExperience[]>([]);
 // 项目经历
 const projectExperiences = ref<ProjectExperience[]>([]);
 
-onMounted(() => {
-  userInformation.value = store.userInformation;
-});
-
-onLoad(() => {
-  // 获取个人信息
-  userInformation.value = store.userInformation;
-});
 onShow(() => {
   // 查询所有工作经历
   getUserInfosP0WorkExperiences(store.accountInformation.fullInformationId, {})
@@ -211,16 +196,18 @@ onShow(() => {
       workExperiences.value = res.data.body;
     })
     .catch(failResponseHandler);
-  // 查询求职期望
-  getUserInfosP0JobExpectations(store.accountInformation.fullInformationId, {})
-    .then((res) => {
-      jobExpectations.value = res.data.body;
-    })
-    .catch(failResponseHandler);
   // 查询所有教育经历
   getUserInfosP0EduExperiences(store.accountInformation.fullInformationId, {})
     .then((res) => {
       educationExperiences.value = res.data.body;
+    })
+    .catch(failResponseHandler);
+  getUserInfosP0ProjectExperiences(
+    store.accountInformation.fullInformationId,
+    {}
+  )
+    .then((res) => {
+      projectExperiences.value = res.data.body;
     })
     .catch(failResponseHandler);
 });

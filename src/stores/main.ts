@@ -1,4 +1,8 @@
-import { AccountInformation, UserInformation } from "@/services/types";
+import {
+  AccountInformation,
+  JobExpectation,
+  UserInformation,
+} from "@/services/types";
 import { defineStore } from "pinia";
 import { uniStorage } from "./storage";
 
@@ -10,6 +14,7 @@ export const useMainStore = defineStore("main", {
     accountInformation: null as unknown as AccountInformation,
     menuButtonInformation:
       null as unknown as UniApp.GetMenuButtonBoundingClientRectRes,
+    jobExpectations: [] as JobExpectation[],
   }),
   persist: {
     enabled: true,

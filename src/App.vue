@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { getAxiosInstance } from "@/services/config";
-import { getUserInfosP0 } from "@/services/services";
+import {
+  getUserInfosP0,
+  getUserInfosP0JobExpectations,
+} from "@/services/services";
 import { useMainStore } from "@/stores/main";
 
 const store = useMainStore();
@@ -18,9 +21,17 @@ if (store.jsonWebToken === null || !store.accountInformation) {
 } else {
   getAxiosInstance(undefined).defaults.headers.common["Authorization"] =
     "Bearer " + store.jsonWebToken;
-  getUserInfosP0(store.accountInformation.fullInformationId)
+  Promise.all([
+    getUserInfosP0(store.accountInformation.fullInformationId),
+    getUserInfosP0JobExpectations(
+      store.accountInformation.fullInformationId,
+      {}
+    ),
+  ])
     .then((res) => {
-      store.userInformation = res.data.body;
+      store.userInformation = res[0].data.body;
+      store.jobExpectations = res[1].data.body;
+      uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
     })
     .catch((err) => {
       uni.showToast({
@@ -28,6 +39,7 @@ if (store.jsonWebToken === null || !store.accountInformation) {
         icon: "none",
         duration: 1000,
       });
+      store.jobExpectations = [];
       store.jsonWebToken = null as any;
       store.userInformation = null as any;
       store.accountInformation = null as any;

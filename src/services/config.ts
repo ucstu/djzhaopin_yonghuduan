@@ -23,7 +23,7 @@ Axios.defaults.adapter = function (config) {
       uni.showLoading({
         title: "加载中...",
       });
-    }, 300);
+    }, 500);
     const request = uni.request({
       method: config.method.toUpperCase(),
       url:

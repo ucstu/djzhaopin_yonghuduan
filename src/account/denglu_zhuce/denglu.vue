@@ -62,7 +62,11 @@
 
 <script lang="ts" setup>
 import { getAxiosInstance } from "@/services/config";
-import { getUserInfosP0, postAccountInfosLogin } from "@/services/services";
+import {
+  getUserInfosP0,
+  getUserInfosP0JobExpectations,
+  postAccountInfosLogin,
+} from "@/services/services";
 import { useMainStore } from "@/stores/main";
 import { throttle } from "@/utils/common";
 import { failResponseHandler } from "@/utils/handler";
@@ -106,9 +110,16 @@ const login = () => {
         getAxiosInstance(undefined).defaults.headers.common[
           "Authorization"
         ] = `Bearer ${res.data.body.token}`;
-        getUserInfosP0(res.data.body.accountInfo.fullInformationId)
+        Promise.all([
+          getUserInfosP0(res.data.body.accountInfo.fullInformationId),
+          getUserInfosP0JobExpectations(
+            res.data.body.accountInfo.fullInformationId,
+            {}
+          ),
+        ])
           .then((res) => {
-            store.userInformation = res.data.body;
+            store.userInformation = res[0].data.body;
+            store.jobExpectations = res[1].data.body;
             uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
           })
           .catch(failResponseHandler);

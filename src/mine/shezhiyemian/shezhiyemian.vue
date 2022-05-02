@@ -68,6 +68,7 @@ const toVersion = () => {
   uni.navigateTo({ url: "/setting/banbengengxin/banbengengxin" });
 };
 const exitAccount = () => {
+  store.jobExpectations = [];
   store.jsonWebToken = null as unknown as string;
   store.userInformation = null as unknown as UserInformation;
   store.accountInformation = null as unknown as AccountInformation;

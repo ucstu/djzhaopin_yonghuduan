@@ -43,6 +43,7 @@ const deleteAccount = () => {
     verificationCode: "1234",
   })
     .then((res) => {
+      store.jobExpectations = [];
       store.jsonWebToken = null as unknown as string;
       store.userInformation = null as unknown as UserInformation;
       store.accountInformation = null as unknown as AccountInformation;

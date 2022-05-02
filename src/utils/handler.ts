@@ -33,6 +33,7 @@ const failResponseHandler = (responseError: RequestError) => {
       icon: "none",
       duration: 1000,
     });
+    store.jobExpectations = [];
     store.jsonWebToken = null as unknown as string;
     store.userInformation = null as unknown as UserInformation;
     store.accountInformation = null as unknown as AccountInformation;
