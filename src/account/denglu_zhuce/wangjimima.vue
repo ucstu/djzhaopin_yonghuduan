@@ -10,7 +10,6 @@
             style="padding-left: 20rpx"
             type="text"
             placeholder="请输入你的邮箱"
-            :maxlength="11"
           />
         </view>
         <view class="flex-row justify-between items-center verification">
@@ -65,8 +64,8 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
-  getVerificationCode,
-  putAccountInfosForget,
+getVerificationCode,
+putAccountInfosForget
 } from "@/services/services";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";

@@ -10,7 +10,6 @@
             style="padding-left: 20rpx"
             type="text"
             placeholder="请输入你的邮箱"
-            :maxlength="11"
           />
         </view>
         <view class="flex-row justify-between items-center verification">
@@ -31,7 +30,6 @@
         <view class="items-center phone-number">
           <input
             v-model="password"
-            :maxlength="20"
             style="padding-left: 20rpx"
             type="password"
             placeholder="请输入密码(6-20位)"

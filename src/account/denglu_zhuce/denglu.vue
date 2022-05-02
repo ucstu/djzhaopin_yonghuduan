@@ -9,7 +9,6 @@
             style="padding-left: 20rpx"
             type="text"
             placeholder="请输入你的邮箱"
-            :maxlength="11"
           />
         </view>
         <view class="items-center verification">
@@ -18,6 +17,7 @@
             style="padding-left: 20rpx"
             type="password"
             placeholder="请输入密码"
+            :min
           />
         </view>
       </view>
