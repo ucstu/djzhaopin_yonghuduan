@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { getAxiosInstance } from "@/services/config";
 import { getUserInfosP0 } from "@/services/services";
-import { AccountInformation, UserInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 
 const store = useMainStore();
@@ -29,9 +28,9 @@ if (store.jsonWebToken === null || !store.accountInformation) {
         icon: "none",
         duration: 1000,
       });
-      store.jsonWebToken = null as unknown as string;
-      store.userInformation = null as unknown as UserInformation;
-      store.accountInformation = null as unknown as AccountInformation;
+      store.jsonWebToken = null as any;
+      store.userInformation = null as any;
+      store.accountInformation = null as any;
       uni.reLaunch({ url: "/account/denglu_zhuce/denglu" });
     });
 }
