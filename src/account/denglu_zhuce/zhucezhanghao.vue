@@ -8,7 +8,7 @@
           <input
             v-model="email"
             style="padding-left: 20rpx"
-            type="number"
+            type="text"
             placeholder="请输入你的邮箱"
             :maxlength="11"
           />
@@ -31,10 +31,10 @@
         <view class="items-center phone-number">
           <input
             v-model="password"
-            :maxlength="11"
+            :maxlength="20"
             style="padding-left: 20rpx"
             type="password"
-            placeholder="请输入密码(6-11位)"
+            placeholder="请输入密码(6-20位)"
           />
         </view>
       </view>
@@ -70,10 +70,10 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getAxiosInstance } from "@/services/config";
 import {
-getUserInfosP0,
-getVerificationCode,
-postAccountInfos,
-postAccountInfosLogin
+  getUserInfosP0,
+  getVerificationCode,
+  postAccountInfos,
+  postAccountInfosLogin,
 } from "@/services/services";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";

@@ -5,10 +5,10 @@
       <view class="textarea">
         <view class="items-center phone-number">
           <input
-            v-model="phoneNum"
+            v-model="email"
             style="padding-left: 20rpx"
-            type="number"
-            placeholder="请输入你的手机号"
+            type="text"
+            placeholder="请输入你的邮箱"
             :maxlength="11"
           />
         </view>
@@ -72,20 +72,22 @@ import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const phoneNum = ref("");
+const email = ref("");
 const password = ref("");
 const isAgree = ref(false);
 
 const login = () => {
-  if (phoneNum.value === "" || password.value === "") {
+  if (email.value === "" || password.value === "") {
     uni.showToast({
-      title: "手机或密码不能为空",
+      title: "邮箱或密码不能为空",
       icon: "none",
       mask: true,
     });
-  } else if (!/^1[3456789]\d{9}$/.test(phoneNum.value)) {
+  } else if (
+    !/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email.value)
+  ) {
     uni.showToast({
-      title: "手机号错误",
+      title: "邮箱错误",
       icon: "none",
       mask: true,
     });
@@ -97,7 +99,7 @@ const login = () => {
     });
   } else {
     postAccountInfosLogin({
-      userName: phoneNum.value,
+      userName: email.value,
       password: password.value,
     })
       .then((res) => {

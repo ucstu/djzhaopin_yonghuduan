@@ -8,7 +8,7 @@
           <input
             v-model="email"
             style="padding-left: 20rpx"
-            type="number"
+            type="text"
             placeholder="请输入你的邮箱"
             :maxlength="11"
           />
