@@ -16,16 +16,15 @@
 import JobDetail from "@/components/JobDetail/JobDetail.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getUserInfosP0InspectionRecords } from "@/services/services";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 const myViews = ref({});
 /* 查询所有查看记录 */
 getUserInfosP0InspectionRecords(
-  store.state.accountInfo.fullInformationId,
+  store.accountInformation.fullInformationId,
   {}
 ).then((res) => {
   myViews.value = res.data.body;

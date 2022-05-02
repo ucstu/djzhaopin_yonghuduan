@@ -159,13 +159,12 @@ import {
   postUserInfosP0EduExperiences,
   putUserInfosP0EduExperiencesP1,
 } from "@/services/services";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 const schoolName = ref(""); // 学校名称
 const education = ref<1 | 2 | 3 | 4>(0 as 1); // 学历
@@ -242,7 +241,7 @@ onLoad((e) => {
   // 查询教育经历
   if (educateId.value !== undefined) {
     getUserInfosP0EduExperiencesP1(
-      store.state.accountInfo.fullInformationId,
+      store.accountInformation.fullInformationId,
       educateId.value
     )
       .then((res) => {
@@ -272,7 +271,7 @@ const saveEducation = () => {
   } else {
     if (educateId.value !== undefined) {
       putUserInfosP0EduExperiencesP1(
-        store.state.accountInfo.fullInformationId,
+        store.accountInformation.fullInformationId,
         educateId.value,
         {
           schoolName: schoolName.value,
@@ -290,13 +289,16 @@ const saveEducation = () => {
         })
         .catch(failResponseHandler);
     } else {
-      postUserInfosP0EduExperiences(store.state.accountInfo.fullInformationId, {
-        schoolName: schoolName.value,
-        education: education.value,
-        majorName: subject.value,
-        admissionTime: startTime.value,
-        graduationTime: overTime.value,
-      })
+      postUserInfosP0EduExperiences(
+        store.accountInformation.fullInformationId,
+        {
+          schoolName: schoolName.value,
+          education: education.value,
+          majorName: subject.value,
+          admissionTime: startTime.value,
+          graduationTime: overTime.value,
+        }
+      )
         .then(() => {
           uni.navigateBack({ delta: 1 });
         })
@@ -313,7 +315,7 @@ const deleteEducation = () => {
     success: (res) => {
       if (res.confirm) {
         deleteUserInfosP0EduExperiencesP1(
-          store.state.accountInfo.fullInformationId,
+          store.accountInformation.fullInformationId,
           educateId.value
         )
           .then(() => {

@@ -138,12 +138,11 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { postUserInfosP0WorkExperiences } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 const companyName = ref<CompanyInformation["companyName"]>("");
 const companyType = ref<CompanyInformation["comprehensionName"]>("");
@@ -204,7 +203,7 @@ const workChange = (e: { detail: { value: number[] } }) => {
 };
 // 下一步
 const nextClick = () => {
-  postUserInfosP0WorkExperiences(store.state.accountInfo.fullInformationId, {
+  postUserInfosP0WorkExperiences(store.accountInformation.fullInformationId, {
     corporateName: companyName.value,
     companyIndustry: companyType.value,
     positionType: subject.value,

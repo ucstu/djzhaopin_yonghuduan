@@ -175,14 +175,13 @@ import {
   UserInformation,
   WorkExperience,
 } from "@/services/types";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad, onShow } from "@dcloudio/uni-app";
 import { onMounted, ref } from "vue";
-import { useStore } from "vuex";
 
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
-const store = useStore(key);
+const store = useMainStore();
 
 const userInformation = ref<UserInformation>({} as UserInformation); // 用户信息
 const isSex = ref<boolean>(true); // 性别
@@ -198,28 +197,28 @@ const educationExperiences = ref<EducationExperience[]>([]);
 const projectExperiences = ref<ProjectExperience[]>([]);
 
 onMounted(() => {
-  userInformation.value = store.state.userInfo;
+  userInformation.value = store.userInformation;
 });
 
 onLoad(() => {
   // 获取个人信息
-  userInformation.value = store.state.userInfo;
+  userInformation.value = store.userInformation;
 });
 onShow(() => {
   // 查询所有工作经历
-  getUserInfosP0WorkExperiences(store.state.accountInfo.fullInformationId, {})
+  getUserInfosP0WorkExperiences(store.accountInformation.fullInformationId, {})
     .then((res) => {
       workExperiences.value = res.data.body;
     })
     .catch(failResponseHandler);
   // 查询求职期望
-  getUserInfosP0JobExpectations(store.state.accountInfo.fullInformationId, {})
+  getUserInfosP0JobExpectations(store.accountInformation.fullInformationId, {})
     .then((res) => {
       jobExpectations.value = res.data.body;
     })
     .catch(failResponseHandler);
   // 查询所有教育经历
-  getUserInfosP0EduExperiences(store.state.accountInfo.fullInformationId, {})
+  getUserInfosP0EduExperiences(store.accountInformation.fullInformationId, {})
     .then((res) => {
       educationExperiences.value = res.data.body;
     })
@@ -278,7 +277,7 @@ const alterEducate = (index: number) => {
 };
 // 查询所有项目经历
 getUserInfosP0ProjectExperiences(
-  store.state.accountInfo.fullInformationId,
+  store.accountInformation.fullInformationId,
   {}
 ).then((res) => {
   projectExperiences.value = res.data.body;

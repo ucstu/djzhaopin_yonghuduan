@@ -97,14 +97,13 @@ import {
   GarnerRecord,
   UserInformation,
 } from "@/services/types";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onShow } from "@dcloudio/uni-app";
 import { onMounted, ref } from "vue";
-import { useStore } from "vuex";
 
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
-const store = useStore(key);
+const store = useMainStore();
 
 const userInfos = ref<UserInformation>({} as UserInformation);
 const education = ref(["大专", "本科", "硕士", "博士"]);
@@ -119,19 +118,19 @@ const interviewNum = ref(0);
 const interviewPosition = ref<DeliveryRecord[]>([]);
 
 onMounted(() => {
-  getUserInfosP0(store.state.accountInfo.fullInformationId)
+  getUserInfosP0(store.accountInformation.fullInformationId)
     .then((res) => {
-      store.state.userInfo.avatarUrl = res.data.body.avatarUrl;
+      store.userInformation.avatarUrl = res.data.body.avatarUrl;
     })
     .catch(failResponseHandler);
 });
 
 onShow(() => {
-  userInfos.value = store.state.userInfo;
+  userInfos.value = store.userInformation;
   fullName.value = userInfos.value.firstName + userInfos.value.lastName;
   /* 投递记录 */
   for (let i = 1; i <= 5; i++) {
-    getUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
+    getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
       status: i as 1 | 2 | 3 | 4 | 5,
     })
       .then((res) => {
@@ -146,21 +145,21 @@ onShow(() => {
       .catch(failResponseHandler);
   }
   /* 收藏职位 */
-  getUserInfosP0GarnerRecords(store.state.accountInfo.fullInformationId, {})
+  getUserInfosP0GarnerRecords(store.accountInformation.fullInformationId, {})
     .then((res) => {
       favoriteNum.value = res.data.body.length;
       favoritePosition.value = res.data.body;
     })
     .catch(failResponseHandler);
   /* 关注公司 */
-  getUserInfosP0AttentionRecords(store.state.accountInfo.fullInformationId, {})
+  getUserInfosP0AttentionRecords(store.accountInformation.fullInformationId, {})
     .then((res) => {
       focusNum.value = res.data.body.length;
       focusCompany.value = res.data.body;
     })
     .catch(failResponseHandler);
   /* 投递记录 */
-  getUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
+  getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
     status: 4,
   })
     .then((res) => {

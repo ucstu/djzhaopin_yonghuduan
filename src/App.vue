@@ -1,43 +1,40 @@
 <script lang="ts" setup>
+import { getAxiosInstance } from "@/services/config";
 import { getUserInfosP0 } from "@/services/services";
-import { key } from "@/stores";
-import { onLaunch } from "@dcloudio/uni-app";
-import { useStore } from "vuex";
-import { getAxiosInstance } from "./services/config";
+import { AccountInformation, UserInformation } from "@/services/types";
+import { useMainStore } from "@/stores/main";
 
-const store = useStore(key);
+const store = useMainStore();
 
-onLaunch(() => {
-  if (store.state.systemInfo === null) {
-    store.commit("setSystemInfo", uni.getSystemInfoSync());
-  }
-  /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-  if (store.state.menuButtonInfo === null) {
-    store.commit("setMenuButtonInfo", uni.getMenuButtonBoundingClientRect());
-  }
-  /* #endif */
-  if (store.state.token === null || !store.state.accountInfo) {
-    uni.reLaunch({ url: "/account/denglu_zhuce/denglu" });
-  } else {
-    getAxiosInstance(undefined).defaults.headers.common["Authorization"] =
-      "Bearer " + store.state.token;
-    getUserInfosP0(store.state.accountInfo.fullInformationId)
-      .then((res) => {
-        store.commit("setUserInfo", res.data.body);
-      })
-      .catch((err) => {
-        uni.showToast({
-          title: "登录失效，请重新登录",
-          icon: "none",
-          duration: 1000,
-        });
-        store.commit("setToken", null);
-        store.commit("setAccountInfo", null);
-        store.commit("setUserInfo", null);
-        uni.reLaunch({ url: "/account/denglu_zhuce/denglu" });
+if (store.systemInformation === null) {
+  store.systemInformation = uni.getSystemInfoSync();
+}
+/* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
+if (store.menuButtonInformation === null) {
+  store.menuButtonInformation = uni.getMenuButtonBoundingClientRect();
+}
+/* #endif */
+if (store.jsonWebToken === null || !store.accountInformation) {
+  uni.reLaunch({ url: "/account/denglu_zhuce/denglu" });
+} else {
+  getAxiosInstance(undefined).defaults.headers.common["Authorization"] =
+    "Bearer " + store.jsonWebToken;
+  getUserInfosP0(store.accountInformation.fullInformationId)
+    .then((res) => {
+      store.userInformation = res.data.body;
+    })
+    .catch((err) => {
+      uni.showToast({
+        title: "登录失效，请重新登录",
+        icon: "none",
+        duration: 1000,
       });
-  }
-});
+      store.jsonWebToken = null as unknown as string;
+      store.userInformation = null as unknown as UserInformation;
+      store.accountInformation = null as unknown as AccountInformation;
+      uni.reLaunch({ url: "/account/denglu_zhuce/denglu" });
+    });
+}
 </script>
 
 <style lang="scss">

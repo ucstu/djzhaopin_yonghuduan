@@ -21,18 +21,17 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { putUserInfosP0 } from "@/services/services";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 const inputValue = ref("");
 const saveAdvantage = () => {
-  store.state.userInfo.personalAdvantage = inputValue.value;
+  store.userInformation.personalAdvantage = inputValue.value;
   putUserInfosP0(
-    store.state.userInfo.userInformationId,
-    store.state.userInfo
+    store.userInformation.userInformationId,
+    store.userInformation
   ).then(() => {
     uni.navigateBack({
       delta: 1,

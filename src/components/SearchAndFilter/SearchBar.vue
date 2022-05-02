@@ -38,20 +38,19 @@
 </template>
 
 <script lang="ts" setup>
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
 
-const navigationBarHeight = store.state.menuButtonInfo!.height;
+const navigationBarHeight = store.menuButtonInformation.height;
 
-const navigationBarTop = store.state.menuButtonInfo!.top - uni.upx2px(45);
+const navigationBarTop = store.menuButtonInformation.top - uni.upx2px(45);
 
-const navigationBarWidth = store.state.menuButtonInfo!.left - uni.upx2px(50);
+const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(50);
 /* #endif */
 
 const cityName = ref("");

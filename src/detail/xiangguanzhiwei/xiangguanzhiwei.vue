@@ -25,11 +25,7 @@ import SearchAndFilter from "@/components/SearchAndFilter/SearchAndFilter.vue";
 import SearchBar from "@/components/SearchAndFilter/SearchBar.vue";
 import { getCompanyInfos } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
-import { key } from "@/stores";
 import { ref } from "vue";
-import { useStore } from "vuex";
-
-const store = useStore(key);
 
 const jobDetails = ref<CompanyInformation[]>([]);
 

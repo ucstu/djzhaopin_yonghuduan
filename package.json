@@ -46,10 +46,10 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-alpha-3040820220426002",
     "@dcloudio/uni-quickapp-webview": "3.0.0-alpha-3040820220426002",
     "axios": "^0.26.1",
+    "pinia": "^2.0.13",
+    "pinia-plugin-persist": "^1.0.0",
     "vue": "^3.2.33",
-    "vue-i18n": "^9.1.9",
-    "vuex": "^4.0.2",
-    "vuex-persister": "^1.0.0-beta.2"
+    "vue-i18n": "^9.1.9"
   },
   "devDependencies": {
     "@dcloudio/types": "^2.6.4",

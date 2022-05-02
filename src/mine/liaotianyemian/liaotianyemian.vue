@@ -40,16 +40,15 @@
 </template>
 
 <script lang="ts" setup>
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { ref } from "vue";
-import { useStore } from "vuex";
-const store = useStore(key);
+const store = useMainStore();
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
 
-const navigationBarTop = store.state.menuButtonInfo?.top;
+const navigationBarTop = store.menuButtonInformation.top;
 
-const navigationBarWidth = store.state.menuButtonInfo!.left - uni.upx2px(30);
+const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(30);
 
 /* #endif */
 

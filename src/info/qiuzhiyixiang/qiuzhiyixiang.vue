@@ -77,27 +77,26 @@ import {
   putUserInfosP0,
 } from "@/services/services";
 import { JobExpectation } from "@/services/types";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad, onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 const jobExpectations = ref<JobExpectation[]>([]);
 const entryTime = ref("请选择");
 const entryTimes = ["请选择", "随时入职", "2周内入职", "一个月内入职"];
-const definedValue = ref([store.state.userInfo.jobStatus]);
+const definedValue = ref([store.userInformation.jobStatus]);
 
 onLoad(() => {
-  if (store.state.userInfo.jobStatus !== null) {
-    entryTime.value = entryTimes[store.state.userInfo.jobStatus];
+  if (store.userInformation.jobStatus !== null) {
+    entryTime.value = entryTimes[store.userInformation.jobStatus];
   }
 });
 
 onShow(() => {
-  getUserInfosP0JobExpectations(store.state.accountInfo.fullInformationId, {})
+  getUserInfosP0JobExpectations(store.accountInformation.fullInformationId, {})
     .then((res) => {
       jobExpectations.value = res.data.body;
     })
@@ -133,14 +132,14 @@ const jobStatus = () => {
 };
 const entryChange = (e: { detail: { value: number[] } }) => {
   entryTime.value = entryTimes[e.detail.value[0]];
-  store.state.userInfo.jobStatus = e.detail.value[0] as 1 | 2 | 3;
+  store.userInformation.jobStatus = e.detail.value[0] as 1 | 2 | 3;
   definedValue.value = [e.detail.value[0] as 1 | 2 | 3];
   putUserInfosP0(
-    store.state.accountInfo.fullInformationId,
-    store.state.userInfo
+    store.accountInformation.fullInformationId,
+    store.userInformation
   )
     .then((res) => {
-      store.commit("setUserInfo", res.data.body);
+      store.userInformation = res.data.body;
     })
     .catch(failResponseHandler);
   popup.value.hide();

@@ -21,13 +21,10 @@ import {
   getCompanyInfosP0PositionInfosP1,
 } from "@/services/services";
 import { PositionInformation } from "@/services/types";
-import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad, onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
 const favorites = ref();
 const favoritesPosition = ref<PositionInformation[]>([]);
 const cancelCollection = ref("取消收藏");

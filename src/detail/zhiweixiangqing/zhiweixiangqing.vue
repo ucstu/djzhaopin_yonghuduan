@@ -156,14 +156,13 @@ import {
   postUserInfosP0GarnerRecords,
 } from "@/services/services";
 import { CompanyInformation, PositionInformation } from "@/services/types";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { onMounted, ref } from "vue";
-import { useStore } from "vuex";
 
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
-const store = useStore(key);
+const store = useMainStore();
 
 const jobInformation = ref<PositionInformation>({} as PositionInformation); // 职位信息
 
@@ -229,7 +228,7 @@ const popup = ref();
 const isCollection = ref(false);
 const garnerRecordId = ref("");
 onMounted(() => {
-  getUserInfosP0GarnerRecords(store.state.accountInfo.fullInformationId, {})
+  getUserInfosP0GarnerRecords(store.accountInformation.fullInformationId, {})
     .then((res) => {
       let collectionPosition = res.data.body.find((item) => {
         return item.positionInformationId === positionId.value;
@@ -245,10 +244,10 @@ onMounted(() => {
 const collection = () => {
   isCollection.value = !isCollection.value;
   if (isCollection.value) {
-    postUserInfosP0GarnerRecords(store.state.accountInfo.fullInformationId, {
+    postUserInfosP0GarnerRecords(store.accountInformation.fullInformationId, {
       positionInformationId: positionId.value,
       companyInformationId: companyId.value,
-      userInformationId: store.state.accountInfo.fullInformationId,
+      userInformationId: store.accountInformation.fullInformationId,
     })
       .then((res) => {
         uni.showToast({
@@ -259,7 +258,7 @@ const collection = () => {
       })
       .catch(failResponseHandler);
   } else {
-    getUserInfosP0GarnerRecords(store.state.accountInfo.fullInformationId, {})
+    getUserInfosP0GarnerRecords(store.accountInformation.fullInformationId, {})
       .then((res) => {
         let collectionPosition = res.data.body.find((item) => {
           return item.positionInformationId === positionId.value;
@@ -267,7 +266,7 @@ const collection = () => {
         if (collectionPosition) {
           garnerRecordId.value = collectionPosition.garnerRecordId;
           deleteUserInfosP0GarnerRecordsP1(
-            store.state.accountInfo.fullInformationId,
+            store.accountInformation.fullInformationId,
             garnerRecordId.value
           )
             .then(() => {
@@ -293,9 +292,9 @@ const sendResume = () => {
 };
 // 投递简历
 const send = () => {
-  postUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
+  postUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
     positionInformationId: positionId.value,
-    userInformationId: store.state.accountInfo.fullInformationId,
+    userInformationId: store.accountInformation.fullInformationId,
     companyInformationId: companyId.value,
   })
     .then(() => {

@@ -210,13 +210,12 @@ import {
   postUserInfosP0WorkExperiences,
 } from "@/services/services";
 import { WorkExperience } from "@/services/types";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 const companyName = ref(""); // 公司名称
 const companyIndustry = ref(""); // 公司行业
@@ -244,7 +243,7 @@ onLoad((e) => {
   /* 查询工作经历 */
   if (workId.value !== undefined) {
     getUserInfosP0WorkExperiencesP1(
-      store.state.accountInfo.fullInformationId,
+      store.accountInformation.fullInformationId,
       workId.value
     )
       .then((res) => {
@@ -361,7 +360,7 @@ const saveWorkExperience = () => {
       duration: 1000,
     });
   } else {
-    postUserInfosP0WorkExperiences(store.state.accountInfo.fullInformationId, {
+    postUserInfosP0WorkExperiences(store.accountInformation.fullInformationId, {
       corporateName: companyName.value,
       companyIndustry: companyIndustry.value,
       startTime: companyStartTime.value,
@@ -390,7 +389,7 @@ const deleteWorkExperience = () => {
     success: (res) => {
       if (res.confirm) {
         deleteUserInfosP0WorkExperiencesP1(
-          store.state.accountInfo.fullInformationId,
+          store.accountInformation.fullInformationId,
           workId.value
         )
           .then(() => {

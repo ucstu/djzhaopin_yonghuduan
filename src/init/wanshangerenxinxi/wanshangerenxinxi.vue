@@ -106,15 +106,14 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { putUserInfosP0 } from "@/services/services";
 import { UserInformation } from "@/services/types";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
-const userInfo = ref<UserInformation>(store.state.userInfo);
+const userInfo = ref<UserInformation>(store.userInformation);
 
 const changeSex = ref(true); // 判断性别
 const city = ref("请选择"); // 城市
@@ -190,9 +189,9 @@ const nextClick = () => {
     });
   } else {
     userInfo.value.cityName = city.value;
-    putUserInfosP0(store.state.accountInfo.fullInformationId, userInfo.value)
+    putUserInfosP0(store.accountInformation.fullInformationId, userInfo.value)
       .then((res) => {
-        store.commit("setUserInfo", res.data.body);
+        store.userInformation = res.data.body;
         uni.navigateTo({
           url: "/init/wanshanjiaoyujingli/wanshanjiaoyujingli",
         });

@@ -1,11 +1,14 @@
+import { createPinia } from "pinia";
+import piniaPluginPersist from "pinia-plugin-persist";
 import { createSSRApp } from "vue";
 // @ts-ignore
 import App from "./App.vue";
-import { key, store } from "./stores";
 
 export function createApp() {
   const app = createSSRApp(App);
-  app.use(store, key);
+  const pinia = createPinia();
+  pinia.use(piniaPluginPersist);
+  app.use(pinia);
   return {
     app,
   };

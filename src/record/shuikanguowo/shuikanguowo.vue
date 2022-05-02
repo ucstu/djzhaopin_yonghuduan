@@ -17,15 +17,14 @@
 import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getUserInfosP0InspectionRecords } from "@/services/services";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 const lookForMes = ref({});
 getUserInfosP0InspectionRecords(
-  store.state.accountInfo.fullInformationId,
+  store.accountInformation.fullInformationId,
   {}
 ).then((res) => {
   lookForMes.value = res.data.body;

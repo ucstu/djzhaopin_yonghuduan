@@ -63,13 +63,12 @@
 <script lang="ts" setup>
 import { getAxiosInstance } from "@/services/config";
 import { getUserInfosP0, postAccountInfosLogin } from "@/services/services";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { throttle } from "@/utils/common";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 const email = ref("");
 const password = ref("");
@@ -102,14 +101,14 @@ const login = () => {
       password: password.value,
     })
       .then((res) => {
-        store.commit("setToken", res.data.body.token);
-        store.commit("setAccountInfo", res.data.body.accountInfo);
+        store.jsonWebToken = res.data.body.token;
+        store.accountInformation = res.data.body.accountInfo;
         getAxiosInstance(undefined).defaults.headers.common[
           "Authorization"
         ] = `Bearer ${res.data.body.token}`;
         getUserInfosP0(res.data.body.accountInfo.fullInformationId)
           .then((res) => {
-            store.commit("setUserInfo", res.data.body);
+            store.userInformation = res.data.body;
             uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
           })
           .catch(failResponseHandler);

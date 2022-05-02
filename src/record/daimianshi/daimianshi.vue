@@ -22,13 +22,12 @@ import {
   getCompanyInfosP0PositionInfosP1,
 } from "@/services/services";
 import { PositionInformation } from "@/services/types";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 const interviewedJobs = ref<PositionInformation[]>([]);
 const interviewed = ref();
@@ -56,7 +55,7 @@ const stateClick = (index: string) => {
   for (const delivery of interviewed.value) {
     if (delivery.positionInformationId === index) {
       deleteUserInfosP0DeliveryRecordsP1(
-        store.state.accountInfo.fullInformationId,
+        store.accountInformation.fullInformationId,
         delivery.deliveryRecordId
       ).then(() => {
         interviewed.value = interviewed.value.filter(

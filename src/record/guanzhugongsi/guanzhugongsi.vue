@@ -22,13 +22,9 @@ import {
   getCompanyInfosP0,
 } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
-import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad, onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
-import { useStore } from "vuex";
-
-const store = useStore(key);
 
 const attentionCompanies = ref<CompanyInformation[]>([]);
 const focusCompany = ref();

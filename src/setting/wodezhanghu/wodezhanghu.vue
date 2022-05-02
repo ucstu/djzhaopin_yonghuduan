@@ -20,14 +20,14 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybModal from "@/components/wyb-modal/wyb-modal.vue";
 import { deleteAccountInfosP0 } from "@/services/services";
-import { key } from "@/stores";
+import { AccountInformation, UserInformation } from "@/services/types";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
-const phoneNumber = store.state.accountInfo.userName.replace(
+const phoneNumber = store.accountInformation.userName.replace(
   /(\d{3})\d{4}(\d{4})/,
   "$1****$2"
 );
@@ -39,13 +39,13 @@ const showDelete = () => {
 };
 // 注销账号
 const deleteAccount = () => {
-  deleteAccountInfosP0(store.state.accountInfo.accountInformationId, {
+  deleteAccountInfosP0(store.accountInformation.accountInformationId, {
     verificationCode: "1234",
   })
     .then((res) => {
-      store.commit("setToken", null);
-      store.commit("setAccountInfo", null);
-      store.commit("setUserInfo", null);
+      store.jsonWebToken = null as unknown as string;
+      store.userInformation = null as unknown as UserInformation;
+      store.accountInformation = null as unknown as AccountInformation;
       uni.navigateTo({
         url: "/account/denglu_zhuce/denglu",
       });

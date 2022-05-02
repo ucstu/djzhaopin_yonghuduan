@@ -100,14 +100,13 @@ import {
   postUserInfosP0AttentionRecords,
 } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { onMounted, ref } from "vue";
-import { useStore } from "vuex";
 
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
-const store = useStore(key);
+const store = useMainStore();
 
 const companyInfo = ref<CompanyInformation>({} as CompanyInformation);
 const companyId = ref();
@@ -137,7 +136,7 @@ const focus = ref(false);
 const focusId = ref();
 /* 判断是否关注 */
 onMounted(() => {
-  getUserInfosP0AttentionRecords(store.state.accountInfo.fullInformationId, {})
+  getUserInfosP0AttentionRecords(store.accountInformation.fullInformationId, {})
     .then((res) => {
       let focusCompany = res.data.body.find((item) => {
         return item.companyInformationId === companyId.value;
@@ -170,10 +169,13 @@ onLoad((options) => {
 const focusOn = () => {
   focus.value = !focus.value;
   if (focus.value) {
-    postUserInfosP0AttentionRecords(store.state.accountInfo.fullInformationId, {
-      companyInformationId: companyId.value,
-      userInformationId: store.state.accountInfo.fullInformationId,
-    })
+    postUserInfosP0AttentionRecords(
+      store.accountInformation.fullInformationId,
+      {
+        companyInformationId: companyId.value,
+        userInformationId: store.accountInformation.fullInformationId,
+      }
+    )
       .then((res) => {
         uni.showToast({
           title: "关注成功",
@@ -185,7 +187,7 @@ const focusOn = () => {
       .catch(failResponseHandler);
   } else {
     getUserInfosP0AttentionRecords(
-      store.state.accountInfo.fullInformationId,
+      store.accountInformation.fullInformationId,
       {}
     )
       .then((res) => {
@@ -195,7 +197,7 @@ const focusOn = () => {
         if (focusCompany) {
           focusId.value = focusCompany.attentionRecordId;
           deleteUserInfosP0AttentionRecordsP1(
-            store.state.accountInfo.fullInformationId,
+            store.accountInformation.fullInformationId,
             focusId.value
           )
             .then((res) => {

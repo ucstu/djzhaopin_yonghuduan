@@ -148,12 +148,11 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { postUserInfosP0EduExperiences } from "@/services/services";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 const schoolName = ref("");
 const educationId = ref<0 | 1 | 2 | 3 | 4>(0);
@@ -220,7 +219,7 @@ const schoolChange = (e: { detail: { value: never } }) => {
 };
 // 下一步
 const nextClick = () => {
-  postUserInfosP0EduExperiences(store.state.accountInfo.fullInformationId, {
+  postUserInfosP0EduExperiences(store.accountInformation.fullInformationId, {
     schoolName: schoolName.value,
     education: educationId.value,
     majorName: subject.value,

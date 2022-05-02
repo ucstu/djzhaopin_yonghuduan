@@ -105,14 +105,13 @@ import {
   putUserInfosP0,
 } from "@/services/services";
 import { UserInformation } from "@/services/types";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { onMounted, ref } from "vue";
-import { useStore } from "vuex";
 
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
-const store = useStore(key);
+const store = useMainStore();
 
 const userInformation = ref<UserInformation>({} as UserInformation);
 
@@ -148,7 +147,7 @@ for (let i = 1; i <= 31; i++) {
 const value = ref();
 onMounted(() => {
   /* 获取用户信息 */
-  getUserInfosP0(store.state.accountInfo.fullInformationId)
+  getUserInfosP0(store.accountInformation.fullInformationId)
     .then((res) => {
       userInformation.value = res.data.body;
       fullName.value =
@@ -273,23 +272,23 @@ const saveInfos = () => {
     } else {
       userInformation.value.sex = "女";
     }
-    store.state.userInfo.updatedAt = year + "-" + month + "-" + day;
-    store.state.userInfo.firstName = fullName.value.slice(0, 1);
-    store.state.userInfo.lastName = fullName.value.slice(
+    store.userInformation.updatedAt = year + "-" + month + "-" + day;
+    store.userInformation.firstName = fullName.value.slice(0, 1);
+    store.userInformation.lastName = fullName.value.slice(
       1,
       fullName.value.length
     );
-    store.state.userInfo.dateOfBirth = userInformation.value.dateOfBirth;
-    store.state.userInfo.sex = userInformation.value.sex;
-    store.state.userInfo.age = userInformation.value.age;
-    store.state.userInfo.cityName = userInformation.value.cityName;
-    store.state.userInfo.email = userInformation.value.email;
+    store.userInformation.dateOfBirth = userInformation.value.dateOfBirth;
+    store.userInformation.sex = userInformation.value.sex;
+    store.userInformation.age = userInformation.value.age;
+    store.userInformation.cityName = userInformation.value.cityName;
+    store.userInformation.email = userInformation.value.email;
     putUserInfosP0(
-      store.state.accountInfo.fullInformationId,
-      store.state.userInfo
+      store.accountInformation.fullInformationId,
+      store.userInformation
     )
       .then((res) => {
-        store.commit("setUserInfo", res.data.body);
+        store.userInformation = res.data.body;
         uni.navigateBack({ delta: 1 });
       })
       .catch(failResponseHandler);

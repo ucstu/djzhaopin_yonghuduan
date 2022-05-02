@@ -106,13 +106,12 @@ import {
   postUserInfosP0JobExpectations,
   putUserInfosP0JobExpectationsP1,
 } from "@/services/services";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 const jobExpectation = ref({
   jobExpectationId: "",
@@ -181,7 +180,7 @@ onLoad((e) => {
   if (jobId.value) {
     deleteEx.value = "删除";
     getUserInfosP0JobExpectationsP1(
-      store.state.accountInfo.fullInformationId,
+      store.accountInformation.fullInformationId,
       jobId.value
     )
       .then((res) => {
@@ -266,7 +265,7 @@ const saveJobExcept = () => {
       if (jobId.value) {
         /* 修改求职期望 */
         putUserInfosP0JobExpectationsP1(
-          store.state.accountInfo.fullInformationId,
+          store.accountInformation.fullInformationId,
           jobId.value,
           jobExpectation.value
         )
@@ -281,7 +280,7 @@ const saveJobExcept = () => {
       } else {
         /* 新增求职期望 */
         postUserInfosP0JobExpectations(
-          store.state.accountInfo.fullInformationId,
+          store.accountInformation.fullInformationId,
           {
             positionType: jobExpectation.value.positionType,
             directionTags: jobExpectation.value.directionTags,
@@ -308,7 +307,7 @@ const saveJobExcept = () => {
 // 删除求职期望
 const deleteExpectation = () => {
   deleteUserInfosP0JobExpectationsP1(
-    store.state.accountInfo.fullInformationId,
+    store.accountInformation.fullInformationId,
     jobId.value
   ).then(() => {
     uni.showToast({

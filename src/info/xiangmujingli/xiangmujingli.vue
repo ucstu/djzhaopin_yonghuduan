@@ -152,13 +152,12 @@ import {
   putUserInfosP0ProjectExperiencesP1,
 } from "@/services/services";
 import { ProjectExperience } from "@/services/types";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 const projectExperience = ref<ProjectExperience>({
   projectExperienceId: "",
@@ -219,7 +218,7 @@ onLoad((e) => {
   /*查询项目经历*/
   if (projectId.value !== undefined) {
     getUserInfosP0ProjectExperiencesP1(
-      store.state.accountInfo.fullInformationId,
+      store.accountInformation.fullInformationId,
       projectId.value
     )
       .then((res) => {
@@ -254,7 +253,7 @@ const saveProjectExperience = () => {
     if (projectId.value !== undefined) {
       // 修改项目经历
       putUserInfosP0ProjectExperiencesP1(
-        store.state.accountInfo.fullInformationId,
+        store.accountInformation.fullInformationId,
         projectId.value,
         projectExperience.value
       )
@@ -269,7 +268,7 @@ const saveProjectExperience = () => {
     } else {
       // 添加项目经历
       postUserInfosP0ProjectExperiences(
-        store.state.accountInfo.accountInformationId,
+        store.accountInformation.accountInformationId,
         projectExperience.value
       )
         .then(() => {
@@ -292,7 +291,7 @@ const deleteProjectExperience = () => {
     success: (res) => {
       if (res.confirm) {
         deleteUserInfosP0ProjectExperiencesP1(
-          store.state.accountInfo.fullInformationId,
+          store.accountInformation.fullInformationId,
           projectId.value
         )
           .then(() => {

@@ -34,18 +34,17 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { putUserInfosP0 } from "@/services/services";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
-const store = useStore(key);
+const store = useMainStore();
 
-const userInfos = store.state.userInfo;
+const userInfos = store.userInformation;
 const isAnonymous = ref(true);
 
-if (store.state.userInfo.privacySettings === 1) {
+if (store.userInformation.privacySettings === 1) {
   isAnonymous.value = true;
 } else {
   isAnonymous.value = false;
@@ -54,11 +53,11 @@ if (store.state.userInfo.privacySettings === 1) {
 const privacySet = () => {
   isAnonymous.value = !isAnonymous.value;
   if (isAnonymous.value) {
-    store.state.userInfo.privacySettings = 1;
+    store.userInformation.privacySettings = 1;
   } else {
-    store.state.userInfo.privacySettings = 2;
+    store.userInformation.privacySettings = 2;
   }
-  putUserInfosP0(store.state.userInfo.userInformationId, store.state.userInfo)
+  putUserInfosP0(store.userInformation.userInformationId, store.userInformation)
     .then((res) => {
       console.log(res.data.body);
     })

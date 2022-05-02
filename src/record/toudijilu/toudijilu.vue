@@ -32,13 +32,12 @@ import {
   getUserInfosP0DeliveryRecords,
 } from "@/services/services";
 import { DeliveryRecord, PositionInformation } from "@/services/types";
-import { key } from "@/stores";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad, onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
-import { useStore } from "vuex";
 
-const store = useStore(key);
+const store = useMainStore();
 
 const deliveryRecords = ref<PositionInformation[]>([]);
 const deliveryLength = ref();
@@ -72,7 +71,7 @@ onShow(() => {
 /* 查看不同状态记录 */
 const sendTypeId = (index: number) => {
   sendId.value = index as DeliveryRecord["status"];
-  getUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
+  getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
     status: sendId.value,
   })
     .then((res) => {
@@ -96,7 +95,7 @@ const sendTypeId = (index: number) => {
 const clearRecord = () => {
   for (const delivery of deliveryLength.value) {
     deleteUserInfosP0DeliveryRecordsP1(
-      store.state.accountInfo.fullInformationId,
+      store.accountInformation.fullInformationId,
       delivery.deliveryRecordId
     )
       .then(() => {

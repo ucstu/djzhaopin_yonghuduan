@@ -89,23 +89,22 @@
 import JobDetail from '@/components/JobDetail/JobDetail.vue';
 import { getCompanyInfosPositionInfos, getUserInfosP0JobExpectations } from "@/services/services";
 import { PositionInformation } from '@/services/types';
-import { key } from '@/stores';
+import { useMainStore } from '@/stores/main';
 import { failResponseHandler } from '@/utils/handler';
 import { onLoad, onShow } from '@dcloudio/uni-app';
 import { onMounted, ref } from 'vue';
-import { useStore } from 'vuex';
 
-const store = useStore(key);
+const store = useMainStore();
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
 
-const navigationBarHeight = store.state.menuButtonInfo!.height
+const navigationBarHeight = store.menuButtonInformation.height
 
-const navigationBarTop = store.state.menuButtonInfo!.top
+const navigationBarTop = store.menuButtonInformation.top
 
-const navigationBarWidth = store.state.menuButtonInfo!.left - uni.upx2px(30)
+const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(30)
 
-const expectationWidth = store.state.menuButtonInfo!.left - uni.upx2px(170)
+const expectationWidth = store.menuButtonInformation.left - uni.upx2px(170)
 /* #endif */
 
 
@@ -132,9 +131,9 @@ onMounted(() => {
   }).catch(failResponseHandler)
 })
 onShow(() => {
-  if(store.state.token !== ''){
+  if(store.jsonWebToken !== null){
     getUserInfosP0JobExpectations(
-      store.state.accountInfo.fullInformationId,
+      store.accountInformation.fullInformationId,
       {}
     ).then((res) => {
       expects.value = res.data.body.map(item => item.positionName);

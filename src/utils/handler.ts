@@ -1,5 +1,8 @@
 import { RequestError } from "@/services/config";
-import { store } from "@/stores";
+import { AccountInformation, UserInformation } from "@/services/types";
+import { useMainStore } from "@/stores/main";
+
+const store = useMainStore();
 
 const failResponseHandler = (responseError: RequestError) => {
   if (responseError.status === 400) {
@@ -30,9 +33,9 @@ const failResponseHandler = (responseError: RequestError) => {
       icon: "none",
       duration: 1000,
     });
-    store.commit("setToken", null);
-    store.commit("setAccountInfo", null);
-    store.commit("setUserInfo", null);
+    store.jsonWebToken = null as unknown as string;
+    store.userInformation = null as unknown as UserInformation;
+    store.accountInformation = null as unknown as AccountInformation;
     uni.reLaunch({
       url: "/account/denglu_zhuce/denglu",
     });
