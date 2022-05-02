@@ -235,13 +235,14 @@ const collection = () => {
   if (isCollection.value) {
     postUserInfosP0GarnerRecords(store.state.accountInfo.fullInformationId, {
       positionInformationId: positionId.value,
+      companyInformationId: companyId.value,
       userInformationId: store.state.accountInfo.fullInformationId,
     })
       .then((res) => {
         uni.showToast({
           title: "收藏成功",
           icon: "none",
-          duration: 500,
+          duration: 1000,
         });
       })
       .catch(failResponseHandler);
@@ -254,7 +255,7 @@ const collection = () => {
         uni.showToast({
           title: "取消收藏",
           icon: "none",
-          duration: 500,
+          duration: 1000,
         });
       })
       .catch(failResponseHandler);
@@ -279,7 +280,7 @@ const send = () => {
       uni.showToast({
         title: "投递成功",
         icon: "none",
-        duration: 500,
+        duration: 1000,
       });
     })
     .catch(failResponseHandler);

@@ -119,7 +119,7 @@ const addExcept = () => {
     uni.showToast({
       title: "最多只能添加3个求职期望",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else {
     let value = true;

@@ -61,17 +61,6 @@ const countries = reactive<AreaInformations>([
     areas: ["不限"],
   },
 ]);
-getAreaInformations({
-  cityName: "北京市",
-})
-  .then((res) => {
-    countries.push(...res.data.body);
-  })
-  .catch(failResponseHandler);
-const areas = computed(() => {
-  return countries[countriesIndex.value].areas;
-});
-
 const countriesIndex = ref(0);
 const country = ref("位置");
 
@@ -82,6 +71,16 @@ onLoad((e) => {
   uni.$on("liveCity", (city) => {
     country.value = city;
   });
+  getAreaInformations({
+    cityName: country.value,
+  })
+    .then((res) => {
+      countries.push(...res.data.body);
+    })
+    .catch(failResponseHandler);
+});
+const areas = computed(() => {
+  return countries[countriesIndex.value].areas;
 });
 
 const countriesIndexOf = (index: number) => {

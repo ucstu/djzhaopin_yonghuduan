@@ -77,19 +77,19 @@ const savePassWord = () => {
     uni.showToast({
       title: "两次密码不一致",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else if (password.value === "" || password2.value === "") {
     uni.showToast({
       title: "密码不能为空",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else if (password.value.length < 6) {
     uni.showToast({
       title: "密码长度不能小于6位",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else {
     putAccountInfosP0(store.state.accountInfo.accountInformationId, {
@@ -100,7 +100,7 @@ const savePassWord = () => {
         uni.showToast({
           title: "保存成功",
           icon: "none",
-          duration: 500,
+          duration: 1000,
         });
         uni.navigateBack({
           delta: 1,

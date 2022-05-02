@@ -19,12 +19,12 @@
     >
   <!-- #endif -->
       <view class="flex-row" style="width: 100%">
-        <text class="city" @click="textOnClick">{{ city }}</text>
+        <text class="city" @click="textOnClick">{{ cityName }}</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773197745663.png"
           class="image"
         />
-        <view class="flex-row input">
+        <view class="flex-row  input">
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528771387958614.png"
             class="search"
@@ -39,6 +39,7 @@
 
 <script lang="ts" setup>
 import { key } from "@/stores";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -53,8 +54,18 @@ const navigationBarTop = store.state.menuButtonInfo!.top - uni.upx2px(45);
 const navigationBarWidth = store.state.menuButtonInfo!.left - uni.upx2px(50);
 /* #endif */
 
-const city = ref("重庆");
+const cityName = ref("");
 const searchContent = ref("");
+
+onLoad((e) => {
+  if(e.city){
+  cityName.value = e.city;
+  }
+  uni.$on("liveCity", (city: string) => {
+    cityName.value = city;
+  });
+});
+
 const textOnClick = () => {
   uni.navigateTo({ url: "/most/chengshixuanze/chengshixuanze" });
 };
@@ -93,7 +104,7 @@ const text_1OnClick = () => {
 
     .input {
       flex: 1 1 auto;
-      height: 43rpx;
+      height: 50rpx;
       padding: 11rpx 15rpx 12rpx;
       margin-left: 20rpx;
       line-height: 20rpx;
@@ -104,14 +115,14 @@ const text_1OnClick = () => {
 
       .search {
         align-self: center;
-        width: 20rpx;
-        height: 20rpx;
+        width: 25rpx;
+        height: 25rpx;
       }
 
       .search-text {
         align-self: center;
         margin-left: 11rpx;
-        font-size: 20rpx;
+        font-size: 25rpx;
       }
     }
 

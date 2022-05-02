@@ -20,7 +20,7 @@
           class="list-item"
           @click="view_9OnClick"
         >
-          <text class="items-center text-5">{{ popularPosition.name }}</text>
+          <text class="text-5">{{ popularPosition.name }}</text>
         </view>
       </view>
     </view>
@@ -139,8 +139,7 @@ const view_18OnClick = () => {
         border-radius: 5rpx;
 
         .text-5 {
-          margin-right: 15rpx;
-          margin-left: 15rpx;
+          padding: 0rpx 15rpx;
           font-size: 25rpx;
         }
       }
@@ -164,8 +163,7 @@ const view_18OnClick = () => {
         border-radius: 5rpx;
 
         .text-5 {
-          margin-right: 15rpx;
-          margin-left: 15rpx;
+          padding: 0rpx 15rpx;
           font-size: 25rpx;
         }
       }

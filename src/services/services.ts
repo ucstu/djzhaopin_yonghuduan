@@ -8,45 +8,45 @@ import { AxiosRequestConfig } from "axios";
 import { SwaggerResponse } from "./config";
 import { Http } from "./httpRequest";
 import {
-  DeleteAccountInfosP0QueryParams,
-  GetCompanyInfosQueryParams,
-  GetHrInfosQueryParams,
-  GetUserInfosP0AttentionRecordsQueryParams,
+  GetUserInfosP0GarnerRecordsQueryParams,
+  GetUserInfosP0ProjectExperiencesQueryParams,
   GetUserInfosP0WorkExperiencesQueryParams,
   GetCompanyInfosPositionInfosQueryParams,
-  GetUserInfosP0ProjectExperiencesQueryParams,
-  GetUserInfosQueryParams,
-  GetUserInfosP0DeliveryRecordsQueryParams,
-  GetCompanyInfosP0DeliveryRecordsQueryParams,
-  GetAreaInformationsQueryParams,
-  GetHrInfosP0InspectionRecordsQueryParams,
-  GetUserInfosP0JobExpectationsQueryParams,
-  GetUserInfosP0GarnerRecordsQueryParams,
-  GetUserInfosP0InspectionRecordsQueryParams,
-  GetDirectionTagsQueryParams,
-  GetVerificationCodeQueryParams,
   GetUserInfosP0EduExperiencesQueryParams,
+  GetUserInfosP0AttentionRecordsQueryParams,
+  GetVerificationCodeQueryParams,
+  GetUserInfosP0DeliveryRecordsQueryParams,
+  GetUserInfosP0InspectionRecordsQueryParams,
+  GetHrInfosP0InspectionRecordsQueryParams,
   GetCompanyInfosP0PositionInfosQueryParams,
-  AttentionRecord,
-  MessageRecord,
-  WorkExperience,
-  DeliveryRecord,
-  DirectionTags,
-  HrInspectionRecord,
-  JobExpectation,
-  UserInspectionRecord,
-  GarnerRecord,
-  ProjectExperience,
-  FilterInformation,
-  CompanyInformation,
-  HrInformation,
-  AreaInformations,
-  AccountInformation,
+  GetUserInfosP0JobExpectationsQueryParams,
+  GetCompanyInfosP0DeliveryRecordsQueryParams,
+  GetCompanyInfosQueryParams,
+  DeleteAccountInfosP0QueryParams,
+  GetAreaInformationsQueryParams,
+  GetUserInfosQueryParams,
+  GetDirectionTagsQueryParams,
+  GetHrInfosQueryParams,
   EducationExperience,
-  PositionInformation,
-  CityInformations,
-  UserInformation,
+  AreaInformations,
   PositionTypes,
+  GarnerRecord,
+  HrInformation,
+  WorkExperience,
+  CityInformations,
+  DeliveryRecord,
+  UserInspectionRecord,
+  PositionInformation,
+  AccountInformation,
+  DirectionTags,
+  ProjectExperience,
+  UserInformation,
+  CompanyInformation,
+  HrInspectionRecord,
+  AttentionRecord,
+  FilterInformation,
+  MessageRecord,
+  JobExpectation,
 } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -3164,6 +3164,12 @@ export const postUserInfosP0GarnerRecords = (
    */
   userInfoId: string,
   requestBody: {
+    /**
+     *
+     * 公司信息ID
+     *
+     */
+    companyInformationId: string;
     /**
      *
      * 职位信息ID

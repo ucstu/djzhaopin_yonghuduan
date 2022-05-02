@@ -253,14 +253,14 @@ const saveJobExcept = () => {
     uni.showToast({
       title: "请填写完整信息",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else if (directionShow.value) {
     if (directionTag.value === "") {
       uni.showToast({
         title: "请填写完整信息",
         icon: "none",
-        duration: 500,
+        duration: 1000,
       });
     } else {
       if (jobId.value) {
@@ -274,7 +274,7 @@ const saveJobExcept = () => {
             uni.showToast({
               title: "修改成功",
               icon: "none",
-              duration: 500,
+              duration: 1000,
             });
           })
           .catch(failResponseHandler);
@@ -314,7 +314,7 @@ const deleteExpectation = () => {
     uni.showToast({
       title: "删除成功",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
     // uni.navigateBack({
     //   delta: 1,

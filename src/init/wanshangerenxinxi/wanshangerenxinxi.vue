@@ -176,7 +176,7 @@ const nextClick = () => {
     uni.showToast({
       title: "请完善个人信息",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else if (
     !/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(
@@ -186,7 +186,7 @@ const nextClick = () => {
     uni.showToast({
       title: "邮箱格式不正确",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else {
     userInfo.value.cityName = city.value;

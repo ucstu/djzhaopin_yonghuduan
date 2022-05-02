@@ -411,6 +411,12 @@ export interface FilterInformation {
 export interface GarnerRecord {
   /**
    *
+   * 公司信息ID
+   *
+   */
+  companyInformationId: string;
+  /**
+   *
    * 创建时间
    *
    */
@@ -520,19 +526,19 @@ export interface GetCompanyInfosP0PositionInfosQueryParams {
   educations?: Array<1 | 2 | 3 | 4 | 5>;
   /**
    *
-   * 融资阶段枚举，{1:未融资,2:天使轮,3:A轮,4:B轮,5:C轮,6:D轮及以上,7:上市公司,8:不需要融资}
+   * 融资阶段枚举数组，{1:未融资,2:天使轮,3:A轮,4:B轮,5:C轮,6:D轮及以上,7:上市公司,8:不需要融资}
    */
   financingStages?: Array<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>;
-  /**
-   *
-   * 职位名，eg：前端开发
-   */
-  name?: string;
   /**
    *
    * 当前页，eg：0
    */
   page?: number;
+  /**
+   *
+   * 职位名，eg：前端开发
+   */
+  positionName?: string;
   /**
    *
    * 职位类型枚举数组，{1:全职,2:兼职,3:实习}
@@ -593,19 +599,19 @@ export interface GetCompanyInfosPositionInfosQueryParams {
   educations?: Array<1 | 2 | 3 | 4 | 5>;
   /**
    *
-   * 融资阶段枚举，{1:未融资,2:天使轮,3:A轮,4:B轮,5:C轮,6:D轮及以上,7:上市公司,8:不需要融资}
+   * 融资阶段枚举数组，{1:未融资,2:天使轮,3:A轮,4:B轮,5:C轮,6:D轮及以上,7:上市公司,8:不需要融资}
    */
   financingStages?: Array<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8>;
-  /**
-   *
-   * 职位名，eg：前端开发
-   */
-  name?: string;
   /**
    *
    * 当前页，eg：0
    */
   page?: number;
+  /**
+   *
+   * 职位名称，eg：前端开发
+   */
+  positionName?: string;
   /**
    *
    * 职位类型枚举数组，{1:全职,2:兼职,3:实习}
@@ -649,6 +655,11 @@ export interface GetCompanyInfosPositionInfosQueryParams {
 }
 
 export interface GetCompanyInfosQueryParams {
+  /**
+   *
+   * 公司名称
+   */
+  companyName?: string;
   /**
    *
    * 当前页，eg：0
@@ -1473,6 +1484,12 @@ export interface UserInformation {
 }
 
 export interface UserInspectionRecord {
+  /**
+   *
+   * 公司信息ID
+   *
+   */
+  companyInformationId: string;
   /**
    *
    * 创建时间

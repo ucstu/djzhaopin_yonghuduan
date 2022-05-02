@@ -92,7 +92,7 @@ const getVerifiable = () => {
     uni.showToast({
       title: "请输入手机号",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else if (/^1[3456789]\d{9}$/.test(phoneNum.value)) {
     getVerificationCode({ phoneNumber: phoneNum.value })
@@ -100,7 +100,7 @@ const getVerifiable = () => {
         uni.showToast({
           title: "验证码已发送",
           icon: "none",
-          duration: 500,
+          duration: 1000,
         });
       })
       .catch(failResponseHandler);
@@ -108,7 +108,7 @@ const getVerifiable = () => {
     uni.showToast({
       title: "请输入正确的手机号",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   }
 };
@@ -117,25 +117,25 @@ const registeredAccount = () => {
     uni.showToast({
       title: "手机密码不能为空",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else if (verification.value === "") {
     uni.showToast({
       title: "验证码不能为空",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else if (isAgree.value === false) {
     uni.showToast({
       title: "请同意协议",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else if (password.value.length < 6) {
     uni.showToast({
       title: "密码不能小于6位",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else {
     postAccountInfos({
@@ -162,7 +162,7 @@ const registeredAccount = () => {
                 uni.showToast({
                   title: "注册成功",
                   icon: "none",
-                  duration: 500,
+                  duration: 1000,
                 });
                 uni.navigateTo({
                   url: "/init/wanchengjianli/wanchengjianli",

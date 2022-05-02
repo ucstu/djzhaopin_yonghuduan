@@ -66,6 +66,23 @@
         </view>
       </view>
     </view>
+    <view class="group-btn">
+      <view class="flex-col justify-center items-center">
+        <image
+          v-if="!focus"
+          class="image-focus"
+          src="@/static/icons/collection.svg"
+          @click="focusOn"
+        />
+        <image
+          v-if="focus"
+          class="image-focus"
+          src="@/static/icons/collection-fill.svg"
+          @click="focusOn"
+        />
+        <text>关注</text>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -79,7 +96,7 @@ import { ref } from "vue";
 
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const companyInfo = ref<CompanyInformation>({} as CompanyInformation);
-
+/* 融资阶段 */
 const financingStages = [
   "",
   "未融资",
@@ -91,6 +108,7 @@ const financingStages = [
   "上市公司",
   "不需要融资",
 ];
+/* 规模 */
 const scales = [
   "",
   "少于15人",
@@ -100,6 +118,7 @@ const scales = [
   "500-2000人",
   "2000人以上",
 ];
+const focus = ref(false);
 
 onLoad((options) => {
   if (options.companyId) {
@@ -112,15 +131,19 @@ onLoad((options) => {
     uni.showToast({
       title: "参数错误",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   }
 });
+
+const focusOn = () => {
+  focus.value = !focus.value;
+};
 </script>
 
 <style lang="scss" scoped>
 .page {
-  width: 710rpx;
+  width: 100%;
   height: auto;
   margin-left: 20rpx;
   overflow-y: auto;
@@ -197,6 +220,19 @@ onLoad((options) => {
         text-overflow: ellipsis;
         white-space: nowrap;
       }
+    }
+  }
+
+  .group-btn {
+    position: absolute;
+    bottom: 0;
+    width: 92%;
+    height: 100rpx;
+    margin-left: 4%;
+
+    .image-focus {
+      width: 60rpx;
+      height: 60rpx;
     }
   }
 

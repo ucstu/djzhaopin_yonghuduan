@@ -35,8 +35,20 @@
           @click="isAgree = !isAgree"
         ></checkbox>
         <view
-          >同意 <text style="color: rgb(35 193 158)">《东江用户协议》</text>和
-          <text style="color: rgb(35 193 158)">《东江登录政策》</text>
+          >同意
+          <navigator
+            url="/setting/yonghuxieyi/yonghuxieyi"
+            open-type="navigate"
+            style="display: inline-block; color: rgb(35 193 158)"
+            >《东江用户协议》
+          </navigator>
+          和
+          <navigator
+            url="/setting/yinsicelve/yinsicelve"
+            open-type="navigate"
+            style="display: inline-block; color: rgb(35 193 158)"
+            >《东江登录政策》
+          </navigator>
         </view>
       </view>
     </view>

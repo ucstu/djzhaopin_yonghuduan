@@ -239,7 +239,7 @@ const saveProjectExperience = () => {
     uni.showToast({
       title: "请填写完整信息",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else if (
     projectExperience.value.startTime === "开始时间" ||
@@ -248,7 +248,7 @@ const saveProjectExperience = () => {
     uni.showToast({
       title: "请选择项目时间",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else {
     if (projectId.value !== undefined) {
@@ -262,7 +262,7 @@ const saveProjectExperience = () => {
           uni.showToast({
             title: "修改成功",
             icon: "none",
-            duration: 500,
+            duration: 1000,
           });
         })
         .catch(failResponseHandler);
@@ -276,7 +276,7 @@ const saveProjectExperience = () => {
           uni.showToast({
             title: "添加成功",
             icon: "none",
-            duration: 500,
+            duration: 1000,
           });
         })
         .catch(failResponseHandler);
@@ -299,7 +299,7 @@ const deleteProjectExperience = () => {
             uni.showToast({
               title: "删除成功",
               icon: "none",
-              duration: 500,
+              duration: 1000,
             });
           })
           .catch(failResponseHandler);

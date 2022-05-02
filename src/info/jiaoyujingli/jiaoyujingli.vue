@@ -261,13 +261,13 @@ const saveEducation = () => {
     uni.showToast({
       title: "请填写完整信息",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else if (startTime.value === "入学时间" || overTime.value === "结束时间") {
     uni.showToast({
       title: "请选择在校时间",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else {
     if (educateId.value !== undefined) {

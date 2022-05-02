@@ -200,7 +200,7 @@ const chooseImage = () => {
             uni.showToast({
               title: "上传成功",
               icon: "success",
-              duration: 500,
+              duration: 1000,
             });
             userInformation.value.avatarUrl = r.data.body.avatarUrl;
           })
@@ -211,7 +211,7 @@ const chooseImage = () => {
       uni.showToast({
         title: "上传失败",
         icon: "success",
-        duration: 500,
+        duration: 1000,
       });
     },
   });
@@ -253,19 +253,19 @@ const saveInfos = () => {
     uni.showToast({
       title: "请输入姓名",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else if (!userInformation.value.phoneNumber) {
     uni.showToast({
       title: "手机不能为空",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else if (!userInformation.value.email) {
     uni.showToast({
       title: "邮箱不能为空",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else if (
     !/^([A-Za-z0-9_\-\.])+\@(163.com|qq.com|42du.cn)$/.test(
@@ -275,7 +275,7 @@ const saveInfos = () => {
     uni.showToast({
       title: "邮箱格式有误",
       icon: "none",
-      duration: 500,
+      duration: 1000,
     });
   } else {
     if (isActiveMan.value) {

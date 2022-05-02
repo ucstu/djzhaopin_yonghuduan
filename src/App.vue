@@ -29,7 +29,7 @@ onLaunch(() => {
         uni.showToast({
           title: "登录失效，请重新登录",
           icon: "none",
-          duration: 500,
+          duration: 1000,
         });
         store.commit("setToken", null);
         store.commit("setAccountInfo", null);

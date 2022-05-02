@@ -156,7 +156,7 @@ const changeJobType = (index: number) => {
   activeIndex.value = index;
   city.value = cityValue.value[index]
   getCompanyInfosPositionInfos(
-  {name: expects.value[index]}
+  {positionName: expects.value[index]}
 ).then((res) => {
   jobDetails.value = res.data.body
 }).catch(failResponseHandler)
@@ -165,7 +165,7 @@ const changeJobType = (index: number) => {
 const recommended = (index: number) => {
   showRecommend.value = index
   getCompanyInfosPositionInfos(
-  {name: expects.value[index]}
+  {positionName: expects.value[index]}
 ).then((res) => {
   jobDetails.value = res.data.body
 }).catch(failResponseHandler)
@@ -182,7 +182,7 @@ const onRefresh = () => {
 }
 const onRestore = () => {
    getCompanyInfosPositionInfos(
-  {name: expects.value[activeIndex.value]}
+  {positionName: expects.value[activeIndex.value]}
 ).then((res) => {
   jobDetails.value = res.data.body
 })
@@ -195,7 +195,7 @@ const image_5OnClick = () => {
   uni.navigateTo({ url: '/info/qiuzhiqiwang/qiuzhiqiwang' })
 }
 const image_6OnClick = () => {
-  uni.navigateTo({ url: '/most/sousuoyemian/sousuoyemian' })
+  uni.navigateTo({ url: `/most/sousuoyemian/sousuoyemian?city=` + city.value })
 }
 /* 位置选择 */
 const text_22OnClick = () => {
@@ -371,7 +371,7 @@ const jobDescription = (index: number) => {
   }
 
   .job-detail {
-    height: 830rpx;
+    max-height: 1100rpx;
     overflow: hidden;
   background-color: rgb(240 240 240);
   }
