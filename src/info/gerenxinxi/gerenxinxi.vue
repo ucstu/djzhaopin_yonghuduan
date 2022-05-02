@@ -47,10 +47,6 @@
         </view>
       </view>
       <view class="flex-col group-box">
-        <text class="caption">手机号码</text>
-        <input v-model="userInformation.phoneNumber" class="user-value" />
-      </view>
-      <view class="flex-col group-box">
         <text class="caption">邮箱</text>
         <input v-model="userInformation.email" class="user-value" />
       </view>
@@ -255,12 +251,6 @@ const saveInfos = () => {
       icon: "none",
       duration: 1000,
     });
-  } else if (!userInformation.value.phoneNumber) {
-    uni.showToast({
-      title: "手机不能为空",
-      icon: "none",
-      duration: 1000,
-    });
   } else if (!userInformation.value.email) {
     uni.showToast({
       title: "邮箱不能为空",
@@ -268,7 +258,7 @@ const saveInfos = () => {
       duration: 1000,
     });
   } else if (
-    !/^([A-Za-z0-9_\-\.])+\@(163.com|qq.com|42du.cn)$/.test(
+    !/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(
       userInformation.value.email
     )
   ) {
@@ -293,7 +283,6 @@ const saveInfos = () => {
     store.state.userInfo.sex = userInformation.value.sex;
     store.state.userInfo.age = userInformation.value.age;
     store.state.userInfo.cityName = userInformation.value.cityName;
-    store.state.userInfo.phoneNumber = userInformation.value.phoneNumber;
     store.state.userInfo.email = userInformation.value.email;
     putUserInfosP0(
       store.state.accountInfo.fullInformationId,

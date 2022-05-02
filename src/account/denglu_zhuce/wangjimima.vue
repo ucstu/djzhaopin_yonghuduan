@@ -6,10 +6,10 @@
       <view class="textarea">
         <view class="items-center phone-number">
           <input
-            v-model="phoneNum"
+            v-model="email"
             style="padding-left: 20rpx"
             type="number"
-            placeholder="请输入你的手机号"
+            placeholder="请输入你的邮箱"
             :maxlength="11"
           />
         </view>
@@ -71,20 +71,22 @@ import {
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
 
-const phoneNum = ref("");
+const email = ref("");
 const passwordNew = ref("");
 const passwordAffirm = ref("");
 const verification = ref();
 
 const getVerifiable = () => {
-  if (phoneNum.value === "") {
+  if (email.value === "") {
     uni.showToast({
-      title: "请输入手机号",
+      title: "请输入邮箱",
       icon: "none",
       duration: 1000,
     });
-  } else if (/^1[3456789]\d{9}$/.test(phoneNum.value)) {
-    getVerificationCode({ phoneNumber: phoneNum.value })
+  } else if (
+    /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email.value)
+  ) {
+    getVerificationCode({ email: email.value })
       .then((res) => {
         uni.showToast({
           title: "验证码已发送",
@@ -95,7 +97,7 @@ const getVerifiable = () => {
       .catch(failResponseHandler);
   } else {
     uni.showToast({
-      title: "请输入正确的手机号",
+      title: "请输入正确的邮箱",
       icon: "none",
       duration: 1000,
     });
@@ -103,7 +105,7 @@ const getVerifiable = () => {
 };
 const registeredAccount = () => {
   if (
-    phoneNum.value === "" ||
+    email.value === "" ||
     passwordNew.value === "" ||
     passwordAffirm.value === ""
   ) {
@@ -126,7 +128,7 @@ const registeredAccount = () => {
     });
   } else {
     putAccountInfosForget({
-      userName: phoneNum.value,
+      userName: email.value,
       verificationCode: verification.value,
       password: passwordNew.value,
     })
