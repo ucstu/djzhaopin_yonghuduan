@@ -17,15 +17,15 @@
         </view>
         <view class="flex-col items-center justify-center" @click="onClick_2">
           <text>收藏职位</text>
-          <text>0</text>
+          <text>{{ favoriteNum }}</text>
         </view>
         <view class="flex-col items-center justify-center" @click="onClick_3">
           <text>关注公司</text>
-          <text>0</text>
+          <text>{{ focusNum }}</text>
         </view>
         <view class="flex-col items-center justify-center" @click="onClick_4">
           <text>待面试</text>
-          <text>0</text>
+          <text>{{ interviewNum }}</text>
         </view>
       </view>
     </view>
@@ -85,12 +85,18 @@
 </template>
 
 <script lang="ts" setup>
-// import { getUserInfosUserinfoid } from "@/services/services";
 import {
   getUserInfosP0,
+  getUserInfosP0AttentionRecords,
   getUserInfosP0DeliveryRecords,
+  getUserInfosP0GarnerRecords,
 } from "@/services/services";
-import { DeliveryRecord, UserInformation } from "@/services/types";
+import {
+  AttentionRecord,
+  DeliveryRecord,
+  GarnerRecord,
+  UserInformation,
+} from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { onShow } from "@dcloudio/uni-app";
@@ -104,7 +110,13 @@ const userInfos = ref<UserInformation>({} as UserInformation);
 const education = ref(["大专", "本科", "硕士", "博士"]);
 const fullName = ref();
 const deliveryNum = ref(0);
-const deliveryInfo = ref<DeliveryRecord[]>([]);
+const deliveryRecords = ref<DeliveryRecord[]>([]);
+const favoriteNum = ref(0);
+const favoritePosition = ref<GarnerRecord[]>([]);
+const focusNum = ref(0);
+const focusCompany = ref<AttentionRecord[]>([]);
+const interviewNum = ref(0);
+const interviewPosition = ref<DeliveryRecord[]>([]);
 
 onMounted(() => {
   getUserInfosP0(store.state.accountInfo.fullInformationId)
@@ -117,30 +129,75 @@ onMounted(() => {
 onShow(() => {
   userInfos.value = store.state.userInfo;
   fullName.value = userInfos.value.firstName + userInfos.value.lastName;
+  /* 投递记录 */
+  for (let i = 1; i <= 5; i++) {
+    getUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
+      status: i as 1 | 2 | 3 | 4 | 5,
+    })
+      .then((res) => {
+        if (i === 1) {
+          deliveryNum.value = 0;
+        }
+        deliveryNum.value += res.data.body.length;
+        if (i === 1) {
+          deliveryRecords.value = res.data.body;
+        }
+      })
+      .catch(failResponseHandler);
+  }
+  /* 收藏职位 */
+  getUserInfosP0GarnerRecords(store.state.accountInfo.fullInformationId, {})
+    .then((res) => {
+      favoriteNum.value = res.data.body.length;
+      favoritePosition.value = res.data.body;
+    })
+    .catch(failResponseHandler);
+  /* 关注公司 */
+  getUserInfosP0AttentionRecords(store.state.accountInfo.fullInformationId, {})
+    .then((res) => {
+      focusNum.value = res.data.body.length;
+      focusCompany.value = res.data.body;
+    })
+    .catch(failResponseHandler);
+  /* 投递记录 */
   getUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
-    status: 1,
-  }).then((res) => {
-    deliveryNum.value = res.data.body.length;
-    deliveryInfo.value = res.data.body;
-  });
+    status: 4,
+  })
+    .then((res) => {
+      interviewNum.value = res.data.body.length;
+      interviewPosition.value = res.data.body;
+    })
+    .catch(failResponseHandler);
 });
 
 const toSelfInfo = () => {
   uni.navigateTo({ url: "/mine/bianjijianli/bianjijianli" });
 };
 const onClick_1 = () => {
+  let item = encodeURIComponent(JSON.stringify(deliveryRecords.value));
   uni.navigateTo({
-    url: "/record/toudijilu/toudijilu",
+    url: "/record/toudijilu/toudijilu?deliveryRecords=" + item,
   });
 };
 const onClick_2 = () => {
-  uni.navigateTo({ url: "/record/shoucangzhiwei/shoucangzhiwei" });
+  let item = encodeURIComponent(JSON.stringify(favoritePosition.value));
+  uni.navigateTo({
+    url: "/record/shoucangzhiwei/shoucangzhiwei?favoritePosition=" + item,
+  });
 };
 const onClick_3 = () => {
-  uni.navigateTo({ url: "/record/guanzhugongsi/guanzhugongsi" });
+  let item = encodeURIComponent(JSON.stringify(focusCompany.value));
+  uni.navigateTo({
+    url: "/record/guanzhugongsi/guanzhugongsi?focusCompany=" + item,
+  });
 };
 const onClick_4 = () => {
-  uni.navigateTo({ url: "/record/daimianshi/daimianshi" });
+  let item = encodeURIComponent(JSON.stringify(interviewPosition.value));
+  uni.navigateTo({
+    url:
+      "/record/daimianshi/daimianshi?interviewPosition=" +
+      interviewPosition.value,
+  });
 };
 const onClick_5 = () => {
   uni.navigateTo({ url: "/info/shangchuanjianli/shangchuanjianli" });

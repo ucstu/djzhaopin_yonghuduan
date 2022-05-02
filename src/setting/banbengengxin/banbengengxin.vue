@@ -6,8 +6,8 @@
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478529383979520523.png"
         class="logo"
       />
-      <text class="version">{{ version }}</text>
-      <view class="justify-between bar-text">
+      <text class="version">当前版本 {{ versionNum }}</text>
+      <view class="justify-between bar-text" @click="checkVersion">
         <text class="text-1">版本更新</text>
         <text class="text-2">{{ newVersion }}</text>
       </view>
@@ -49,10 +49,30 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { getNewVersion } from "@/services/services";
 import { ref } from "vue";
 
-const version = ref("当前版本 1.0.0");
-const newVersion = ref("无新版");
+const newVersion = ref("无最新版本");
+const versionNum = ref();
+
+getNewVersion().then((res) => {
+  if (res.data.body) {
+    versionNum.value = res.data.body;
+  }
+});
+
+const checkVersion = () => {
+  getNewVersion().then((res) => {
+    if (res.data.body) {
+      versionNum.value = res.data.body;
+      uni.showToast({
+        title: "已为最新版本",
+        icon: "none",
+        duration: 1000,
+      });
+    }
+  });
+};
 
 const text_7OnClick = () => {
   uni.navigateTo({ url: "/setting/yonghuxieyi/yonghuxieyi" });

@@ -1,21 +1,23 @@
 <template>
-  <SearchBar></SearchBar>
-  <view class="justify-between about">
-    <text @click="text_2OnClick">相关职位</text>
-    <text @click="text_3OnClick">相关公司</text>
-  </view>
-  <FilterBar></FilterBar>
+  <CompanyDetail
+    v-for="(attentionCompany, i) in cpmpanyInfos"
+    :key="i"
+    class="list-item"
+    :company-detail="attentionCompany"
+  />
 </template>
 
 <script lang="ts" setup>
-import FilterBar from "./FilterBar.vue";
-import SearchBar from "./SearchBar.vue";
-const text_2OnClick = () => {
-  uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei" });
-};
-const text_3OnClick = () => {
-  uni.navigateTo({ url: "/detail/xiangguangongsi/xiangguangongsi" });
-};
+import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
+import { getCompanyInfos } from "@/services/services";
+import { CompanyInformation } from "@/services/types";
+import { ref } from "vue";
+
+const cpmpanyInfos = ref<CompanyInformation[]>([]);
+
+getCompanyInfos({}).then((res) => {
+  cpmpanyInfos.value = res.data.body;
+});
 </script>
 
 <style lang="scss" scoped>

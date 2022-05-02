@@ -3,7 +3,7 @@
   <view class="flex-col page">
     <view class="flex-col list">
       <JobPanel
-        v-for="(collectionPosition, i) in collectionPositions"
+        v-for="(collectionPosition, i) in favoritesPosition"
         :key="i"
         class="list-item"
         :collection-position="collectionPosition"
@@ -18,11 +18,12 @@ import JobPanel from "@/components/JobPanel/JobPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
   deleteUserInfosP0GarnerRecordsP1,
-  getUserInfosP0GarnerRecords,
+  getCompanyInfosP0PositionInfosP1,
 } from "@/services/services";
 import { PositionInformation } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
+import { onLoad, onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -31,34 +32,38 @@ const favorites = ref();
 const favoritesPosition = ref<PositionInformation[]>([]);
 const cancelCollection = ref("取消收藏");
 
-const collectionPositions = ref({});
-getUserInfosP0GarnerRecords(store.state.accountInfo.fullInformationId, {})
-  .then((res) => {
-    console.log(res.data.body);
-    favorites.value = res.data.body;
-    for (const favorite of res.data.body) {
-      console.log(favorite);
-      // getCompanyInfosP0PositionInfosP1(
-      //   favorite.companyInformationId,
-      //   favorite.positionInformationId
-      // )
-      //   .then((res) => {
-      //     favoritesPosition.value.push(res.data.body);
-      //   })
-      //   .catch(failResponseHandler);
+onLoad((e) => {
+  if (e.favoritePosition) {
+    favorites.value = JSON.parse(e.favoritePosition);
+    for (const favorite of favorites.value) {
+      getCompanyInfosP0PositionInfosP1(
+        favorite.companyInformationId,
+        favorite.positionInformationId
+      )
+        .then((res) => {
+          favoritesPosition.value.push(res.data.body);
+        })
+        .catch(failResponseHandler);
     }
-  })
-  .catch(failResponseHandler);
+  }
+});
+
+onShow(() => {
+  if (!favoritesPosition.value.length) {
+    favoritesPosition.value = [];
+  }
+});
 
 /* 清空收藏记录 */
 const emptyFavorites = () => {
   for (const favorite of favorites.value) {
     deleteUserInfosP0GarnerRecordsP1(
-      store.state.accountInfo.fullInformationId,
-      favorite.deliveryRecordId
+      favorite.userInformationId,
+      favorite.garnerRecordId
     )
       .then(() => {
-        favorites.value.length = 0;
+        favorites.value = null;
+        favoritesPosition.value.length = 0;
       })
       .catch(failResponseHandler);
   }

@@ -2,14 +2,14 @@
   <view class="flex-col bar">
     <view class="flex-row equal">
       <view class="items-center justify-center equal-div">
-        <text class="text">区域</text>
+        <text class="text">排序</text>
         <image
           class="image"
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
         />
       </view>
       <view class="items-center justify-center equal-div">
-        <text class="text">要求</text>
+        <text class="text">城市</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
           class="image"
@@ -22,95 +22,30 @@
           class="image"
         />
       </view>
-      <view class="items-center justify-center equal-div">
-        <text class="text">福利</text>
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image"
-        />
-      </view>
-      <view class="items-center justify-center equal-div">
-        <text class="text">排序</text>
-        <image
-          src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-          class="image"
-        />
-      </view>
-    </view>
-    <view class="flex-row items-center filter" @click="showOver">
-      <scroll-view class="sift-group" :scroll-x="true">
-        <view class="flex-row items-center">
-          <view v-for="(sift, i) in sifts" :key="i" class="justify-center sift">
-            <text>{{ sift }}</text>
-          </view>
-        </view>
-      </scroll-view>
-      <view class="justify-center image-sifts">
-        <image src="@/static/icons/menu.png" class="sifts" />
-      </view>
     </view>
   </view>
+  <JobDetail
+    v-for="(JobDetail, i) in jobDetails"
+    :key="i"
+    class="list-item"
+    :job-detail="JobDetail"
+    @job-click="toPositions"
+  />
 </template>
 
 <script lang="ts" setup>
-import { reactive } from "vue";
+import JobDetail from "@/components/JobDetail/JobDetail.vue";
+import { getCompanyInfosPositionInfos } from "@/services/services";
+import { PositionInformation } from "@/services/types";
+import { ref } from "vue";
 
-const sifts = reactive([
-  "不限",
-  "C++",
-  "JAVA",
-  "C#",
-  "PHP",
-  "Html5",
-  "Vue",
-  "React",
-  "C++",
-  "JAVA",
-  "C#",
-  "PHP",
-  "Html5",
-  "Vue",
-  "C++",
-  "JAVA",
-  "C#",
-  "PHP",
-  "Html5",
-  "Vue",
-  "PHP",
-  "Html5",
-  "Vue",
-  "React",
-  "C++",
-  "JAVA",
-  "C#",
-  "PHP",
-  "Html5",
-  "Vue",
-  "C++",
-  "JAVA",
-  "C#",
-  "PHP",
-  "Html5",
-  "Vue",
-  "PHP",
-  "Html5",
-  "Vue",
-  "React",
-  "C++",
-  "JAVA",
-  "C#",
-  "PHP",
-  "Html5",
-  "Vue",
-  "C++",
-  "JAVA",
-  "C#",
-  "PHP",
-  "Html5",
-  "Vue",
-]);
+const jobDetails = ref<PositionInformation[]>([]);
 
-const showOver = () => {
+getCompanyInfosPositionInfos({}).then((res) => {
+  jobDetails.value = res.data.body;
+});
+
+const toPositions = () => {
   return 0;
 };
 </script>
@@ -118,19 +53,19 @@ const showOver = () => {
 <style lang="scss" scoped>
 .bar {
   .equal {
-    width: 690rpx;
+    width: 94%;
     height: 60rpx;
+    margin-left: 3%;
 
     .equal-div {
-      width: 138rpx;
+      width: 110rpx;
       height: 60rpx;
-      font-size: 25rpx;
-      color: rgb(0 0 0);
+      font-size: 28rpx;
       white-space: nowrap;
 
       .image {
-        width: 7rpx;
-        height: 5rpx;
+        width: 10rpx;
+        height: 7rpx;
         margin: 10rpx 0 7rpx 7rpx;
       }
     }

@@ -74,8 +74,16 @@
           </view>
           <view>职位描述：{{ jobInformation.description }}</view>
           <view>所属部门：{{ jobInformation.departmentName }}</view>
-          <view>周末休息时间：{{ jobInformation.weekendReleaseTime }}</view>
-          <view>上班时间：{{ jobInformation.workTime }}</view>
+          <view
+            >周末休息时间：{{
+              weekendReleaseTime[jobInformation.weekendReleaseTime + 1]
+            }}</view
+          >
+          <view
+            >上班时间：{{ jobInformation.workTime }}-{{
+              jobInformation.overTime
+            }}</view
+          >
           <view>工作地点：{{ jobInformation.workingPlace }}</view>
         </view>
       </view>
@@ -162,6 +170,7 @@ const jobInformation = ref<PositionInformation>({} as PositionInformation); // �
 const educates = ref(["不要求", "大专", "本科", "硕士", "博士"]);
 const workYears = ref(["经验不限", "在校/应届", "3年以下", "3-5年", "5-10年"]);
 const positionType = ref(["", "全职", "兼职", "实习"]);
+/* 融资阶段 */
 const financingStages = [
   "",
   "未融资",
@@ -173,6 +182,7 @@ const financingStages = [
   "上市公司",
   "不需要融资",
 ];
+/* 公司规模 */
 const scales = [
   "",
   "少于15人",
@@ -182,6 +192,8 @@ const scales = [
   "500-2000人",
   "2000人以上",
 ];
+/* 周末休息时间 */
+const weekendReleaseTime = ref(["周末双休", "周末单休", "大小周"]);
 
 const companyInformation = ref<CompanyInformation>({} as CompanyInformation); // 公司信息
 const companyId = ref(""); // 公司id
@@ -247,16 +259,26 @@ const collection = () => {
       })
       .catch(failResponseHandler);
   } else {
-    deleteUserInfosP0GarnerRecordsP1(
-      store.state.accountInfo.fullInformationId,
-      garnerRecordId.value
-    )
-      .then(() => {
-        uni.showToast({
-          title: "取消收藏",
-          icon: "none",
-          duration: 1000,
+    getUserInfosP0GarnerRecords(store.state.accountInfo.fullInformationId, {})
+      .then((res) => {
+        let collectionPosition = res.data.body.find((item) => {
+          return item.positionInformationId === positionId.value;
         });
+        if (collectionPosition) {
+          garnerRecordId.value = collectionPosition.garnerRecordId;
+          deleteUserInfosP0GarnerRecordsP1(
+            store.state.accountInfo.fullInformationId,
+            garnerRecordId.value
+          )
+            .then(() => {
+              uni.showToast({
+                title: "取消收藏",
+                icon: "none",
+                duration: 1000,
+              });
+            })
+            .catch(failResponseHandler);
+        }
       })
       .catch(failResponseHandler);
   }

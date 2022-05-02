@@ -91,7 +91,7 @@ import { getCompanyInfosPositionInfos, getUserInfosP0JobExpectations } from "@/s
 import { PositionInformation } from '@/services/types';
 import { key } from '@/stores';
 import { failResponseHandler } from '@/utils/handler';
-import { onLoad } from '@dcloudio/uni-app';
+import { onLoad, onShow } from '@dcloudio/uni-app';
 import { onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 
@@ -131,7 +131,7 @@ onMounted(() => {
     jobDetails.value = res.data.body
   }).catch(failResponseHandler)
 })
-onLoad(() => {
+onShow(() => {
   if(store.state.token !== ''){
     getUserInfosP0JobExpectations(
       store.state.accountInfo.fullInformationId,

@@ -8,8 +8,9 @@
         <text class="text-2">{{ companyDetail!.recruitmentPosition }}</text>
       </view>
       <text class="text-3">
-        {{ companyDetail!.city }} | {{ companyDetail!.financingStage }} |
-        {{ companyDetail!.scale }}
+        {{ companyDetail!.cityName }} |
+        {{ financingStages[companyDetail!.financingStage] }} |
+        {{ scales[companyDetail!.scale] }}
         |
         {{ companyDetail!.comprehension }}
       </text>
@@ -27,14 +28,36 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
+const props = defineProps({
   companyDetail: {
     type: Object,
   },
 });
 
+const financingStages = [
+  "未融资",
+  "天使轮",
+  "A轮",
+  "B轮",
+  "C轮",
+  "D轮及以上",
+  "上市公司",
+  "不需要融资",
+];
+const scales = [
+  "少于15人",
+  "15-50人",
+  "50-150人",
+  "150-500人",
+  "500-2000人",
+  "2000人以上",
+];
+
 const rootViewOnClick = () => {
-  uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao" });
+  let companyId = props.companyDetail?.companyInformationId;
+  uni.navigateTo({
+    url: "/detail/gongsijieshao/gongsijieshao?companyId=" + companyId,
+  });
 };
 </script>
 

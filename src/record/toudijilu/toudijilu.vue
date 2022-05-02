@@ -34,7 +34,7 @@ import {
 import { DeliveryRecord, PositionInformation } from "@/services/types";
 import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
-import { onShow } from "@dcloudio/uni-app";
+import { onLoad, onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
@@ -46,22 +46,27 @@ const sendType = ["", "待查看", "已查看", "通过初筛", "约面试", "�
 const sendId = ref<DeliveryRecord["status"]>(1);
 
 /* 默认查看记录 */
-onShow(() => {
-  getUserInfosP0DeliveryRecords(store.state.accountInfo.fullInformationId, {
-    status: 1,
-  }).then((res) => {
-    deliveryLength.value = res.data.body;
-    for (const delivery of res.data.body) {
+onLoad((e) => {
+  if (e.deliveryRecords) {
+    deliveryLength.value = JSON.parse(e.deliveryRecords);
+    for (const delivery of deliveryLength.value) {
       getCompanyInfosP0PositionInfosP1(
         delivery.companyInformationId,
         delivery.positionInformationId
       )
         .then((res) => {
+          res.data.body["companyInformationId"] = delivery.companyInformationId;
           deliveryRecords.value.push(res.data.body);
         })
         .catch(failResponseHandler);
     }
-  });
+  }
+});
+
+onShow(() => {
+  if (!deliveryRecords.value.length) {
+    deliveryRecords.value = [];
+  }
 });
 
 /* 查看不同状态记录 */
@@ -78,6 +83,8 @@ const sendTypeId = (index: number) => {
           delivery.positionInformationId
         )
           .then((res) => {
+            res.data.body["companyInformationId"] =
+              delivery.companyInformationId;
             deliveryRecords.value.push(res.data.body);
           })
           .catch(failResponseHandler);
@@ -93,7 +100,10 @@ const clearRecord = () => {
       delivery.deliveryRecordId
     )
       .then(() => {
-        deliveryRecords.value.length = 0;
+        deliveryLength.value = deliveryLength.value.filter(
+          (item: { deliveryRecordId: string }) =>
+            item.deliveryRecordId !== delivery.deliveryRecordId
+        );
       })
       .catch(failResponseHandler);
   }

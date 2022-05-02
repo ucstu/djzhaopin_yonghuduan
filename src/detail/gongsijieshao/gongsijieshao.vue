@@ -66,8 +66,8 @@
         </view>
       </view>
     </view>
-    <view class="group-btn">
-      <view class="flex-col justify-center items-center">
+    <view class="flex-row justify-between items-center group-btn">
+      <view class="flex-col justify-center items-center" style="width: 30%">
         <image
           v-if="!focus"
           class="image-focus"
@@ -82,20 +82,35 @@
         />
         <text>关注</text>
       </view>
+      <view class="justify-center items-center" style="width: 70%">
+        <button class="justify-center items-center btn-send-resume">
+          在招职位
+        </button>
+      </view>
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getCompanyInfosP0 } from "@/services/services";
+import {
+  deleteUserInfosP0AttentionRecordsP1,
+  getCompanyInfosP0,
+  getUserInfosP0AttentionRecords,
+  postUserInfosP0AttentionRecords,
+} from "@/services/services";
 import { CompanyInformation } from "@/services/types";
+import { key } from "@/stores";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { useStore } from "vuex";
 
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
+const store = useStore(key);
+
 const companyInfo = ref<CompanyInformation>({} as CompanyInformation);
+const companyId = ref();
 /* 融资阶段 */
 const financingStages = [
   "",
@@ -119,10 +134,26 @@ const scales = [
   "2000人以上",
 ];
 const focus = ref(false);
+const focusId = ref();
+/* 判断是否关注 */
+onMounted(() => {
+  getUserInfosP0AttentionRecords(store.state.accountInfo.fullInformationId, {})
+    .then((res) => {
+      let focusCompany = res.data.body.find((item) => {
+        return item.companyInformationId === companyId.value;
+      });
+      if (focusCompany) {
+        focus.value = true;
+        focusId.value = focusCompany.attentionRecordId;
+      }
+    })
+    .catch(failResponseHandler);
+});
 
 onLoad((options) => {
   if (options.companyId) {
-    getCompanyInfosP0(options.companyId)
+    companyId.value = options.companyId;
+    getCompanyInfosP0(companyId.value)
       .then((res) => {
         companyInfo.value = res.data.body;
       })
@@ -135,9 +166,51 @@ onLoad((options) => {
     });
   }
 });
-
+/* 关注公司 */
 const focusOn = () => {
   focus.value = !focus.value;
+  if (focus.value) {
+    postUserInfosP0AttentionRecords(store.state.accountInfo.fullInformationId, {
+      companyInformationId: companyId.value,
+      userInformationId: store.state.accountInfo.fullInformationId,
+    })
+      .then((res) => {
+        uni.showToast({
+          title: "关注成功",
+          icon: "none",
+          duration: 1000,
+        });
+        console.log(res.data.body);
+      })
+      .catch(failResponseHandler);
+  } else {
+    getUserInfosP0AttentionRecords(
+      store.state.accountInfo.fullInformationId,
+      {}
+    )
+      .then((res) => {
+        let focusCompany = res.data.body.find((item) => {
+          return item.companyInformationId === companyId.value;
+        });
+        if (focusCompany) {
+          focusId.value = focusCompany.attentionRecordId;
+          deleteUserInfosP0AttentionRecordsP1(
+            store.state.accountInfo.fullInformationId,
+            focusId.value
+          )
+            .then((res) => {
+              uni.showToast({
+                title: "取消关注",
+                icon: "none",
+                duration: 1000,
+              });
+              focusId.value = null;
+            })
+            .catch(failResponseHandler);
+        }
+      })
+      .catch(failResponseHandler);
+  }
 };
 </script>
 
@@ -233,6 +306,16 @@ const focusOn = () => {
     .image-focus {
       width: 60rpx;
       height: 60rpx;
+    }
+
+    .btn-send-resume {
+      width: 90%;
+      height: 70rpx;
+      margin: 0rpx;
+      font-size: 30rpx;
+      color: #fff;
+      background-color: rgb(35 193 158);
+      border-radius: 10rpx;
     }
   }
 

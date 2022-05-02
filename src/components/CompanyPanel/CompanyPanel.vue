@@ -1,8 +1,11 @@
 <template>
   <view class="flex-col component">
-    <CompanyDetail :company-detail="attentionCompany" @click="view_4OnClick" />
+    <CompanyDetail :company-detail="attentionCompany" />
     <view class="flex-row group-4">
-      <view class="flex-col items-center text-wrapper-1">
+      <view
+        class="flex-col items-center text-wrapper-1"
+        @click="emit('unfocus')"
+      >
         <text>{{ sendType }}</text>
       </view>
       <view class="flex-col items-center image-wrapper" @click="view_10OnClick">
@@ -14,7 +17,6 @@
 
 <script lang="ts" setup>
 import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
-import { ref } from "vue";
 defineProps({
   attentionCompany: {
     type: Object,
@@ -23,10 +25,7 @@ defineProps({
     type: String,
   },
 });
-const func = ref("取消关注");
-const view_4OnClick = () => {
-  uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao" });
-};
+const emit = defineEmits(["unfocus"]);
 const view_10OnClick = () => {
   uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });
 };
@@ -34,7 +33,7 @@ const view_10OnClick = () => {
 
 <style lang="scss" scoped>
 .component {
-  height: 235rpx;
+  height: auto;
   padding-top: 23rpx;
   overflow: hidden;
   border: solid 2rpx rgb(229 229 229);

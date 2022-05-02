@@ -7,7 +7,8 @@
         :key="i"
         class="list-item"
         :attention-company="attentionCompany"
-        :send-type="unfollow"
+        :send-type="unfocus"
+        @unfocus="unsubscribe(attentionCompany.companyInformationId)"
       />
     </view>
   </view>
@@ -16,21 +17,57 @@
 <script lang="ts" setup>
 import CompanyPanel from "@/components/CompanyPanel/CompanyPanel.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getUserInfosP0AttentionRecords } from "@/services/services";
+import {
+  deleteUserInfosP0AttentionRecordsP1,
+  getCompanyInfosP0,
+} from "@/services/services";
+import { CompanyInformation } from "@/services/types";
 import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
+import { onLoad, onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore(key);
 
-const attentionCompanies = ref({});
-getUserInfosP0AttentionRecords(
-  store.state.accountInfo.fullInformationId,
-  {}
-).then((res) => {
-  attentionCompanies.value = res.data.body;
+const attentionCompanies = ref<CompanyInformation[]>([]);
+const focusCompany = ref();
+const unfocus = ref("取消关注");
+
+onLoad((e) => {
+  if (e.focusCompany) {
+    focusCompany.value = JSON.parse(e.focusCompany);
+    for (const focus of focusCompany.value) {
+      getCompanyInfosP0(focus.companyInformationId)
+        .then((res) => {
+          attentionCompanies.value.push(res.data.body);
+        })
+        .catch(failResponseHandler);
+    }
+  }
 });
-const unfollow = ref("取消关注");
+
+onShow(() => {
+  if (!attentionCompanies.value.length) {
+    attentionCompanies.value = [];
+  }
+});
+
+const unsubscribe = (index: string) => {
+  let attentionRecordId = focusCompany.value.find(
+    (item: { companyInformationId: string }) => {
+      return item.companyInformationId === index;
+    }
+  );
+  deleteUserInfosP0AttentionRecordsP1(
+    attentionRecordId.userInformationId,
+    attentionRecordId.attentionRecordId
+  )
+    .then((res) => {
+      attentionCompanies.value.length = 0;
+    })
+    .catch(failResponseHandler);
+};
 </script>
 
 <style lang="scss" scoped>

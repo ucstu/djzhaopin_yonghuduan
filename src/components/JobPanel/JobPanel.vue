@@ -1,6 +1,6 @@
 <template>
   <view class="flex-col component">
-    <JobDetail :job-detail="collectionPosition" @click="view_4OnClick" />
+    <JobDetail :job-detail="collectionPosition" @job-click="view_4OnClick" />
     <view class="flex-row group-8">
       <view
         class="flex-col items-center text-wrapper-2"
@@ -18,7 +18,7 @@
 <script lang="ts" setup>
 import JobDetail from "@/components/JobDetail/JobDetail.vue";
 
-defineProps({
+const props = defineProps({
   collectionPosition: {
     type: Object,
   },
@@ -30,7 +30,15 @@ defineProps({
 const emit = defineEmits(["stateClick"]);
 
 const view_4OnClick = () => {
-  uni.navigateTo({ url: "/detail/zhiweixiangqing/zhiweixiangqing" });
+  let companyId = props.collectionPosition?.companyInformationId;
+  let positionId = props.collectionPosition?.positionInformationId;
+  uni.navigateTo({
+    url:
+      "/detail/zhiweixiangqing/zhiweixiangqing?companyId=" +
+      companyId +
+      "&positionId=" +
+      positionId,
+  });
 };
 const view_11OnClick = () => {
   uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });
@@ -40,7 +48,6 @@ const view_11OnClick = () => {
 <style lang="scss" scoped>
 .component {
   height: auto;
-  padding-top: 20rpx;
   overflow: hidden;
   border: solid 2rpx rgb(229 229 229);
   border-radius: 5rpx;

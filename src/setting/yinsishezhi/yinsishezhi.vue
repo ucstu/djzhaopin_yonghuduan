@@ -2,57 +2,68 @@
   <NavigationBar title="隐私设置" />
   <view class="flex-col page">
     <view class="group-1">匿名展示</view>
-    <view class="justify-between items-center group-2">
+    <view class="justify-between items-center group-2" @click="privacySet">
       <view class="flex-row justify-center items-center group-box">
-        <image src="@/static/icons/heard.png" class="image" />
-        <text style="padding-left: 15rpx; font-size: 30rpx">{{
-          userName
-        }}</text>
+        <image :src="VITE_CDN_URL + userInfos.avatarUrl" class="image" />
+        <text style="padding-left: 15rpx; font-size: 30rpx"
+          >{{ userInfos.firstName }}{{ userInfos.lastName }}</text
+        >
         <text
           style="padding-left: 15rpx; font-size: 28rpx; color: rgb(0 0 0 / 60%)"
           >(实名展示)</text
         >
       </view>
-      <radio
-        style="transform: scale(0.5)"
-        value="1"
-        :checked="realName"
-        @click="
-          anonymous = false;
-          realName = true;
-        "
-      />
+      <radio style="transform: scale(0.7)" value="1" :checked="isAnonymous" />
     </view>
-    <view class="justify-between items-center group-2">
+    <view class="justify-between items-center group-2" @click="privacySet">
       <view class="flex-row justify-center items-center group-box">
-        <image src="@/static/icons/heard.png" class="image" />
+        <image :src="VITE_CDN_URL + userInfos.avatarUrl" class="image" />
         <text style="padding-left: 15rpx; font-size: 30rpx"
-          >{{ userName[0] }}先生</text
+          >{{ userInfos.firstName }}先生</text
         >
         <text
           style="padding-left: 15rpx; font-size: 28rpx; color: rgb(0 0 0 / 60%)"
           >(匿名展示)</text
         >
       </view>
-      <radio
-        style="transform: scale(0.5)"
-        value="2"
-        :checked="anonymous"
-        @click="
-          realName = false;
-          anonymous = true;
-        "
-      />
+      <radio style="transform: scale(0.7)" value="2" :checked="!isAnonymous" />
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { putUserInfosP0 } from "@/services/services";
+import { key } from "@/stores";
+import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
-const userName = ref("张三");
-const realName = ref(true);
-const anonymous = ref(false);
+import { useStore } from "vuex";
+
+const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
+const store = useStore(key);
+
+const userInfos = store.state.userInfo;
+const isAnonymous = ref(true);
+
+if (store.state.userInfo.privacySettings === 1) {
+  isAnonymous.value = true;
+} else {
+  isAnonymous.value = false;
+}
+
+const privacySet = () => {
+  isAnonymous.value = !isAnonymous.value;
+  if (isAnonymous.value) {
+    store.state.userInfo.privacySettings = 1;
+  } else {
+    store.state.userInfo.privacySettings = 2;
+  }
+  putUserInfosP0(store.state.userInfo.userInformationId, store.state.userInfo)
+    .then((res) => {
+      console.log(res.data.body);
+    })
+    .catch(failResponseHandler);
+};
 </script>
 
 <style lang="scss" scoped>

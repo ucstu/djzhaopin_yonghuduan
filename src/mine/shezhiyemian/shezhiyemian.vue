@@ -9,10 +9,10 @@
       <text class="text-title">设置密码</text>
       <image class="image" src="@/static/icons/arrow-right.png" />
     </view>
-    <view class="justify-between items-center group-box" @click="toNotice">
+    <!-- <view class="justify-between items-center group-box" @click="toNotice">
       <text class="text-title">通知设置</text>
       <image class="image" src="@/static/icons/arrow-right.png" />
-    </view>
+    </view> -->
     <view
       class="justify-between items-center group-box"
       @click="toUserAgreement"
@@ -27,9 +27,9 @@
       <text class="text-title">隐私政策</text>
       <image class="image" src="@/static/icons/arrow-right.png" />
     </view>
-    <view class="justify-between items-center group-box">
+    <!-- <view class="justify-between items-center group-box">
       <text class="text-title">清除缓存</text>
-    </view>
+    </view> -->
     <view class="justify-between items-center group-box" @click="toVersion">
       <text class="text-title">版本更新</text>
       <image class="image" src="@/static/icons/arrow-right.png" />
