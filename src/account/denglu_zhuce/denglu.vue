@@ -17,7 +17,6 @@
             style="padding-left: 20rpx"
             type="password"
             placeholder="请输入密码"
-            :min
           />
         </view>
       </view>
