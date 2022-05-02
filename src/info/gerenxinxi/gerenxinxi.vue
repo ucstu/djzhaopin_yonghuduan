@@ -99,21 +99,17 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import {
-  getUserInfosP0,
-  postAvatars,
-  putUserInfosP0,
-} from "@/services/services";
+import { postAvatars, putUserInfosP0 } from "@/services/services";
 import { UserInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useMainStore();
 
-const userInformation = ref<UserInformation>({} as UserInformation);
+const userInformation = ref<UserInformation>(store.userInformation);
 
 const fullName = ref(""); // 姓名
 
@@ -145,38 +141,22 @@ for (let i = 1; i <= 31; i++) {
   days.value.push(i);
 }
 const value = ref();
-onMounted(() => {
-  /* 获取用户信息 */
-  getUserInfosP0(store.accountInformation.fullInformationId)
-    .then((res) => {
-      userInformation.value = res.data.body;
-      fullName.value =
-        userInformation.value.firstName + userInformation.value.lastName;
-      if (userInformation.value.sex === "男") {
-        isActiveMan.value = true;
-      } else {
-        isActiveMan.value = !isActiveMan.value;
-      }
-      valueYear.value = parseInt(
-        userInformation.value.dateOfBirth.slice(0, 4),
-        10
-      );
-      valueMonth.value = parseInt(
-        userInformation.value.dateOfBirth.slice(5, 7),
-        10
-      );
-      valueDay.value = parseInt(
-        userInformation.value.dateOfBirth.slice(8, 10),
-        10
-      );
-      value.value = [
-        valueYear.value - 1960,
-        valueMonth.value - 1,
-        valueDay.value - 1,
-      ];
-    })
-    .catch(failResponseHandler);
-});
+
+fullName.value =
+  userInformation.value.firstName + userInformation.value.lastName;
+if (userInformation.value.sex === "男") {
+  isActiveMan.value = true;
+} else {
+  isActiveMan.value = !isActiveMan.value;
+}
+valueYear.value = parseInt(userInformation.value.dateOfBirth.slice(0, 4), 10);
+valueMonth.value = parseInt(userInformation.value.dateOfBirth.slice(5, 7), 10);
+valueDay.value = parseInt(userInformation.value.dateOfBirth.slice(8, 10), 10);
+value.value = [
+  valueYear.value - 1960,
+  valueMonth.value - 1,
+  valueDay.value - 1,
+];
 
 /* 上传头像 */
 const chooseImage = () => {
@@ -185,12 +165,11 @@ const chooseImage = () => {
     sizeType: ["original", "compressed"],
     sourceType: ["album", "camera"],
     success: (res) => {
-      const tempFilePaths = res.tempFilePaths;
-      if (tempFilePaths.length > 0) {
+      if (res.tempFiles instanceof Array) {
         uni.showLoading({
           title: "上传中",
         });
-        postAvatars({ avatar: tempFilePaths[0] })
+        postAvatars({ avatar: res.tempFiles[0] as File })
           .then((r) => {
             uni.showToast({
               title: "上传成功",
