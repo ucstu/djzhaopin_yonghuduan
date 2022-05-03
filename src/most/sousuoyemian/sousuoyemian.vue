@@ -75,10 +75,16 @@ const searchType = () => {
   uni.navigateTo({ url: `/most/zhiweileixing/zhiweileixing?value=` + value });
 };
 const view_9OnClick = () => {
-  uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei" });
+  let value = 1;
+  uni.navigateTo({
+    url: "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" + value,
+  });
 };
 const view_18OnClick = () => {
-  uni.navigateTo({ url: "/detail/xiangguangongsi/xiangguangongsi" });
+  let value = 0;
+  uni.navigateTo({
+    url: "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" + value,
+  });
 };
 </script>
 

@@ -125,7 +125,10 @@ const jobDetails = ref<PositionInformation[]>([])
 /* 默认 */
 onMounted(() => {
   getCompanyInfosPositionInfos(
-  {}
+  {
+    positionName: expects.value[0],
+    workAreas: [city.value],
+  }
   ).then((res) => {
     jobDetails.value = res.data.body
   }).catch(failResponseHandler)
@@ -148,7 +151,9 @@ const changeJobType = (index: number) => {
   activeIndex.value = index;
   city.value = cityValue.value[index]
   getCompanyInfosPositionInfos(
-  {positionName: expects.value[index]}
+  {positionName: expects.value[index],
+    workAreas: [city.value[index]]
+  }
 ).then((res) => {
   jobDetails.value = res.data.body
 }).catch(failResponseHandler)

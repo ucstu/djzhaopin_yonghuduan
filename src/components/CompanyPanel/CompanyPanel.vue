@@ -1,6 +1,9 @@
 <template>
   <view class="flex-col component">
-    <CompanyDetail :company-detail="attentionCompany" />
+    <CompanyDetail
+      :company-detail="attentionCompany"
+      @com-click="toCompanyInfo(attentionCompany?.companyInformationId)"
+    />
     <view class="flex-row group-4">
       <view
         class="flex-col items-center text-wrapper-1"
@@ -26,6 +29,12 @@ defineProps({
   },
 });
 const emit = defineEmits(["unfocus"]);
+
+const toCompanyInfo = (c: string) => {
+  uni.navigateTo({
+    url: "/detail/gongsijieshao/gongsijieshao?companyId=" + c,
+  });
+};
 const view_10OnClick = () => {
   uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });
 };

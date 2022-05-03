@@ -15,78 +15,78 @@
           >
         </view>
       </view>
-      <view class="flex-col work-experience">
-        <text class="experience">工作经验</text>
-        <view class="flex-row works">
+      <view class="flex-col expected-salary">
+        <text class="salary">工作经验</text>
+        <view class="flex-row expects">
           <view
             v-for="(workExperience, i) in workExperiences"
             :key="i"
-            class="justify-center items-center work"
+            class="justify-center items-center expect"
             :class="activeExpect.includes(i) ? 'active' : ''"
             @click="activeExpectOf(i)"
             >{{ workExperience }}</view
           >
         </view>
       </view>
-      <view class="flex-col degree-require">
-        <text class="degree">学历</text>
-        <view class="flex-row requires">
+      <view class="flex-col expected-salary">
+        <text class="salary">学历</text>
+        <view class="flex-row expects">
           <view
             v-for="(education, i) in degreeRequires"
             :key="i"
-            class="justify-center items-center require"
+            class="justify-center items-center expect"
             :class="activeRequire.includes(i) ? 'active' : ''"
             @click="activeRequireOf(i)"
             >{{ education }}</view
           >
         </view>
       </view>
-      <view class="flex-col job-nature">
-        <text class="job">工作性质</text>
-        <view class="flex-row natures">
+      <view class="flex-col expected-salary">
+        <text class="salary">工作性质</text>
+        <view class="flex-row expects">
           <view
             v-for="(jobNature, i) in jobNatures"
             :key="i"
-            class="justify-center items-center nature"
+            class="justify-center items-center expect"
             :class="activeNature.includes(i) ? 'active' : ''"
             @click="activeNatureOf(i)"
             >{{ jobNature }}</view
           >
         </view>
       </view>
-      <view class="flex-col company-size">
-        <text class="company">公司规模</text>
-        <view class="flex-row sizes">
+      <view class="flex-col expected-salary">
+        <text class="salary">公司规模</text>
+        <view class="flex-row expects">
           <view
             v-for="(companySize, i) in companySizes"
             :key="i"
-            class="justify-center items-center size"
+            class="justify-center items-center expect"
             :class="activeSize.includes(i) ? 'active' : ''"
             @click="activeSizeOf(i)"
             >{{ companySize }}</view
           >
         </view>
       </view>
-      <view class="flex-col finance-stage">
-        <text class="finance">融资阶段</text>
-        <view class="flex-row stages">
+      <view class="flex-col expected-salary">
+        <text class="salary">融资阶段</text>
+        <view class="flex-row expects">
           <view
             v-for="(financeStage, i) in financeStages"
             :key="i"
-            class="justify-center items-center stage"
+            class="justify-center items-center expect"
             :class="activeStage.includes(i) ? 'active' : ''"
             @click="activeStageOf(i)"
             >{{ financeStage }}</view
           >
         </view>
       </view>
-      <view class="flex-col industry-sector">
-        <text class="industry">行业领域</text>
-        <view class="flex-row sectors">
+      <view class="flex-col expected-salary">
+        <text class="salary">行业领域</text>
+        <view class="flex-row expects">
           <view
             v-for="(industrySector, i) in industrySectors"
             :key="i"
-            class="justify-center items-center sector"
+            class="justify-center items-center expect"
             :class="activeSector.includes(i) ? 'active' : ''"
             @click="activeSectorOf(i)"
           >
@@ -96,18 +96,12 @@
       </view>
     </scroll-view>
     <view class="flex-row button">
-      <view
-        class="flex-col items-center justify-center reset"
-        @click="replacement()"
-      >
-        <text>重置</text>
-      </view>
-      <view
-        class="flex-col items-center justify-center identify"
-        @click="saveScreen"
-      >
-        <text>确定</text>
-      </view>
+      <button class="justify-center items-center reset" @click="replacement()">
+        重置
+      </button>
+      <button class="justify-center items-center identify" @click="saveScreen">
+        确认
+      </button>
     </view>
   </view>
 </template>
@@ -276,10 +270,14 @@ const saveScreen = () => {
   }
 
   .search {
-    width: 720rpx;
-    height: 1120rpx;
-    margin-top: 20rpx;
-    margin-left: 15rpx;
+    width: 94%;
+
+    // #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ
+    height: 830rpx;
+
+    // #endif
+    height: 1400rpx;
+    margin-left: 3%;
     overflow: hidden;
 
     .expected-salary {
@@ -294,145 +292,10 @@ const saveScreen = () => {
         flex-wrap: wrap;
 
         .expect {
-          width: 220rpx;
+          width: 210rpx;
           height: 70rpx;
           margin: 10rpx;
           font-size: 30rpx;
-          background-color: rgb(229 229 229);
-          border-radius: 5rpx;
-        }
-      }
-    }
-
-    .work-experience {
-      margin-top: 20rpx;
-
-      .experience {
-        margin-left: 25rpx;
-        font-size: 35rpx;
-      }
-
-      .works {
-        flex-wrap: wrap;
-
-        .work {
-          width: 220rpx;
-          height: 70rpx;
-          margin: 10rpx;
-          font-size: 30rpx;
-          background-color: rgb(229 229 229);
-          border-radius: 5rpx;
-        }
-      }
-    }
-
-    .degree-require {
-      margin-top: 20rpx;
-
-      .degree {
-        margin-left: 25rpx;
-        font-size: 35rpx;
-      }
-
-      .requires {
-        flex-wrap: wrap;
-
-        .require {
-          width: 220rpx;
-          height: 70rpx;
-          margin: 10rpx;
-          font-size: 30rpx;
-          background-color: rgb(229 229 229);
-          border-radius: 5rpx;
-        }
-      }
-    }
-
-    .job-nature {
-      margin-top: 20rpx;
-
-      .job {
-        margin-left: 25rpx;
-        font-size: 35rpx;
-      }
-
-      .natures {
-        flex-wrap: wrap;
-
-        .nature {
-          flex-wrap: wrap;
-          width: 220rpx;
-          height: 70rpx;
-          margin: 10rpx;
-          font-size: 30rpx;
-          text-align: center;
-          background-color: rgb(229 229 229);
-          border-radius: 5rpx;
-        }
-      }
-    }
-
-    .company-size {
-      margin-top: 20rpx;
-
-      .company {
-        margin-left: 25rpx;
-        font-size: 35rpx;
-      }
-
-      .sizes {
-        flex-wrap: wrap;
-
-        .size {
-          width: 220rpx;
-          height: 70rpx;
-          margin: 10rpx;
-          font-size: 30rpx;
-          background-color: rgb(229 229 229);
-          border-radius: 5rpx;
-        }
-      }
-    }
-
-    .finance-stage {
-      margin-top: 20rpx;
-
-      .finance {
-        margin-left: 25rpx;
-        font-size: 35rpx;
-      }
-
-      .stages {
-        flex-wrap: wrap;
-
-        .stage {
-          width: 220rpx;
-          height: 70rpx;
-          margin: 10rpx;
-          font-size: 30rpx;
-          background-color: rgb(229 229 229);
-          border-radius: 5rpx;
-        }
-      }
-    }
-
-    .industry-sector {
-      margin-top: 20rpx;
-
-      .industry {
-        margin-left: 25rpx;
-        font-size: 35rpx;
-      }
-
-      .sectors {
-        flex-wrap: wrap;
-
-        .sector {
-          width: 220rpx;
-          height: 70rpx;
-          margin: 10rpx;
-          font-size: 30rpx;
-          white-space: nowrap;
           background-color: rgb(229 229 229);
           border-radius: 5rpx;
         }
@@ -447,8 +310,7 @@ const saveScreen = () => {
     background-color: rgb(255 255 255);
 
     .reset {
-      width: 230rpx;
-      height: 60rpx;
+      width: 30%;
       margin-left: 20rpx;
       font-size: 30rpx;
       background-color: rgb(229 229 229);
@@ -456,7 +318,7 @@ const saveScreen = () => {
     }
 
     .identify {
-      width: 460rpx;
+      width: 60%;
       margin-right: 20rpx;
       margin-left: 20rpx;
       font-size: 30rpx;

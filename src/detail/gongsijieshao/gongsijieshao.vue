@@ -88,6 +88,13 @@
         </button>
       </view>
     </view>
+    <map
+      v-if="companyInfo.location"
+      style="width: 100%; height: 300px"
+      :latitude="companyInfo.location.latitude"
+      :longitude="companyInfo.location.longitude"
+    >
+    </map>
   </view>
 </template>
 

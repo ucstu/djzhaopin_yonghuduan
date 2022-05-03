@@ -28,6 +28,7 @@
           <image
             src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528771387958614.png"
             class="search"
+            @click="searchOnClick"
           />
           <input v-model="searchContent" type="text" class="search-text" placeholder="请输入关键字">
         </view>
@@ -38,6 +39,7 @@
 </template>
 
 <script lang="ts" setup>
+import { getCompanyInfos, getCompanyInfosPositionInfos } from "@/services/services";
 import { useMainStore } from "@/stores/main";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
@@ -68,6 +70,39 @@ onLoad((e) => {
 const textOnClick = () => {
   uni.navigateTo({ url: "/most/chengshixuanze/chengshixuanze" });
 };
+const searchOnClick = () => {
+  if(searchContent.value !== ""){
+    getCompanyInfos({}).then((res) => {
+      let companyInfos = res.data.body.map((item: any) =>
+        item.companyName
+      )
+      if(companyInfos.includes(searchContent.value)){
+        uni.navigateTo({ url: "/most/xiangguanzhiwei/xiangguanzhiwei?companyName=" + searchContent.value + "&data=" + 0 });
+      }else{
+        getCompanyInfosPositionInfos({}).then((res) => {
+          let positionInfos = res.data.body.map((item: any) =>
+            item.positionName
+          )
+          if(positionInfos.includes(searchContent.value)){
+            uni.navigateTo({ url: "/most/xiangguanzhiwei/xiangguanzhiwei?companyName=" + searchContent.value + "&data=" + 1 });
+          }else{
+            uni.showToast({
+              title: "没有搜索到相关信息",
+              icon: "none"
+            });
+          }
+        })
+      }
+    })
+    ;
+  }else{
+    uni.showToast({
+      title: "搜索内容不能为空",
+      icon: "none",
+      duration: 500
+    });
+  }
+}
 const text_1OnClick = () => {
   uni.navigateBack({ delta: 100 });
 };

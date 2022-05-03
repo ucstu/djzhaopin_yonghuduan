@@ -60,7 +60,11 @@ const unsubscribe = (index: string) => {
     attentionRecordId.attentionRecordId
   )
     .then((res) => {
-      attentionCompanies.value.length = 0;
+      attentionCompanies.value = attentionCompanies.value.filter(
+        (item: CompanyInformation) => {
+          return item.companyInformationId !== index;
+        }
+      );
     })
     .catch(failResponseHandler);
 };

@@ -14,11 +14,23 @@ import SearchAndFilter from "@/components/SearchAndFilter/SearchAndFilter.vue";
 import SearchBar from "@/components/SearchAndFilter/SearchBar.vue";
 import { getCompanyInfos } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const jobDetails = ref<CompanyInformation[]>([]);
 
 const position = ref(true);
+
+onLoad((e) => {
+  if (e.data) {
+    let data = parseInt(e.data);
+    if (data) {
+      position.value = true;
+    } else {
+      position.value = false;
+    }
+  }
+});
 
 getCompanyInfos({}).then((res) => {
   jobDetails.value = res.data.body;
