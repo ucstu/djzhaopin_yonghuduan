@@ -6,17 +6,6 @@
   </view>
   <FilterBar v-if="position"></FilterBar>
   <SearchAndFilter v-if="!position"></SearchAndFilter>
-  <!-- <view class="page">
-    <view class="flex-col list">
-      <JobDetail
-        v-for="(JobDetail, i) in jobDetails"
-        :key="i"
-        class="list-item"
-        :job-detail="JobDetail"
-        @click="toPositions"
-      />
-    </view>
-  </view> -->
 </template>
 
 <script lang="ts" setup>

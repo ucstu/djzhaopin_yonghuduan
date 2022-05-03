@@ -131,7 +131,7 @@ onShow(() => {
   /* 投递记录 */
   for (let i = 1; i <= 5; i++) {
     getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
-      status: i as 1 | 2 | 3 | 4 | 5,
+      status: [i] as [1 | 2 | 3 | 4 | 5],
     })
       .then((res) => {
         if (i === 1) {
@@ -160,7 +160,7 @@ onShow(() => {
     .catch(failResponseHandler);
   /* 投递记录 */
   getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
-    status: 4,
+    status: [4],
   })
     .then((res) => {
       interviewNum.value = res.data.body.length;

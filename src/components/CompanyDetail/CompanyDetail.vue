@@ -1,5 +1,5 @@
 <template>
-  <view class="flex-row items-center component" @click="rootViewOnClick">
+  <view class="flex-row items-center component" @click="emit('comClick')">
     <image class="image" :src="companyDetail!.logo" />
     <view class="flex-col group-1">
       <text class="text">{{ companyDetail!.name }}</text>
@@ -35,6 +35,7 @@ const props = defineProps({
 });
 
 const financingStages = [
+  "",
   "未融资",
   "天使轮",
   "A轮",
@@ -45,6 +46,7 @@ const financingStages = [
   "不需要融资",
 ];
 const scales = [
+  "",
   "少于15人",
   "15-50人",
   "50-150人",
@@ -52,6 +54,8 @@ const scales = [
   "500-2000人",
   "2000人以上",
 ];
+
+const emit = defineEmits(["comClick"]);
 
 const rootViewOnClick = () => {
   let companyId = props.companyDetail?.companyInformationId;

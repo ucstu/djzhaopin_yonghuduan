@@ -99,6 +99,8 @@ onShow(() => {
   getUserInfosP0JobExpectations(store.accountInformation.fullInformationId, {})
     .then((res) => {
       jobExpectations.value = res.data.body;
+      store.jobExpectations = res.data.body;
+      console.log(store.jobExpectations);
     })
     .catch(failResponseHandler);
 });

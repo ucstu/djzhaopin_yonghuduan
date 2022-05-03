@@ -37,7 +37,13 @@
         ]
       },
       "ios": {},
-      "sdkConfigs": {},
+      "sdkConfigs": {
+        "maps": {
+          "amap": {
+            "appkey_android": "c6adc7e9e5365363dba58db11c8f5866"
+          }
+        }
+      },
       "optimization": {
         "subPackages": true
       },
@@ -48,6 +54,13 @@
     "optimization": {
       "treeShaking": {
         "enable": true
+      }
+    },
+    "sdkConfigs": {
+      "maps": {
+        "qqmap": {
+          "key": "Z5FBZ-JIL6K-WF6JZ-A4JFK-I53GS-XHFY2"
+        }
       }
     }
   },

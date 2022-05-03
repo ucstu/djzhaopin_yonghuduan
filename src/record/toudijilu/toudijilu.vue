@@ -72,7 +72,7 @@ onShow(() => {
 const sendTypeId = (index: number) => {
   sendId.value = index as DeliveryRecord["status"];
   getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
-    status: sendId.value,
+    status: [sendId.value],
   })
     .then((res) => {
       deliveryRecords.value.length = 0;

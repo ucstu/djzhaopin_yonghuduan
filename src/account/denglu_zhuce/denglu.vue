@@ -106,14 +106,14 @@ const login = () => {
     })
       .then((res) => {
         store.jsonWebToken = res.data.body.token;
-        store.accountInformation = res.data.body.accountInfo;
+        store.accountInformation = res.data.body.accountInformation;
         getAxiosInstance(undefined).defaults.headers.common[
           "Authorization"
         ] = `Bearer ${res.data.body.token}`;
         Promise.all([
-          getUserInfosP0(res.data.body.accountInfo.fullInformationId),
+          getUserInfosP0(res.data.body.accountInformation.fullInformationId),
           getUserInfosP0JobExpectations(
-            res.data.body.accountInfo.fullInformationId,
+            res.data.body.accountInformation.fullInformationId,
             {}
           ),
         ])

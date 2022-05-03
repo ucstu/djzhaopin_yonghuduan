@@ -2,35 +2,42 @@
   <view class="flex-col bar">
     <view class="flex-row equal">
       <view class="items-center justify-center equal-div">
-        <text class="text">排序</text>
+        <text>排序</text>
         <image
           class="image"
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
         />
       </view>
       <view class="items-center justify-center equal-div">
-        <text class="text">城市</text>
+        <text>城市</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
           class="image"
         />
       </view>
       <view class="items-center justify-center equal-div">
-        <text class="text">公司</text>
+        <text>公司</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
           class="image"
         />
       </view>
     </view>
+    <scroll-view :scroll-y="true" class="job-scroll">
+      <JobDetail
+        v-for="(JobDetailer, i) in jobDetails"
+        :key="i"
+        class="list-item"
+        :job-detail="JobDetailer"
+        @job-click="
+          toPositions(
+            JobDetailer.positionInformationId,
+            JobDetailer.companyInformationId
+          )
+        "
+      />
+    </scroll-view>
   </view>
-  <JobDetail
-    v-for="(JobDetail, i) in jobDetails"
-    :key="i"
-    class="list-item"
-    :job-detail="JobDetail"
-    @job-click="toPositions"
-  />
 </template>
 
 <script lang="ts" setup>
@@ -45,8 +52,14 @@ getCompanyInfosPositionInfos({}).then((res) => {
   jobDetails.value = res.data.body;
 });
 
-const toPositions = () => {
-  return 0;
+const toPositions = (p: string, c: string) => {
+  uni.navigateTo({
+    url:
+      "/detail/zhiweixiangqing/zhiweixiangqing?companyId=" +
+      c +
+      "&positionId=" +
+      p,
+  });
 };
 </script>
 
@@ -71,31 +84,11 @@ const toPositions = () => {
     }
   }
 
-  .filter {
-    height: 50rpx;
-    margin-top: 15rpx;
-
-    .sift-group {
-      width: 640rpx;
-      overflow-x: hidden;
-
-      .sift {
-        width: 80rpx;
-        margin-left: 15rpx;
-        font-size: 25rpx;
-        background-color: rgb(229 229 229);
-        border-radius: 5rpx;
-      }
-    }
-
-    .image-sifts {
-      width: 70rpx;
-
-      .sifts {
-        width: 42rpx;
-        height: 40rpx;
-      }
-    }
+  .job-scroll {
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    background-color: rgb(240 240 240);
   }
 }
 </style>

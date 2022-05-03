@@ -150,11 +150,11 @@ const registeredAccount = () => {
         })
           .then((res) => {
             store.jsonWebToken = res.data.body.token;
-            store.accountInformation = res.data.body.accountInfo;
+            store.accountInformation = res.data.body.accountInformation;
             getAxiosInstance(undefined).defaults.headers.common[
               "Authorization"
             ] = "Bearer " + res.data.body.token;
-            getUserInfosP0(res.data.body.accountInfo.fullInformationId)
+            getUserInfosP0(res.data.body.accountInformation.fullInformationId)
               .then((res) => {
                 store.userInformation = res.data.body;
                 uni.showToast({

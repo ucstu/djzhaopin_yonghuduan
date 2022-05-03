@@ -1,9 +1,10 @@
 <template>
   <CompanyDetail
-    v-for="(attentionCompany, i) in cpmpanyInfos"
+    v-for="(attentionCompany, i) in companyInfos"
     :key="i"
     class="list-item"
     :company-detail="attentionCompany"
+    @com-click="toCompanyInfo(attentionCompany.companyInformationId)"
   />
 </template>
 
@@ -13,11 +14,17 @@ import { getCompanyInfos } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
 import { ref } from "vue";
 
-const cpmpanyInfos = ref<CompanyInformation[]>([]);
+const companyInfos = ref<CompanyInformation[]>([]);
 
 getCompanyInfos({}).then((res) => {
-  cpmpanyInfos.value = res.data.body;
+  companyInfos.value = res.data.body;
 });
+
+const toCompanyInfo = (c: string) => {
+  uni.navigateTo({
+    url: "/detail/gongsijieshao/gongsijieshao?companyId=" + c,
+  });
+};
 </script>
 
 <style lang="scss" scoped>

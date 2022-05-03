@@ -91,7 +91,7 @@ import { getCompanyInfosPositionInfos } from "@/services/services";
 import { PositionInformation } from '@/services/types';
 import { useMainStore } from '@/stores/main';
 import { failResponseHandler } from '@/utils/handler';
-import { onLoad } from '@dcloudio/uni-app';
+import { onLoad, onShow } from '@dcloudio/uni-app';
 import { onMounted, ref } from 'vue';
 
 const store = useMainStore();
@@ -130,9 +130,11 @@ onMounted(() => {
     jobDetails.value = res.data.body
   }).catch(failResponseHandler)
 })
-expects.value = store.jobExpectations.map(item => item.positionName);
-cityValue.value = store.jobExpectations.map(item => item.cityName);
-city.value = cityValue.value[0]
+onShow(() => {
+  expects.value = store.jobExpectations.map((item: { positionName: string; }) => item.positionName);
+  cityValue.value = store.jobExpectations.map((item: { cityName: string; }) => item.cityName);
+  city.value = cityValue.value[0]
+})
 
 /* 切换城市 */
 onLoad(() => {

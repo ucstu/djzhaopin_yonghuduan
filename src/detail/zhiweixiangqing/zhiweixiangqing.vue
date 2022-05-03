@@ -87,6 +87,13 @@
           <view>工作地点：{{ jobInformation.workingPlace }}</view>
         </view>
       </view>
+      <map
+        v-if="jobInformation.workingPlace"
+        style="width: 100%; height: 300px"
+        :latitude="jobInformation.workingPlace.latitude"
+        :longitude="jobInformation.workingPlace.longitude"
+      >
+      </map>
     </view>
     <view> </view>
   </view>

@@ -63,10 +63,12 @@ const countries = reactive<AreaInformations>([
 ]);
 const countriesIndex = ref(0);
 const country = ref("位置");
+const c = ref();
 
 onLoad((e) => {
   if (e.city) {
     country.value = e.city;
+    c.value = e.city;
   }
   uni.$on("liveCity", (city) => {
     country.value = city;
@@ -104,9 +106,11 @@ const areasIndexOf = (index: number) => {
     areasIndex.value.push(index);
   }
 };
+/* 重置筛选 */
 const replacement = () => {
   countriesIndex.value = 0;
   areasIndex.value = [0];
+  country.value = c.value;
 };
 
 const savePlace = () => {
