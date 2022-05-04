@@ -57,12 +57,14 @@ const stateClick = (index: string) => {
       deleteUserInfosP0DeliveryRecordsP1(
         store.accountInformation.fullInformationId,
         delivery.deliveryRecordId
-      ).then(() => {
-        interviewed.value = interviewed.value.filter(
-          (item: { deliveryRecordId: any }) =>
-            item.deliveryRecordId !== delivery.deliveryRecordId
-        );
-      });
+      )
+        .then(() => {
+          interviewed.value = interviewed.value.filter(
+            (item: { deliveryRecordId: any }) =>
+              item.deliveryRecordId !== delivery.deliveryRecordId
+          );
+        })
+        .catch(failResponseHandler);
     }
   }
 };
