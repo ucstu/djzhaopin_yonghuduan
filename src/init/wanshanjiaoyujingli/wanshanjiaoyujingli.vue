@@ -226,6 +226,7 @@ const nextClick = () => {
     graduationTime: endSchool.value,
   })
     .then((res) => {
+      store.userInformation.education = res.data.body.education;
       uni.navigateTo({
         url: "/init/wanshangongzuojingli/wanshangongzuojingli",
       });

@@ -18,9 +18,9 @@
           v-for="(popularPosition, i) in popularPositions"
           :key="i"
           class="list-item"
-          @click="view_9OnClick"
+          @click="positionClick(i)"
         >
-          <text class="text-5">{{ popularPosition.name }}</text>
+          <text class="text-5">{{ popularPosition }}</text>
         </view>
       </view>
     </view>
@@ -31,9 +31,9 @@
           v-for="(popularCompany, i) in popularCompanies"
           :key="i"
           class="list-item"
-          @click="view_18OnClick"
+          @click="companyClick(i)"
         >
-          <text class="text-5">{{ popularCompany.name }}</text>
+          <text class="text-5">{{ popularCompany }}</text>
         </view>
       </view>
     </view>
@@ -45,45 +45,51 @@ import SearchBar from "@/components/SearchAndFilter/SearchBar.vue";
 import { reactive } from "vue";
 
 const popularPositions = reactive([
-  { name: "java" },
-  { name: "ios" },
-  { name: "前端" },
-  { name: "后端" },
-  { name: "运维" },
-  { name: "测试" },
-  { name: "UI" },
-  { name: "产品" },
-  { name: "高级" },
-  { name: "项目经理" },
-  { name: "项目助理" },
-  { name: "项目主管" },
+  "java",
+  "ios",
+  "前端",
+  "后端",
+  "运维",
+  "测试",
+  "UI",
+  "产品",
+  "高级",
+  "项目经理",
+  "项目助理",
+  "项目主管",
 ]);
 const popularCompanies = reactive([
-  { name: "字节跳动" },
-  { name: "美团" },
-  { name: "腾讯" },
-  { name: "网易" },
-  { name: "百度" },
-  { name: "贝壳" },
-  { name: "北京京东世纪贸易有限公司" },
-  { name: "快手" },
-  { name: "安居客" },
-  { name: "小米集团" },
+  "字节跳动",
+  "美团",
+  "腾讯",
+  "网易",
+  "百度",
+  "贝壳",
+  "北京京东世纪贸易有限公司",
+  "快手",
+  "安居客",
+  "小米集团",
 ]);
 const searchType = () => {
   let value = true;
   uni.navigateTo({ url: `/most/zhiweileixing/zhiweileixing?value=` + value });
 };
-const view_9OnClick = () => {
-  let value = 1;
+const positionClick = (index: number) => {
   uni.navigateTo({
-    url: "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" + value,
+    url:
+      "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" +
+      0 +
+      "&value=" +
+      popularPositions[index],
   });
 };
-const view_18OnClick = () => {
-  let value = 0;
+const companyClick = (index: number) => {
   uni.navigateTo({
-    url: "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" + value,
+    url:
+      "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" +
+      1 +
+      "&value=" +
+      popularCompanies[index],
   });
 };
 </script>

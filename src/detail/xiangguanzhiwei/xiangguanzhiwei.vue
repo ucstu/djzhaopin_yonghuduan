@@ -1,43 +1,50 @@
 <template>
   <SearchBar></SearchBar>
   <view class="justify-between about">
-    <text class="justify-center text-title" @click="checkClick">职位</text>
-    <text class="justify-center text-title" @click="checkClick">公司</text>
+    <text class="justify-center text-title" @click="checkPosition">职位</text>
+    <text class="justify-center text-title" @click="checkCompany">公司</text>
   </view>
   <FilterBar v-if="position"></FilterBar>
-  <SearchAndFilter v-if="!position"></SearchAndFilter>
+  <SearchAndFilter v-if="company"></SearchAndFilter>
+  <view v-if="emptyShow" class="justify-center image">
+    <image src="@/static/icons/nodata.svg" />
+  </view>
 </template>
 
 <script lang="ts" setup>
 import FilterBar from "@/components/SearchAndFilter/FilterBar.vue";
 import SearchAndFilter from "@/components/SearchAndFilter/SearchAndFilter.vue";
 import SearchBar from "@/components/SearchAndFilter/SearchBar.vue";
-import { getCompanyInfos } from "@/services/services";
-import { CompanyInformation } from "@/services/types";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
-const jobDetails = ref<CompanyInformation[]>([]);
-
-const position = ref(true);
+const position = ref(false);
+const company = ref(false);
+const emptyShow = ref(false);
 
 onLoad((e) => {
   if (e.data) {
     let data = parseInt(e.data);
     if (data) {
-      position.value = true;
+      if (data === 1) {
+        company.value = true;
+      } else {
+        emptyShow.value = true;
+      }
     } else {
-      position.value = false;
+      position.value = true;
     }
   }
 });
 
-getCompanyInfos({}).then((res) => {
-  jobDetails.value = res.data.body;
-});
+const checkPosition = () => {
+  position.value = true;
+  company.value = false;
+};
 
-const checkClick = () => {
-  position.value = !position.value;
+const checkCompany = () => {
+  position.value = false;
+  company.value = true;
 };
 </script>
 
@@ -69,5 +76,10 @@ const checkClick = () => {
     margin-top: 30rpx;
     margin-left: 10rpx;
   }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
 }
 </style>

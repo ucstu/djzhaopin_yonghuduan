@@ -72,29 +72,19 @@ const textOnClick = () => {
 };
 const searchOnClick = () => {
   if(searchContent.value !== ""){
-    getCompanyInfos({}).then((res) => {
-      let companyInfos = res.data.body.map((item: any) =>
-        item.companyName
-      )
-      if(companyInfos.includes(searchContent.value)){
-        uni.navigateTo({ url: "/most/xiangguanzhiwei/xiangguanzhiwei?companyName=" + searchContent.value + "&data=" + 0 });
-      }else{
-        getCompanyInfosPositionInfos({}).then((res) => {
-          let positionInfos = res.data.body.map((item: any) =>
-            item.positionName
-          )
-          if(positionInfos.includes(searchContent.value)){
-            uni.navigateTo({ url: "/most/xiangguanzhiwei/xiangguanzhiwei?companyName=" + searchContent.value + "&data=" + 1 });
-          }else{
-            uni.showToast({
-              title: "没有搜索到相关信息",
-              icon: "none"
-            });
-          }
-        })
-      }
+    getCompanyInfosPositionInfos({
+      positionName: searchContent.value,
+    }).then((res) => {
+        uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei?value=" + searchContent.value + "&data=" + 0 });
+    }).catch(() => {
+      getCompanyInfos({
+        companyName: searchContent.value,
+      }).then((res) => {
+        uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei?value=" + searchContent.value + "&data=" + 1 });
+      }).catch(() => {
+       uni.navigateTo({url: "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" + 2});
+      });
     })
-    ;
   }else{
     uni.showToast({
       title: "搜索内容不能为空",
@@ -104,7 +94,7 @@ const searchOnClick = () => {
   }
 }
 const text_1OnClick = () => {
-  uni.navigateBack({ delta: 100 });
+  uni.navigateBack({ delta: 99999999 });
 };
 </script>
 

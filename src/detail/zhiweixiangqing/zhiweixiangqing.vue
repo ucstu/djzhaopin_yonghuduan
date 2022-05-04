@@ -14,7 +14,7 @@
         <view class="items-center" style="margin-right: 25rpx">
           <image src="@/static/icons/map.png" />
           <text style="margin-left: 15rpx">{{
-            jobInformation.workAreaName
+            companyInformation.cityName
           }}</text>
         </view>
         <view class="items-center" style="margin-right: 25rpx">
@@ -74,9 +74,10 @@
           </view>
           <view>职位描述：{{ jobInformation.description }}</view>
           <view>所属部门：{{ jobInformation.departmentName }}</view>
+          <view>详细地址: {{ jobInformation.workAreaName }}</view>
           <view
             >周末休息时间：{{
-              weekendReleaseTime[jobInformation.weekendReleaseTime + 1]
+              weekendReleaseTime[jobInformation.weekendReleaseTime]
             }}</view
           >
           <view
@@ -84,12 +85,11 @@
               jobInformation.overTime
             }}</view
           >
-          <view>工作地点：{{ jobInformation.workingPlace }}</view>
         </view>
       </view>
       <map
         v-if="jobInformation.workingPlace"
-        style="width: 100%; height: 300px"
+        style="width: 100%; height: 300px; margin-top: 20rpx"
         :latitude="jobInformation.workingPlace.latitude"
         :longitude="jobInformation.workingPlace.longitude"
       >
@@ -199,29 +199,28 @@ const scales = [
   "2000人以上",
 ];
 /* 周末休息时间 */
-const weekendReleaseTime = ref(["周末双休", "周末单休", "大小周"]);
+const weekendReleaseTime = ref(["", "周末双休", "周末单休", "大小周"]);
 
 const companyInformation = ref<CompanyInformation>({} as CompanyInformation); // 公司信息
 const companyId = ref(""); // 公司id
 const positionId = ref(""); // 职位id
 onLoad((e) => {
-  if (e.companyId) {
+  if (e.companyId && e.positionId) {
     companyId.value = e.companyId;
-  }
-  if (e.positionId) {
     positionId.value = e.positionId;
+    /* 获取职位信息 */
+    getCompanyInfosP0PositionInfosP1(companyId.value, positionId.value)
+      .then((res) => {
+        jobInformation.value = res.data.body;
+        console.log(res.data.body);
+      })
+      .catch(failResponseHandler);
+    getCompanyInfosP0(companyId.value)
+      .then((res) => {
+        companyInformation.value = res.data.body;
+      })
+      .catch(failResponseHandler);
   }
-  /* 获取职位信息 */
-  getCompanyInfosP0PositionInfosP1(companyId.value, positionId.value)
-    .then((res) => {
-      jobInformation.value = res.data.body;
-    })
-    .catch(failResponseHandler);
-  getCompanyInfosP0(companyId.value)
-    .then((res) => {
-      companyInformation.value = res.data.body;
-    })
-    .catch(failResponseHandler);
 });
 // 相关公司
 const toCompanyIn = () => {

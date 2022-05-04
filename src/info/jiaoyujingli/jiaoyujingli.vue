@@ -246,7 +246,7 @@ onLoad((e) => {
     )
       .then((res) => {
         schoolName.value = res.data.body.schoolName;
-        education.value = (res.data.body.education + 1) as 1 | 2 | 3 | 4;
+        education.value = res.data.body.education as 1 | 2 | 3 | 4;
         subject.value = res.data.body.majorName;
         startTime.value = res.data.body.admissionTime;
         overTime.value = res.data.body.graduationTime;
@@ -284,7 +284,7 @@ const saveEducation = () => {
           updatedAt: "",
         }
       )
-        .then(() => {
+        .then((res) => {
           uni.navigateBack({ delta: 1 });
         })
         .catch(failResponseHandler);
@@ -299,7 +299,7 @@ const saveEducation = () => {
           graduationTime: overTime.value,
         }
       )
-        .then(() => {
+        .then((res) => {
           uni.navigateBack({ delta: 1 });
         })
         .catch(failResponseHandler);

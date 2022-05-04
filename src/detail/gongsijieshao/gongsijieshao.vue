@@ -25,12 +25,12 @@
           </view>
         </view>
       </view>
-      <view class="flex-row items-center address">
+      <!-- <view class="flex-row items-center address">
         <image class="image" src="@/static/icons/map.svg" />
         <text style="padding-left: 20rpx; font-size: 25rpx">{{
           companyInfo.address
         }}</text>
-      </view>
+      </view> -->
       <view class="flex-col basic-profile">
         <view class="items-center profile">基本简介</view>
         <view class="flex-col abstract">

@@ -10,7 +10,8 @@
   },
   "pages": [
     {
-      "path": "pages/shouyeyemian/shouyeyemian"
+      "path": "pages/shouyeyemian/shouyeyemian",
+      "style": { "onReachBottomDistance": 100 }
     },
     {
       "path": "pages/wodeyemian/wodeyemian"

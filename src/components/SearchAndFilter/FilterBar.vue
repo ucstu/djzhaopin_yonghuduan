@@ -65,16 +65,21 @@ import JobDetail from "@/components/JobDetail/JobDetail.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { getCompanyInfosPositionInfos } from "@/services/services";
 import { PositionInformation } from "@/services/types";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const jobDetails = ref<PositionInformation[]>([]);
 const sortValue = ["综合排序", "距离优先", "薪资待遇", "学历要求", "工作经验"];
 const sortval = ref(sortValue[0]);
 
-getCompanyInfosPositionInfos({
-  sort: ["positionName,asc"],
-}).then((res) => {
-  jobDetails.value = res.data.body;
+onLoad((e) => {
+  if (e.value !== undefined) {
+    getCompanyInfosPositionInfos({
+      positionName: e.value,
+    }).then((res) => {
+      jobDetails.value = res.data.body;
+    });
+  }
 });
 
 const toPositions = (p: string, c: string) => {

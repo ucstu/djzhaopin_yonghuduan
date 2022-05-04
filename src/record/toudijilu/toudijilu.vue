@@ -63,7 +63,7 @@ onLoad((e) => {
 });
 
 onShow(() => {
-  if (!deliveryRecords.value.length) {
+  if (deliveryLength.value === null) {
     deliveryRecords.value = [];
   }
 });
@@ -98,11 +98,9 @@ const clearRecord = () => {
       store.accountInformation.fullInformationId,
       delivery.deliveryRecordId
     )
-      .then(() => {
-        deliveryLength.value = deliveryLength.value.filter(
-          (item: { deliveryRecordId: string }) =>
-            item.deliveryRecordId !== delivery.deliveryRecordId
-        );
+      .then((res) => {
+        deliveryLength.value = null;
+        deliveryRecords.value.length = 0;
       })
       .catch(failResponseHandler);
   }

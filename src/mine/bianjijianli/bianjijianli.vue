@@ -26,12 +26,12 @@
               class="photo"
             />
             <image
-              v-if="store.userInformation.sex == '男'"
+              v-if="store.userInformation.sex === '男'"
               class="sex-image"
               src="@/static/icons/man.png"
             />
             <image
-              v-if="store.userInformation.sex == '女'"
+              v-if="store.userInformation.sex === '女'"
               class="sex-image"
               src="@/static/icons/woman.png"
             />
@@ -180,7 +180,7 @@ import { ref } from "vue";
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useMainStore();
 
-const education = ref(["大专", "本科", "硕士", "博士"]);
+const education = ref(["", "大专", "本科", "硕士", "博士"]);
 
 // 工作经历
 const workExperiences = ref<WorkExperience[]>([]);
@@ -200,6 +200,16 @@ onShow(() => {
   getUserInfosP0EduExperiences(store.accountInformation.fullInformationId, {})
     .then((res) => {
       educationExperiences.value = res.data.body;
+      store.userInformation.education = educationExperiences.value[0].education;
+      for (var i = 0; i <= educationExperiences.value.length; i++) {
+        if (
+          store.userInformation.education <
+          educationExperiences.value[i].education
+        ) {
+          store.userInformation.education =
+            educationExperiences.value[i].education;
+        }
+      }
     })
     .catch(failResponseHandler);
   getUserInfosP0ProjectExperiences(

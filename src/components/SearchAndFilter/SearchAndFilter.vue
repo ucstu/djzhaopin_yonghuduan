@@ -52,16 +52,21 @@ import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { getCompanyInfos } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const companyInfos = ref<CompanyInformation[]>([]);
 const sortValue = ["综合排序", "距离优先", "公司规模", "融资阶段"];
 const sortval = ref(sortValue[0]);
 
-getCompanyInfos({
-  sort: ["companyInformationId,asc"],
-}).then((res) => {
-  companyInfos.value = res.data.body;
+onLoad((e) => {
+  if (e.value !== undefined) {
+    getCompanyInfos({
+      companyName: e.value,
+    }).then((res) => {
+      companyInfos.value = res.data.body;
+    });
+  }
 });
 
 const filterCompany = () => {

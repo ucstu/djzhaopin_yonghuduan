@@ -5,7 +5,7 @@
         <view class="flex-col job-infos">
           <text class="name">{{jobDetail!.positionName}}</text>
           <view class="flex-row area-educate">
-            <text class="area">{{ jobDetail!.workAreaName }}</text>
+            <text class="area">{{ companyInfo!.cityName }}</text>
             <text class="educate">{{ education[jobDetail!.education] }}</text>
           </view>
           <view class="flex-row items-center directions">

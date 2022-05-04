@@ -106,7 +106,7 @@ const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useMainStore();
 
 const userInfos = ref<UserInformation>({} as UserInformation);
-const education = ref(["大专", "本科", "硕士", "博士"]);
+const education = ref(["", "大专", "本科", "硕士", "博士"]);
 const fullName = ref();
 const deliveryNum = ref(0);
 const deliveryRecords = ref<DeliveryRecord[]>([]);

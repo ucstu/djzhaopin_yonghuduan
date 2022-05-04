@@ -1,5 +1,5 @@
 <template>
-  <view class="page"></view>
+  <view class="page"> 11 </view>
 </template>
 
 <script lang="ts" setup></script>

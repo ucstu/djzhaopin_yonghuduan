@@ -100,18 +100,22 @@ onShow(() => {
     .then((res) => {
       jobExpectations.value = res.data.body;
       store.jobExpectations = res.data.body;
-      console.log(store.jobExpectations);
     })
     .catch(failResponseHandler);
 });
 
 /* 查看、修改、删除求职期望 */
 const jobExpectationClick = (index: number) => {
-  let value = true;
   let jobId = jobExpectations.value[index].jobExpectationId;
-  uni.navigateTo({
-    url: `/info/qiuzhiqiwang/qiuzhiqiwang?id=` + jobId + `&data=` + value,
-  });
+  if (jobExpectations.value.length === 1) {
+    uni.navigateTo({
+      url: "/info/qiuzhiqiwang/qiuzhiqiwang?id=" + jobId + "&type=" + 1,
+    });
+  } else {
+    uni.navigateTo({
+      url: `/info/qiuzhiqiwang/qiuzhiqiwang?id=` + jobId + `&data=` + 1,
+    });
+  }
 };
 
 /* 添加求职期望 */
@@ -123,8 +127,7 @@ const addExcept = () => {
       duration: 1000,
     });
   } else {
-    let value = true;
-    uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=${value}` });
+    uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=` + 1 });
   }
 };
 

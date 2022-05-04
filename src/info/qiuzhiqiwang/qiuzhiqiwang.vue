@@ -172,13 +172,22 @@ onLoad((e) => {
   if (e.id !== undefined) {
     jobId.value = e.id;
   }
-  if (e.data === "true") {
-    saveBtn.value = "保存";
-  } else {
-    saveBtn.value = "完成";
+  if (e.data) {
+    if (parseInt(e.data) === 1) {
+      saveBtn.value = "保存";
+    } else {
+      saveBtn.value = "完成";
+    }
   }
   if (jobId.value) {
-    deleteEx.value = "删除";
+    console.log(e.type);
+    if (e.type) {
+      if (parseInt(e.type) === 1) {
+        deleteEx.value = "";
+      }
+    } else {
+      deleteEx.value = "删除";
+    }
     getUserInfosP0JobExpectationsP1(
       store.accountInformation.fullInformationId,
       jobId.value
@@ -290,9 +299,10 @@ const saveJobExcept = () => {
             cityName: jobExpectation.value.cityName,
           }
         )
-          .then(() => {
+          .then((res) => {
             if (saveBtn.value === saveOver.value) {
               uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+              store.jobExpectations.push(res.data.body);
             } else {
               uni.navigateBack({
                 delta: 1,

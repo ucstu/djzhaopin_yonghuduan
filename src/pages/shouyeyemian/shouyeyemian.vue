@@ -68,6 +68,7 @@
             :refresher-triggered="triggered"
             :refresher-threshold="100"
             class="job-detail"
+            @scrolltolower="onReachBottom"
             @refresherpulling="onPulling"
             @refresherrefresh="onRefresh"
             @refresherrestore="onRestore"
@@ -80,6 +81,14 @@
               @job-click="jobDescription(i)">
               <view class="box">11</view>
               </JobDetail>
+              <view
+              v-if="loadMore"
+              class="justify-center items-center"
+              style="
+              width: 100%;
+              font-size: 30rpx;
+              background-color: #fff;
+              ">获取更多</view>
             </scroll-view>
           </view>
 </view>
@@ -110,9 +119,12 @@ const expectationWidth = store.menuButtonInformation.left - uni.upx2px(170)
 
 const city = ref();
 const cityValue = ref<string[]>([]);
+const startingSalary = ref<number>();
+const ceilingSalary = ref<number>();
 const activeIndex = ref(0);
 const showRecommend = ref(0);
 const triggered = ref(false);
+const loadMore = ref(false);
 
 const expects = ref<string[]>([])
 const recommend = ref([
@@ -122,21 +134,27 @@ const recommend = ref([
 ])
 /* 职位信息 */
 const jobDetails = ref<PositionInformation[]>([])
+onShow(() => {
+  expects.value = store.jobExpectations.map((item: { positionName: string; }) => item.positionName);
+  cityValue.value = store.jobExpectations.map((item: { cityName: string; }) => item.cityName);
+})
 /* 默认 */
 onMounted(() => {
+  city.value = cityValue.value[0];
+  startingSalary.value = store.jobExpectations[0].startingSalary;
+  ceilingSalary.value = store.jobExpectations[0].ceilingSalary;
+  console.log(store.jobExpectations)
   getCompanyInfosPositionInfos(
   {
     positionName: expects.value[0],
     workAreas: [city.value],
+    directionTags: store.jobExpectations[0].directionTags,
+    // salary: `${startingSalary.value}, ${ceilingSalary.value}`,
+    size: 10,
   }
   ).then((res) => {
     jobDetails.value = res.data.body
   }).catch(failResponseHandler)
-})
-onShow(() => {
-  expects.value = store.jobExpectations.map((item: { positionName: string; }) => item.positionName);
-  cityValue.value = store.jobExpectations.map((item: { cityName: string; }) => item.cityName);
-  city.value = cityValue.value[0]
 })
 
 /* 切换城市 */
@@ -179,13 +197,32 @@ const onRefresh = () => {
 }
 const onRestore = () => {
    getCompanyInfosPositionInfos(
-  {positionName: expects.value[activeIndex.value]}
+  {positionName: expects.value[activeIndex.value],
+  }
 ).then((res) => {
   jobDetails.value = res.data.body
 })
 }
 const onAbort = () => {
   // triggered.value = false
+}
+const onReachBottom = () => {
+    loadMore.value = true
+  setTimeout(() => {
+    getCompanyInfosPositionInfos(
+  {
+    positionName: expects.value[0],
+    workAreas: [city.value],
+    size: 5,
+  }
+  ).then((res) => {
+    loadMore.value = false;
+    for( const item of res.data.body) {
+      jobDetails.value.push(item)
+    }
+  })
+  loadMore.value = false;
+  }, 3000)
 }
 
 const image_5OnClick = () => {
@@ -370,7 +407,7 @@ const jobDescription = (index: number) => {
   .job-detail {
     max-height: 1100rpx;
     overflow: hidden;
-  background-color: rgb(240 240 240);
+    background-color: rgb(240 240 240);
   }
 }
 </style>
