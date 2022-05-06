@@ -214,14 +214,13 @@ const nextClick = () => {
     positionName: "",
   })
     .then(() => {
-      uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=${value}` });
+      uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=` + 0 });
     })
     .catch(failResponseHandler);
-  let value = false;
 };
 
 const skip = () => {
-  uni.navigateTo({ url: "/info/qiuzhiqiwang/qiuzhiqiwang" });
+  uni.navigateTo({ url: "/info/qiuzhiqiwang/qiuzhiqiwang?data=" + 0 });
 };
 </script>
 

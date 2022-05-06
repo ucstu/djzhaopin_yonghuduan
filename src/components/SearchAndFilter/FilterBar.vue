@@ -77,7 +77,7 @@ onLoad((e) => {
     getCompanyInfosPositionInfos({
       positionName: e.value,
     }).then((res) => {
-      jobDetails.value = res.data.body;
+      jobDetails.value = res.data.body.positionInformations;
     });
   }
 });
@@ -104,31 +104,31 @@ const sortChoose = (index: number) => {
     getCompanyInfosPositionInfos({
       sort: ["workCityName,asc"],
     }).then((res) => {
-      jobDetails.value = res.data.body;
+      jobDetails.value = res.data.body.positionInformations;
     });
   } else if (index === 2) {
     getCompanyInfosPositionInfos({
       sort: ["startingSalary,desc"],
     }).then((res) => {
-      jobDetails.value = res.data.body;
+      jobDetails.value = res.data.body.positionInformations;
     });
   } else if (index === 3) {
     getCompanyInfosPositionInfos({
       sort: ["education,asc"],
     }).then((res) => {
-      jobDetails.value = res.data.body;
+      jobDetails.value = res.data.body.positionInformations;
     });
   } else if (index === 4) {
     getCompanyInfosPositionInfos({
       sort: ["workingYears,asc"],
     }).then((res) => {
-      jobDetails.value = res.data.body;
+      jobDetails.value = res.data.body.positionInformations;
     });
   } else {
     getCompanyInfosPositionInfos({
       sort: ["companyInformationId,asc"],
     }).then((res) => {
-      jobDetails.value = res.data.body;
+      jobDetails.value = res.data.body.positionInformations;
     });
   }
   popup.value.hide();

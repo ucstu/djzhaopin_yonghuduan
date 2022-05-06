@@ -86,7 +86,6 @@
 
 <script lang="ts" setup>
 import {
-  getUserInfosP0,
   getUserInfosP0AttentionRecords,
   getUserInfosP0DeliveryRecords,
   getUserInfosP0GarnerRecords,
@@ -100,7 +99,7 @@ import {
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onShow } from "@dcloudio/uni-app";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useMainStore();
@@ -117,45 +116,31 @@ const focusCompany = ref<AttentionRecord[]>([]);
 const interviewNum = ref(0);
 const interviewPosition = ref<DeliveryRecord[]>([]);
 
-onMounted(() => {
-  getUserInfosP0(store.accountInformation.fullInformationId)
-    .then((res) => {
-      store.userInformation.avatarUrl = res.data.body.avatarUrl;
-    })
-    .catch(failResponseHandler);
-});
-
+const status = ref<(1 | 2 | 3 | 4 | 5)[]>([1, 2, 3, 4, 5]);
 onShow(() => {
   userInfos.value = store.userInformation;
   fullName.value = userInfos.value.firstName + userInfos.value.lastName;
   /* 投递记录 */
-  for (let i = 1; i <= 5; i++) {
-    getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
-      status: [i] as [1 | 2 | 3 | 4 | 5],
+  getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
+    status: status.value,
+  })
+    .then((res) => {
+      deliveryNum.value = res.data.body.totalCount;
+      deliveryRecords.value = res.data.body.deliveryRecords;
     })
-      .then((res) => {
-        if (i === 1) {
-          deliveryNum.value = 0;
-        }
-        deliveryNum.value += res.data.body.length;
-        if (i === 1) {
-          deliveryRecords.value = res.data.body;
-        }
-      })
-      .catch(failResponseHandler);
-  }
+    .catch(failResponseHandler);
   /* 收藏职位 */
   getUserInfosP0GarnerRecords(store.accountInformation.fullInformationId, {})
     .then((res) => {
-      favoriteNum.value = res.data.body.length;
-      favoritePosition.value = res.data.body;
+      favoriteNum.value = res.data.body.totalCount;
+      favoritePosition.value = res.data.body.garnerRecords;
     })
     .catch(failResponseHandler);
   /* 关注公司 */
   getUserInfosP0AttentionRecords(store.accountInformation.fullInformationId, {})
     .then((res) => {
-      focusNum.value = res.data.body.length;
-      focusCompany.value = res.data.body;
+      focusNum.value = res.data.body.totalCount;
+      focusCompany.value = res.data.body.attentionRecords;
     })
     .catch(failResponseHandler);
   /* 投递记录 */
@@ -163,8 +148,8 @@ onShow(() => {
     status: [4],
   })
     .then((res) => {
-      interviewNum.value = res.data.body.length;
-      interviewPosition.value = res.data.body;
+      interviewNum.value = res.data.body.totalCount;
+      interviewPosition.value = res.data.body.deliveryRecords;
     })
     .catch(failResponseHandler);
 });

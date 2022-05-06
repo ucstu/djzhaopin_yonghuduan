@@ -30,7 +30,7 @@ if (store.jsonWebToken === null || !store.accountInformation) {
   ])
     .then((res) => {
       store.userInformation = res[0].data.body;
-      store.jobExpectations = res[1].data.body;
+      store.jobExpectations = res[1].data.body.jobExpectations;
       uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
     })
     .catch((err) => {

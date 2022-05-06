@@ -195,13 +195,13 @@ onShow(() => {
   // 查询所有工作经历
   getUserInfosP0WorkExperiences(store.accountInformation.fullInformationId, {})
     .then((res) => {
-      workExperiences.value = res.data.body;
+      workExperiences.value = res.data.body.workExperiences;
     })
     .catch(failResponseHandler);
   // 查询所有教育经历
   getUserInfosP0EduExperiences(store.accountInformation.fullInformationId, {})
     .then((res) => {
-      educationExperiences.value = res.data.body;
+      educationExperiences.value = res.data.body.educationExperiences;
       store.userInformation.education = educationExperiences.value[0].education;
       for (var i = 0; i <= educationExperiences.value.length; i++) {
         if (
@@ -219,7 +219,7 @@ onShow(() => {
     {}
   )
     .then((res) => {
-      projectExperiences.value = res.data.body;
+      projectExperiences.value = res.data.body.projectExperiences;
     })
     .catch(failResponseHandler);
 });
@@ -279,7 +279,7 @@ getUserInfosP0ProjectExperiences(
   store.accountInformation.fullInformationId,
   {}
 ).then((res) => {
-  projectExperiences.value = res.data.body;
+  projectExperiences.value = res.data.body.projectExperiences;
 });
 // 查看、修改、删除项目经历
 const alterProject = (index: number) => {

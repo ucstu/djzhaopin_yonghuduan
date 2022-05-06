@@ -47,6 +47,18 @@
         />
       </view>
     </view>
+    <view class="group-box">
+      <text class="text-title">输入验证码</text>
+      <view class="flex-row justify-between items-center">
+        <input
+          v-model="vCode"
+          class="text-input"
+          type="number"
+          placeholder="请输入验证码"
+          maxlength="4"
+        />
+      </view>
+    </view>
     <view class="justify-center group-button">
       <view class="justify-center items-center group-box" @click="savePassWord">
         <text>保存</text>
@@ -57,7 +69,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { putAccountInfosP0 } from "@/services/services";
+import { getVerificationCode, putAccountInfosP0 } from "@/services/services";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
@@ -66,11 +78,23 @@ const store = useMainStore();
 
 const password = ref("");
 const password2 = ref("");
+const vCode = ref("");
 const seen = ref(false);
 const seen2 = ref(false);
 const typeText = ref("text");
 const typePassword = ref("password");
 
+getVerificationCode({
+  email: store.accountInformation.userName,
+})
+  .then((res) => {
+    uni.showToast({
+      title: "验证码已发送",
+      duration: 1000,
+      icon: "none",
+    });
+  })
+  .catch(failResponseHandler);
 const savePassWord = () => {
   if (password.value !== password2.value) {
     uni.showToast({
@@ -90,14 +114,20 @@ const savePassWord = () => {
       icon: "none",
       duration: 1000,
     });
+  } else if (vCode.value.length !== 4) {
+    uni.showToast({
+      title: "请输入4位验证码",
+      icon: "none",
+      duration: 1000,
+    });
   } else {
     putAccountInfosP0(store.accountInformation.accountInformationId, {
       password: password.value,
-      verificationCode: "1234",
+      verificationCode: vCode.value,
     })
       .then((res) => {
         uni.showToast({
-          title: "保存成功",
+          title: "修改成功",
           icon: "none",
           duration: 1000,
         });

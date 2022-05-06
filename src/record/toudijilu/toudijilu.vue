@@ -76,7 +76,7 @@ const sendTypeId = (index: number) => {
   })
     .then((res) => {
       deliveryRecords.value.length = 0;
-      for (const delivery of res.data.body) {
+      for (const delivery of res.data.body.deliveryRecords) {
         getCompanyInfosP0PositionInfosP1(
           delivery.companyInformationId,
           delivery.positionInformationId

@@ -145,7 +145,7 @@ const focusId = ref();
 onMounted(() => {
   getUserInfosP0AttentionRecords(store.accountInformation.fullInformationId, {})
     .then((res) => {
-      let focusCompany = res.data.body.find((item) => {
+      let focusCompany = res.data.body.attentionRecords.find((item) => {
         return item.companyInformationId === companyId.value;
       });
       if (focusCompany) {
@@ -197,7 +197,7 @@ const focusOn = () => {
       {}
     )
       .then((res) => {
-        let focusCompany = res.data.body.find((item) => {
+        let focusCompany = res.data.body.attentionRecords.find((item) => {
           return item.companyInformationId === companyId.value;
         });
         if (focusCompany) {

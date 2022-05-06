@@ -47,16 +47,16 @@
           </view>
         </view>
       </view>
-      <view class="items-center hr-info">
+      <!-- <view class="items-center hr-info">
         <image
           v-if="companyInformation.logoUrl"
           class="hr"
           :src="VITE_CDN_URL + companyInformation.logoUrl"
         />
         <text style="padding-left: 15rpx">{{
-          companyInformation.hrInformationId
+          companyInformation
         }}</text>
-      </view>
+      </view> -->
       <view class="job-description">
         <text style="font-size: 30rpx; font-weight: 400">职位描述</text>
         <view class="flex-col description">
@@ -236,7 +236,7 @@ const garnerRecordId = ref("");
 onMounted(() => {
   getUserInfosP0GarnerRecords(store.accountInformation.fullInformationId, {})
     .then((res) => {
-      let collectionPosition = res.data.body.find((item) => {
+      let collectionPosition = res.data.body.garnerRecords.find((item) => {
         return item.positionInformationId === positionId.value;
       });
       if (collectionPosition) {
@@ -266,7 +266,7 @@ const collection = () => {
   } else {
     getUserInfosP0GarnerRecords(store.accountInformation.fullInformationId, {})
       .then((res) => {
-        let collectionPosition = res.data.body.find((item) => {
+        let collectionPosition = res.data.body.garnerRecords.find((item) => {
           return item.positionInformationId === positionId.value;
         });
         if (collectionPosition) {

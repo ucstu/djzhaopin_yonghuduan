@@ -98,8 +98,8 @@ onLoad(() => {
 onShow(() => {
   getUserInfosP0JobExpectations(store.accountInformation.fullInformationId, {})
     .then((res) => {
-      jobExpectations.value = res.data.body;
-      store.jobExpectations = res.data.body;
+      jobExpectations.value = res.data.body.jobExpectations;
+      store.jobExpectations = res.data.body.jobExpectations;
     })
     .catch(failResponseHandler);
 });

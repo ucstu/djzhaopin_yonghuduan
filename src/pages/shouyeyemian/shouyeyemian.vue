@@ -151,7 +151,9 @@ onShow(() => {
   }
   // 获取期望城市
   cityValue.value = store.jobExpectations.map((item: { cityName: string; }) => item.cityName);
-  directionTags.value = store.jobExpectations[activeIndex.value].directionTags
+  if (store.jobExpectations.length > 0) {
+    directionTags.value = store.jobExpectations[activeIndex.value].directionTags;
+  }
 
 })
 /* 默认 */
@@ -165,7 +167,7 @@ onMounted(() => {
     size: 10,
   }
   ).then((res) => {
-    jobDetails.value = res.data.body
+    jobDetails.value = res.data.body.positionInformations
   }).catch(failResponseHandler)
 })
 
@@ -185,7 +187,7 @@ onLoad(() => {
         size: 5,
       }
       ).then((res) => {
-        jobDetails.value = res.data.body
+        jobDetails.value = res.data.body.positionInformations
       }).catch(failResponseHandler)
   })
 })
@@ -202,7 +204,7 @@ const changeJobType = (index: number) => {
     salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
   }
 ).then((res) => {
-  jobDetails.value = res.data.body
+  jobDetails.value = res.data.body.positionInformations
 }).catch(failResponseHandler)
 }
 /* 查看最新职位 */
@@ -216,7 +218,7 @@ const recommended = (index: number) => {
   size: 10,
   },
 ).then((res) => {
-  jobDetails.value = res.data.body
+  jobDetails.value = res.data.body.positionInformations
 }).catch(failResponseHandler)
 }
 
@@ -240,7 +242,7 @@ const onRestore = () => {
 
   }
 ).then((res) => {
-  jobDetails.value = res.data.body
+  jobDetails.value = res.data.body.positionInformations
 })
 }
 const onAbort = () => {
@@ -260,7 +262,7 @@ const onReachBottom = () => {
   }
   ).then((res) => {
     loadMore.value = false;
-    for( const item of res.data.body) {
+    for( const item of res.data.body.positionInformations) {
       jobDetails.value.push(item)
     }
   })

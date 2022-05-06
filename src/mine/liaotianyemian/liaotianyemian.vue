@@ -36,7 +36,10 @@
       </view>
     </view>
     <!-- #endif -->
-    <scroll-view class="group-info" :scroll-y="true"> </scroll-view>
+    <scroll-view class="group-info" :scroll-y="true">
+      <BubbleBoxHr></BubbleBoxHr>
+      <BubbleBox></BubbleBox>
+    </scroll-view>
     <view class="flex-col group-end justify-center">
       <view class="flex-row justify-between items-end input-box">
         <view class="items-center text-input">
@@ -47,7 +50,7 @@
             :auto-height="true"
           />
         </view>
-        <text class="items-center text-send">发送</text>
+        <text class="items-center text-send" @click="sendMessage">发送</text>
       </view>
       <view class="justify-between function-box">
         <image class="image" src="@/static/icons/audio-fill.svg" />
@@ -61,6 +64,8 @@
 </template>
 
 <script lang="ts" setup>
+import BubbleBoxHr from "@/components/BubbleBox/BubbleBoxHr.vue";
+import BubbleBox from "@/components/BubbleBox/BubbleBoxUser.vue";
 import { useMainStore } from "@/stores/main";
 import { ref } from "vue";
 const store = useMainStore();
@@ -76,6 +81,12 @@ const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(30);
 const personnelName = ref("张三");
 const companyAndJob = ref("字节跳动 · 人事总监");
 const inputValue = ref("");
+const message = ref("");
+
+const sendMessage = () => {
+  inputValue.value = message.value;
+  inputValue.value = "";
+};
 
 const goBack = () => {
   uni.navigateBack({

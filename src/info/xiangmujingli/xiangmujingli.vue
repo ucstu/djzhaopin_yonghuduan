@@ -167,8 +167,6 @@ const projectExperience = ref<ProjectExperience>({
   startTime: "开始时间", //项目开始时间
   endTime: "结束时间", //项目结束时间
   projectLink: "", //项目链接
-  createdAt: "",
-  updatedAt: "",
 });
 
 const start = ref(true);
@@ -268,7 +266,7 @@ const saveProjectExperience = () => {
     } else {
       // 添加项目经历
       postUserInfosP0ProjectExperiences(
-        store.accountInformation.accountInformationId,
+        store.accountInformation.fullInformationId,
         projectExperience.value
       )
         .then(() => {

@@ -34,7 +34,7 @@ getUserInfosP0InspectionRecords(
   {}
 ).then((res) => {
   console.log(res.data.body);
-  lookForMes.value = res.data.body;
+  lookForMes.value = res.data.body.userInspectionRecords;
   companyInfo.value.length = 0;
   for (const item of lookForMes.value) {
     getCompanyInfosP0(item.companyInformationId)

@@ -41,6 +41,7 @@
 <script lang="ts" setup>
 import { getCompanyInfos, getCompanyInfosPositionInfos } from "@/services/services";
 import { useMainStore } from "@/stores/main";
+import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
@@ -75,16 +76,19 @@ const searchOnClick = () => {
     getCompanyInfosPositionInfos({
       positionName: searchContent.value,
     }).then((res) => {
+      if(res.data.body.positionInformations.length === 0){
         uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei?value=" + searchContent.value + "&data=" + 0 });
-    }).catch(() => {
-      getCompanyInfos({
+      }else {
+        getCompanyInfos({
         companyName: searchContent.value,
       }).then((res) => {
-        uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei?value=" + searchContent.value + "&data=" + 1 });
-      }).catch(() => {
-       uni.navigateTo({url: "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" + 2});
-      });
-    })
+        if(res.data.body.companyInformations.length === 0){
+          uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei?value=" + searchContent.value + "&data=" + 1 });
+        }else{
+          uni.navigateTo({url: "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" + 2});}
+      }).catch(failResponseHandler);
+      }
+    }).catch(failResponseHandler)
   }else{
     uni.showToast({
       title: "搜索内容不能为空",

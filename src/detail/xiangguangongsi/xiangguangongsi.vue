@@ -26,7 +26,7 @@ const popup = ref();
 let attentionCompanies = reactive<CompanyInformation[]>([]);
 getCompanyInfos({})
   .then((res) => {
-    attentionCompanies.push(...res.data.body);
+    attentionCompanies.push(...res.data.body.companyInformations);
   })
   .catch(failResponseHandler);
 const companySizes = reactive<string[]>([]); //公司规模

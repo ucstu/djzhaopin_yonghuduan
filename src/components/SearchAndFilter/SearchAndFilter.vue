@@ -64,7 +64,7 @@ onLoad((e) => {
     getCompanyInfos({
       companyName: e.value,
     }).then((res) => {
-      companyInfos.value = res.data.body;
+      companyInfos.value = res.data.body.companyInformations;
     });
   }
 });
@@ -84,25 +84,25 @@ const sortChoose = (index: number) => {
     getCompanyInfos({
       sort: ["cityName,asc"],
     }).then((res) => {
-      companyInfos.value = res.data.body;
+      companyInfos.value = res.data.body.companyInformations;
     });
   } else if (index === 2) {
     getCompanyInfos({
       sort: ["scale,desc"],
     }).then((res) => {
-      companyInfos.value = res.data.body;
+      companyInfos.value = res.data.body.companyInformations;
     });
   } else if (index === 3) {
     getCompanyInfos({
       sort: ["financingStage,desc"],
     }).then((res) => {
-      companyInfos.value = res.data.body;
+      companyInfos.value = res.data.body.companyInformations;
     });
   } else {
     getCompanyInfos({
       sort: ["companyInformationId,asc"],
     }).then((res) => {
-      companyInfos.value = res.data.body;
+      companyInfos.value = res.data.body.companyInformations;
     });
   }
   popup.value.hide();
