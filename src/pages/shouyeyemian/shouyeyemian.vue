@@ -161,7 +161,7 @@ onMounted(() => {
   getCompanyInfosPositionInfos(
   {
     positionName: expects.value[0],
-    workAreas: [cityValue.value[0]],
+    workAreaNames: [cityValue.value[0]],
     directionTags: directionTags.value,
     salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
     size: 10,
@@ -181,7 +181,7 @@ onLoad(() => {
       city.value.push(cityValue.value[activeIndex.value])
       getCompanyInfosPositionInfos(
       {positionName: expects.value[activeIndex.value],
-        workAreas: city.value,
+        workAreaNames: city.value,
         directionTags: directionTags.value,
         salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
         size: 5,
@@ -199,7 +199,7 @@ const changeJobType = (index: number) => {
   city.value.push(cityValue.value[activeIndex.value])
   getCompanyInfosPositionInfos(
   {positionName: expects.value[index],
-    workAreas: city.value,
+    workAreaNames: city.value,
     directionTags: directionTags.value,
     salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
   }
@@ -212,7 +212,7 @@ const recommended = (index: number) => {
   showRecommend.value = index;
   getCompanyInfosPositionInfos(
   {positionName: expects.value[activeIndex.value],
-  workAreas: city.value,
+  workAreaNames: city.value,
   directionTags: directionTags.value,
   salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
   size: 10,
@@ -235,7 +235,7 @@ const onRestore = () => {
   /* 刷新获取新数据 */
    getCompanyInfosPositionInfos(
   {positionName: expects.value[activeIndex.value],
-    workAreas: city.value,
+    workAreaNames: city.value,
     directionTags: directionTags.value,
     salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
     size: 10,
@@ -255,7 +255,7 @@ const onReachBottom = () => {
     getCompanyInfosPositionInfos(
   {
     positionName: expects.value[activeIndex.value],
-    workAreas: city.value,
+    workAreaNames: city.value,
     directionTags: directionTags.value,
     salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
     size: 5,
