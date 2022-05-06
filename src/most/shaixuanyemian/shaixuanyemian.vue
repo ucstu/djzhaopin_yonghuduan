@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="group" title="筛选" />
+  <NavigationBar title="筛选" />
   <view class="flex-col page">
     <scroll-view class="flex-col search" :scroll-y="true">
       <view class="flex-col expected-salary">
@@ -257,11 +257,6 @@ const saveScreen = () => {
 <style lang="scss" scoped>
 .page {
   width: 100%;
-  background-color: rgb(255 255 255);
-
-  .group {
-    position: relative;
-  }
 
   .active {
     color: $app-color;

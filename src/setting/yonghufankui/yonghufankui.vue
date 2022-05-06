@@ -29,7 +29,7 @@
             />
           </scroll-view>
           <view class="flex-col items-center justify-center upload">
-            <image class="image" src="@/static/icons/camera.png" />
+            <image class="image" src="@/static/icons/camera.svg" />
             <text>上传图片</text>
           </view>
         </view>

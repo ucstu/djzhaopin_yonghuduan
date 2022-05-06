@@ -180,7 +180,6 @@ onLoad((e) => {
     }
   }
   if (jobId.value) {
-    console.log(e.type);
     if (e.type) {
       if (parseInt(e.type) === 1) {
         deleteEx.value = "";
@@ -278,7 +277,7 @@ const saveJobExcept = () => {
           jobId.value,
           jobExpectation.value
         )
-          .then((res) => {
+          .then(() => {
             uni.showToast({
               title: "修改成功",
               icon: "none",
@@ -325,9 +324,9 @@ const deleteExpectation = () => {
       icon: "none",
       duration: 1000,
     });
-    // uni.navigateBack({
-    //   delta: 1,
-    // });
+    uni.navigateBack({
+      delta: 1,
+    });
   });
 };
 

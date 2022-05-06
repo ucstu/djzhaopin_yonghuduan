@@ -44,7 +44,7 @@
               </view>
               <view class="flex-row group-4">
                 <view class="flex-row">
-                  <text @click="text_22OnClick">{{ city }}</text>
+                  <text @click="text_22OnClick">{{ cityValue[activeIndex] }}</text>
                   <image
                     src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475959311313713900.png"
                     class="image-3 image-4" />
@@ -86,9 +86,18 @@
               class="justify-center items-center"
               style="
               width: 100%;
-              font-size: 30rpx;
-              background-color: #fff;
-              ">获取更多</view>
+              height: 60rpx;
+              font-size: 35rpx;
+              background-color: rgb(240 240 240);
+              ">加载中</view>
+              <view
+              v-if="!loadMore"
+              class="justify-center items-center"
+              style="
+              width: 100%;
+              font-size: 35rpx;
+              background-color: rgb(240 240 240);
+              ">没有更多了</view>
             </scroll-view>
           </view>
 </view>
@@ -117,16 +126,15 @@ const expectationWidth = store.menuButtonInformation.left - uni.upx2px(170)
 /* #endif */
 
 
-const city = ref();
 const cityValue = ref<string[]>([]);
-const startingSalary = ref<number>();
-const ceilingSalary = ref<number>();
+const city = ref<string[]>([]);
 const activeIndex = ref(0);
 const showRecommend = ref(0);
 const triggered = ref(false);
 const loadMore = ref(false);
 
 const expects = ref<string[]>([])
+const directionTags = ref<string[]>([])
 const recommend = ref([
   "热门",
   "附近",
@@ -135,21 +143,25 @@ const recommend = ref([
 /* 职位信息 */
 const jobDetails = ref<PositionInformation[]>([])
 onShow(() => {
+  // 获取期望职位
   expects.value = store.jobExpectations.map((item: { positionName: string; }) => item.positionName);
+  // 期望职位改变默认显示第一个
+  if(expects.value.length < cityValue.value.length){
+    activeIndex.value = 0;
+  }
+  // 获取期望城市
   cityValue.value = store.jobExpectations.map((item: { cityName: string; }) => item.cityName);
+  directionTags.value = store.jobExpectations[activeIndex.value].directionTags
+
 })
 /* 默认 */
 onMounted(() => {
-  city.value = cityValue.value[0];
-  startingSalary.value = store.jobExpectations[0].startingSalary;
-  ceilingSalary.value = store.jobExpectations[0].ceilingSalary;
-  console.log(store.jobExpectations)
   getCompanyInfosPositionInfos(
   {
     positionName: expects.value[0],
-    workAreas: [city.value],
-    directionTags: store.jobExpectations[0].directionTags,
-    // salary: `${startingSalary.value}, ${ceilingSalary.value}`,
+    workAreas: [cityValue.value[0]],
+    directionTags: directionTags.value,
+    salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
     size: 10,
   }
   ).then((res) => {
@@ -162,25 +174,47 @@ onLoad(() => {
   uni.$on("liveCity", (data) => {
     city.value = data
   })
+  uni.$on("place", (data) => {
+      city.value = data
+      city.value.push(cityValue.value[activeIndex.value])
+      getCompanyInfosPositionInfos(
+      {positionName: expects.value[activeIndex.value],
+        workAreas: city.value,
+        directionTags: directionTags.value,
+        salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+        size: 5,
+      }
+      ).then((res) => {
+        jobDetails.value = res.data.body
+      }).catch(failResponseHandler)
+  })
 })
 
 /* 切换职位 */
 const changeJobType = (index: number) => {
   activeIndex.value = index;
-  city.value = cityValue.value[index]
+  city.value.length = 0;
+  city.value.push(cityValue.value[activeIndex.value])
   getCompanyInfosPositionInfos(
   {positionName: expects.value[index],
-    workAreas: [city.value[index]]
+    workAreas: city.value,
+    directionTags: directionTags.value,
+    salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
   }
 ).then((res) => {
   jobDetails.value = res.data.body
 }).catch(failResponseHandler)
 }
-/* 切换热门、附近、最新职位 */
+/* 查看最新职位 */
 const recommended = (index: number) => {
-  showRecommend.value = index
+  showRecommend.value = index;
   getCompanyInfosPositionInfos(
-  {positionName: expects.value[index]}
+  {positionName: expects.value[activeIndex.value],
+  workAreas: city.value,
+  directionTags: directionTags.value,
+  salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+  size: 10,
+  },
 ).then((res) => {
   jobDetails.value = res.data.body
 }).catch(failResponseHandler)
@@ -196,8 +230,14 @@ const onRefresh = () => {
   },1000)
 }
 const onRestore = () => {
+  /* 刷新获取新数据 */
    getCompanyInfosPositionInfos(
   {positionName: expects.value[activeIndex.value],
+    workAreas: city.value,
+    directionTags: directionTags.value,
+    salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+    size: 10,
+
   }
 ).then((res) => {
   jobDetails.value = res.data.body
@@ -206,13 +246,16 @@ const onRestore = () => {
 const onAbort = () => {
   // triggered.value = false
 }
+/* 拉到底部时获取新数据 */
 const onReachBottom = () => {
-    loadMore.value = true
+  loadMore.value = true
   setTimeout(() => {
     getCompanyInfosPositionInfos(
   {
-    positionName: expects.value[0],
-    workAreas: [city.value],
+    positionName: expects.value[activeIndex.value],
+    workAreas: city.value,
+    directionTags: directionTags.value,
+    salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
     size: 5,
   }
   ).then((res) => {

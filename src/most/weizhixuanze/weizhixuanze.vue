@@ -3,7 +3,7 @@
   <view class="flex-col page">
     <view class="flex-row group-all">
       <view class="justify-center group-left">商圈</view>
-      <scroll-view class="flex-row group_center" :scroll-y="true">
+      <scroll-view class="flex-row group-center" :scroll-y="true">
         <view class="flex-col">
           <view
             v-for="(con, i) in countries"
@@ -16,7 +16,7 @@
           </view>
         </view>
       </scroll-view>
-      <scroll-view class="flex-row group_right" :scroll-y="true">
+      <scroll-view class="flex-row group-right" :scroll-y="true">
         <view class="flex-col items-center">
           <view
             v-for="(area, i) in areas"
@@ -63,6 +63,8 @@ const countries = reactive<AreaInformations>([
 ]);
 const countriesIndex = ref(0);
 const country = ref("位置");
+const areasIndex = ref([0]);
+const areasValue = ref<string[]>([]);
 const c = ref();
 
 onLoad((e) => {
@@ -87,23 +89,22 @@ const areas = computed(() => {
 
 const countriesIndexOf = (index: number) => {
   countriesIndex.value = index;
-  areasIndex.value.splice(1, areasIndex.value.length);
-  country.value = "";
+  if (!index) {
+    areasIndex.value = [0];
+  } else {
+    areasIndex.value.splice(0, areasIndex.value.length);
+  }
+  areasValue.value.slice(0, areasValue.value.length);
   country.value = countries[index].countyName;
 };
 
-const changeCity = () => {
-  uni.navigateTo({
-    url: "/most/chengshixuanze/chengshixuanze",
-  });
-};
-
-const areasIndex = ref([0]);
 const areasIndexOf = (index: number) => {
   if (areasIndex.value.includes(index)) {
     areasIndex.value.splice(areasIndex.value.indexOf(index), 1);
+    areasValue.value.splice(areasValue.value.indexOf(areas.value[index]), 1);
   } else {
     areasIndex.value.push(index);
+    areasValue.value.push(areas.value[index]);
   }
 };
 /* 重置筛选 */
@@ -114,7 +115,14 @@ const replacement = () => {
 };
 
 const savePlace = () => {
+  uni.$emit("place", areasValue.value);
   uni.navigateBack({ delta: 1 });
+};
+
+const changeCity = () => {
+  uni.navigateTo({
+    url: "/most/chengshixuanze/chengshixuanze",
+  });
 };
 </script>
 

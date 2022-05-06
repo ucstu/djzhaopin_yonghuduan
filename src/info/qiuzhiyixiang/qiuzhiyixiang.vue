@@ -36,7 +36,7 @@
       </view>
     </view>
     <view class="items-center justify-center button" @click="addExcept">
-      <image class="image" src="@/static/icons/add-circle.png" />
+      <image class="image" src="@/static/icons/plus-circle.svg" />
       <text class="add">添加求职期望</text>
     </view>
     <view class="items-center justify-between entry-time" @click="jobStatus">

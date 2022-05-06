@@ -7,7 +7,7 @@
         <text style="font-size: 25rpx">{{ time }}</text>
       </view>
       <view class="message">
-        <text>{{ message }}</text>
+        <text style="white-space: nowrap">{{ message }}</text>
       </view>
     </view>
   </view>
@@ -29,21 +29,21 @@ const toChatPage = () => {
 
 <style lang="scss" scoped>
 .info-box {
-  width: 690rpx;
+  width: 94%;
   height: 130rpx;
-  margin-left: 30rpx;
+  margin-left: 3%;
 
   .image-heard {
-    width: 100rpx;
-    height: 100rpx;
-    border-radius: 100%;
+    width: 110rpx;
+    height: 110rpx;
+    border-radius: 50%;
   }
 
   .infos {
-    width: 590rpx;
+    width: 83%;
     height: auto;
-    padding-left: 20rpx;
-    line-height: 40rpx;
+    margin-left: 2%;
+    line-height: 50rpx;
 
     .name-time {
       width: 100%;
@@ -52,11 +52,10 @@ const toChatPage = () => {
     }
 
     .message {
-      width: 550rpx;
+      width: 90%;
       overflow: hidden;
       font-size: 25rpx;
       text-overflow: ellipsis;
-      white-space: nowrap;
     }
   }
 }

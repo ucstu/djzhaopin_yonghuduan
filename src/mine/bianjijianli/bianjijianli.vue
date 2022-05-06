@@ -80,7 +80,9 @@
           />
         </view>
         <view class="advantage-box">
-          <text>{{ store.userInformation.personalAdvantage }}</text>
+          <text style="white-space: nowrap">{{
+            store.userInformation.personalAdvantage
+          }}</text>
         </view>
       </view>
       <view class="group-box">
@@ -88,7 +90,7 @@
           <text class="text-top">工作经历</text>
           <image
             class="image"
-            src="@/static/icons/add-circle.png"
+            src="@/static/icons/plus-circle.svg"
             @click="addWork"
           />
         </view>
@@ -113,7 +115,7 @@
           <text class="text-top">教育经历</text>
           <image
             class="image"
-            src="@/static/icons/add-circle.png"
+            src="@/static/icons/plus-circle.svg"
             @click="addEducate"
           />
         </view>
@@ -139,7 +141,7 @@
           <text class="text-top">项目经历</text>
           <image
             class="image"
-            src="@/static/icons/add-circle.png"
+            src="@/static/icons/plus-circle.svg"
             @click="addProject"
           />
         </view>
@@ -353,7 +355,6 @@ const alterProject = (index: number) => {
         font-size: 30rpx;
         line-height: 40rpx;
         text-overflow: ellipsis;
-        white-space: nowrap;
       }
 
       .experience-box {

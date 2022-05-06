@@ -129,41 +129,15 @@ const toFootprint = () => {
     }
 
     .group-infos {
+      // #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ
       height: 800rpx;
+
+      // #endif
+      // #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ
+      height: 1100rpx;
+
+      // #endif
       overflow: hidden;
-
-      .info-box {
-        width: 690rpx;
-        height: 130rpx;
-        margin-left: 30rpx;
-
-        .image-heard {
-          width: 100rpx;
-          height: 100rpx;
-          border-radius: 100%;
-        }
-
-        .infos {
-          width: 590rpx;
-          height: auto;
-          padding-left: 20rpx;
-          line-height: 40rpx;
-
-          .name-time {
-            width: 100%;
-            height: auto;
-            font-size: 30rpx;
-          }
-
-          .message {
-            width: 550rpx;
-            overflow: hidden;
-            font-size: 25rpx;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
-        }
-      }
     }
   }
 }
