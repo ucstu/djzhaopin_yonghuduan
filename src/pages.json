@@ -229,12 +229,6 @@
       "packages": ["most", "info"]
     }
   },
-  "esaycom": {
-    "autoscan": true,
-    "custom": {
-      "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
-    }
-  },
   "globalStyle": {
     "navigationStyle": "custom",
     "backgroundColor": "#ffffff",

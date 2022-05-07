@@ -61,7 +61,7 @@
         <text style="font-size: 30rpx; font-weight: 400">职位描述</text>
         <view class="flex-col description">
           <text style="line-height: 40rpx"
-            >职位类型 :{{ positionType[jobInformation.positionType] }}</text
+            >职位类型 :{{ positionType[jobInformation.workType] }}</text
           >
           <view class="flex-row">
             <text style="line-height: 40rpx">职位亮点 :</text>
@@ -155,12 +155,12 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-  deleteUserInfosP0GarnerRecordsP1,
-  getCompanyInfosP0,
-  getCompanyInfosP0PositionInfosP1,
-  getUserInfosP0GarnerRecords,
-  postUserInfosP0DeliveryRecords,
-  postUserInfosP0GarnerRecords,
+deleteUserInfosP0GarnerRecordsP1,
+getCompanyInfosP0,
+getCompanyInfosP0PositionInfosP1,
+getUserInfosP0GarnerRecords,
+postUserInfosP0DeliveryRecords,
+postUserInfosP0GarnerRecords
 } from "@/services/services";
 import { CompanyInformation, PositionInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
