@@ -55,6 +55,17 @@
 
 <script lang="ts" setup>
 import MailBar from "@/components/MailBar/MailBar.vue";
+import Socket from "@/utils/socket";
+
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
+
+Socket.init().then(() => {
+  console.log("init success");
+});
+
+Socket.client.subscribe("/user/queue/message", (data) => {
+  console.log(data);
+});
 
 const toMyDelivery = () => {
   uni.navigateTo({ url: "/record/toudijilu/toudijilu" });
