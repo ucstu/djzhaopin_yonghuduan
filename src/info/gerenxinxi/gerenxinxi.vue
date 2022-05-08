@@ -195,7 +195,7 @@ const chooseImage = () => {
     success: (res) => {
       const tempFilePath = res.tempFilePaths;
       uni.uploadFile({
-        url: VITE_BASE_URL + "/avatar",
+        url: VITE_BASE_URL + "/avatars",
         filePath: tempFilePath[0],
         name: "avatar",
         header: {
@@ -208,7 +208,7 @@ const chooseImage = () => {
           console.log(err.errMsg);
         },
       });
-      // postAvatars({ avatar: res.tempFiles[0] as File })
+      // postAvatars({ avatar: (res.tempFiles as File[])[0] })
       //   .then((r) => {
       //     uni.showToast({
       //       title: "上传成功",
