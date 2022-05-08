@@ -25,15 +25,15 @@
         <view class="flex-row sex-box">
           <view
             class="flex-col items-center sex-wrapper"
-            :class="isActiveMan ? 'active' : ''"
-            @click="isActiveMan = !isActiveMan"
+            :class="userInformation.sex === '男' ? 'active' : ''"
+            @click="userInformation.sex = '男'"
           >
             <text>男</text>
           </view>
           <view
             class="flex-col items-center sex-wrapper"
-            :class="!isActiveMan ? 'active' : ''"
-            @click="isActiveMan = !isActiveMan"
+            :class="userInformation.sex === '女' ? 'active' : ''"
+            @click="userInformation.sex = '女'"
           >
             <text>女</text>
           </view>
@@ -134,12 +134,10 @@ const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useMainStore();
 
-const userInformation = ref<UserInformation>(store.userInformation);
+const userInformation = ref<UserInformation>({ ...store.userInformation });
 
 const fullName = ref(""); // 姓名
 const birOrTime = ref(true);
-
-const isActiveMan = ref(true);
 
 const valueYear = ref();
 const valueMonth = ref();
@@ -175,11 +173,6 @@ const value = ref();
 
 fullName.value =
   userInformation.value.firstName + userInformation.value.lastName;
-if (userInformation.value.sex === "男") {
-  isActiveMan.value = true;
-} else {
-  isActiveMan.value = !isActiveMan.value;
-}
 valueYear.value = parseInt(userInformation.value.dateOfBirth.slice(0, 4), 10);
 valueMonth.value = parseInt(userInformation.value.dateOfBirth.slice(5, 7), 10);
 valueDay.value = parseInt(userInformation.value.dateOfBirth.slice(8, 10), 10);
@@ -202,10 +195,20 @@ const chooseImage = () => {
           Authorization: "Bearer " + store.jsonWebToken,
         },
         success: (res) => {
-          console.log(res.data);
+          let response = JSON.parse(res.data) as {
+            body: string;
+            message: string;
+            status: number;
+            timestamp: string;
+          };
+          userInformation.value.avatarUrl = response.body;
         },
         fail: (err) => {
-          console.log(err.errMsg);
+          uni.showToast({
+            title: "上传失败",
+            icon: "none",
+            duration: 1000,
+          });
         },
       });
       // postAvatars({ avatar: (res.tempFiles as File[])[0] })
@@ -222,7 +225,7 @@ const chooseImage = () => {
     fail: () => {
       uni.showToast({
         title: "上传失败",
-        icon: "success",
+        icon: "none",
         duration: 1000,
       });
     },
@@ -288,25 +291,14 @@ const saveInfos = () => {
       duration: 1000,
     });
   } else {
-    if (isActiveMan.value) {
-      userInformation.value.sex = "男";
-    } else {
-      userInformation.value.sex = "女";
-    }
-    store.userInformation.updatedAt = year + "-" + month + "-" + day;
-    store.userInformation.firstName = fullName.value.slice(0, 1);
-    store.userInformation.lastName = fullName.value.slice(
+    userInformation.value.firstName = fullName.value.slice(0, 1);
+    userInformation.value.lastName = fullName.value.slice(
       1,
       fullName.value.length
     );
-    store.userInformation.dateOfBirth = userInformation.value.dateOfBirth;
-    store.userInformation.sex = userInformation.value.sex;
-    store.userInformation.age = userInformation.value.age;
-    store.userInformation.cityName = userInformation.value.cityName;
-    store.userInformation.email = userInformation.value.email;
     putUserInfosP0(
       store.accountInformation.fullInformationId,
-      store.userInformation
+      userInformation.value
     )
       .then((res) => {
         store.userInformation = res.data.body;
