@@ -6,13 +6,14 @@
       <text class="title">展示你的特别之处，分享你在工作中取得的成绩</text>
     </view>
     <view class="group-2">
-      <view class="text-input">
+      <view class="flex-row text-input">
         <textarea
           v-model="inputValue"
           class="input"
           placeholder="请填写你的特点与优势，或你的求职目标"
-          :maxlength="-1"
+          maxlength="250"
         />
+        <text class="items-end">({{ inputValue.length }}/250)</text>
       </view>
     </view>
   </view>

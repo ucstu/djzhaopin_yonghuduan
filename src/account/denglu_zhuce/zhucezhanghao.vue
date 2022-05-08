@@ -7,7 +7,7 @@
         <view class="items-center phone-number">
           <input
             v-model="email"
-            style="padding-left: 20rpx"
+            style="width: 100%; padding-left: 20rpx"
             type="text"
             placeholder="请输入你的邮箱"
           />
@@ -15,7 +15,7 @@
         <view class="flex-row justify-between items-center verification">
           <input
             v-model="verification"
-            style="padding-left: 20rpx"
+            style="width: 60%; padding-left: 20rpx"
             :maxlength="4"
             type="number"
             placeholder="请输入验证码"
@@ -30,7 +30,7 @@
         <view class="items-center phone-number">
           <input
             v-model="password"
-            style="padding-left: 20rpx"
+            style="width: 100%; padding-left: 20rpx"
             type="password"
             placeholder="请输入密码(6-20位)"
           />
@@ -208,7 +208,7 @@ const registeredAccount = () => {
         border-bottom: 2rpx solid rgb(163 154 154);
 
         .btn {
-          width: 200rpx;
+          width: 40%;
           height: 60rpx;
           margin: 0;
           font-size: 25rpx;
@@ -236,7 +236,7 @@ const registeredAccount = () => {
   }
 
   .group-2 {
-    position: fixed;
+    position: absolute;
     bottom: 100rpx;
     font-size: 20rpx;
     line-height: 40rpx;

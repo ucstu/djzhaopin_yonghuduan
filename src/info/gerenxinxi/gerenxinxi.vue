@@ -50,6 +50,13 @@
         <text class="caption">邮箱</text>
         <input v-model="userInformation.email" class="user-value" />
       </view>
+      <view class="flex-col group-box" @click="changePopup">
+        <text class="caption">参加工作时间</text>
+        <input
+          v-model="store.userInformation.workingYears"
+          class="user-value"
+        />
+      </view>
       <view class="justify-center button-box">
         <view
           class="flex-col justify-center items-center button"
@@ -66,7 +73,12 @@
         mode="size-auto"
         type="bottom"
       >
-        <picker-view :value="value" class="picker-view" @change="bindChange">
+        <picker-view
+          v-if="birOrTime"
+          :value="value"
+          class="picker-view"
+          @change="bindChange"
+        >
           <picker-view-column>
             <view v-for="(item, index) in years" :key="index" class="item"
               >{{ item }}年</view
@@ -80,6 +92,18 @@
           <picker-view-column>
             <view v-for="(item, index) in days" :key="index" class="item"
               >{{ item }}日</view
+            >
+          </picker-view-column>
+        </picker-view>
+        <picker-view
+          v-if="!birOrTime"
+          :value="value"
+          class="picker-view"
+          @change="bindChange"
+        >
+          <picker-view-column>
+            <view v-for="(item, index) in years" :key="index" class="item"
+              >{{ item }}年</view
             >
           </picker-view-column>
         </picker-view>
@@ -99,19 +123,21 @@
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { postAvatars, putUserInfosP0 } from "@/services/services";
+import { putUserInfosP0 } from "@/services/services";
 import { UserInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useMainStore();
 
 const userInformation = ref<UserInformation>(store.userInformation);
 
 const fullName = ref(""); // 姓名
+const birOrTime = ref(true);
 
 const isActiveMan = ref(true);
 
@@ -129,6 +155,11 @@ const days = ref<number[]>([]);
 let day = date.getDate();
 const popup = ref();
 const showDate = () => {
+  birOrTime.value = true;
+  popup.value.show();
+};
+const changePopup = () => {
+  birOrTime.value = false;
   popup.value.show();
 };
 for (let i = 1960; i <= date.getFullYear(); i++) {
@@ -161,25 +192,32 @@ value.value = [
 /* 上传头像 */
 const chooseImage = () => {
   uni.chooseImage({
-    count: 1,
-    sizeType: ["original", "compressed"],
-    sourceType: ["album", "camera"],
     success: (res) => {
-      if (res.tempFiles instanceof Array) {
-        uni.showLoading({
-          title: "上传中",
-        });
-        postAvatars({ avatar: res.tempFiles[0] as File })
-          .then((r) => {
-            uni.showToast({
-              title: "上传成功",
-              icon: "success",
-              duration: 1000,
-            });
-            userInformation.value.avatarUrl = r.data.body.avatarUrl;
-          })
-          .catch(failResponseHandler);
-      }
+      const tempFilePath = res.tempFilePaths;
+      uni.uploadFile({
+        url: VITE_BASE_URL + "/avatar",
+        filePath: tempFilePath[0],
+        name: "avatar",
+        header: {
+          Authorization: "Bearer " + store.jsonWebToken,
+        },
+        success: (res) => {
+          console.log(res.data);
+        },
+        fail: (err) => {
+          console.log(err.errMsg);
+        },
+      });
+      // postAvatars({ avatar: res.tempFiles[0] as File })
+      //   .then((r) => {
+      //     uni.showToast({
+      //       title: "上传成功",
+      //       icon: "success",
+      //       duration: 1000,
+      //     });
+      //     userInformation.value.avatarUrl = r.data.body.avatarUrl;
+      //   })
+      //   .catch(failResponseHandler);
     },
     fail: () => {
       uni.showToast({
@@ -201,6 +239,10 @@ const bindChange = (e: { detail: { value: never } }) => {
   value.value = [val[0], val[1], val[2]];
   birthday.value = year + "-" + month + "-" + day;
   age.value = date.getFullYear() - year;
+  if (!birOrTime.value) {
+    store.userInformation.workingYears =
+      date.getFullYear() - years.value[val[0]];
+  }
 };
 const isConfirm = () => {
   userInformation.value.dateOfBirth = birthday.value;

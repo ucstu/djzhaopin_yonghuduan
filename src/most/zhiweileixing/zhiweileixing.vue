@@ -127,16 +127,27 @@ const filteredPositionNames = computed(() => {
   }
   return result;
 });
+
 const value = ref();
+const cityName = ref();
 onLoad((e) => {
   value.value = e.value;
+  cityName.value = e.city;
 });
 
 const positiontypes = (index: number) => {
   activePositionIndex.value = index;
   uni.$emit("positiontypes", positions.value[index]);
   if (value.value) {
-    uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei" });
+    uni.navigateTo({
+      url:
+        "/detail/xiangguanzhiwei/xiangguanzhiwei?name=" +
+        positions.value[index] +
+        "&data=" +
+        1 +
+        "&city=" +
+        cityName.value,
+    });
   } else {
     uni.navigateBack({
       delta: 1,

@@ -13,12 +13,12 @@
     >
       <image
         class="image-left"
-        src="@/static/icons/arrow-left-bold.png"
+        src="@/static/icons/arrow-left-blob.png"
         @click="goBack"
       />
       <view class="flex-col top-title">
-        <text class="justify-center text-top">{{ personnelName }}</text>
-        <text class="text-bottom">{{ companyAndJob }}</text>
+        <text class="justify-center text-top">{{ hrInfo.hrName }}</text>
+        <text class="text-bottom">{{ hrInfo.postName }}</text>
       </view>
     </view>
     <!-- #endif -->
@@ -27,12 +27,12 @@
     <view class="flex-row items-center group-top">
       <image
         class="image-left"
-        src="@/static/icons/arrow-left-blod.png"
+        src="@/static/icons/arrow-left-blob.png"
         @click="goBack"
       />
       <view class="flex-col top-title">
-        <text class="justify-center text-top">{{ personnelName }}</text>
-        <text class="justify-center text-bottom">{{ companyAndJob }}</text>
+        <text class="justify-center text-top">{{ hrInfo.hrName }}</text>
+        <text class="justify-center text-bottom">{{ hrInfo.postName }}</text>
       </view>
     </view>
     <!-- #endif -->
@@ -66,7 +66,10 @@
 <script lang="ts" setup>
 import BubbleBoxHr from "@/components/BubbleBox/BubbleBoxHr.vue";
 import BubbleBox from "@/components/BubbleBox/BubbleBoxUser.vue";
+import { getHrInfosP0 } from "@/services/services";
+import { HrInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
+import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 const store = useMainStore();
 
@@ -78,10 +81,17 @@ const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(30);
 
 /* #endif */
 
-const personnelName = ref("张三");
-const companyAndJob = ref("字节跳动 · 人事总监");
+const hrInfo = ref<HrInformation>({} as HrInformation);
 const inputValue = ref("");
 const message = ref("");
+
+onLoad((e) => {
+  if (e.Id) {
+    getHrInfosP0(e.Id).then((res) => {
+      hrInfo.value = res.data.body;
+    });
+  }
+});
 
 const sendMessage = () => {
   inputValue.value = message.value;

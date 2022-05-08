@@ -1,11 +1,12 @@
 <template>
-  <view class="flex-col items-center page">
+  <view class="flex-col justify-center items-center page">
     <view class="flex-col group-1">
       <text>登录</text>
       <view class="textarea">
         <view class="items-center phone-number">
           <input
             v-model="email"
+            class="text-input"
             style="padding-left: 20rpx"
             type="text"
             placeholder="请输入你的邮箱"
@@ -14,14 +15,15 @@
         <view class="items-center verification">
           <input
             v-model="password"
+            class="text-input"
             style="padding-left: 20rpx"
             type="password"
             placeholder="请输入密码"
           />
         </view>
       </view>
-      <view class="justify-center items-center next" @click="login">
-        <text>登录</text>
+      <view class="justify-center items-center" @click="login">
+        <button class="justify-center items-center next">登录</button>
       </view>
       <view class="flex-row items-center justify-between other-type">
         <text @click="forget">忘记密码？</text>
@@ -105,24 +107,32 @@ const login = () => {
       password: password.value,
     })
       .then((res) => {
-        store.jsonWebToken = res.data.body.token;
-        store.accountInformation = res.data.body.accountInformation;
-        getAxiosInstance(undefined).defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${res.data.body.token}`;
-        Promise.all([
-          getUserInfosP0(res.data.body.accountInformation.fullInformationId),
-          getUserInfosP0JobExpectations(
-            res.data.body.accountInformation.fullInformationId,
-            {}
-          ),
-        ])
-          .then((res) => {
-            store.userInformation = res[0].data.body;
-            store.jobExpectations = res[1].data.body.jobExpectations;
-            uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
-          })
-          .catch(failResponseHandler);
+        if (res.data.body.accountInformation.accountType === 2) {
+          uni.showToast({
+            title: "此账号为企业账号，请移步企业端登录",
+            icon: "none",
+            duration: 1000,
+          });
+        } else {
+          store.jsonWebToken = res.data.body.token;
+          store.accountInformation = res.data.body.accountInformation;
+          getAxiosInstance(undefined).defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${res.data.body.token}`;
+          Promise.all([
+            getUserInfosP0(res.data.body.accountInformation.fullInformationId),
+            getUserInfosP0JobExpectations(
+              res.data.body.accountInformation.fullInformationId,
+              {}
+            ),
+          ])
+            .then((res) => {
+              store.userInformation = res[0].data.body;
+              store.jobExpectations = res[1].data.body.jobExpectations;
+              uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+            })
+            .catch(failResponseHandler);
+        }
       })
       .catch(failResponseHandler);
   }
@@ -139,13 +149,15 @@ const forget = () => {
 <style lang="scss" scoped>
 .page {
   width: 100%;
-  height: 100%;
+  height: 1334rpx;
 
   .group-1 {
-    position: relative;
-    top: 200rpx;
-    width: 600rpx;
+    width: 80%;
     font-size: 40rpx;
+
+    .text-input {
+      width: 100%;
+    }
 
     .textarea {
       height: 160rpx;
@@ -197,7 +209,7 @@ const forget = () => {
   }
 
   .group-2 {
-    position: fixed;
+    position: absolute;
     bottom: 100rpx;
     font-size: 20rpx;
     line-height: 40rpx;

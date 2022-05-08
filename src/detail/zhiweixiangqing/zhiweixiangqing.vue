@@ -92,6 +92,7 @@
         style="width: 100%; height: 300px; margin-top: 20rpx"
         :latitude="jobInformation.workingPlace.latitude"
         :longitude="jobInformation.workingPlace.longitude"
+        :markers="markers"
       >
       </map>
     </view>
@@ -115,7 +116,7 @@
     </view>
     <button
       class="justify-center items-center btn-common"
-      @click="communication"
+      @click="communication(jobInformation.hrInformationId)"
     >
       立即沟通
     </button>
@@ -136,8 +137,10 @@
   >
     <view class="send-resume-box">
       <view class="flex-col justify-center resume-box">
-        <text class="justify-end">上传附件 ></text>
-        <view class="flex-row justify-between items-center resume">
+        <view
+          class="flex-row justify-between items-center resume"
+          @click="viewResume"
+        >
           <view class="online-resume">
             <text>在线简历</text>
           </view>
@@ -155,12 +158,12 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
-deleteUserInfosP0GarnerRecordsP1,
-getCompanyInfosP0,
-getCompanyInfosP0PositionInfosP1,
-getUserInfosP0GarnerRecords,
-postUserInfosP0DeliveryRecords,
-postUserInfosP0GarnerRecords
+  deleteUserInfosP0GarnerRecordsP1,
+  getCompanyInfosP0,
+  getCompanyInfosP0PositionInfosP1,
+  getUserInfosP0GarnerRecords,
+  postUserInfosP0DeliveryRecords,
+  postUserInfosP0GarnerRecords,
 } from "@/services/services";
 import { CompanyInformation, PositionInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
@@ -201,6 +204,16 @@ const scales = [
 /* 周末休息时间 */
 const weekendReleaseTime = ref(["", "周末双休", "周末单休", "大小周"]);
 
+const markers = ref([
+  {
+    id: 0,
+    latitude: 0,
+    longitude: 0,
+    iconPath: "../../static/icons/location.svg",
+    width: 30,
+    height: 30,
+  },
+]);
 const companyInformation = ref<CompanyInformation>({} as CompanyInformation); // 公司信息
 const companyId = ref(""); // 公司id
 const positionId = ref(""); // 职位id
@@ -212,7 +225,8 @@ onLoad((e) => {
     getCompanyInfosP0PositionInfosP1(companyId.value, positionId.value)
       .then((res) => {
         jobInformation.value = res.data.body;
-        console.log(res.data.body);
+        markers.value[0].latitude = res.data.body.workingPlace.latitude;
+        markers.value[0].longitude = res.data.body.workingPlace.longitude;
       })
       .catch(failResponseHandler);
     getCompanyInfosP0(companyId.value)
@@ -289,14 +303,13 @@ const collection = () => {
   }
 };
 // 沟通HR
-const communication = () => {
-  uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });
+const communication = (i: string) => {
+  uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian?Id=" + i });
 };
 // 投递简历
 const sendResume = () => {
   popup.value.show();
 };
-// 投递简历
 const send = () => {
   postUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
     positionInformationId: positionId.value,
@@ -313,12 +326,16 @@ const send = () => {
     .catch(failResponseHandler);
   popup.value.hide();
 };
+
+const viewResume = () => {
+  uni.navigateTo({ url: "/info/viewresume/viewresume" });
+};
 </script>
 
 <style lang="scss" scoped>
 .page {
   width: 710rpx;
-  height: auto;
+  height: 1400rpx;
   margin-left: 20rpx;
   overflow-y: auto;
 

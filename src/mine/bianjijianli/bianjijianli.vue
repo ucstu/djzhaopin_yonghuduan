@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar title="在线简历" />
+  <NavigationBar title="在线简历" right="预览" @right-click="viewResume" />
   <view class="flex-col page">
     <view class="flex-col group-all">
       <view class="flex-col group-user">
@@ -14,9 +14,9 @@
             </view>
             <view>
               <text style="font-size: 30rpx"
-                >{{ store.userInformation.age }}岁/{{
-                  education[store.userInformation.education]
-                }}</text
+                >{{ store.userInformation.workingYears }}年工作经验/{{
+                  store.userInformation.age
+                }}岁/{{ education[store.userInformation.education] }}</text
               >
             </view>
           </view>
@@ -182,7 +182,7 @@ import { ref } from "vue";
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useMainStore();
 
-const education = ref(["", "大专", "本科", "硕士", "博士"]);
+const education = ref(["未知", "大专", "本科", "硕士", "博士"]);
 
 // 工作经历
 const workExperiences = ref<WorkExperience[]>([]);
@@ -201,16 +201,21 @@ onShow(() => {
   // 查询所有教育经历
   getUserInfosP0EduExperiences(store.accountInformation.fullInformationId, {})
     .then((res) => {
-      educationExperiences.value = res.data.body.educationExperiences;
-      store.userInformation.education = educationExperiences.value[0].education;
-      for (var i = 0; i <= educationExperiences.value.length; i++) {
-        if (
-          store.userInformation.education <
-          educationExperiences.value[i].education
-        ) {
-          store.userInformation.education =
-            educationExperiences.value[i].education;
+      if (res.data.body.educationExperiences.length > 0) {
+        educationExperiences.value = res.data.body.educationExperiences;
+        store.userInformation.education =
+          educationExperiences.value[0].education;
+        for (var i = 0; i <= educationExperiences.value.length; i++) {
+          if (
+            store.userInformation.education <
+            educationExperiences.value[i].education
+          ) {
+            store.userInformation.education =
+              educationExperiences.value[i].education;
+          }
         }
+      } else {
+        store.userInformation.education = 0;
       }
     })
     .catch(failResponseHandler);
@@ -292,6 +297,10 @@ const alterProject = (index: number) => {
       "&deleteProject=" +
       deleteProject.value,
   });
+};
+
+const viewResume = () => {
+  uni.navigateTo({ url: "/info/viewresume/viewresume" });
 };
 </script>
 

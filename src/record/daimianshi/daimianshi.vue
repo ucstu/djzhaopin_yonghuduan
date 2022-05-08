@@ -36,11 +36,13 @@ const sendType = ref("放弃面试");
 /* 查询待面试职位信息 */
 onLoad((e) => {
   if (e.interviewPosition) {
+    console.log("待面试职位信息", e.interviewPosition);
     interviewed.value = JSON.parse(e.interviewPosition);
+    console.log("interviewed", interviewed.value);
     for (const interview of interviewed.value) {
       getCompanyInfosP0PositionInfosP1(
-        interview.positionInformationId,
-        interview.companyInformationId
+        interview.companyInformationId,
+        interview.positionInformationId
       )
         .then((res) => {
           interviewedJobs.value.push(res.data.body);

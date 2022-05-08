@@ -33,7 +33,7 @@
       </view> -->
       <view class="flex-col basic-profile">
         <view class="items-center profile">基本简介</view>
-        <view class="flex-col abstract">
+        <view v-if="companyInfo.about === ''" class="flex-col abstract">
           <text class="us">关于我们</text>
           <view class="abstract-info">
             <text>{{ companyInfo.about }}</text>
@@ -83,7 +83,10 @@
         <text>关注</text>
       </view>
       <view class="justify-center items-center" style="width: 70%">
-        <button class="justify-center items-center btn-send-resume">
+        <button
+          class="justify-center items-center btn-send-resume"
+          @click="jobOpening"
+        >
           在招职位
         </button>
       </view>
@@ -96,17 +99,40 @@
     >
     </map>
   </view>
+  <wybPopup
+    ref="popup"
+    :show-close-icon="false"
+    :height="1200"
+    :radius="10"
+    mode="size-auto"
+    type="bottom"
+  >
+    <JobDetail
+      v-for="(position, i) in positionInfo"
+      :key="i"
+      :job-detail="position"
+      @job-click="
+        jobClick(position.positionInformationId, position.companyInformationId)
+      "
+    />
+    <view v-if="emptyShow" class="justify-center image">
+      <image src="@/static/icons/nodata.svg" />
+    </view>
+  </wybPopup>
 </template>
 
 <script lang="ts" setup>
+import JobDetail from "@/components/JobDetail/JobDetail.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import {
   deleteUserInfosP0AttentionRecordsP1,
   getCompanyInfosP0,
+  getCompanyInfosP0PositionInfos,
   getUserInfosP0AttentionRecords,
   postUserInfosP0AttentionRecords,
 } from "@/services/services";
-import { CompanyInformation } from "@/services/types";
+import { CompanyInformation, PositionInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
@@ -116,7 +142,9 @@ const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useMainStore();
 
 const companyInfo = ref<CompanyInformation>({} as CompanyInformation);
+const positionInfo = ref<PositionInformation[]>([]);
 const companyId = ref();
+const emptyShow = ref(false);
 /* 融资阶段 */
 const financingStages = [
   "",
@@ -219,6 +247,28 @@ const focusOn = () => {
       })
       .catch(failResponseHandler);
   }
+};
+/* 查看在招职位 */
+const popup = ref();
+const jobOpening = () => {
+  getCompanyInfosP0PositionInfos(companyId.value, {}).then((res) => {
+    positionInfo.value = res.data.body.positionInformations;
+    if (positionInfo.value.length === 0) {
+      emptyShow.value = true;
+    }
+  });
+  popup.value.show();
+};
+
+const jobClick = (p: string, c: string) => {
+  uni.navigateTo({
+    url:
+      "/detail/zhiweixiangqing/zhiweixiangqing?companyId=" +
+      c +
+      "&positionId=" +
+      p,
+  });
+  popup.value.hide();
 };
 </script>
 

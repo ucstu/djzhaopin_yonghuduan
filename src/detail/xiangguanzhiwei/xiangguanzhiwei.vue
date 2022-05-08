@@ -1,14 +1,11 @@
 <template>
-  <SearchBar></SearchBar>
+  <SearchBar :city="cityName"></SearchBar>
   <view class="justify-between about">
     <text class="justify-center text-title" @click="checkPosition">职位</text>
     <text class="justify-center text-title" @click="checkCompany">公司</text>
   </view>
   <FilterBar v-if="position"></FilterBar>
   <SearchAndFilter v-if="company"></SearchAndFilter>
-  <view v-if="emptyShow" class="justify-center image">
-    <image src="@/static/icons/nodata.svg" />
-  </view>
 </template>
 
 <script lang="ts" setup>
@@ -20,19 +17,20 @@ import { ref } from "vue";
 
 const position = ref(false);
 const company = ref(false);
-const emptyShow = ref(false);
+const cityName = ref("");
 
 onLoad((e) => {
+  if (e.city) {
+    cityName.value = e.city;
+  }
   if (e.data) {
     let data = parseInt(e.data);
     if (data) {
       if (data === 1) {
-        company.value = true;
+        position.value = true;
       } else {
-        emptyShow.value = true;
+        company.value = true;
       }
-    } else {
-      position.value = true;
     }
   }
 });

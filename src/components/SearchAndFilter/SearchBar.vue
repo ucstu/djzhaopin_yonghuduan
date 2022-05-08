@@ -19,7 +19,7 @@
     >
   <!-- #endif -->
       <view class="flex-row" style="width: 100%">
-        <text class="city" @click="textOnClick">{{ cityName }}</text>
+        <text class="city" @click="textOnClick">{{ city }}</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528773197745663.png"
           class="image"
@@ -42,7 +42,6 @@
 import { getCompanyInfos, getCompanyInfosPositionInfos } from "@/services/services";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const store = useMainStore();
@@ -56,17 +55,15 @@ const navigationBarTop = store.menuButtonInformation.top - uni.upx2px(45);
 const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(50);
 /* #endif */
 
-const cityName = ref("");
+const props = defineProps({
+  city: {
+    type: String,
+    default: "",
+  },
+})
 const searchContent = ref("");
 
-onLoad((e) => {
-  if(e.city){
-  cityName.value = e.city;
-  }
-  uni.$on("liveCity", (city: string) => {
-    cityName.value = city;
-  });
-});
+
 
 const textOnClick = () => {
   uni.navigateTo({ url: "/most/chengshixuanze/chengshixuanze" });
@@ -76,16 +73,18 @@ const searchOnClick = () => {
     getCompanyInfosPositionInfos({
       positionName: searchContent.value,
     }).then((res) => {
-      if(res.data.body.positionInformations.length === 0){
-        uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei?value=" + searchContent.value + "&data=" + 0 });
+      if(res.data.body.positionInformations.length !== 0){
+        let item = encodeURIComponent(JSON.stringify(res.data.body.positionInformations));
+        uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei?position=" + item + "&data=" + 1 + "&city=" + props.city });
       }else {
         getCompanyInfos({
         companyName: searchContent.value,
       }).then((res) => {
-        if(res.data.body.companyInformations.length === 0){
-          uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei?value=" + searchContent.value + "&data=" + 1 });
+        if(res.data.body.companyInformations.length !== 0){
+          let item = encodeURIComponent(JSON.stringify(res.data.body.companyInformations));
+          uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei?company=" + item + "&data=" + 2 + "&city=" + props.city });
         }else{
-          uni.navigateTo({url: "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" + 2});}
+          uni.navigateTo({url: "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" + 1 +"&searchCode=" + 0 + "&city=" + props.city});}
       }).catch(failResponseHandler);
       }
     }).catch(failResponseHandler)
@@ -98,7 +97,7 @@ const searchOnClick = () => {
   }
 }
 const text_1OnClick = () => {
-  uni.navigateBack({ delta: 99999999 });
+ uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
 };
 </script>
 
@@ -149,6 +148,7 @@ const text_1OnClick = () => {
 
       .search-text {
         align-self: center;
+        width: 90%;
         margin-left: 11rpx;
         font-size: 25rpx;
       }

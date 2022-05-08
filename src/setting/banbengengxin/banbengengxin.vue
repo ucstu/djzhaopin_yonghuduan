@@ -1,25 +1,27 @@
 <template>
   <NavigationBar title="版本更新" />
-  <view class="flex-row page">
+  <view class="flex-col page">
     <view class="flex-col main">
       <image
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478529383979520523.png"
         class="logo"
       />
       <text class="version">当前版本 {{ versionNum }}</text>
-      <view class="justify-between bar-text" @click="checkVersion">
-        <text class="text-1">版本更新</text>
-        <text class="text-2">{{ newVersion }}</text>
+      <view class="justify-between items-center bar-text" @click="checkVersion">
+        <text>版本更新</text>
+        <text style="padding-right: 10rpx; font-size: 25rpx">{{
+          newVersion
+        }}</text>
       </view>
-      <view class="bar-arrow justify-between">
-        <text class="text-3">新手指南</text>
+      <view class="justify-between items-center bar-text">
+        <text>新手指南</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478529383973147024.png"
           class="image-1"
         />
       </view>
-      <view class="bar-arrow justify-between">
-        <text class="text-3">经营资质</text>
+      <view class="justify-between items-center bar-text">
+        <text>经营资质</text>
         <image
           src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478529383973147024.png"
           class="image-1"
@@ -84,25 +86,14 @@ const text_9OnClick = () => {
 
 <style lang="scss" scoped>
 .page {
-  position: relative;
   width: 100%;
   height: 1334rpx;
-  padding-bottom: 26rpx;
   overflow-y: auto;
-  background-color: rgb(255 255 255);
-
-  .header {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-  }
 
   .main {
-    position: absolute;
-    top: 110rpx;
-    right: 20rpx;
-    left: 20rpx;
+    width: 100%;
+    height: auto;
+    font-size: 30rpx;
 
     .logo {
       align-self: center;
@@ -120,60 +111,27 @@ const text_9OnClick = () => {
     }
 
     .bar-text {
+      width: 93%;
       height: 100rpx;
-      padding: 36rpx 21rpx 34rpx;
-      margin-top: 23rpx;
-      overflow: hidden;
-      border: solid 2rpx rgb(210 210 210);
-      border-radius: 5rpx;
-
-      .text-1 {
-        font-size: 30rpx;
-        line-height: 28rpx;
-        color: rgb(0 0 0);
-        white-space: nowrap;
-      }
-
-      .text-2 {
-        margin-top: 2rpx;
-        margin-right: 7rpx;
-        font-size: 25rpx;
-        line-height: 23rpx;
-        color: rgb(0 0 0 / 50%);
-        white-space: nowrap;
-      }
-    }
-
-    .bar-arrow {
-      height: 100rpx;
-      padding: 34rpx 16rpx 30rpx 21rpx;
-      margin-top: 8rpx;
-      overflow: hidden;
+      margin-top: 20rpx;
+      margin-left: 3%;
       font-size: 30rpx;
-      line-height: 28rpx;
-      color: rgb(0 0 0);
-      white-space: nowrap;
       border: solid 2rpx rgb(210 210 210);
       border-radius: 5rpx;
-
-      .text-3 {
-        margin-bottom: 4rpx;
-      }
 
       .image-1 {
         width: 20rpx;
         height: 32rpx;
+        margin-right: 10rpx;
       }
     }
   }
 
   .footer {
-    position: absolute;
-    right: 20rpx;
-    bottom: 26rpx;
-    left: 20rpx;
-    padding-right: 58rpx;
-    padding-left: 67rpx;
+    position: relative;
+    top: 200rpx;
+    width: 100%;
+    height: auto;
 
     .protocol-strategy {
       align-self: center;

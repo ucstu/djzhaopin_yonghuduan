@@ -6,7 +6,7 @@
       <text class="text-1">手机存储</text>
     </view>
     <text class="text-2">分类浏览</text>
-    <view class="flex-row items-center group-2">
+    <view class="flex-row items-center group-2" @click="chooseImage">
       <image src="@/static/icons/picture.png" class="image-2" />
       <text class="text-1">图片</text>
     </view>
@@ -27,6 +27,15 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+
+const chooseImage = () => {
+  uni.chooseImage({
+    success: (res) => {
+      const tempFilePath = res.tempFilePaths;
+      console.log(tempFilePath[0]);
+    },
+  });
+};
 </script>
 
 <style lang="scss" scoped>

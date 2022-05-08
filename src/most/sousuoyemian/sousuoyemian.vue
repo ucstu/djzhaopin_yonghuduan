@@ -1,5 +1,5 @@
 <template>
-  <SearchBar></SearchBar>
+  <SearchBar :city="cityName"></SearchBar>
   <view class="page">
     <view class="justify-between group-1" @click="searchType">
       <text class="text-3">按职位类型搜索</text>
@@ -42,7 +42,8 @@
 
 <script lang="ts" setup>
 import SearchBar from "@/components/SearchAndFilter/SearchBar.vue";
-import { reactive } from "vue";
+import { onLoad } from "@dcloudio/uni-app";
+import { reactive, ref } from "vue";
 
 const popularPositions = reactive([
   "java",
@@ -70,26 +71,51 @@ const popularCompanies = reactive([
   "安居客",
   "小米集团",
 ]);
+
+const cityName = ref("");
+
+onLoad((e) => {
+  if (e.city) {
+    cityName.value = e.city;
+  }
+  uni.$on("liveCity", (city: string) => {
+    cityName.value = city;
+  });
+});
+
+// 根据职位类型搜索
 const searchType = () => {
   let value = true;
-  uni.navigateTo({ url: `/most/zhiweileixing/zhiweileixing?value=` + value });
+  uni.navigateTo({
+    url:
+      `/most/zhiweileixing/zhiweileixing?value=` +
+      value +
+      `&city=` +
+      cityName.value,
+  });
 };
+// 搜索职位
 const positionClick = (index: number) => {
   uni.navigateTo({
     url:
       "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" +
-      0 +
-      "&value=" +
-      popularPositions[index],
+      1 +
+      "&name=" +
+      popularPositions[index] +
+      "&city=" +
+      cityName.value,
   });
 };
+// 搜索公司
 const companyClick = (index: number) => {
   uni.navigateTo({
     url:
       "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" +
-      1 +
-      "&value=" +
-      popularCompanies[index],
+      2 +
+      "&name=" +
+      popularCompanies[index] +
+      "&city=" +
+      cityName.value,
   });
 };
 </script>

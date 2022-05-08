@@ -191,10 +191,11 @@
         <view class="job-content-box">
           <textarea
             v-model="companyContent"
-            :maxlength="-1"
+            maxlength="150"
             class="textarea"
             placeholder="请填写相关的工作内容"
           />
+          <text class="justify-end">({{ companyContent.length }}/150)</text>
         </view>
       </view>
     </wybPopup>
@@ -502,10 +503,7 @@ const deleteWorkExperience = () => {
       width: 650rpx;
       height: 500rpx;
       padding-left: 20rpx;
-      overflow: hidden;
       font-size: 28rpx;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
   }
 

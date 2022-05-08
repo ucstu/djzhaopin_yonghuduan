@@ -23,6 +23,9 @@
         />
       </view>
     </view>
+    <view v-if="emptyShow" class="justify-center image">
+      <image src="@/static/icons/nodata.svg" />
+    </view>
     <scroll-view :scroll-y="true" class="job-scroll">
       <JobDetail
         v-for="(JobDetailer, i) in jobDetails"
@@ -71,32 +74,58 @@ import { ref } from "vue";
 const jobDetails = ref<PositionInformation[]>([]);
 const sortValue = ["综合排序", "距离优先", "薪资待遇", "学历要求", "工作经验"];
 const sortval = ref(sortValue[0]);
+const positionName = ref("");
+const emptyShow = ref(false);
 
 onLoad((e) => {
-  if (e.value !== undefined) {
+  if (e.position) {
+    jobDetails.value = JSON.parse(e.position);
+  }
+  if (e.searchCode) {
+    let data = parseInt(e.searchCode);
+    if (!data) {
+      emptyShow.value = true;
+    }
+  }
+  if (e.company) {
+    emptyShow.value = true;
+  }
+  if (e.name) {
+    positionName.value = e.name;
     getCompanyInfosPositionInfos({
-      positionName: e.value,
+      positionType: positionName.value,
     }).then((res) => {
       jobDetails.value = res.data.body.positionInformations;
+      if (res.data.body.positionInformations.length === 0) {
+        emptyShow.value = true;
+      }
     });
   }
-});
-
-const toPositions = (p: string, c: string) => {
-  uni.navigateTo({
-    url:
-      "/detail/zhiweixiangqing/zhiweixiangqing?companyId=" +
-      c +
-      "&positionId=" +
-      p,
+  // 筛选职位
+  uni.$on("filter", (data) => {
+    getCompanyInfosPositionInfos({
+      positionType: positionName.value,
+      educations: data.degree as (1 | 5 | 2 | 3 | 4)[],
+      workingYears: data.experience as (1 | 5 | 2 | 3 | 4 | 6)[],
+      workTypes: data.nature as (1 | 2 | 3)[],
+      scales: data.size as (1 | 5 | 2 | 3 | 4 | 6)[],
+      financingStages: data.stage as (2 | 1 | 3 | 4 | 5 | 6 | 7 | 8)[],
+    }).then((res) => {
+      jobDetails.value = res.data.body.positionInformations;
+      if (res.data.body.positionInformations.length === 0) {
+        emptyShow.value = true;
+      }
+    });
   });
-};
+});
 
 const popup = ref();
 const sort = () => {
   popup.value.show();
 };
 const sortNum = ref(0);
+
+// 选择排序
 const sortChoose = (index: number) => {
   sortNum.value = index;
   sortval.value = sortValue[index];
@@ -134,6 +163,18 @@ const sortChoose = (index: number) => {
   popup.value.hide();
 };
 
+// 查看职位详情
+const toPositions = (p: string, c: string) => {
+  uni.navigateTo({
+    url:
+      "/detail/zhiweixiangqing/zhiweixiangqing?companyId=" +
+      c +
+      "&positionId=" +
+      p,
+  });
+};
+
+// 筛选跳转
 const filter = () => {
   uni.navigateTo({
     url: "/most/shaixuanyemian/shaixuanyemian",

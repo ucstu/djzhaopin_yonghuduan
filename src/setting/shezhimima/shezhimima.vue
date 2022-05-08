@@ -48,15 +48,23 @@
       </view>
     </view>
     <view class="group-box">
-      <text class="text-title">输入验证码</text>
-      <view class="flex-row justify-between items-center">
-        <input
-          v-model="vCode"
-          class="text-input"
-          type="number"
-          placeholder="请输入验证码"
-          maxlength="4"
-        />
+      <view>
+        <text class="text-title">输入验证码</text>
+        <view class="flex-row justify-between items-center">
+          <input
+            v-model="vCode"
+            class="text-input"
+            type="number"
+            placeholder="请输入验证码"
+            maxlength="4"
+          />
+        </view>
+        <button
+          class="justify-center items-center btn"
+          @click="getVerification"
+        >
+          获取验证码
+        </button>
       </view>
     </view>
     <view class="justify-center group-button">
@@ -84,17 +92,20 @@ const seen2 = ref(false);
 const typeText = ref("text");
 const typePassword = ref("password");
 
-getVerificationCode({
-  email: store.accountInformation.userName,
-})
-  .then((res) => {
-    uni.showToast({
-      title: "验证码已发送",
-      duration: 1000,
-      icon: "none",
-    });
+const getVerification = () => {
+  getVerificationCode({
+    email: store.accountInformation.userName,
   })
-  .catch(failResponseHandler);
+    .then((res) => {
+      uni.showToast({
+        title: "验证码已发送",
+        duration: 1000,
+        icon: "none",
+      });
+    })
+    .catch(failResponseHandler);
+};
+
 const savePassWord = () => {
   if (password.value !== password2.value) {
     uni.showToast({
@@ -165,6 +176,15 @@ const changeWord2 = () => {
     .text-input {
       padding-left: 20rpx;
       font-size: 32rpx;
+    }
+
+    .btn {
+      width: 200rpx;
+      height: 60rpx;
+      margin: 0;
+      font-size: 25rpx;
+      background-color: rgb(230 230 230);
+      border-radius: 5rpx;
     }
   }
 

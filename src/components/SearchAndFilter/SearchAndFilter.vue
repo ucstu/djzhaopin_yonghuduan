@@ -1,12 +1,5 @@
 <template>
   <view class="flex-row equal">
-    <view class="items-center justify-center equal-div" @click="filterCompany">
-      <text>筛选</text>
-      <image
-        class="image"
-        src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
-      />
-    </view>
     <view class="items-center justify-center equal-div" @click="sort">
       <text>{{ sortval }}</text>
       <image
@@ -14,6 +7,16 @@
         src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
       />
     </view>
+    <view class="items-center justify-center equal-div" @click="filterCompany">
+      <text>筛选</text>
+      <image
+        class="image"
+        src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16478528775248822692.png"
+      />
+    </view>
+  </view>
+  <view v-if="emptyShow" class="justify-center image">
+    <image src="@/static/icons/nodata.svg" />
   </view>
   <view class="company-detail">
     <CompanyDetail
@@ -52,31 +55,68 @@ import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
 import { getCompanyInfos } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
+import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const companyInfos = ref<CompanyInformation[]>([]);
 const sortValue = ["综合排序", "距离优先", "公司规模", "融资阶段"];
 const sortval = ref(sortValue[0]);
+const emptyShow = ref(false);
+const companyName = ref("");
 
 onLoad((e) => {
-  if (e.value !== undefined) {
-    getCompanyInfos({
-      companyName: e.value,
-    }).then((res) => {
-      companyInfos.value = res.data.body.companyInformations;
-    });
+  if (e.company) {
+    companyInfos.value = JSON.parse(e.company);
   }
+  if (e.searchCode) {
+    let data = parseInt(e.searchCode);
+    if (!data) {
+      emptyShow.value = true;
+    }
+  }
+  if (e.position) {
+    emptyShow.value = true;
+  }
+  if (e.name) {
+    companyName.value = e.name;
+    getCompanyInfos({
+      companyName: companyName.value,
+    })
+      .then((res) => {
+        companyInfos.value = res.data.body.companyInformations;
+        if (res.data.body.companyInformations.length === 0) {
+          emptyShow.value = true;
+        }
+      })
+      .catch(failResponseHandler);
+  }
+  uni.$on("filter", (data) => {
+    getCompanyInfos({
+      companyName: companyName.value,
+      scales: data.size as (1 | 5 | 2 | 3 | 4 | 6)[],
+      financingStages: data.stage as (2 | 1 | 3 | 4 | 5 | 6 | 7 | 8)[],
+    })
+      .then((res) => {
+        companyInfos.value = res.data.body.companyInformations;
+        if (res.data.body.companyInformations.length === 0) {
+          emptyShow.value = true;
+        }
+      })
+      .catch(failResponseHandler);
+  });
 });
 
 const filterCompany = () => {
-  return;
+  uni.navigateTo({ url: "/most/shaixuanyemian/shaixuanyemian" });
 };
 const popup = ref();
 const sort = () => {
   popup.value.show();
 };
 const sortNum = ref(0);
+
+// 选择排序
 const sortChoose = (index: number) => {
   sortNum.value = index;
   sortval.value = sortValue[index];
@@ -108,6 +148,7 @@ const sortChoose = (index: number) => {
   popup.value.hide();
 };
 
+// 公司详情页面跳转
 const toCompanyInfo = (c: string) => {
   uni.navigateTo({
     url: "/detail/gongsijieshao/gongsijieshao?companyId=" + c,

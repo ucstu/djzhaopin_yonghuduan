@@ -105,7 +105,7 @@ const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useMainStore();
 
 const userInfos = ref<UserInformation>({} as UserInformation);
-const education = ref(["", "大专", "本科", "硕士", "博士"]);
+const education = ref(["未知", "大专", "本科", "硕士", "博士"]);
 const fullName = ref();
 const deliveryNum = ref(0);
 const deliveryRecords = ref<DeliveryRecord[]>([]);
@@ -178,9 +178,7 @@ const onClick_3 = () => {
 const onClick_4 = () => {
   let item = encodeURIComponent(JSON.stringify(interviewPosition.value));
   uni.navigateTo({
-    url:
-      "/record/daimianshi/daimianshi?interviewPosition=" +
-      interviewPosition.value,
+    url: "/record/daimianshi/daimianshi?interviewPosition=" + item,
   });
 };
 const onClick_5 = () => {
