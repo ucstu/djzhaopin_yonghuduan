@@ -5,6 +5,11 @@ import {
   getUserInfosP0JobExpectations,
 } from "@/services/services";
 import { useMainStore } from "@/stores/main";
+/* #ifndef H5 */
+import WebSocketPolyfill from "@/utils/socket";
+window.WebSocket = global.WebSocket =
+  WebSocketPolyfill as unknown as typeof WebSocket;
+/* #endif */
 
 const store = useMainStore();
 

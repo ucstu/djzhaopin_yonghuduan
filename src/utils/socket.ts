@@ -1,83 +1,67 @@
-// @ts-nocheck
-
-import { useMainStore } from "@/stores/main";
-import Stomp from "stompjs";
-
-let socketOpen = false;
-let socketMsgQueue: any[] = [];
-
-const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
-const store = useMainStore();
-
-export default {
-  client: null as Stomp.Client,
-  baseURL: `${VITE_BASE_URL.replace(/^http/, "ws")}/ws`,
-  header: {
-    Authorization: "Bearer " + store.jsonWebToken,
-  },
-  init() {
-    if (this.client) {
-      return Promise.resolve(this.client);
-    }
-
-    return new Promise((resolve, reject) => {
-      const ws = {
-        send: this.sendMessage,
-        onopen: null,
-        onmessage: null,
-        close: this.closeSocket,
-      };
-
-      uni.connectSocket({
-        url: this.baseURL,
-        header: this.header,
-      });
-
-      uni.onSocketOpen(function (res) {
-        socketOpen = true;
-        for (const element of socketMsgQueue) {
-          ws.send(element);
-        }
-        socketMsgQueue = [];
-        ws.onopen && ws.onopen();
-      });
-
-      uni.onSocketMessage(function (res) {
-        ws.onmessage && ws.onmessage(res);
-      });
-
-      uni.onSocketClose((res) => {
-        this.client.disconnect();
-        this.client = null;
-        socketOpen = false;
-      });
-
-      Stomp.setInterval = function (interval, f) {
-        return setInterval(f, interval);
-      };
-      Stomp.clearInterval = function (id) {
-        return clearInterval(id);
-      };
-
-      const client = (this.client = Stomp.over(ws));
-      client.connect(this.header, function () {
-        resolve(client);
-      });
+class WebSocketPolyfill {
+  constructor(url: string, protocols?: string[]) {
+    // 创建连接
+    uni.connectSocket({
+      url: url,
+      protocols: protocols,
     });
-  },
-  disconnect() {
+
+    // 连接开启
+    uni.onSocketOpen((res) => {
+      this.onopen(res);
+    });
+
+    // 连接关闭
+    uni.onSocketClose((res) => {
+      this.onclose(res);
+    });
+
+    // 连接异常
+    uni.onSocketError((res) => {
+      this.onerror(res);
+    });
+
+    // 接收消息
+    uni.onSocketMessage((res) => {
+      this.onmessage(res);
+    });
+  }
+
+  /**
+   * 连接开启
+   */
+  onopen(res: UniApp.OnSocketOpenCallbackResult) {}
+
+  /**
+   * 连接关闭
+   */
+  onclose(res: UniApp.GeneralCallbackResult) {}
+
+  /**
+   * 连接异常
+   */
+  onerror(res: UniApp.GeneralCallbackResult) {}
+
+  /**
+   * 接收消息
+   */
+  onmessage(res: UniApp.OnSocketMessageCallbackResult) {}
+
+  /**
+   * 发送消息
+   */
+  send(data: any) {
+    uni.sendSocketMessage({
+      data: data,
+    });
+  }
+
+  /**
+   * 关闭连接
+   */
+  close() {
     uni.closeSocket({});
-  },
-  sendMessage(message: any) {
-    if (socketOpen) {
-      uni.sendSocketMessage({
-        data: message,
-      });
-    } else {
-      socketMsgQueue.push(message);
-    }
-  },
-  closeSocket() {
-    console.log("closeSocket");
-  },
-};
+  }
+}
+
+export default WebSocketPolyfill;

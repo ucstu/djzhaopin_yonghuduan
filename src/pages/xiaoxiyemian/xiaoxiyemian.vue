@@ -55,17 +55,48 @@
 
 <script lang="ts" setup>
 import MailBar from "@/components/MailBar/MailBar.vue";
-import Socket from "@/utils/socket";
+import { useMainStore } from "@/stores/main";
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
+const store = useMainStore();
 
-Socket.init().then(() => {
-  console.log("init success");
+const socket = new SockJS(`${VITE_BASE_URL.replace(/^http/, "ws")}/ws`, [], {
+  transports: "websocket",
 });
 
-Socket.client.subscribe("/user/queue/message", (data) => {
-  console.log(data);
-});
+const stompClient = Stomp.over(socket);
+
+stompClient.connect(
+  { Authorization: "Bearer " + store.jsonWebToken },
+  function (frame) {
+    stompClient.subscribe("/user/queue/message", function (message) {
+      console.log(message.body);
+      sendMessage("hello", 1, store.accountInformation.fullInformationId, 1);
+    });
+  }
+);
+
+const sendMessage = (
+  content: string,
+  messageType: number,
+  serviceId: string,
+  serviceType: number
+) => {
+  stompClient.send(
+    "/message",
+    {},
+    JSON.stringify({
+      content,
+      initiateId: store.accountInformation.fullInformationId,
+      initiateType: 1,
+      messageType,
+      serviceId,
+      serviceType,
+    })
+  );
+};
 
 const toMyDelivery = () => {
   uni.navigateTo({ url: "/record/toudijilu/toudijilu" });
