@@ -52,10 +52,7 @@
       </view>
       <view class="flex-col group-box" @click="changePopup">
         <text class="caption">参加工作时间</text>
-        <input
-          v-model="store.userInformation.workingYears"
-          class="user-value"
-        />
+        <text class="user-value">{{ workTime }}</text>
       </view>
       <view class="justify-center button-box">
         <view
@@ -95,19 +92,37 @@
             >
           </picker-view-column>
         </picker-view>
-        <picker-view
-          v-if="!birOrTime"
-          :value="value"
-          class="picker-view"
-          @change="bindChange"
-        >
-          <picker-view-column>
-            <view v-for="(item, index) in years" :key="index" class="item"
-              >{{ item }}年</view
+        <view v-if="!birOrTime">
+          <view
+            style="
+              width: 90%;
+              height: 100rpx;
+              margin-top: 20rpx;
+              margin-left: 5%;
+            "
+            class="justify-end"
+          >
+            <text style="margin-right: 30rpx" @click="isCancel">取消</text>
+            <text style="color: rgb(35 193 158)" @click="workConfirm"
+              >确认</text
             >
-          </picker-view-column>
-        </picker-view>
-        <view class="flex-row confirm-box">
+          </view>
+          <picker-view
+            :value="worktime"
+            class="picker-view"
+            @change="bindChange"
+          >
+            <picker-view-column>
+              <view
+                v-for="(item, index) in workYear"
+                :key="index"
+                class="item"
+                >{{ item }}</view
+              >
+            </picker-view-column>
+          </picker-view>
+        </view>
+        <view v-if="birOrTime" class="flex-row confirm-box">
           <text class="justify-center items-center cancel" @click="isCancel"
             >取消</text
           >
@@ -138,6 +153,16 @@ const userInformation = ref<UserInformation>({ ...store.userInformation });
 
 const fullName = ref(""); // 姓名
 const birOrTime = ref(true);
+const workYear = [
+  "",
+  "无工作经验",
+  "在校/应届",
+  "3年及以下",
+  "3-5年",
+  "5-10年",
+  "10年以上",
+];
+const workTime = ref(workYear[userInformation.value.workingYears]); // 工作时间
 
 const valueYear = ref();
 const valueMonth = ref();
@@ -211,16 +236,6 @@ const chooseImage = () => {
           });
         },
       });
-      // postAvatars({ avatar: (res.tempFiles as File[])[0] })
-      //   .then((r) => {
-      //     uni.showToast({
-      //       title: "上传成功",
-      //       icon: "success",
-      //       duration: 1000,
-      //     });
-      //     userInformation.value.avatarUrl = r.data.body.avatarUrl;
-      //   })
-      //   .catch(failResponseHandler);
     },
     fail: () => {
       uni.showToast({
@@ -234,19 +249,26 @@ const chooseImage = () => {
 
 const birthday = ref();
 const age = ref();
+const worktime = ref([1]);
 const bindChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;
-  year = years.value[val[0]];
-  month = months.value[val[1]];
-  day = days.value[val[2]];
-  value.value = [val[0], val[1], val[2]];
-  birthday.value = year + "-" + month + "-" + day;
-  age.value = date.getFullYear() - year;
   if (!birOrTime.value) {
-    store.userInformation.workingYears =
-      date.getFullYear() - years.value[val[0]];
+    userInformation.value.workingYears = val[0] as 1 | 2 | 3 | 4 | 5 | 6;
+    worktime.value = [val[0]];
+  } else {
+    year = years.value[val[0]];
+    month = months.value[val[1]];
+    day = days.value[val[2]];
+    value.value = [val[0], val[1], val[2]];
+    birthday.value = year + "-" + month + "-" + day;
+    age.value = date.getFullYear() - year;
   }
 };
+const workConfirm = () => {
+  workTime.value = workYear[userInformation.value.workingYears];
+  popup.value.hide();
+};
+
 const isConfirm = () => {
   userInformation.value.dateOfBirth = birthday.value;
   userInformation.value.age = age.value;

@@ -36,18 +36,10 @@
         <text>消息沟通</text>
         <image class="image-down" src="@/static/icons/arrow-down-filling.png" />
       </view>
-      <scroll-view class="group-infos" :scroll-y="true">
-        <MailBar />
-        <MailBar />
-        <MailBar />
-        <MailBar />
-        <MailBar />
-        <MailBar />
-        <MailBar />
-        <MailBar />
-        <MailBar />
-        <MailBar />
-        <MailBar />
+      <scroll-view v-if="hrInfo.length" class="group-infos" :scroll-y="true">
+        <view v-for="(item, i) in hrInfo" :key="i">
+          <MailBar :hr-info="item" />
+        </view>
       </scroll-view>
     </view>
   </view>
@@ -55,60 +47,23 @@
 
 <script lang="ts" setup>
 import MailBar from "@/components/MailBar/MailBar.vue";
-import { MessageRecord } from "@/services/types";
-import { useMainStore } from "@/stores/main";
-import SockJS from "sockjs-client";
-import Stomp from "stompjs";
+import { getHrInfosP0 } from "@/services/services";
+import { HrInformation } from "@/services/types";
+import { onLoad } from "@dcloudio/uni-app";
+import { ref } from "vue";
 
-const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
-const store = useMainStore();
+const hrInfo = ref<HrInformation[]>([]);
 
-const socket = new SockJS(`${VITE_BASE_URL.replace(/^http/, "ws")}/ws`, [], {
-  transports: "websocket",
+onLoad(() => {
+  uni.$on("getInfo", (data) => {
+    if (data.id) {
+      getHrInfosP0(data.id).then((res) => {
+        console.log(res.data.body);
+        hrInfo.value.push(res.data.body);
+      });
+    }
+  });
 });
-
-const stompClient = Stomp.over(socket);
-
-stompClient.connect(
-  { Authorization: "Bearer " + store.jsonWebToken },
-  (frame) => {
-    stompClient.subscribe("/user/queue/message", (message) => {
-      // 没接收到一次消息都会触发这个回调
-      let data = JSON.parse(message.body) as {
-        body: MessageRecord[];
-        message: string;
-        status: number;
-        timestamp: string;
-      };
-      for (let messageRecord of data.body) {
-        store.messages[messageRecord.initiateId].push({
-          ...messageRecord,
-          haveRead: false,
-        });
-      }
-    });
-  }
-);
-
-const sendMessage = (
-  content: string,
-  messageType: number,
-  serviceId: string,
-  serviceType: number
-) => {
-  stompClient.send(
-    "/message",
-    {},
-    JSON.stringify({
-      content,
-      initiateId: store.accountInformation.fullInformationId,
-      initiateType: 1,
-      messageType,
-      serviceId,
-      serviceType,
-    })
-  );
-};
 
 const toMyDelivery = () => {
   uni.navigateTo({ url: "/record/toudijilu/toudijilu" });

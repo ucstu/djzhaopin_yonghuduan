@@ -11,9 +11,6 @@
       >
         <text>{{ sendType }}</text>
       </view>
-      <view class="flex-col items-center image-wrapper" @click="view_10OnClick">
-        <text style="color: rgb(35 193 158)">联系HR</text>
-      </view>
     </view>
   </view>
 </template>

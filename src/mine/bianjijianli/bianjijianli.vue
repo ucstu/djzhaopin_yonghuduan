@@ -14,7 +14,7 @@
             </view>
             <view>
               <text style="font-size: 30rpx"
-                >{{ store.userInformation.workingYears }}年工作经验/{{
+                >{{ workYear[store.userInformation.workingYears] }}/{{
                   store.userInformation.age
                 }}岁/{{ education[store.userInformation.education] }}</text
               >
@@ -183,6 +183,15 @@ const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useMainStore();
 
 const education = ref(["未知", "大专", "本科", "硕士", "博士"]);
+const workYear = [
+  "",
+  "无工作经验",
+  "在校/应届",
+  "3年及以下",
+  "3-5年",
+  "5-10年",
+  "10年以上",
+];
 
 // 工作经历
 const workExperiences = ref<WorkExperience[]>([]);

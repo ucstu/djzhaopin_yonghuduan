@@ -1,10 +1,15 @@
 import {
   AccountInformation,
   JobExpectation,
+  MessageRecord,
   UserInformation,
 } from "@/services/types";
 import { defineStore } from "pinia";
 import { uniStorage } from "./storage";
+
+interface withReadStateMessageRecord extends MessageRecord {
+  haveRead: boolean;
+}
 
 export const useMainStore = defineStore("main", {
   state: () => ({
@@ -15,6 +20,7 @@ export const useMainStore = defineStore("main", {
     menuButtonInformation:
       null as unknown as UniApp.GetMenuButtonBoundingClientRectRes,
     jobExpectations: [] as JobExpectation[],
+    messages: {} as { [key: string]: withReadStateMessageRecord[] },
   }),
   persist: {
     enabled: true,

@@ -189,6 +189,7 @@ const nextClick = () => {
     });
   } else {
     userInfo.value.cityName = city.value;
+    store.userInformation.workingYears = 1;
     putUserInfosP0(store.accountInformation.fullInformationId, userInfo.value)
       .then((res) => {
         store.userInformation = res.data.body;

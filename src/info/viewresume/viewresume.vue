@@ -9,7 +9,7 @@
       >{{ schoolName }}/{{ education[store.userInformation.education] }}</text
     >
     <text style="margin-top: 20rpx"
-      >{{ store.userInformation.workingYears }}年工作经验/{{
+      >{{ workYear[store.userInformation.workingYears] }}/{{
         store.userInformation.age
       }}岁</text
     >
@@ -112,6 +112,15 @@ const educationInfo = ref<EducationExperience[]>([]);
 const workInfo = ref<WorkExperience[]>([]);
 const positionInfo = ref<ProjectExperience[]>([]);
 const education = ["未知", "大专", "本科", "硕士", "博士"];
+const workYear = [
+  "",
+  "无工作经验",
+  "在校/应届",
+  "3年及以下",
+  "3-5年",
+  "5-10年",
+  "10年以上",
+];
 const schoolName = ref("");
 const change = ref(true);
 // 教育经历

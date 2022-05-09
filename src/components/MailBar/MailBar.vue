@@ -3,7 +3,7 @@
     <image class="image-heard" src="@/static/icons/heard.png" />
     <view class="infos">
       <view class="flex-row justify-between name-time">
-        <text>{{ name }}</text>
+        <text>{{ hrInfo!.hrName }}</text>
         <text style="font-size: 25rpx">{{ time }}</text>
       </view>
       <view class="message">
@@ -21,6 +21,12 @@ const name = ref("张三");
 const message = ref(
   "方便投递吗卡夫卡吉林省地方卡机黑龙江撒旦立刻反击啊考了几分卡了？"
 );
+
+defineProps({
+  hrInfo: {
+    type: Object,
+  },
+});
 
 const toChatPage = () => {
   uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });

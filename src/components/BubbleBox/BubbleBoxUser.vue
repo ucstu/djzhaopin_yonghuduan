@@ -1,7 +1,7 @@
 <template>
-  <view class="flex-row items-center justify-end user-bubble-box">
+  <view class="flex-row justify-end user-bubble-box">
     <view class="flex-row">
-      <view class="items-center bubble-box">{{ u }}</view>
+      <view class="items-center bubble-box">{{ mes }}</view>
       <view class="user-box"></view>
     </view>
     <image src="@/static/icons/heard.png" class="img" />
@@ -11,6 +11,13 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 
+defineProps({
+  mes: {
+    type: String,
+    default: "",
+  },
+});
+
 const u = ref("没有，爬开");
 </script>
 
@@ -18,7 +25,7 @@ const u = ref("没有，爬开");
 .user-bubble-box {
   width: auto;
   height: auto;
-  margin-top: 20rpx;
+  margin-top: 30rpx;
 
   .img {
     width: 95rpx;
