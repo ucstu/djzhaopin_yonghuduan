@@ -55,6 +55,7 @@
 
 <script lang="ts" setup>
 import MailBar from "@/components/MailBar/MailBar.vue";
+import { MessageRecord } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
@@ -70,10 +71,21 @@ const stompClient = Stomp.over(socket);
 
 stompClient.connect(
   { Authorization: "Bearer " + store.jsonWebToken },
-  function (frame) {
-    stompClient.subscribe("/user/queue/message", function (message) {
-      console.log(message.body);
-      sendMessage("hello", 1, store.accountInformation.fullInformationId, 1);
+  (frame) => {
+    stompClient.subscribe("/user/queue/message", (message) => {
+      // 没接收到一次消息都会触发这个回调
+      let data = JSON.parse(message.body) as {
+        body: MessageRecord[];
+        message: string;
+        status: number;
+        timestamp: string;
+      };
+      for (let messageRecord of data.body) {
+        store.messages[messageRecord.initiateId].push({
+          ...messageRecord,
+          haveRead: false,
+        });
+      }
     });
   }
 );
