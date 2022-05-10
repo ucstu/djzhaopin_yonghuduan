@@ -6,7 +6,12 @@
         v-for="(myView, i) in myViews"
         :key="i"
         :job-detail="myView"
-        @click="view_2OnClick"
+        @job-click="
+          view_2OnClick(
+            myView.companyInformationId,
+            myView.positionInformationId
+          )
+        "
       />
     </view>
   </view>
@@ -36,13 +41,31 @@ getUserInfosP0InspectionRecords(
       item.companyInformationId,
       item.positionInformationId
     ).then((res) => {
-      myViews.value.push(res.data.body);
+      if (!myViews.value.length) {
+        myViews.value.push(res.data.body);
+      } else {
+        for (const item of myViews.value) {
+          if (
+            item.positionInformationId === res.data.body.positionInformationId
+          ) {
+            return;
+          } else {
+            myViews.value.push(res.data.body);
+          }
+        }
+      }
     });
   }
 });
 
-const view_2OnClick = () => {
-  uni.navigateTo({ url: "/detail/zhiweixiangqing/zhiweixiangqing" });
+const view_2OnClick = (c: string, p: string) => {
+  uni.navigateTo({
+    url:
+      "/detail/zhiweixiangqing/zhiweixiangqing?companyId=" +
+      c +
+      "&positionId=" +
+      p,
+  });
 };
 </script>
 <style lang="scss" scoped>

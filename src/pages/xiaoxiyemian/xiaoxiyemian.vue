@@ -3,7 +3,7 @@
     <view class="group-top">
       <view class="justify-between items-center top-box">
         <text class="info-title">消息</text>
-        <text class="items-center info-del">一键已读</text>
+        <text class="items-center info-del" @click="allRead">一键已读</text>
       </view>
     </view>
     <view class="justify-center group-cent">
@@ -36,9 +36,17 @@
         <text>消息沟通</text>
         <image class="image-down" src="@/static/icons/arrow-down-filling.png" />
       </view>
-      <scroll-view v-if="hrInfo.length" class="group-infos" :scroll-y="true">
-        <view v-for="(item, i) in hrInfo" :key="i">
-          <MailBar :hr-info="item" :mes="mes" />
+      <scroll-view class="group-infos" :scroll-y="true">
+        <view v-if="hrInfo.length">
+          <view v-for="(item, i) in hrInfo" :key="i">
+            <MailBar
+              :hr-info="item"
+              :mes="mes"
+              :is-read="isRead"
+              :time="time"
+              :message-key="messageKey"
+            />
+          </view>
         </view>
       </scroll-view>
     </view>
@@ -47,29 +55,82 @@
 
 <script lang="ts" setup>
 import MailBar from "@/components/MailBar/MailBar.vue";
-import { getHrInfosP0 } from "@/services/services";
-import { HrInformation } from "@/services/types";
+import {
+  getHrInfosP0,
+  getUserInfosP0DeliveryRecords,
+} from "@/services/services";
+import { DeliveryRecord, HrInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
+import { failResponseHandler } from "@/utils/handler";
+import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const hrInfo = ref<HrInformation[]>([]);
 const store = useMainStore();
 const mes = ref("");
+const time = ref("");
+const isRead = ref(false);
+const messageKey = ref("");
 
-for (const key in store.messages) {
-  let i = 0;
-  getHrInfosP0(key).then((res) => {
-    mes.value =
-      store.messages[res.data.body.hrInformationId][
-        store.messages[res.data.body.hrInformationId].length - 1
-      ].content;
-    hrInfo.value.push(res.data.body);
-  });
-  i++;
-}
+onShow(() => {
+  if (store.messages) {
+    hrInfo.value = [];
+    for (const key in store.messages) {
+      messageKey.value = key;
+      getHrInfosP0(key).then((res) => {
+        mes.value =
+          store.messages[res.data.body.hrInformationId][
+            store.messages[res.data.body.hrInformationId].length - 1
+          ].content;
+        time.value =
+          store.messages[res.data.body.hrInformationId][
+            store.messages[res.data.body.hrInformationId].length - 1
+          ].createdAt;
+        if (
+          store.messages[res.data.body.hrInformationId][
+            store.messages[res.data.body.hrInformationId].length - 1
+          ].initiateType === 2
+        ) {
+          isRead.value =
+            store.messages[res.data.body.hrInformationId][
+              store.messages[res.data.body.hrInformationId].length - 1
+            ].haveRead;
+        } else {
+          isRead.value = true;
+        }
+        hrInfo.value.push(res.data.body);
+      });
+    }
+  }
+});
+// 一键已读
+const allRead = () => {
+  for (const key in store.messages) {
+    if (
+      store.messages[key][store.messages[key].length - 1].initiateType === 2
+    ) {
+      store.messages[key][store.messages[key].length - 1].haveRead = true;
+      isRead.value = true;
+    }
+  }
+};
+
+/* 投递记录 */
+const status = ref<(1 | 2 | 3 | 4 | 5)[]>([1, 2, 3, 4, 5]);
+const deliveryRecords = ref<DeliveryRecord[]>([]);
+getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
+  status: status.value,
+})
+  .then((res) => {
+    deliveryRecords.value = res.data.body.deliveryRecords;
+  })
+  .catch(failResponseHandler);
 
 const toMyDelivery = () => {
-  uni.navigateTo({ url: "/record/toudijilu/toudijilu" });
+  let item = encodeURIComponent(JSON.stringify(deliveryRecords.value));
+  uni.navigateTo({
+    url: "/record/toudijilu/toudijilu?deliveryRecords=" + item,
+  });
 };
 const toBeViewed = () => {
   uni.navigateTo({ url: "/record/shuikanguowo/shuikanguowo" });

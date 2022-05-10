@@ -120,6 +120,11 @@
             item
           }}</view>
         </picker-view-column>
+        <picker-view-column>
+          <view v-for="(item, i) in days" :key="i" class="item">{{
+            item
+          }}</view>
+        </picker-view-column>
       </picker-view>
       <picker-view
         v-if="end"
@@ -134,6 +139,11 @@
         </picker-view-column>
         <picker-view-column>
           <view v-for="(item, i) in months" :key="i" class="item">{{
+            item
+          }}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view v-for="(item, i) in days" :key="i" class="item">{{
             item
           }}</view>
         </picker-view-column>

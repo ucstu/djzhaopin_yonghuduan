@@ -12,6 +12,9 @@
       />
     </view>
   </view>
+  <view v-if="emptyShow" class="justify-center image">
+    <image src="@/static/icons/nodata.svg" />
+  </view>
 </template>
 
 <script lang="ts" setup>
@@ -29,6 +32,7 @@ import { ref } from "vue";
 const attentionCompanies = ref<CompanyInformation[]>([]);
 const focusCompany = ref();
 const unfocus = ref("取消关注");
+const emptyShow = ref(false);
 
 onLoad((e) => {
   if (e.focusCompany) {
@@ -40,12 +44,15 @@ onLoad((e) => {
         })
         .catch(failResponseHandler);
     }
+  } else {
+    emptyShow.value = true;
   }
 });
 
 onShow(() => {
   if (!attentionCompanies.value.length) {
     attentionCompanies.value = [];
+    emptyShow.value = true;
   }
 });
 
@@ -85,5 +92,11 @@ const unsubscribe = (index: string) => {
       }
     }
   }
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  margin: 10rpx 0 7rpx 7rpx;
 }
 </style>

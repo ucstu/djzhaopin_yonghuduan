@@ -4,12 +4,15 @@
       <view class="items-center bubble-box">{{ mes }}</view>
       <view class="user-box"></view>
     </view>
-    <image src="@/static/icons/heard.png" class="img" />
+    <image :src="VITE_CDN_URL + store.userInformation.avatarUrl" class="img" />
   </view>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { useMainStore } from "@/stores/main";
+
+const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
+const store = useMainStore();
 
 defineProps({
   mes: {
@@ -17,8 +20,6 @@ defineProps({
     default: "",
   },
 });
-
-const u = ref("没有，爬开");
 </script>
 
 <style lang="scss" scoped>
@@ -26,6 +27,7 @@ const u = ref("没有，爬开");
   width: auto;
   height: auto;
   margin-top: 30rpx;
+  margin-right: 20rpx;
 
   .img {
     width: 95rpx;
@@ -34,12 +36,12 @@ const u = ref("没有，爬开");
   }
 
   .bubble-box {
-    flex-wrap: nowrap;
     max-width: 450rpx;
-    height: auto;
     min-height: 80rpx;
+    max-height: 600rpx;
     padding: 0 20rpx;
     letter-spacing: normal;
+    word-break: break-all;
     background-color: rgb(39 156 234);
     border-radius: 15rpx;
   }

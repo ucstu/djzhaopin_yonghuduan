@@ -1,38 +1,68 @@
 <template>
   <view class="flex-row items-center info-box" @click="toChatPage">
-    <image class="image-heard" src="@/static/icons/heard.png" />
+    <image class="image-heard" :src="VITE_CDN_URL + hrInfo.avatarUrl" />
     <view class="infos">
       <view class="flex-row justify-between name-time">
         <text>{{ hrInfo!.hrName }}</text>
         <text style="font-size: 25rpx">{{ time }}</text>
       </view>
-      <view class="message">
-        <text style="white-space: nowrap">{{ mes }}</text>
+      <view class="justify-between items-center flex-row">
+        <view class="message">
+          <text style="white-space: nowrap">{{ mes }}</text>
+        </view>
+        <view v-if="!isRead" class="is-read"></view>
       </view>
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { useMainStore } from "@/stores/main";
+import { onShow } from "@dcloudio/uni-app";
 
-const time = ref("昨天");
-const name = ref("张三");
-const message = ref(
-  "方便投递吗卡夫卡吉林省地方卡机黑龙江撒旦立刻反击啊考了几分卡了？"
-);
+const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
+
+const store = useMainStore();
 
 const props = defineProps({
   hrInfo: {
     type: Object,
+    default: () => ({}),
   },
   mes: {
     type: String,
+    default: "",
+  },
+  isRead: {
+    type: Boolean,
+    default: true,
+  },
+  time: {
+    type: String,
+    default: "",
+  },
+  messageKey: {
+    type: String,
+    default: "",
   },
 });
+
+onShow(() => {
+  return props.isRead;
+});
+
 const toChatPage = () => {
+  store.messages[props.hrInfo.hrInformationId][
+    store.messages[props.hrInfo.hrInformationId].length - 1
+  ].haveRead = true;
   let i = props.hrInfo.hrInformationId;
-  uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian?Id=" + i });
+  uni.navigateTo({
+    url:
+      "/mine/liaotianyemian/liaotianyemian?Id=" +
+      i +
+      "&key=" +
+      props.messageKey,
+  });
 };
 </script>
 
@@ -65,6 +95,15 @@ const toChatPage = () => {
       overflow: hidden;
       font-size: 25rpx;
       text-overflow: ellipsis;
+    }
+
+    .is-read {
+      width: 25rpx;
+      height: 25rpx;
+      font-size: 25rpx;
+      color: white;
+      background-color: rgb(247 25 13 / 99.5%);
+      border-radius: 50%;
     }
   }
 }

@@ -11,6 +11,9 @@
       />
     </view>
   </view>
+  <view v-if="emptyShow" class="justify-center image">
+    <image src="@/static/icons/nodata.svg" />
+  </view>
 </template>
 
 <script lang="ts" setup>
@@ -28,6 +31,7 @@ import { ref } from "vue";
 const favorites = ref();
 const favoritesPosition = ref<PositionInformation[]>([]);
 const cancelCollection = ref("取消收藏");
+const emptyShow = ref(false);
 
 onLoad((e) => {
   if (e.favoritePosition) {
@@ -42,12 +46,15 @@ onLoad((e) => {
         })
         .catch(failResponseHandler);
     }
+  } else {
+    emptyShow.value = true;
   }
 });
 
 onShow(() => {
   if (!favoritesPosition.value.length) {
     favoritesPosition.value = [];
+    emptyShow.value = true;
   }
 });
 
@@ -82,5 +89,11 @@ const emptyFavorites = () => {
       }
     }
   }
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  margin: 10rpx 0 7rpx 7rpx;
 }
 </style>

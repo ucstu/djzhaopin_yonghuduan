@@ -1,6 +1,6 @@
 <template>
   <view class="flex-row user-bubble-box">
-    <image src="@/static/icons/heard.png" class="img" />
+    <image :src="VITE_CDN_URL + hrInfo.avatarUrl" class="img" />
     <view class="flex-row">
       <view class="user-box"></view>
       <view class="items-center bubble-box">{{ mes }}</view>
@@ -9,23 +9,26 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 
 defineProps({
+  hrInfo: {
+    type: Object,
+    default: () => ({}),
+  },
   mes: {
     type: String,
     default: "",
   },
 });
-
-const h = ref("你好，有兴趣投递一份你的简历吗？");
 </script>
 
 <style lang="scss" scoped>
 .user-bubble-box {
   width: auto;
   height: auto;
-  margin-top: 20rpx;
+  margin-top: 30rpx;
+  margin-left: 20rpx;
 
   .img {
     width: 95rpx;
@@ -34,12 +37,12 @@ const h = ref("你好，有兴趣投递一份你的简历吗？");
   }
 
   .bubble-box {
-    flex-wrap: nowrap;
     max-width: 450rpx;
     height: auto;
     min-height: 80rpx;
     padding: 0 20rpx;
     letter-spacing: normal;
+    word-break: break-all;
     background-color: rgb(39 156 234);
     border-radius: 15rpx;
   }

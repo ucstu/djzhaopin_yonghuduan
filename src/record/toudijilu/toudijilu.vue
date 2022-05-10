@@ -21,6 +21,9 @@
       />
     </view>
   </view>
+  <view v-if="emptyShow" class="justify-center image">
+    <image src="@/static/icons/nodata.svg" />
+  </view>
 </template>
 
 <script lang="ts" setup>
@@ -43,6 +46,7 @@ const deliveryRecords = ref<PositionInformation[]>([]);
 const deliveryLength = ref();
 const sendType = ["", "待查看", "已查看", "通过初筛", "约面试", "不合格"];
 const sendId = ref<DeliveryRecord["status"]>(1);
+const emptyShow = ref(false);
 
 /* 默认查看记录 */
 onLoad((e) => {
@@ -56,6 +60,9 @@ onLoad((e) => {
         .then((res) => {
           res.data.body["companyInformationId"] = delivery.companyInformationId;
           deliveryRecords.value.push(res.data.body);
+          if (!deliveryRecords.value.length) {
+            emptyShow.value = true;
+          }
         })
         .catch(failResponseHandler);
     }
@@ -72,21 +79,26 @@ onShow(() => {
 const sendTypeId = (index: number) => {
   sendId.value = index as DeliveryRecord["status"];
   getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
-    status: [sendId.value],
+    status: index as unknown as (2 | 1 | 3 | 4 | 5)[],
   })
     .then((res) => {
       deliveryRecords.value.length = 0;
-      for (const delivery of res.data.body.deliveryRecords) {
-        getCompanyInfosP0PositionInfosP1(
-          delivery.companyInformationId,
-          delivery.positionInformationId
-        )
-          .then((res) => {
-            res.data.body["companyInformationId"] =
-              delivery.companyInformationId;
-            deliveryRecords.value.push(res.data.body);
-          })
-          .catch(failResponseHandler);
+      if (!res.data.body.deliveryRecords.length) {
+        emptyShow.value = true;
+      } else {
+        for (const delivery of res.data.body.deliveryRecords) {
+          getCompanyInfosP0PositionInfosP1(
+            delivery.companyInformationId,
+            delivery.positionInformationId
+          )
+            .then((res) => {
+              res.data.body["companyInformationId"] =
+                delivery.companyInformationId;
+              deliveryRecords.value.push(res.data.body);
+            })
+            .catch(failResponseHandler);
+        }
+        emptyShow.value = false;
       }
     })
     .catch(failResponseHandler);
@@ -137,5 +149,11 @@ const clearRecord = () => {
       }
     }
   }
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  margin: 10rpx 0 7rpx 7rpx;
 }
 </style>

@@ -13,6 +13,10 @@ class WebSocketPolyfill {
 
     // 连接关闭
     uni.onSocketClose((res) => {
+      uni.connectSocket({
+        url: url,
+        protocols: protocols,
+      });
       this.onclose(res);
     });
 

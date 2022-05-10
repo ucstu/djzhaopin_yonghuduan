@@ -1,14 +1,16 @@
 <template>
-  <view class="page"> 11 </view>
+  <view class="flex-col items-center justify-center page">
+    <image src="@/static/icons/noadvertise.svg" />
+    <text>暂无广告商投资</text>
+  </view>
 </template>
 
 <script lang="ts" setup></script>
 
 <style lang="scss" scoped>
 .page {
-  width: 710rpx;
-  height: 1320rpx;
-  margin-left: 20rpx;
+  width: 100%;
+  height: auto;
 
   .header {
     position: relative;

@@ -36,17 +36,19 @@
       </view>
     </view>
     <!-- #endif -->
-    <scroll-view class="group-info" :scroll-y="true">
+    <scroll-view class="group-info" :scroll-y="true" :scroll-top="scrollTop">
       <view
-        v-for="(item, key) in store.messages"
-        v-show="key === hrInfo.hrInformationId"
-        :key="key"
+        v-for="(recode, i) in store.messages[messageKey]"
+        :id="'message-' + messageKey + '-' + i"
+        :key="recode.messageRecordId"
       >
-        <view v-for="(recode, i) in item" :key="recode.messageRecordId">
-          <Left v-if="recode.initiateType === 2" :mes="recode.content"></Left>
-          <Right v-if="recode.initiateType === 1" :mes="recode.content"></Right
-        ></view>
-      </view>
+        <Left
+          v-if="recode.initiateType === 2"
+          :mes="recode.content"
+          :hr-info="hrInfo"
+        ></Left>
+        <Right v-if="recode.initiateType === 1" :mes="recode.content"></Right
+      ></view>
     </scroll-view>
     <view class="flex-col group-end justify-center">
       <view class="flex-row justify-between items-end input-box">
@@ -60,14 +62,21 @@
         </view>
         <text
           class="items-center text-send"
-          @click="sendMessage(inputValue, 1, hrInfo.hrInformationId, 2)"
+          @click="
+            sendMessage(inputValue, 1, hrInfo.hrInformationId, 2);
+            inputValue = '';
+          "
         >
           发送</text
         >
       </view>
       <view class="justify-between function-box">
         <image class="image" src="@/static/icons/audio-fill.svg" />
-        <image class="image" src="@/static/icons/picture-fill.svg" />
+        <image
+          class="image"
+          src="@/static/icons/picture-fill.svg"
+          @click="sendImage"
+        />
         <image class="image" src="@/static/icons/camera.svg" />
         <image class="image" src="@/static/icons/emoji.svg" />
         <image class="image" src="@/static/icons/plus-circle.svg" />
@@ -80,92 +89,16 @@
 import Left from "@/components/BubbleBox/BubbleBoxHr.vue";
 import Right from "@/components/BubbleBox/BubbleBoxUser.vue";
 import { getHrInfosP0 } from "@/services/services";
-import { HrInformation, MessageRecord } from "@/services/types";
+import { HrInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
-import WebSocketPolyfill from "@/utils/socket";
+import { sendMessage } from "@/utils/stomp";
 import { onLoad } from "@dcloudio/uni-app";
-import Stomp from "stompjs";
+import { computed } from "@vue/reactivity";
 import { ref } from "vue";
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 const store = useMainStore();
-store.messages["b8e7d1ea-fcf2-4593-924f-d61b24bc755f"] = [];
-store.messages["b8e7d1ea-fcf2-4593-924f-d61b24bc755f"].push({
-  content: "nihao",
-  createdAt: "2020-01-01",
-  initiateId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
-  initiateType: 2,
-  messageRecordId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
-  messageType: 1,
-  serviceId: "d1301c49-610a-4c44-b885-0b22e023e5ee",
-  serviceType: 2,
-  updatedAt: "2020-01-01",
-  haveRead: false,
-});
-store.messages["b8e7d1ea-fcf2-4593-924f-d61b24bc755f"].push({
-  content: "wohao",
-  createdAt: "2020-01-01",
-  initiateId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
-  initiateType: 1,
-  messageRecordId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
-  messageType: 1,
-  serviceId: "d1301c49-610a-4c44-b885-0b22e023e5ee",
-  serviceType: 2,
-  updatedAt: "2020-01-01",
-  haveRead: false,
-});
-
-store.messages["b8e7d1ea-fcf2-4593-924f-d61b24bc755f"].push({
-  content: "dajiahao",
-  createdAt: "2020-01-01",
-  initiateId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
-  initiateType: 1,
-  messageRecordId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
-  messageType: 1,
-  serviceId: "d1301c49-610a-4c44-b885-0b22e023e5ee",
-  serviceType: 2,
-  updatedAt: "2020-01-01",
-  haveRead: false,
-});
-store.messages["d1301c49-610a-4c44-b885-0b22e023e5ee"] = [];
-store.messages["d1301c49-610a-4c44-b885-0b22e023e5ee"].push({
-  content: "nihao",
-  createdAt: "2020-01-01",
-  initiateId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
-  initiateType: 2,
-  messageRecordId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
-  messageType: 1,
-  serviceId: "d1301c49-610a-4c44-b885-0b22e023e5ee",
-  serviceType: 1,
-  updatedAt: "2020-01-01",
-  haveRead: false,
-});
-store.messages["d1301c49-610a-4c44-b885-0b22e023e5ee"].push({
-  content: "wohao",
-  createdAt: "2020-01-01",
-  initiateId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
-  initiateType: 1,
-  messageRecordId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
-  messageType: 1,
-  serviceId: "d1301c49-610a-4c44-b885-0b22e023e5ee",
-  serviceType: 2,
-  updatedAt: "2020-01-01",
-  haveRead: false,
-});
-
-store.messages["d1301c49-610a-4c44-b885-0b22e023e5ee"].push({
-  content: "dajiahao",
-  createdAt: "2020-01-01",
-  initiateId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
-  initiateType: 1,
-  messageRecordId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
-  messageType: 1,
-  serviceId: "d1301c49-610a-4c44-b885-0b22e023e5ee",
-  serviceType: 2,
-  updatedAt: "2020-01-01",
-  haveRead: false,
-});
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
 
@@ -175,14 +108,12 @@ const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(30);
 
 /* #endif */
 
-const socket = new WebSocketPolyfill(
-  `${VITE_BASE_URL.replace(/^http/, "ws")}/ws`
-) as unknown as WebSocket;
-
-const stompClient = Stomp.over(socket);
-
 const hrInfo = ref<HrInformation>({} as HrInformation);
 const inputValue = ref("");
+const messageKey = ref("");
+const scrollTop = computed(() => {
+  return (store.messages[messageKey.value].length + 1) * uni.upx2px(110);
+});
 
 onLoad((e) => {
   if (e.Id) {
@@ -192,79 +123,46 @@ onLoad((e) => {
       })
       .catch(failResponseHandler);
   }
-});
-
-stompClient.connect(
-  { Authorization: "Bearer " + store.jsonWebToken },
-  (frame) => {
-    stompClient.subscribe("/user/queue/message", (message) => {
-      // 每接收到一次消息都会触发这个回调
-      let data = JSON.parse(message.body) as {
-        body: MessageRecord[];
-        message: string;
-        status: number;
-        timestamp: string;
-      };
-      for (let messageRecord of data.body) {
-        if (!store.messages[messageRecord.initiateId]) {
-          store.messages[messageRecord.initiateId] = [];
-        }
-        store.messages[messageRecord.initiateId].push({
-          ...messageRecord,
-          haveRead: false,
-        });
-      }
-    });
-    stompClient.subscribe("/user/queue/error", (errors) => {
-      // 每接收到一次消息都会触发这个回调
-      let data = JSON.parse(errors.body) as {
-        errors: any;
-        message: string;
-        status: number;
-        timestamp: string;
-      };
-      console.log(data);
-    });
+  if (e.key) {
+    messageKey.value = e.key;
   }
-);
-// 发送消息
-const sendMessage = (
-  content: string,
-  messageType: 1 | 2 | 3 | 4,
-  serviceId: string,
-  serviceType: number
-) => {
-  stompClient.send(
-    "/message",
-    {},
-    JSON.stringify({
-      content,
-      initiateId: store.accountInformation.fullInformationId,
-      initiateType: 1,
-      messageType,
-      serviceId,
-      serviceType,
-    })
-  );
-  let m = {
-    content,
-    initiateId: store.accountInformation.fullInformationId,
-    initiateType: 1,
-    messageType,
-    serviceId,
-    serviceType,
-    haveRead: false,
-    createdAt: "",
-    messageRecordId: "",
-    updatedAt: "",
-  };
-  store.messages[serviceId].push(m);
-  inputValue.value = "";
-};
+});
 
 const goBack = () => {
   uni.navigateBack({
     delta: 1,
+  });
+};
+// 发送图片
+const sendImage = () => {
+  uni.chooseImage({
+    success: (res) => {
+      const tempFilePath = res.tempFilePaths;
+      uni.uploadFile({
+        url: VITE_BASE_URL + "/files",
+        filePath: tempFilePath[0],
+        name: "file",
+        header: {
+          Authorization: "Bearer " + store.jsonWebToken,
+        },
+        success: (res) => {
+          let response = JSON.parse(res.data) as {
+            body: string;
+            message: string;
+            status: number;
+            timestamp: string;
+          };
+          sendMessage(response.body, 2, hrInfo.value.hrInformationId, 2);
+        },
+        fail: (err) => {
+          uni.showToast({
+            title: "发送失败",
+            icon: "none",
+            duration: 1000,
+          });
+        },
+      });
+    },
   });
 };
 </script>
@@ -315,7 +213,7 @@ const goBack = () => {
 
     // #endif
     // #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ
-    height: auto;
+    max-height: 1300rpx;
 
     // #endif
   }

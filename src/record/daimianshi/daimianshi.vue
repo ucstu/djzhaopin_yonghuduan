@@ -12,6 +12,9 @@
       />
     </view>
   </view>
+  <view v-if="emptyShow" class="justify-center image">
+    <image src="@/static/icons/nodata.svg" />
+  </view>
 </template>
 
 <script lang="ts" setup>
@@ -24,7 +27,7 @@ import {
 import { PositionInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad } from "@dcloudio/uni-app";
+import { onLoad, onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const store = useMainStore();
@@ -32,6 +35,7 @@ const store = useMainStore();
 const interviewedJobs = ref<PositionInformation[]>([]);
 const interviewed = ref();
 const sendType = ref("放弃面试");
+const emptyShow = ref(false);
 
 /* 查询待面试职位信息 */
 onLoad((e) => {
@@ -47,6 +51,14 @@ onLoad((e) => {
         })
         .catch(failResponseHandler);
     }
+  } else {
+    emptyShow.value = true;
+  }
+});
+
+onShow(() => {
+  if (interviewed.value.length === 0) {
+    emptyShow.value = true;
   }
 });
 
@@ -85,5 +97,11 @@ const stateClick = (index: string) => {
       }
     }
   }
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  margin: 10rpx 0 7rpx 7rpx;
 }
 </style>

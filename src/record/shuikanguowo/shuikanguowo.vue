@@ -3,13 +3,16 @@
   <view class="flex-col page">
     <view class="flex-col list">
       <CompanyDetail
-        v-for="(lookForMe, i) in lookForMes"
+        v-for="(lookForMe, i) in companyInfo"
         :key="i"
         class="list-item"
         :company-detail="lookForMe"
         @com-click="view_2OnClick(lookForMe.companyInformationId)"
       />
     </view>
+  </view>
+  <view v-if="emptyShow" class="justify-center image">
+    <image src="@/static/icons/nodata.svg" />
   </view>
 </template>
 
@@ -20,33 +23,48 @@ import {
   getCompanyInfosP0,
   getUserInfosP0InspectionRecords,
 } from "@/services/services";
-import { CompanyInformation, UserInspectionRecord } from "@/services/types";
+import { CompanyInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
 
 const store = useMainStore();
 
-const lookForMes = ref<UserInspectionRecord[]>([]);
 const companyInfo = ref<CompanyInformation[]>([]);
+const emptyShow = ref(false);
+
 getUserInfosP0InspectionRecords(
   store.accountInformation.fullInformationId,
   {}
 ).then((res) => {
-  console.log(res.data.body);
-  lookForMes.value = res.data.body.userInspectionRecords;
-  companyInfo.value.length = 0;
-  for (const item of lookForMes.value) {
-    getCompanyInfosP0(item.companyInformationId)
-      .then((res) => {
-        companyInfo.value.push(res.data.body);
-      })
-      .catch(failResponseHandler);
+  if (!res.data.body.userInspectionRecords.length) {
+    emptyShow.value = true;
+  } else {
+    for (const item of res.data.body.userInspectionRecords) {
+      getCompanyInfosP0(item.companyInformationId)
+        .then((res) => {
+          if (!companyInfo.value.length) {
+            companyInfo.value.push(res.data.body);
+          } else {
+            for (const item of companyInfo.value) {
+              if (
+                item.companyInformationId === res.data.body.companyInformationId
+              ) {
+                return;
+              } else {
+                companyInfo.value.push(res.data.body);
+              }
+            }
+          }
+        })
+        .catch(failResponseHandler);
+    }
+    emptyShow.value = false;
   }
 });
 
-const view_2OnClick = (index: string) => {
-  uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao" });
+const view_2OnClick = (c: string) => {
+  uni.navigateTo({ url: "/detail/gongsijieshao/gongsijieshao?companyId=" + c });
 };
 </script>
 

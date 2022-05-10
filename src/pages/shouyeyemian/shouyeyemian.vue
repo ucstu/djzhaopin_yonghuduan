@@ -109,10 +109,13 @@ import { getCompanyInfosPositionInfos } from "@/services/services";
 import { PositionInformation } from '@/services/types';
 import { useMainStore } from '@/stores/main';
 import { failResponseHandler } from '@/utils/handler';
+import { sendPing } from "@/utils/stomp";
 import { onLoad, onShow } from '@dcloudio/uni-app';
 import { onMounted, ref } from 'vue';
 
 const store = useMainStore();
+
+sendPing();
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
 
@@ -173,7 +176,7 @@ onMounted(() => {
   getCompanyInfosPositionInfos(
   {
     positionType: expects.value[0],
-    workAreaNames: [cityValue.value[0]],
+    workCityName: cityName.value,
     directionTags: directionTags.value,
     salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
     size: 10,
@@ -232,7 +235,7 @@ const changeJobType = (index: number) => {
   city.value.push(cityName.value);
   getCompanyInfosPositionInfos(
   {positionType: expects.value[index],
-    workAreaNames: city.value,
+    workCityName: cityName.value,
     directionTags: directionTags.value,
     salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
   }

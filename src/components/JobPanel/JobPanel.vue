@@ -41,7 +41,11 @@ const view_4OnClick = () => {
   });
 };
 const view_11OnClick = () => {
-  uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });
+  uni.navigateTo({
+    url:
+      "/mine/liaotianyemian/liaotianyemian?Id=" +
+      props.collectionPosition?.hrInformationId,
+  });
 };
 </script>
 
