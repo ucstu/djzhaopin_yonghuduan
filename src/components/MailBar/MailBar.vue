@@ -7,7 +7,7 @@
         <text style="font-size: 25rpx">{{ time }}</text>
       </view>
       <view class="message">
-        <text style="white-space: nowrap">{{ message }}</text>
+        <text style="white-space: nowrap">{{ mes }}</text>
       </view>
     </view>
   </view>
@@ -22,14 +22,17 @@ const message = ref(
   "方便投递吗卡夫卡吉林省地方卡机黑龙江撒旦立刻反击啊考了几分卡了？"
 );
 
-defineProps({
+const props = defineProps({
   hrInfo: {
     type: Object,
   },
+  mes: {
+    type: String,
+  },
 });
-
 const toChatPage = () => {
-  uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian" });
+  let i = props.hrInfo.hrInformationId;
+  uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian?Id=" + i });
 };
 </script>
 

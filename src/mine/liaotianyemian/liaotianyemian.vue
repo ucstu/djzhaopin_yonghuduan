@@ -37,9 +37,15 @@
     </view>
     <!-- #endif -->
     <scroll-view class="group-info" :scroll-y="true">
-      <view v-for="(item, i) in messageRecord" :key="i">
-        <Left v-if="!isRight"></Left>
-        <Right v-if="isRight" :mes="item"></Right>
+      <view
+        v-for="(item, key) in store.messages"
+        v-show="key === hrInfo.hrInformationId"
+        :key="key"
+      >
+        <view v-for="(recode, i) in item" :key="recode.messageRecordId">
+          <Left v-if="recode.initiateType === 2" :mes="recode.content"></Left>
+          <Right v-if="recode.initiateType === 1" :mes="recode.content"></Right
+        ></view>
       </view>
     </scroll-view>
     <view class="flex-col group-end justify-center">
@@ -76,6 +82,7 @@ import Right from "@/components/BubbleBox/BubbleBoxUser.vue";
 import { getHrInfosP0 } from "@/services/services";
 import { HrInformation, MessageRecord } from "@/services/types";
 import { useMainStore } from "@/stores/main";
+import { failResponseHandler } from "@/utils/handler";
 import WebSocketPolyfill from "@/utils/socket";
 import { onLoad } from "@dcloudio/uni-app";
 import Stomp from "stompjs";
@@ -83,6 +90,82 @@ import { ref } from "vue";
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 const store = useMainStore();
+store.messages["b8e7d1ea-fcf2-4593-924f-d61b24bc755f"] = [];
+store.messages["b8e7d1ea-fcf2-4593-924f-d61b24bc755f"].push({
+  content: "nihao",
+  createdAt: "2020-01-01",
+  initiateId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
+  initiateType: 2,
+  messageRecordId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
+  messageType: 1,
+  serviceId: "d1301c49-610a-4c44-b885-0b22e023e5ee",
+  serviceType: 2,
+  updatedAt: "2020-01-01",
+  haveRead: false,
+});
+store.messages["b8e7d1ea-fcf2-4593-924f-d61b24bc755f"].push({
+  content: "wohao",
+  createdAt: "2020-01-01",
+  initiateId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
+  initiateType: 1,
+  messageRecordId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
+  messageType: 1,
+  serviceId: "d1301c49-610a-4c44-b885-0b22e023e5ee",
+  serviceType: 2,
+  updatedAt: "2020-01-01",
+  haveRead: false,
+});
+
+store.messages["b8e7d1ea-fcf2-4593-924f-d61b24bc755f"].push({
+  content: "dajiahao",
+  createdAt: "2020-01-01",
+  initiateId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
+  initiateType: 1,
+  messageRecordId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
+  messageType: 1,
+  serviceId: "d1301c49-610a-4c44-b885-0b22e023e5ee",
+  serviceType: 2,
+  updatedAt: "2020-01-01",
+  haveRead: false,
+});
+store.messages["d1301c49-610a-4c44-b885-0b22e023e5ee"] = [];
+store.messages["d1301c49-610a-4c44-b885-0b22e023e5ee"].push({
+  content: "nihao",
+  createdAt: "2020-01-01",
+  initiateId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
+  initiateType: 2,
+  messageRecordId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
+  messageType: 1,
+  serviceId: "d1301c49-610a-4c44-b885-0b22e023e5ee",
+  serviceType: 1,
+  updatedAt: "2020-01-01",
+  haveRead: false,
+});
+store.messages["d1301c49-610a-4c44-b885-0b22e023e5ee"].push({
+  content: "wohao",
+  createdAt: "2020-01-01",
+  initiateId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
+  initiateType: 1,
+  messageRecordId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
+  messageType: 1,
+  serviceId: "d1301c49-610a-4c44-b885-0b22e023e5ee",
+  serviceType: 2,
+  updatedAt: "2020-01-01",
+  haveRead: false,
+});
+
+store.messages["d1301c49-610a-4c44-b885-0b22e023e5ee"].push({
+  content: "dajiahao",
+  createdAt: "2020-01-01",
+  initiateId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
+  initiateType: 1,
+  messageRecordId: "b8e7d1ea-fcf2-4593-924f-d61b24bc755f",
+  messageType: 1,
+  serviceId: "d1301c49-610a-4c44-b885-0b22e023e5ee",
+  serviceType: 2,
+  updatedAt: "2020-01-01",
+  haveRead: false,
+});
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
 
@@ -100,14 +183,14 @@ const stompClient = Stomp.over(socket);
 
 const hrInfo = ref<HrInformation>({} as HrInformation);
 const inputValue = ref("");
-const messageRecord = ref<string[]>([]);
-const isRight = ref(false);
 
 onLoad((e) => {
   if (e.Id) {
-    getHrInfosP0(e.Id).then((res) => {
-      hrInfo.value = res.data.body;
-    });
+    getHrInfosP0(e.Id)
+      .then((res) => {
+        hrInfo.value = res.data.body;
+      })
+      .catch(failResponseHandler);
   }
 });
 
@@ -122,9 +205,10 @@ stompClient.connect(
         status: number;
         timestamp: string;
       };
-      messageRecord.value.push(data.body[0].content);
-      isRight.value = false;
       for (let messageRecord of data.body) {
+        if (!store.messages[messageRecord.initiateId]) {
+          store.messages[messageRecord.initiateId] = [];
+        }
         store.messages[messageRecord.initiateId].push({
           ...messageRecord,
           haveRead: false,
@@ -146,7 +230,7 @@ stompClient.connect(
 // 发送消息
 const sendMessage = (
   content: string,
-  messageType: number,
+  messageType: 1 | 2 | 3 | 4,
   serviceId: string,
   serviceType: number
 ) => {
@@ -162,17 +246,23 @@ const sendMessage = (
       serviceType,
     })
   );
-  messageRecord.value.push(content);
-  isRight.value = true;
+  let m = {
+    content,
+    initiateId: store.accountInformation.fullInformationId,
+    initiateType: 1,
+    messageType,
+    serviceId,
+    serviceType,
+    haveRead: false,
+    createdAt: "",
+    messageRecordId: "",
+    updatedAt: "",
+  };
+  store.messages[serviceId].push(m);
   inputValue.value = "";
 };
 
 const goBack = () => {
-  let info = {
-    id: hrInfo.value.hrInformationId,
-    mes: messageRecord.value[messageRecord.value.length - 1],
-  };
-  uni.$emit("getInfo", info);
   uni.navigateBack({
     delta: 1,
   });

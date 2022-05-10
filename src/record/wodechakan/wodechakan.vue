@@ -15,19 +15,30 @@
 <script lang="ts" setup>
 import JobDetail from "@/components/JobDetail/JobDetail.vue";
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getUserInfosP0InspectionRecords } from "@/services/services";
+import {
+  getCompanyInfosP0PositionInfosP1,
+  getUserInfosP0InspectionRecords,
+} from "@/services/services";
+import { PositionInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { ref } from "vue";
 
 const store = useMainStore();
 
-const myViews = ref({});
+const myViews = ref<PositionInformation[]>([]);
 /* 查询所有查看记录 */
 getUserInfosP0InspectionRecords(
   store.accountInformation.fullInformationId,
   {}
 ).then((res) => {
-  myViews.value = res.data.body;
+  for (const item of res.data.body.userInspectionRecords) {
+    getCompanyInfosP0PositionInfosP1(
+      item.companyInformationId,
+      item.positionInformationId
+    ).then((res) => {
+      myViews.value.push(res.data.body);
+    });
+  }
 });
 
 const view_2OnClick = () => {

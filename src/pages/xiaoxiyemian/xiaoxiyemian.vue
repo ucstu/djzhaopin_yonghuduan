@@ -38,7 +38,7 @@
       </view>
       <scroll-view v-if="hrInfo.length" class="group-infos" :scroll-y="true">
         <view v-for="(item, i) in hrInfo" :key="i">
-          <MailBar :hr-info="item" />
+          <MailBar :hr-info="item" :mes="mes" />
         </view>
       </scroll-view>
     </view>
@@ -49,21 +49,24 @@
 import MailBar from "@/components/MailBar/MailBar.vue";
 import { getHrInfosP0 } from "@/services/services";
 import { HrInformation } from "@/services/types";
-import { onLoad } from "@dcloudio/uni-app";
+import { useMainStore } from "@/stores/main";
 import { ref } from "vue";
 
 const hrInfo = ref<HrInformation[]>([]);
+const store = useMainStore();
+const mes = ref("");
 
-onLoad(() => {
-  uni.$on("getInfo", (data) => {
-    if (data.id) {
-      getHrInfosP0(data.id).then((res) => {
-        console.log(res.data.body);
-        hrInfo.value.push(res.data.body);
-      });
-    }
+for (const key in store.messages) {
+  let i = 0;
+  getHrInfosP0(key).then((res) => {
+    mes.value =
+      store.messages[res.data.body.hrInformationId][
+        store.messages[res.data.body.hrInformationId].length - 1
+      ].content;
+    hrInfo.value.push(res.data.body);
   });
-});
+  i++;
+}
 
 const toMyDelivery = () => {
   uni.navigateTo({ url: "/record/toudijilu/toudijilu" });

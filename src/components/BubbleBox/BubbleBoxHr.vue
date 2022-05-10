@@ -3,13 +3,21 @@
     <image src="@/static/icons/heard.png" class="img" />
     <view class="flex-row">
       <view class="user-box"></view>
-      <view class="items-center bubble-box">{{ h }}</view>
+      <view class="items-center bubble-box">{{ mes }}</view>
     </view>
   </view>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
+
+defineProps({
+  mes: {
+    type: String,
+    default: "",
+  },
+});
+
 const h = ref("你好，有兴趣投递一份你的简历吗？");
 </script>
 
