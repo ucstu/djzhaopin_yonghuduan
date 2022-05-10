@@ -46,7 +46,7 @@ const deliveryRecords = ref<PositionInformation[]>([]);
 const deliveryLength = ref();
 const sendType = ["", "待查看", "已查看", "通过初筛", "约面试", "不合格"];
 const sendId = ref<DeliveryRecord["status"]>(1);
-const emptyShow = ref(false);
+const emptyShow = ref(true);
 
 /* 默认查看记录 */
 onLoad((e) => {
@@ -60,8 +60,8 @@ onLoad((e) => {
         .then((res) => {
           res.data.body["companyInformationId"] = delivery.companyInformationId;
           deliveryRecords.value.push(res.data.body);
-          if (!deliveryRecords.value.length) {
-            emptyShow.value = true;
+          if (deliveryRecords.value.length) {
+            emptyShow.value = false;
           }
         })
         .catch(failResponseHandler);
