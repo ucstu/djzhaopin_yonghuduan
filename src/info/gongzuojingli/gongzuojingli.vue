@@ -349,7 +349,7 @@ const saveWorkExperience = () => {
     uni.showToast({
       title: "请填写完整信息",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else if (
     companyStartTime.value === "入职时间" ||
@@ -358,7 +358,7 @@ const saveWorkExperience = () => {
     uni.showToast({
       title: "请完善就职时间",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else {
     postUserInfosP0WorkExperiences(store.accountInformation.fullInformationId, {
@@ -375,7 +375,7 @@ const saveWorkExperience = () => {
         uni.showToast({
           title: "保存成功",
           icon: "none",
-          duration: 1000,
+          duration: 1500,
         });
       })
       .catch(failResponseHandler);
@@ -397,7 +397,7 @@ const deleteWorkExperience = () => {
             uni.showToast({
               title: "删除成功",
               icon: "none",
-              duration: 1000,
+              duration: 1500,
             });
             uni.navigateBack({
               delta: 1,

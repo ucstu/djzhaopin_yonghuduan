@@ -69,13 +69,13 @@ const submit = () => {
     uni.showToast({
       title: "反馈内容不能为空",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else {
     uni.showToast({
       title: "提交成功,感谢您的反馈",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   }
 };

@@ -14,7 +14,7 @@
         <view class="items-center" style="margin-right: 25rpx">
           <image src="@/static/icons/map.png" />
           <text style="margin-left: 15rpx">{{
-            companyInformation.cityName
+            jobInformation.workCityName
           }}</text>
         </view>
         <view class="items-center" style="margin-right: 25rpx">
@@ -273,7 +273,7 @@ const collection = () => {
         uni.showToast({
           title: "收藏成功",
           icon: "none",
-          duration: 1000,
+          duration: 1500,
         });
       })
       .catch(failResponseHandler);
@@ -293,7 +293,7 @@ const collection = () => {
               uni.showToast({
                 title: "取消收藏",
                 icon: "none",
-                duration: 1000,
+                duration: 1500,
               });
             })
             .catch(failResponseHandler);
@@ -304,7 +304,15 @@ const collection = () => {
 };
 // 沟通HR
 const communication = (i: string) => {
-  uni.navigateTo({ url: "/mine/liaotianyemian/liaotianyemian?Id=" + i });
+  let messageKey = "";
+  for (const key in store.messages) {
+    if (key === jobInformation.value.hrInformationId) {
+      messageKey = key;
+    }
+  }
+  uni.navigateTo({
+    url: "/mine/liaotianyemian/liaotianyemian?Id=" + i + "&key=" + messageKey,
+  });
 };
 // 投递简历
 const sendResume = () => {
@@ -320,7 +328,7 @@ const send = () => {
       uni.showToast({
         title: "投递成功",
         icon: "none",
-        duration: 1000,
+        duration: 1500,
       });
     })
     .catch(failResponseHandler);

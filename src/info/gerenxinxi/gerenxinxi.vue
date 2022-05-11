@@ -232,7 +232,7 @@ const chooseImage = () => {
           uni.showToast({
             title: "上传失败",
             icon: "none",
-            duration: 1000,
+            duration: 1500,
           });
         },
       });
@@ -241,7 +241,7 @@ const chooseImage = () => {
       uni.showToast({
         title: "上传失败",
         icon: "none",
-        duration: 1000,
+        duration: 1500,
       });
     },
   });
@@ -294,13 +294,13 @@ const saveInfos = () => {
     uni.showToast({
       title: "请输入姓名",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else if (!userInformation.value.email) {
     uni.showToast({
       title: "邮箱不能为空",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else if (
     !/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(
@@ -310,7 +310,7 @@ const saveInfos = () => {
     uni.showToast({
       title: "邮箱格式有误",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else {
     userInformation.value.firstName = fullName.value.slice(0, 1);

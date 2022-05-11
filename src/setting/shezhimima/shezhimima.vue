@@ -99,7 +99,7 @@ const getVerification = () => {
     .then((res) => {
       uni.showToast({
         title: "验证码已发送",
-        duration: 1000,
+        duration: 1500,
         icon: "none",
       });
     })
@@ -111,25 +111,25 @@ const savePassWord = () => {
     uni.showToast({
       title: "两次密码不一致",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else if (password.value === "" || password2.value === "") {
     uni.showToast({
       title: "密码不能为空",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else if (password.value.length < 6) {
     uni.showToast({
       title: "密码长度不能小于6位",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else if (vCode.value.length !== 4) {
     uni.showToast({
       title: "请输入4位验证码",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else {
     putAccountInfosP0(store.accountInformation.accountInformationId, {
@@ -140,7 +140,7 @@ const savePassWord = () => {
         uni.showToast({
           title: "修改成功",
           icon: "none",
-          duration: 1000,
+          duration: 1500,
         });
         uni.navigateBack({
           delta: 1,

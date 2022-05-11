@@ -31,7 +31,7 @@ import { ref } from "vue";
 const favorites = ref();
 const favoritesPosition = ref<PositionInformation[]>([]);
 const cancelCollection = ref("取消收藏");
-const emptyShow = ref(false);
+const emptyShow = ref(true);
 
 onLoad((e) => {
   if (e.favoritePosition) {
@@ -43,11 +43,12 @@ onLoad((e) => {
       )
         .then((res) => {
           favoritesPosition.value.push(res.data.body);
+          if (favoritesPosition.value.length) {
+            emptyShow.value = false;
+          }
         })
         .catch(failResponseHandler);
     }
-  } else {
-    emptyShow.value = true;
   }
 });
 

@@ -196,7 +196,7 @@ onLoad((options) => {
     uni.showToast({
       title: "参数错误",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   }
 });
@@ -215,7 +215,7 @@ const focusOn = () => {
         uni.showToast({
           title: "关注成功",
           icon: "none",
-          duration: 1000,
+          duration: 1500,
         });
       })
       .catch(failResponseHandler);
@@ -238,7 +238,7 @@ const focusOn = () => {
               uni.showToast({
                 title: "取消关注",
                 icon: "none",
-                duration: 1000,
+                duration: 1500,
               });
               focusId.value = null;
             })

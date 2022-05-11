@@ -89,7 +89,7 @@ const getVerifiable = () => {
     uni.showToast({
       title: "请输入邮箱",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else if (
     /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email.value)
@@ -99,7 +99,7 @@ const getVerifiable = () => {
         uni.showToast({
           title: "验证码已发送",
           icon: "none",
-          duration: 1000,
+          duration: 1500,
         });
       })
       .catch(failResponseHandler);
@@ -107,7 +107,7 @@ const getVerifiable = () => {
     uni.showToast({
       title: "请输入正确的邮箱",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   }
 };
@@ -116,25 +116,25 @@ const registeredAccount = () => {
     uni.showToast({
       title: "邮箱密码不能为空",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else if (verification.value === "") {
     uni.showToast({
       title: "验证码不能为空",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else if (isAgree.value === false) {
     uni.showToast({
       title: "请同意协议",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else if (password.value.length < 6) {
     uni.showToast({
       title: "密码不能小于6位",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else {
     postAccountInfos({
@@ -160,7 +160,7 @@ const registeredAccount = () => {
                 uni.showToast({
                   title: "注册成功",
                   icon: "none",
-                  duration: 1000,
+                  duration: 1500,
                 });
                 uni.navigateTo({
                   url: "/init/wanchengjianli/wanchengjianli",

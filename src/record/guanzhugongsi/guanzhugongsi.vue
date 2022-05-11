@@ -32,7 +32,7 @@ import { ref } from "vue";
 const attentionCompanies = ref<CompanyInformation[]>([]);
 const focusCompany = ref();
 const unfocus = ref("取消关注");
-const emptyShow = ref(false);
+const emptyShow = ref(true);
 
 onLoad((e) => {
   if (e.focusCompany) {
@@ -41,11 +41,12 @@ onLoad((e) => {
       getCompanyInfosP0(focus.companyInformationId)
         .then((res) => {
           attentionCompanies.value.push(res.data.body);
+          if (attentionCompanies.value.length) {
+            emptyShow.value = false;
+          }
         })
         .catch(failResponseHandler);
     }
-  } else {
-    emptyShow.value = true;
   }
 });
 

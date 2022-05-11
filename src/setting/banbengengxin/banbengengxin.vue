@@ -70,7 +70,7 @@ const checkVersion = () => {
       uni.showToast({
         title: "已为最新版本",
         icon: "none",
-        duration: 1000,
+        duration: 1500,
       });
     }
   });

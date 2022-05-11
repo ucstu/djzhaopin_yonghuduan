@@ -35,7 +35,7 @@ const store = useMainStore();
 const interviewedJobs = ref<PositionInformation[]>([]);
 const interviewed = ref();
 const sendType = ref("放弃面试");
-const emptyShow = ref(false);
+const emptyShow = ref(true);
 
 /* 查询待面试职位信息 */
 onLoad((e) => {
@@ -48,11 +48,12 @@ onLoad((e) => {
       )
         .then((res) => {
           interviewedJobs.value.push(res.data.body);
+          if (interviewedJobs.value.length) {
+            emptyShow.value = false;
+          }
         })
         .catch(failResponseHandler);
     }
-  } else {
-    emptyShow.value = true;
   }
 });
 

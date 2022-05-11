@@ -98,7 +98,7 @@ const deleteAccount = () => {
       uni.showToast({
         title: "验证码已发送",
         icon: "none",
-        duration: 1000,
+        duration: 1500,
       });
       popup.value.show();
     })
@@ -111,7 +111,7 @@ const sendVerification = () => {
       uni.showToast({
         title: "验证码已发送",
         icon: "none",
-        duration: 1000,
+        duration: 1500,
       });
     })
     .catch(failResponseHandler);

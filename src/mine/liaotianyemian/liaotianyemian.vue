@@ -38,8 +38,7 @@
     <!-- #endif -->
     <scroll-view class="group-info" :scroll-y="true" :scroll-top="scrollTop">
       <view
-        v-for="(recode, i) in store.messages[messageKey]"
-        :id="'message-' + messageKey + '-' + i"
+        v-for="recode in store.messages[messageKey]"
         :key="recode.messageRecordId"
       >
         <Left
@@ -93,9 +92,8 @@ import { HrInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { sendMessage } from "@/utils/stomp";
-import { onLoad } from "@dcloudio/uni-app";
-import { computed } from "@vue/reactivity";
-import { ref } from "vue";
+import { onLoad, onShow } from "@dcloudio/uni-app";
+import { nextTick, ref, watchEffect } from "vue";
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 const store = useMainStore();
@@ -111,8 +109,15 @@ const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(30);
 const hrInfo = ref<HrInformation>({} as HrInformation);
 const inputValue = ref("");
 const messageKey = ref("");
-const scrollTop = computed(() => {
-  return (store.messages[messageKey.value].length + 1) * uni.upx2px(110);
+let scrollTop = ref(0);
+
+watchEffect(() => {
+  if (store.messages[messageKey.value]) {
+    nextTick(() => {
+      scrollTop.value =
+        store.messages[messageKey.value].length * uni.upx2px(200);
+    });
+  }
 });
 
 onLoad((e) => {
@@ -125,6 +130,14 @@ onLoad((e) => {
   }
   if (e.key) {
     messageKey.value = e.key;
+  }
+});
+
+onShow(() => {
+  for (const key in store.messages) {
+    if (key === hrInfo.value.hrInformationId) {
+      messageKey.value = key;
+    }
   }
 });
 
@@ -158,7 +171,7 @@ const sendImage = () => {
           uni.showToast({
             title: "发送失败",
             icon: "none",
-            duration: 1000,
+            duration: 1500,
           });
         },
       });

@@ -17,6 +17,11 @@
 
 <script lang="ts" setup>
 import JobDetail from "@/components/JobDetail/JobDetail.vue";
+import { useMainStore } from "@/stores/main";
+import { ref } from "vue";
+
+const store = useMainStore();
+const messageKey = ref("");
 
 const props = defineProps({
   collectionPosition: {
@@ -28,6 +33,14 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["stateClick"]);
+
+if (props.collectionPosition) {
+  for (const key in store.messages) {
+    if (key === props.collectionPosition?.hrInformationId) {
+      messageKey.value = key;
+    }
+  }
+}
 
 const view_4OnClick = () => {
   let companyId = props.collectionPosition?.companyInformationId;
@@ -44,7 +57,9 @@ const view_11OnClick = () => {
   uni.navigateTo({
     url:
       "/mine/liaotianyemian/liaotianyemian?Id=" +
-      props.collectionPosition?.hrInformationId,
+      props.collectionPosition?.hrInformationId +
+      "&key=" +
+      messageKey.value,
   });
 };
 </script>

@@ -124,7 +124,7 @@ const addExcept = () => {
     uni.showToast({
       title: "最多只能添加3个求职期望",
       icon: "none",
-      duration: 1000,
+      duration: 1500,
     });
   } else {
     uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=` + 1 });

@@ -37,7 +37,7 @@ if (store.jsonWebToken === null || !store.accountInformation) {
       uni.showToast({
         title: "登录失效，请重新登录",
         icon: "none",
-        duration: 1000,
+        duration: 1500,
       });
       store.jobExpectations = [];
       store.jsonWebToken = null as any;

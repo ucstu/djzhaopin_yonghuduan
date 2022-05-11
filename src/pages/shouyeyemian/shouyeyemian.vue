@@ -172,14 +172,13 @@ onShow(() => {
 /* 默认 */
 onMounted(() => {
   cityName.value = cityValue.value[activeIndex.value];
-  city.value.push(cityName.value);
   getCompanyInfosPositionInfos(
   {
-    positionType: expects.value[0],
-    workCityName: cityName.value,
-    directionTags: directionTags.value,
-    salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
-    size: 10,
+    // positionType: expects.value[0],
+    // workCityName: cityName.value,
+    // directionTags: directionTags.value,
+    // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+    // size: 10,
   }
   ).then((res) => {
     jobDetails.value = res.data.body.positionInformations
@@ -193,10 +192,10 @@ onLoad(() => {
   })
   uni.$on("place", (data) => {
       city.value = [];
-      city.value = data
-      city.value.push(cityName.value)
+      city.value = data;
       getCompanyInfosPositionInfos(
       {positionType: expects.value[activeIndex.value],
+        workCityName: cityName.value,
         workAreaNames: city.value,
         directionTags: directionTags.value,
         salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
@@ -232,7 +231,6 @@ const changeJobType = (index: number) => {
   activeIndex.value = index;
   cityName.value = cityValue.value[activeIndex.value];
   city.value.length = 0;
-  city.value.push(cityName.value);
   getCompanyInfosPositionInfos(
   {positionType: expects.value[index],
     workCityName: cityName.value,
@@ -249,6 +247,7 @@ const recommended = (index: number) => {
   if (index === 0) {  // 热门
     getCompanyInfosPositionInfos({
       positionType: expects.value[activeIndex.value],
+      workCityName: cityName.value,
       workAreaNames: city.value,
       directionTags: directionTags.value,
       salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
@@ -259,6 +258,7 @@ const recommended = (index: number) => {
   } else if (index === 1) {  // 附近
     getCompanyInfosPositionInfos({
       positionType: expects.value[activeIndex.value],
+      workCityName: cityName.value,
       workAreaNames: city.value,
       directionTags: directionTags.value,
       salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
@@ -271,6 +271,7 @@ const recommended = (index: number) => {
   } else {  // 最新
     getCompanyInfosPositionInfos({
       positionType: expects.value[activeIndex.value],
+      workCityName: cityName.value,
       workAreaNames: city.value,
       directionTags: directionTags.value,
       salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,

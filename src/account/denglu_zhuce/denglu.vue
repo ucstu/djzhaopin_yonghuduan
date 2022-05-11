@@ -111,7 +111,7 @@ const login = () => {
           uni.showToast({
             title: "此账号为企业账号，请移步企业端登录",
             icon: "none",
-            duration: 1000,
+            duration: 1500,
           });
         } else {
           store.jsonWebToken = res.data.body.token;

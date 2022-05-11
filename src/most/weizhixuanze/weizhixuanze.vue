@@ -53,9 +53,9 @@ import { getAreaInformations } from "@/services/services";
 import { AreaInformations } from "@/services/types";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad } from "@dcloudio/uni-app";
-import { computed, reactive, ref } from "vue";
+import { computed, ref } from "vue";
 
-const countries = reactive<AreaInformations>([
+const countries = ref<AreaInformations>([
   {
     countyName: "不限",
     areas: ["不限"],
@@ -64,58 +64,62 @@ const countries = reactive<AreaInformations>([
 const countriesIndex = ref(0);
 const country = ref("位置");
 const areasIndex = ref([0]);
-const areasValue = ref<string[]>([]);
+const filterValue = ref<string[]>([]);
 const c = ref();
 
 onLoad((e) => {
   if (e.city) {
     country.value = e.city;
     c.value = e.city;
+    getAreaInformations({
+      cityName: country.value,
+    })
+      .then((res) => {
+        countries.value.slice(0, 1);
+        countries.value.push(...res.data.body);
+      })
+      .catch(failResponseHandler);
   }
   uni.$on("liveCity", (city) => {
     country.value = city;
-  });
-  getAreaInformations({
-    cityName: country.value,
-  })
-    .then((res) => {
-      countries.push(...res.data.body);
+    countries.value.length = 0;
+    getAreaInformations({
+      cityName: country.value,
     })
-    .catch(failResponseHandler);
+      .then((res) => {
+        countries.value.push(...res.data.body);
+      })
+      .catch(failResponseHandler);
+  });
 });
 const areas = computed(() => {
-  return countries[countriesIndex.value].areas;
+  return countries.value[countriesIndex.value].areas;
 });
 
 const countriesIndexOf = (index: number) => {
   countriesIndex.value = index;
-  if (!index) {
-    areasIndex.value = [0];
-  } else {
-    areasIndex.value.splice(0, areasIndex.value.length);
-  }
-  areasValue.value.slice(0, areasValue.value.length);
-  country.value = countries[index].countyName;
+  country.value = countries.value[index].countyName;
 };
 
 const areasIndexOf = (index: number) => {
   if (areasIndex.value.includes(index)) {
     areasIndex.value.splice(areasIndex.value.indexOf(index), 1);
-    areasValue.value.splice(areasValue.value.indexOf(areas.value[index]), 1);
+    filterValue.value.splice(filterValue.value.indexOf(areas.value[index]), 1);
   } else {
     areasIndex.value.push(index);
-    areasValue.value.push(areas.value[index]);
+    filterValue.value.push(areas.value[index]);
   }
 };
 /* 重置筛选 */
 const replacement = () => {
   countriesIndex.value = 0;
   areasIndex.value = [0];
+  filterValue.value.length = 0;
   country.value = c.value;
 };
-
+// 存储选择的地区
 const savePlace = () => {
-  uni.$emit("place", areasValue.value);
+  uni.$emit("place", filterValue.value);
   uni.navigateBack({ delta: 1 });
 };
 
