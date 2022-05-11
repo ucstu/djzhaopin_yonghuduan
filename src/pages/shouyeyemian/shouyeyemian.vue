@@ -194,11 +194,12 @@ onLoad(() => {
       city.value = [];
       city.value = data;
       getCompanyInfosPositionInfos(
-      {positionType: expects.value[activeIndex.value],
-        workCityName: cityName.value,
-        workAreaNames: city.value,
-        directionTags: directionTags.value,
-        salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+      {
+        // positionType: expects.value[activeIndex.value],
+        // workCityName: cityName.value,
+        // workAreaNames: city.value,
+        // directionTags: directionTags.value,
+        // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
         size: 5,
       }
       ).then((res) => {
@@ -232,10 +233,11 @@ const changeJobType = (index: number) => {
   cityName.value = cityValue.value[activeIndex.value];
   city.value.length = 0;
   getCompanyInfosPositionInfos(
-  {positionType: expects.value[index],
-    workCityName: cityName.value,
-    directionTags: directionTags.value,
-    salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+  {
+    // positionType: expects.value[index],
+    // workCityName: cityName.value,
+    // directionTags: directionTags.value,
+    // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
   }
 ).then((res) => {
   jobDetails.value = res.data.body.positionInformations
@@ -246,22 +248,22 @@ const recommended = (index: number) => {
   showRecommend.value = index;
   if (index === 0) {  // 热门
     getCompanyInfosPositionInfos({
-      positionType: expects.value[activeIndex.value],
-      workCityName: cityName.value,
-      workAreaNames: city.value,
-      directionTags: directionTags.value,
-      salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+      // positionType: expects.value[activeIndex.value],
+      // workCityName: cityName.value,
+      // workAreaNames: city.value,
+      // directionTags: directionTags.value,
+      // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
       size: 10,
       }).then((res) => {
       jobDetails.value = res.data.body.positionInformations
     }).catch(failResponseHandler)
   } else if (index === 1) {  // 附近
     getCompanyInfosPositionInfos({
-      positionType: expects.value[activeIndex.value],
-      workCityName: cityName.value,
-      workAreaNames: city.value,
-      directionTags: directionTags.value,
-      salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+      // positionType: expects.value[activeIndex.value],
+      // workCityName: cityName.value,
+      // workAreaNames: city.value,
+      // directionTags: directionTags.value,
+      // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
       size: 10,
       sort: ['workCityName,asc']
       },
@@ -270,11 +272,11 @@ const recommended = (index: number) => {
     }).catch(failResponseHandler)
   } else {  // 最新
     getCompanyInfosPositionInfos({
-      positionType: expects.value[activeIndex.value],
-      workCityName: cityName.value,
-      workAreaNames: city.value,
-      directionTags: directionTags.value,
-      salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+      // positionType: expects.value[activeIndex.value],
+      // workCityName: cityName.value,
+      // workAreaNames: city.value,
+      // directionTags: directionTags.value,
+      // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
       size: 10,
       sort: ["createdAt,asc"]
       },
@@ -296,15 +298,15 @@ const onRefresh = () => {
 const onRestore = () => {
   /* 刷新获取新数据 */
    getCompanyInfosPositionInfos({
-    positionType: expects.value[activeIndex.value],
-    workAreaNames: city.value,
-    directionTags: directionTags.value,
-    salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
-    educations: filters.value.degree,
-    workingYears: filters.value.experience,
-    workTypes: filters.value.nature,
-    scales: filters.value.size,
-    financingStages: filters.value.stage,
+    // positionType: expects.value[activeIndex.value],
+    // workAreaNames: city.value,
+    // directionTags: directionTags.value,
+    // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+    // educations: filters.value.degree,
+    // workingYears: filters.value.experience,
+    // workTypes: filters.value.nature,
+    // scales: filters.value.size,
+    // financingStages: filters.value.stage,
     size: 10,
   }).then((res) => {
   jobDetails.value = res.data.body.positionInformations
@@ -319,10 +321,10 @@ const onReachBottom = () => {
   setTimeout(() => {
     getCompanyInfosPositionInfos(
   {
-    positionName: expects.value[activeIndex.value],
-    workAreaNames: city.value,
-    directionTags: directionTags.value,
-    salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+    // positionName: expects.value[activeIndex.value],
+    // workAreaNames: city.value,
+    // directionTags: directionTags.value,
+    // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
     size: 5,
   }
   ).then((res) => {
