@@ -92,7 +92,7 @@ import { HrInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { sendMessage } from "@/utils/stomp";
-import { onLoad, onShow } from "@dcloudio/uni-app";
+import { onLoad } from "@dcloudio/uni-app";
 import { nextTick, ref, watchEffect } from "vue";
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -118,6 +118,11 @@ watchEffect(() => {
         store.messages[messageKey.value].length * uni.upx2px(200);
     });
   }
+  for (const key in store.messages) {
+    if (key === hrInfo.value.hrInformationId) {
+      messageKey.value = key;
+    }
+  }
 });
 
 onLoad((e) => {
@@ -130,14 +135,6 @@ onLoad((e) => {
   }
   if (e.key) {
     messageKey.value = e.key;
-  }
-});
-
-onShow(() => {
-  for (const key in store.messages) {
-    if (key === hrInfo.value.hrInformationId) {
-      messageKey.value = key;
-    }
   }
 });
 

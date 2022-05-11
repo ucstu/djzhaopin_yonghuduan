@@ -82,7 +82,7 @@ onLoad((e) => {
   }
   uni.$on("liveCity", (city) => {
     country.value = city;
-    countries.value.length = 0;
+    countries.value.slice(0, 1);
     getAreaInformations({
       cityName: country.value,
     })
