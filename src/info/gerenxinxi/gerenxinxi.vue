@@ -142,7 +142,7 @@ import { putUserInfosP0 } from "@/services/services";
 import { UserInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad } from "@dcloudio/uni-app";
+import { onLoad, onUnload } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -185,7 +185,7 @@ const changePopup = () => {
   birOrTime.value = false;
   popup.value.show();
 };
-for (let i = 1960; i <= date.getFullYear(); i++) {
+for (let i = 1960; i <= year; i++) {
   years.value.push(i);
 }
 for (let i = 1; i <= 12; i++) {
@@ -286,6 +286,10 @@ onLoad(() => {
   uni.$on("liveCity", (data) => {
     userInformation.value.cityName = data;
   });
+});
+
+onUnload(() => {
+  uni.$off("liveCity");
 });
 
 // 保存修改用户基本信息

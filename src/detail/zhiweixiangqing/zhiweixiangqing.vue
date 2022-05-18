@@ -424,9 +424,11 @@ const viewResume = () => {
 .btn-box {
   position: absolute;
   bottom: 0;
+  z-index: 999;
   width: 92%;
   height: 100rpx;
   margin-left: 4%;
+  background-color: #fff;
 
   .image-collection {
     width: 60rpx;

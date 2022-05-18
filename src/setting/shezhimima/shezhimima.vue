@@ -48,16 +48,18 @@
       </view>
     </view>
     <view class="group-box">
-      <view>
-        <text class="text-title">输入验证码</text>
-        <view class="flex-row justify-between items-center">
-          <input
-            v-model="vCode"
-            class="text-input"
-            type="number"
-            placeholder="请输入验证码"
-            maxlength="4"
-          />
+      <view class="flex-row justify-between items-center">
+        <view>
+          <text class="text-title">输入验证码</text>
+          <view class="flex-row justify-between items-center">
+            <input
+              v-model="vCode"
+              class="text-input"
+              type="number"
+              placeholder="请输入验证码"
+              maxlength="4"
+            />
+          </view>
         </view>
         <button
           class="justify-center items-center btn"

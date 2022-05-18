@@ -53,10 +53,10 @@
 <script lang="ts" setup>
 import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { getCompanyInfos } from "@/services/services";
+import { getCompanyInfos, getCompanyInfosP0 } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad } from "@dcloudio/uni-app";
+import { onLoad, onUnload } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const companyInfos = ref<CompanyInformation[]>([]);
@@ -76,7 +76,18 @@ onLoad((e) => {
     }
   }
   if (e.position) {
-    emptyShow.value = true;
+    let position = JSON.parse(e.position);
+    companyInfos.value = [];
+    for (const item of position) {
+      getCompanyInfosP0(item.companyInformationId).then((res) => {
+        companyInfos.value.push(res.data.body);
+        if (companyInfos.value.length) {
+          emptyShow.value = false;
+        } else {
+          emptyShow.value = true;
+        }
+      });
+    }
   }
   if (e.name) {
     companyName.value = e.name;
@@ -107,6 +118,10 @@ onLoad((e) => {
   });
 });
 
+onUnload(() => {
+  uni.$off("filter");
+});
+
 const filterCompany = () => {
   uni.navigateTo({ url: "/most/shaixuanyemian/shaixuanyemian" });
 };
@@ -121,6 +136,7 @@ const sortChoose = (index: number) => {
   sortNum.value = index;
   sortval.value = sortValue[index];
   if (index === 1) {
+    // 距离优先
     getCompanyInfos({
       sort: ["cityName,asc"],
     }).then((res) => {
@@ -128,19 +144,22 @@ const sortChoose = (index: number) => {
     });
   } else if (index === 2) {
     getCompanyInfos({
+      // 公司规模
       sort: ["scale,desc"],
     }).then((res) => {
       companyInfos.value = res.data.body.companyInformations;
     });
   } else if (index === 3) {
     getCompanyInfos({
+      // 融资阶段
       sort: ["financingStage,desc"],
     }).then((res) => {
       companyInfos.value = res.data.body.companyInformations;
     });
   } else {
+    // 综合排序
     getCompanyInfos({
-      sort: ["companyInformationId,asc"],
+      sort: ["companyName,asc"],
     }).then((res) => {
       companyInfos.value = res.data.body.companyInformations;
     });

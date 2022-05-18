@@ -13,7 +13,8 @@
           <!--  #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
           <view class="section-1"></view>
           <view class="flex-col section-2">
-            <view class="justify-between items-center">
+            <view style="width: 92%;height:auto; margin-left: 4%;">
+              <view class="justify-between items-center">
               <scroll-view :scroll-x="true" class="flex-row list">
                 <!--  #endif -->
                 <text
@@ -60,6 +61,7 @@
             <image
               src="https://codefun-proj-user-res-1256085488.cos.ap-guangzhou.myqcloud.com/623287845a7e3f0310c3a3f7/623446dc62a7d90011023514/16475932254587777410.png"
               class="image-6" />
+            </view>
           </view>
           <view class="flex-col">
             <scroll-view
@@ -110,7 +112,7 @@ import { PositionInformation } from '@/services/types';
 import { useMainStore } from '@/stores/main';
 import { failResponseHandler } from '@/utils/handler';
 import { sendPing } from "@/utils/stomp";
-import { onLoad, onShow } from '@dcloudio/uni-app';
+import { onLoad, onShow, onUnload } from '@dcloudio/uni-app';
 import { onMounted, ref } from 'vue';
 
 const store = useMainStore();
@@ -187,9 +189,20 @@ onMounted(() => {
 
 /* 切换城市 */
 onLoad(() => {
-  uni.$on("liveCity", (data) => {
-    cityName.value = data;
-  })
+    uni.$on("liveCity", (data) => {
+      if(store.jobExpectations.length){
+        cityName.value = data;
+          getCompanyInfosPositionInfos({
+            // positionType: expects.value[0],
+            // workCityName: cityName.value,
+            // directionTags: directionTags.value,
+            // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+            size: 10,
+          }).then((res) => {
+            jobDetails.value = res.data.body.positionInformations
+          }).catch(failResponseHandler)
+      }
+    })
   uni.$on("place", (data) => {
       city.value = [];
       city.value = data;
@@ -226,6 +239,11 @@ onLoad(() => {
       }).catch(failResponseHandler)
     })
 })
+onUnload(() => {
+  uni.$off("liveCity");
+  uni.$off("place");
+  uni.$off("filterValue");
+})
 
 /* 切换职位 */
 const changeJobType = (index: number) => {
@@ -253,6 +271,7 @@ const recommended = (index: number) => {
       // workAreaNames: city.value,
       // directionTags: directionTags.value,
       // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+      sort: ['positionName,asc'],
       size: 10,
       }).then((res) => {
       jobDetails.value = res.data.body.positionInformations
@@ -278,7 +297,7 @@ const recommended = (index: number) => {
       // directionTags: directionTags.value,
       // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
       size: 10,
-      sort: ["createdAt,asc"]
+      sort: ["createdAt,desc"]
       },
     ).then((res) => {
       jobDetails.value = res.data.body.positionInformations
@@ -298,15 +317,15 @@ const onRefresh = () => {
 const onRestore = () => {
   /* 刷新获取新数据 */
    getCompanyInfosPositionInfos({
-    // positionType: expects.value[activeIndex.value],
-    // workAreaNames: city.value,
-    // directionTags: directionTags.value,
-    // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
-    // educations: filters.value.degree,
-    // workingYears: filters.value.experience,
-    // workTypes: filters.value.nature,
-    // scales: filters.value.size,
-    // financingStages: filters.value.stage,
+    positionType: expects.value[activeIndex.value],
+    workAreaNames: city.value,
+    directionTags: directionTags.value,
+    salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+    educations: filters.value.degree,
+    workingYears: filters.value.experience,
+    workTypes: filters.value.nature,
+    scales: filters.value.size,
+    financingStages: filters.value.stage,
     size: 10,
   }).then((res) => {
   jobDetails.value = res.data.body.positionInformations
@@ -336,10 +355,13 @@ const onReachBottom = () => {
   loadMore.value = false;
   }, 3000)
 }
-
+/** 添加求职期望 */
 const image_5OnClick = () => {
   uni.navigateTo({ url: '/info/qiuzhiqiwang/qiuzhiqiwang' })
 }
+/**
+ * 搜索跳转
+ */
 const image_6OnClick = () => {
   uni.navigateTo({ url: `/most/sousuoyemian/sousuoyemian?city=` + cityName.value })
 }
@@ -350,6 +372,7 @@ const text_22OnClick = () => {
 const text_23OnClick = () => {
   uni.navigateTo({ url: '/most/shaixuanyemian/shaixuanyemian' })
 }
+/* 查看职位详情 */
 const jobDescription = (index: number) => {
   let companyId = jobDetails.value[index].companyInformationId;
   let positionId = jobDetails.value[index].positionInformationId;
@@ -370,8 +393,8 @@ const jobDescription = (index: number) => {
   }
 
   .section-2 {
-    padding: 28rpx 20rpx 15rpx;
-    padding-top: 0rpx;
+    width: 100%;
+    height: auto;
     background-color: rgb(37 85 212);
 
     .group-2 {
@@ -423,8 +446,8 @@ const jobDescription = (index: number) => {
     }
 
     .image-6 {
-      width: 94.5vw;
-      height: 25.5vw;
+      width: 100%;
+      height: 200rpx;
       margin-top: 26rpx;
       border-radius: 25rpx;
     }
@@ -517,7 +540,14 @@ const jobDescription = (index: number) => {
   }
 
   .job-detail {
+    // #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ
+    max-height: 800rpx;
+
+    // #endif
+    // #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ
     max-height: 1100rpx;
+
+    // #endif
     overflow: hidden;
     background-color: rgb(240 240 240);
   }

@@ -66,28 +66,32 @@ const provinceIndex = (index: number) => {
 
 const cityIndex = (index: number) => {
   let city = cities.value[index];
-  uni.$emit("liveCity", city);
   uni.navigateBack({ delta: 1 });
+  uni.$emit("liveCity", city);
 };
 </script>
 
 <style lang="scss" scoped>
 .page {
-  width: 710rpx;
-  height: 1320rpx;
-  margin-left: 20rpx;
-
-  .header {
-    position: relative;
-  }
+  width: 94%;
+  height: auto;
+  margin-left: 3%;
 
   .active {
     font-weight: bold;
   }
 
   .group-left {
-    width: 220rpx;
+    width: 30%;
+
+    // #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ
     height: 1190rpx;
+
+    // #endif
+    // #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ
+    height: 1520rpx;
+
+    // #endif
     overflow-y: hidden;
     background-color: rgb(244 243 243);
     border-radius: 5rpx;
@@ -105,8 +109,16 @@ const cityIndex = (index: number) => {
   }
 
   .group-right {
-    width: 480rpx;
+    width: 70%;
+
+    // #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ
     height: 1190rpx;
+
+    // #endif
+    // #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ
+    height: 1520rpx;
+
+    // #endif
 
     .hot-cities {
       margin-top: 20rpx;

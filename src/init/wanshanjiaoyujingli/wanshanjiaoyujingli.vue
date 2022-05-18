@@ -192,7 +192,7 @@ const days = ref<number[]>([]);
 let year = date.getFullYear();
 let month = date.getMonth() + 1;
 let day = date.getDate();
-for (let i = 1970; i <= year; i++) {
+for (let i = 1970; i <= year + 5; i++) {
   years.value.push(i);
 }
 for (let i = 1; i <= 12; i++) {
@@ -201,7 +201,7 @@ for (let i = 1; i <= 12; i++) {
 for (let i = 1; i <= 31; i++) {
   days.value.push(i);
 }
-const startValue = ref([year, month - 1, day - 1]);
+const startValue = ref([year - 1970, month - 1, day - 1]);
 const endValue = ref([year, month - 1, day - 1]);
 const schoolChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;

@@ -357,9 +357,11 @@ const jobClick = (p: string, c: string) => {
   .group-btn {
     position: absolute;
     bottom: 0;
+    z-index: 999;
     width: 92%;
     height: 100rpx;
     margin-left: 4%;
+    background-color: #fff;
 
     .image-focus {
       width: 60rpx;

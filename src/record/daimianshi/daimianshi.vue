@@ -58,8 +58,11 @@ onLoad((e) => {
 });
 
 onShow(() => {
-  if (interviewed.value.length === 0) {
+  if (!interviewed.value.length) {
     emptyShow.value = true;
+  } else {
+    console.log(interviewedJobs.value);
+    return interviewedJobs.value;
   }
 });
 
@@ -75,6 +78,10 @@ const stateClick = (index: string) => {
           interviewed.value = interviewed.value.filter(
             (item: { deliveryRecordId: any }) =>
               item.deliveryRecordId !== delivery.deliveryRecordId
+          );
+          interviewedJobs.value = interviewedJobs.value.filter(
+            (item: { positionInformationId: any }) =>
+              item.positionInformationId !== delivery.positionInformationId
           );
         })
         .catch(failResponseHandler);

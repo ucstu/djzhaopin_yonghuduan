@@ -66,9 +66,12 @@
 <script lang="ts" setup>
 import JobDetail from "@/components/JobDetail/JobDetail.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { getCompanyInfosPositionInfos } from "@/services/services";
+import {
+  getCompanyInfosP0PositionInfos,
+  getCompanyInfosPositionInfos,
+} from "@/services/services";
 import { PositionInformation } from "@/services/types";
-import { onLoad } from "@dcloudio/uni-app";
+import { onLoad, onUnload } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const jobDetails = ref<PositionInformation[]>([]);
@@ -80,6 +83,24 @@ const emptyShow = ref(false);
 onLoad((e) => {
   if (e.position) {
     jobDetails.value = JSON.parse(e.position);
+  }
+  if (e.company) {
+    let companyInfo = JSON.parse(e.company);
+    jobDetails.value = [];
+    for (const item of companyInfo) {
+      getCompanyInfosP0PositionInfos(item.companyInformationId, {}).then(
+        (res) => {
+          for (const item of res.data.body.positionInformations) {
+            jobDetails.value.push(item);
+            if (jobDetails.value.length) {
+              emptyShow.value = false;
+            } else {
+              emptyShow.value = true;
+            }
+          }
+        }
+      );
+    }
   }
   if (e.searchCode) {
     let data = parseInt(e.searchCode);
@@ -112,11 +133,17 @@ onLoad((e) => {
       financingStages: data.stage as (2 | 1 | 3 | 4 | 5 | 6 | 7 | 8)[],
     }).then((res) => {
       jobDetails.value = res.data.body.positionInformations;
-      if (res.data.body.positionInformations.length === 0) {
+      if (res.data.body.positionInformations.length) {
+        emptyShow.value = false;
+      } else {
         emptyShow.value = true;
       }
     });
   });
+});
+
+onUnload(() => {
+  uni.$off("filter");
 });
 
 const popup = ref();
@@ -130,32 +157,37 @@ const sortChoose = (index: number) => {
   sortNum.value = index;
   sortval.value = sortValue[index];
   if (index === 1) {
+    // 距离优先
     getCompanyInfosPositionInfos({
       sort: ["workCityName,asc"],
     }).then((res) => {
       jobDetails.value = res.data.body.positionInformations;
     });
   } else if (index === 2) {
+    // 薪资待遇
     getCompanyInfosPositionInfos({
       sort: ["startingSalary,desc"],
     }).then((res) => {
       jobDetails.value = res.data.body.positionInformations;
     });
   } else if (index === 3) {
+    // 学历要求
     getCompanyInfosPositionInfos({
       sort: ["education,asc"],
     }).then((res) => {
       jobDetails.value = res.data.body.positionInformations;
     });
   } else if (index === 4) {
+    // 工作经验
     getCompanyInfosPositionInfos({
       sort: ["workingYears,asc"],
     }).then((res) => {
       jobDetails.value = res.data.body.positionInformations;
     });
   } else {
+    // 综合排序
     getCompanyInfosPositionInfos({
-      sort: ["companyInformationId,asc"],
+      sort: ["positionName,asc"],
     }).then((res) => {
       jobDetails.value = res.data.body.positionInformations;
     });

@@ -1,8 +1,18 @@
 <template>
   <SearchBar :city="cityName"></SearchBar>
   <view class="justify-between about">
-    <text class="justify-center text-title" @click="checkPosition">职位</text>
-    <text class="justify-center text-title" @click="checkCompany">公司</text>
+    <text
+      class="justify-center text-title"
+      :class="position ? 'active' : ''"
+      @click="checkPosition"
+      >职位</text
+    >
+    <text
+      class="justify-center text-title"
+      :class="company ? 'active' : ''"
+      @click="checkCompany"
+      >公司</text
+    >
   </view>
   <FilterBar v-if="position"></FilterBar>
   <SearchAndFilter v-if="company"></SearchAndFilter>
@@ -12,12 +22,14 @@
 import FilterBar from "@/components/SearchAndFilter/FilterBar.vue";
 import SearchAndFilter from "@/components/SearchAndFilter/SearchAndFilter.vue";
 import SearchBar from "@/components/SearchAndFilter/SearchBar.vue";
+import { PositionInformation } from "@/services/types";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const position = ref(false);
 const company = ref(false);
 const cityName = ref("");
+const jobDetails = ref<PositionInformation[]>([]);
 
 onLoad((e) => {
   if (e.city) {
@@ -33,20 +45,29 @@ onLoad((e) => {
       }
     }
   }
+  if (e.position) {
+    jobDetails.value = JSON.parse(e.position);
+  }
 });
 
+/**查看相关职位 */
 const checkPosition = () => {
   position.value = true;
   company.value = false;
 };
 
+/**查看相关公司 */
 const checkCompany = () => {
-  position.value = false;
   company.value = true;
+  position.value = false;
 };
 </script>
 
 <style lang="scss" scoped>
+.active {
+  color: rgb(35 193 158);
+}
+
 .about {
   width: 70%;
   margin-bottom: 5rpx;

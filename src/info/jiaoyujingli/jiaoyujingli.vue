@@ -200,7 +200,7 @@ const days = ref<number[]>([]);
 let year = date.getFullYear();
 let month = date.getMonth() + 1;
 let day = date.getDate();
-for (let i = 1960; i <= year; i++) {
+for (let i = 1960; i <= year + 5; i++) {
   years.value.push(i);
 }
 for (let i = 1; i <= 12; i++) {
@@ -209,11 +209,7 @@ for (let i = 1; i <= 12; i++) {
 for (let i = 1; i <= 31; i++) {
   days.value.push(i);
 }
-const value1 = ref([
-  years.value[0],
-  months.value[0],
-  days.value[0],
-]); /* 默认入学时间 */
+const value1 = ref([year - 1960, month - 1, day - 1]); /* 默认入学时间 */
 const value2 = ref([year, month - 1, day - 1]); /* 默认毕业时间 */
 const defaultEducation = ref([education]); /* 默认学历 */
 const bindChange = (e: any) => {

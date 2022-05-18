@@ -30,7 +30,7 @@
         </view>
       </scroll-view>
     </view>
-    <view class="flex-row button">
+    <view class="flex-row justify-between button">
       <view
         class="flex-col items-center justify-center reset"
         @click="replacement"
@@ -52,7 +52,7 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getAreaInformations } from "@/services/services";
 import { AreaInformations } from "@/services/types";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad } from "@dcloudio/uni-app";
+import { onLoad, onUnload } from "@dcloudio/uni-app";
 import { computed, ref } from "vue";
 
 const countries = ref<AreaInformations>([
@@ -81,8 +81,13 @@ onLoad((e) => {
       .catch(failResponseHandler);
   }
   uni.$on("liveCity", (city) => {
+    countriesIndex.value = 0;
     country.value = city;
-    countries.value.slice(0, 1);
+    for (let i = 0; i <= countries.value.length; i++) {
+      if (countries.value.length > 1) {
+        countries.value.pop();
+      }
+    }
     getAreaInformations({
       cityName: country.value,
     })
@@ -91,6 +96,9 @@ onLoad((e) => {
       })
       .catch(failResponseHandler);
   });
+});
+onUnload(() => {
+  uni.$off("liveCity");
 });
 const areas = computed(() => {
   return countries.value[countriesIndex.value].areas;
@@ -132,22 +140,29 @@ const changeCity = () => {
 
 <style lang="scss" scoped>
 .page {
-  width: 710rpx;
-  height: 1334rpx;
+  width: 94%;
+  height: auto;
   padding: 60rpx 0 21rpx;
   margin-top: -50rpx;
-  margin-left: 20rpx;
+  margin-left: 3%;
   background-color: rgb(255 255 255);
 
   .group-all {
+    // #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ
     height: 1120rpx;
+
+    // #endif
+    // #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ
+    height: 1400rpx;
+
+    // #endif
 
     .active {
       color: rgb(84 188 163);
     }
 
     .group-left {
-      width: 213rpx;
+      width: 31%;
       font-size: 30rpx;
       font-weight: bold;
       background-color: rgb(244 250 255);
@@ -188,22 +203,21 @@ const changeCity = () => {
     position: fixed;
     bottom: 20rpx;
     width: 710rpx;
+    height: 80rpx;
+    font-size: 30rpx;
     background-color: rgb(255 255 255);
 
     .reset {
-      width: 230rpx;
-      height: 60rpx;
-      font-size: 30rpx;
+      width: 30%;
       background-color: rgb(229 229 229);
-      border-radius: 5rpx;
+      border-radius: 10rpx;
     }
 
     .identify {
-      width: 460rpx;
+      width: 65%;
       margin-left: 20rpx;
-      font-size: 30rpx;
       background-color: rgb(84 188 163);
-      border-radius: 5rpx;
+      border-radius: 10rpx;
     }
   }
 }
