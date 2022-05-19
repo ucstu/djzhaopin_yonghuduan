@@ -70,9 +70,7 @@ export const connectStomp = (_store: {
           status: number;
           timestamp: string;
         };
-        console.log(data);
       });
-      stompClient.subscribe("/topic/pingpong", (pong) => {});
       setInterval(() => {
         stompClient.send(
           "/ping",
