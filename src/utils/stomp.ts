@@ -1,11 +1,8 @@
 import { MessageRecord } from "@/services/types";
-import { useMainStore } from "@/stores/main";
 import Stomp from "stompjs";
 import WebSocketPolyfill from "./socket";
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
-
-const store = useMainStore();
 
 const socket = new WebSocketPolyfill(
   `${VITE_BASE_URL.replace(/^http/, "ws")}/ws`
@@ -13,14 +10,33 @@ const socket = new WebSocketPolyfill(
 
 const stompClient = Stomp.over(socket);
 
+let store: any;
+
 // @ts-ignore
 // stompClient.debug = null;
 
 const messageIds = new Set<string>();
 
-export const connectStomp = () => {
+export const connectStomp = (_store: {
+  jsonWebToken: string;
+  messages: {
+    [x: string]: {
+      haveRead: boolean;
+      content: string;
+      createdAt: string;
+      initiateId: string;
+      initiateType: number;
+      messageRecordId: string;
+      messageType: 1 | 2 | 3 | 4;
+      serviceId: string;
+      serviceType: number;
+      updatedAt: string;
+    }[];
+  };
+}) => {
+  store = _store;
   stompClient.connect(
-    { Authorization: "Bearer " + store.jsonWebToken },
+    { Authorization: "Bearer " + _store.jsonWebToken },
     (frame) => {
       stompClient.subscribe("/user/queue/message", (message) => {
         // 每接收到一次消息都会触发这个回调
@@ -33,10 +49,10 @@ export const connectStomp = () => {
             timestamp: string;
           };
           for (const messageRecord of data.body) {
-            if (!store.messages[messageRecord.initiateId]) {
-              store.messages[messageRecord.initiateId] = [];
+            if (!_store.messages[messageRecord.initiateId]) {
+              _store.messages[messageRecord.initiateId] = [];
             }
-            store.messages[messageRecord.initiateId].push({
+            _store.messages[messageRecord.initiateId].push({
               ...messageRecord,
               haveRead: false,
             });
@@ -72,9 +88,7 @@ export const connectStomp = () => {
 };
 
 const handleDisconnect = () => {
-  if (store.jsonWebToken) {
-    connectStomp();
-  }
+  connectStomp(store);
 };
 
 // 发送消息

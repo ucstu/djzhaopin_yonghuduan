@@ -128,7 +128,7 @@ const login = () => {
             ),
           ])
             .then((res) => {
-              connectStomp();
+              connectStomp(store);
               store.userInformation = res[0].data.body;
               store.jobExpectations = res[1].data.body.jobExpectations;
               uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });

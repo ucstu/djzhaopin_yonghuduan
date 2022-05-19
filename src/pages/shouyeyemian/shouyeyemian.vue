@@ -111,7 +111,6 @@ import { getCompanyInfosPositionInfos } from "@/services/services";
 import { PositionInformation } from '@/services/types';
 import { useMainStore } from '@/stores/main';
 import { failResponseHandler } from '@/utils/handler';
-import { connectStomp } from '@/utils/stomp';
 import { onLoad, onShow, onUnload } from '@dcloudio/uni-app';
 import { onMounted, ref } from 'vue';
 
@@ -127,8 +126,6 @@ const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(30)
 
 const expectationWidth = store.menuButtonInformation.left - uni.upx2px(170)
 /* #endif */
-
-connectStomp();
 
 const cityValue = ref<string[]>([]);
 const city = ref<string[]>([]);
