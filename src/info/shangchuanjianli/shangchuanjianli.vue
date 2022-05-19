@@ -32,7 +32,6 @@ const chooseImage = () => {
   uni.chooseImage({
     success: (res) => {
       const tempFilePath = res.tempFilePaths;
-      console.log(tempFilePath[0]);
     },
   });
 };
