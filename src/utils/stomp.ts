@@ -1,4 +1,11 @@
-import { MessageRecord } from "@/services/types";
+import {
+  AccountInformation,
+  JobExpectation,
+  MessageRecord,
+  UserInformation
+} from "@/services/types";
+import { withReadStateMessageRecord } from "@/stores/main";
+import { Store } from "pinia";
 import Stomp from "stompjs";
 import WebSocketPolyfill from "./socket";
 
@@ -10,30 +17,46 @@ const socket = new WebSocketPolyfill(
 
 const stompClient = Stomp.over(socket);
 
-let store: any;
+let store: Store<
+  "main",
+  {
+    jsonWebToken: string;
+    userInformation: UserInformation;
+    systemInformation: UniApp.GetSystemInfoResult;
+    accountInformation: AccountInformation;
+    menuButtonInformation: UniApp.GetMenuButtonBoundingClientRectRes;
+    jobExpectations: JobExpectation[];
+    messages: {
+      [key: string]: { [key: string]: withReadStateMessageRecord[] };
+    };
+  },
+  {},
+  {}
+>;
 
 // @ts-ignore
 // stompClient.debug = null;
 
 const messageIds = new Set<string>();
 
-export const connectStomp = (_store: {
-  jsonWebToken: string;
-  messages: {
-    [x: string]: {
-      haveRead: boolean;
-      content: string;
-      createdAt: string;
-      initiateId: string;
-      initiateType: number;
-      messageRecordId: string;
-      messageType: 1 | 2 | 3 | 4;
-      serviceId: string;
-      serviceType: number;
-      updatedAt: string;
-    }[];
-  };
-}) => {
+export const connectStomp = (
+  _store: Store<
+    "main",
+    {
+      jsonWebToken: string;
+      userInformation: UserInformation;
+      systemInformation: UniApp.GetSystemInfoResult;
+      accountInformation: AccountInformation;
+      menuButtonInformation: UniApp.GetMenuButtonBoundingClientRectRes;
+      jobExpectations: JobExpectation[];
+      messages: {
+        [key: string]: { [key: string]: withReadStateMessageRecord[] };
+      };
+    },
+    {},
+    {}
+  >
+) => {
   store = _store;
   stompClient.connect(
     { Authorization: "Bearer " + _store.jsonWebToken },
@@ -49,10 +72,18 @@ export const connectStomp = (_store: {
             timestamp: string;
           };
           for (const messageRecord of data.body) {
-            if (!_store.messages[messageRecord.initiateId]) {
-              _store.messages[messageRecord.initiateId] = [];
+            if (
+              !_store.messages[store.userInformation.userInformationId][
+                messageRecord.initiateId
+              ]
+            ) {
+              _store.messages[store.userInformation.userInformationId][
+                messageRecord.initiateId
+              ] = [];
             }
-            _store.messages[messageRecord.initiateId].push({
+            _store.messages[store.userInformation.userInformationId][
+              messageRecord.initiateId
+            ].push({
               ...messageRecord,
               haveRead: false,
             });
@@ -105,11 +136,11 @@ export const sendMessage = (
     serviceType,
   };
   stompClient.send("/message", {}, JSON.stringify(message));
-  if (!store.messages[serviceId]) {
-    store.messages[serviceId] = [];
+  if (!store.messages[store.userInformation.userInformationId][serviceId]) {
+    store.messages[store.userInformation.userInformationId][serviceId] = [];
   }
   const time = new Date().getHours() + ":" + new Date().getMinutes();
-  store.messages[serviceId].push({
+  store.messages[store.userInformation.userInformationId][serviceId].push({
     ...message,
     haveRead: false,
     createdAt: time,

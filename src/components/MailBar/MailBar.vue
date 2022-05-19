@@ -52,8 +52,12 @@ onShow(() => {
 });
 
 const toChatPage = () => {
-  store.messages[props.hrInfo.hrInformationId][
-    store.messages[props.hrInfo.hrInformationId].length - 1
+  store.messages[store.userInformation.userInformationId][
+    props.hrInfo.hrInformationId
+  ][
+    store.messages[store.userInformation.userInformationId][
+      props.hrInfo.hrInformationId
+    ].length - 1
   ].haveRead = true;
   let i = props.hrInfo.hrInformationId;
   uni.navigateTo({

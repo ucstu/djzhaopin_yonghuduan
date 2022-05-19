@@ -38,7 +38,9 @@
     <!-- #endif -->
     <scroll-view class="group-info" :scroll-y="true" :scroll-top="scrollTop">
       <view
-        v-for="recode in store.messages[messageKey]"
+        v-for="recode in store.messages[
+          store.userInformation.userInformationId
+        ][messageKey]"
         :key="recode.messageRecordId"
       >
         <Left
@@ -112,13 +114,17 @@ const messageKey = ref("");
 let scrollTop = ref(0);
 
 watchEffect(() => {
-  if (store.messages[messageKey.value]) {
+  if (
+    store.messages[store.userInformation.userInformationId][messageKey.value]
+  ) {
     nextTick(() => {
       scrollTop.value =
-        store.messages[messageKey.value].length * uni.upx2px(200);
+        store.messages[store.userInformation.userInformationId][
+          messageKey.value
+        ].length * uni.upx2px(200);
     });
   }
-  for (const key in store.messages) {
+  for (const key in store.messages[store.userInformation.userInformationId]) {
     if (key === hrInfo.value.hrInformationId) {
       messageKey.value = key;
     }

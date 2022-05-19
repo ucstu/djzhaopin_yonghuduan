@@ -73,27 +73,43 @@ const isRead = ref(false);
 const messageKey = ref("");
 
 onShow(() => {
-  if (store.messages) {
+  if (store.messages[store.userInformation.userInformationId]) {
     hrInfo.value = [];
-    for (const key in store.messages) {
+    for (const key in store.messages[store.userInformation.userInformationId]) {
       messageKey.value = key;
       getHrInfosP0(key).then((res) => {
         mes.value =
-          store.messages[res.data.body.hrInformationId][
-            store.messages[res.data.body.hrInformationId].length - 1
+          store.messages[store.userInformation.userInformationId][
+            res.data.body.hrInformationId
+          ][
+            store.messages[store.userInformation.userInformationId][
+              res.data.body.hrInformationId
+            ].length - 1
           ].content;
         time.value =
-          store.messages[res.data.body.hrInformationId][
-            store.messages[res.data.body.hrInformationId].length - 1
+          store.messages[store.userInformation.userInformationId][
+            res.data.body.hrInformationId
+          ][
+            store.messages[store.userInformation.userInformationId][
+              res.data.body.hrInformationId
+            ].length - 1
           ].createdAt;
         if (
-          store.messages[res.data.body.hrInformationId][
-            store.messages[res.data.body.hrInformationId].length - 1
+          store.messages[store.userInformation.userInformationId][
+            res.data.body.hrInformationId
+          ][
+            store.messages[store.userInformation.userInformationId][
+              res.data.body.hrInformationId
+            ].length - 1
           ].initiateType === 2
         ) {
           isRead.value =
-            store.messages[res.data.body.hrInformationId][
-              store.messages[res.data.body.hrInformationId].length - 1
+            store.messages[store.userInformation.userInformationId][
+              res.data.body.hrInformationId
+            ][
+              store.messages[store.userInformation.userInformationId][
+                res.data.body.hrInformationId
+              ].length - 1
             ].haveRead;
         } else {
           isRead.value = true;
@@ -105,11 +121,15 @@ onShow(() => {
 });
 // 一键已读
 const allRead = () => {
-  for (const key in store.messages) {
+  for (const key in store.messages[store.userInformation.userInformationId]) {
     if (
-      store.messages[key][store.messages[key].length - 1].initiateType === 2
+      store.messages[store.userInformation.userInformationId][key][
+        store.messages[store.userInformation.userInformationId][key].length - 1
+      ].initiateType === 2
     ) {
-      store.messages[key][store.messages[key].length - 1].haveRead = true;
+      store.messages[store.userInformation.userInformationId][key][
+        store.messages[store.userInformation.userInformationId][key].length - 1
+      ].haveRead = true;
       isRead.value = true;
     }
   }
