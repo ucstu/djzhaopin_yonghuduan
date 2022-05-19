@@ -72,6 +72,7 @@ import {
 import { useMainStore } from "@/stores/main";
 import { throttle } from "@/utils/common";
 import { failResponseHandler } from "@/utils/handler";
+import { connectStomp } from "@/utils/stomp";
 import { ref } from "vue";
 
 const store = useMainStore();
@@ -127,6 +128,7 @@ const login = () => {
             ),
           ])
             .then((res) => {
+              connectStomp();
               store.userInformation = res[0].data.body;
               store.jobExpectations = res[1].data.body.jobExpectations;
               uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
