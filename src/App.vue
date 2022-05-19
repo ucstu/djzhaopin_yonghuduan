@@ -5,7 +5,6 @@ import {
   getUserInfosP0JobExpectations,
 } from "@/services/services";
 import { useMainStore } from "@/stores/main";
-import { connectStomp } from "./utils/stomp";
 
 const store = useMainStore();
 
@@ -30,7 +29,6 @@ if (store.jsonWebToken === null || !store.accountInformation) {
     ),
   ])
     .then((res) => {
-      connectStomp();
       store.userInformation = res[0].data.body;
       store.jobExpectations = res[1].data.body.jobExpectations;
       uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
