@@ -8,6 +8,8 @@ import { withReadStateMessageRecord } from "@/stores/main";
 import { Store } from "pinia";
 import Stomp from "stompjs";
 import WebSocketPolyfill from "./socket";
+import useDate from "./useDate";
+import useTime from "./useTime";
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -145,12 +147,12 @@ export const sendMessage = (
   if (!store.messages[store.userInformation.userInformationId][serviceId]) {
     store.messages[store.userInformation.userInformationId][serviceId] = [];
   }
-  const time = new Date().getHours() + ":" + new Date().getMinutes();
+  const time = new Date().toISOString();
   store.messages[store.userInformation.userInformationId][serviceId].push({
     ...message,
-    haveRead: false,
-    createdAt: time,
-    updatedAt: time,
+    haveRead: true,
+    createdAt: useDate(time) + " " + useTime(time),
+    updatedAt: useDate(time) + " " + useTime(time),
     messageRecordId: "",
   });
 };

@@ -121,6 +121,7 @@ onShow(() => {
   userInfos.value = store.userInformation;
   fullName.value = userInfos.value.firstName + userInfos.value.lastName;
   /* 投递记录 */
+
   getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
     status: status.value,
   })

@@ -41,10 +41,10 @@
           <view v-for="(item, i) in hrInfo" :key="i">
             <MailBar
               :hr-info="item"
-              :mes="mes"
-              :is-read="isRead"
-              :time="time"
-              :message-key="messageKey"
+              :mes="mes.get(item.hrInformationId)"
+              :is-read="isRead.get(item.hrInformationId)"
+              :time="time.get(item.hrInformationId)"
+              :message-key="messageKey.get(item.hrInformationId)"
             />
           </view>
         </view>
@@ -67,53 +67,41 @@ import { ref } from "vue";
 
 const hrInfo = ref<HrInformation[]>([]);
 const store = useMainStore();
-const mes = ref("");
-const time = ref("");
-const isRead = ref(false);
-const messageKey = ref("");
+const mes = ref<Map<string, string>>(new Map());
+const time = ref<Map<string, string>>(new Map());
+const isRead = ref<Map<string, boolean>>(new Map());
+const messageKey = ref<Map<string, string>>(new Map());
 
 onShow(() => {
   if (store.messages[store.userInformation.userInformationId]) {
     hrInfo.value = [];
     for (const key in store.messages[store.userInformation.userInformationId]) {
-      messageKey.value = key;
+      messageKey.value.set(key, key);
       getHrInfosP0(key).then((res) => {
-        mes.value =
+        mes.value.set(
+          key,
+          store.messages[store.userInformation.userInformationId][key][
+            store.messages[store.userInformation.userInformationId][key]
+              .length - 1
+          ].content
+        );
+        time.value.set(
+          key,
+          store.messages[store.userInformation.userInformationId][key][
+            store.messages[store.userInformation.userInformationId][key]
+              .length - 1
+          ].createdAt
+        );
+        isRead.value.set(
+          key,
           store.messages[store.userInformation.userInformationId][
             res.data.body.hrInformationId
           ][
             store.messages[store.userInformation.userInformationId][
               res.data.body.hrInformationId
             ].length - 1
-          ].content;
-        time.value =
-          store.messages[store.userInformation.userInformationId][
-            res.data.body.hrInformationId
-          ][
-            store.messages[store.userInformation.userInformationId][
-              res.data.body.hrInformationId
-            ].length - 1
-          ].createdAt;
-        if (
-          store.messages[store.userInformation.userInformationId][
-            res.data.body.hrInformationId
-          ][
-            store.messages[store.userInformation.userInformationId][
-              res.data.body.hrInformationId
-            ].length - 1
-          ].initiateType === 2
-        ) {
-          isRead.value =
-            store.messages[store.userInformation.userInformationId][
-              res.data.body.hrInformationId
-            ][
-              store.messages[store.userInformation.userInformationId][
-                res.data.body.hrInformationId
-              ].length - 1
-            ].haveRead;
-        } else {
-          isRead.value = true;
-        }
+          ].haveRead
+        );
         hrInfo.value.push(res.data.body);
       });
     }
@@ -130,7 +118,7 @@ const allRead = () => {
       store.messages[store.userInformation.userInformationId][key][
         store.messages[store.userInformation.userInformationId][key].length - 1
       ].haveRead = true;
-      isRead.value = true;
+      isRead.value.set(key, true);
     }
   }
 };

@@ -1,6 +1,12 @@
 <template>
   <view class="flex-row user-bubble-box">
-    <image :src="VITE_CDN_URL + hrInfo.avatarUrl" class="img" />
+    <image
+      :src="
+        VITE_CDN_URL +
+        (hrInfo.avatarUrl ? hrInfo.avatarUrl : '/image/heard2.jpg')
+      "
+      class="img"
+    />
     <view class="flex-row">
       <view class="user-box"></view>
       <view class="items-center bubble-box">{{ mes }}</view>
