@@ -1,6 +1,12 @@
 <template>
   <view class="flex-row items-center info-box" @click="toChatPage">
-    <image class="image-heard" :src="VITE_CDN_URL + hrInfo.avatarUrl" />
+    <image
+      class="image-heard"
+      :src="
+        VITE_CDN_URL +
+        (hrInfo.avatarUrl ? hrInfo.avatarUrl : '/image/heard2.jpg')
+      "
+    />
     <view class="infos">
       <view class="flex-row justify-between name-time">
         <text>{{ hrInfo!.hrName }}</text>

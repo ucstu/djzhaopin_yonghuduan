@@ -114,6 +114,9 @@ const messageKey = ref("");
 let scrollTop = ref(0);
 
 watchEffect(() => {
+  if (!store.messages[store.userInformation.userInformationId]) {
+    store.messages[store.userInformation.userInformationId] = {};
+  }
   if (
     store.messages[store.userInformation.userInformationId][messageKey.value]
   ) {
