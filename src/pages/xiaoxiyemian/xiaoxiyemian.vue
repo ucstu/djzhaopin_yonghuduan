@@ -62,6 +62,7 @@ import {
 import { DeliveryRecord, HrInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
+import usetimeChange from "@/utils/useTimeChange";
 import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
@@ -87,10 +88,12 @@ onShow(() => {
         );
         time.value.set(
           key,
-          store.messages[store.userInformation.userInformationId][key][
-            store.messages[store.userInformation.userInformationId][key]
-              .length - 1
-          ].createdAt
+          usetimeChange(
+            store.messages[store.userInformation.userInformationId][key][
+              store.messages[store.userInformation.userInformationId][key]
+                .length - 1
+            ].createdAt
+          )
         );
         isRead.value.set(
           key,
