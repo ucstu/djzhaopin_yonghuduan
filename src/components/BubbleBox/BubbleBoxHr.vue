@@ -1,27 +1,32 @@
 <template>
-  <view class="flex-row user-bubble-box">
-    <image
-      :src="
-        VITE_CDN_URL +
-        (hrInfo.avatarUrl ? hrInfo.avatarUrl : '/image/heard2.jpg')
-      "
-      class="img"
-    />
-    <view class="flex-col">
-      <view class="flex-row">
-        <view v-if="type === 1" class="flex-row">
-          <view class="user-box"></view>
-          <view class="items-center bubble-box">{{ mes }}</view>
-        </view>
-        <view v-else-if="type === 2">
-          <image :src="VITE_CDN_URL + mes" class="img-photo" />
-        </view>
-        <view v-else-if="type === 3">
-          <image :src="mes" class="img-photo" />
-        </view>
-        <view v-else-if="type === 4" class="flex-row">
-          <view class="user-box"></view>
-          <view class="items-center bubble-box">{{ mes }}</view>
+  <view class="flex-col user-bubble-box">
+    <view class="justify-center items-center" style="width: 100%; height: auto">
+      {{ time }}
+    </view>
+    <view class="flex-row" style="margin-top: 25rpx">
+      <image
+        :src="
+          VITE_CDN_URL +
+          (hrInfo.avatarUrl ? hrInfo.avatarUrl : '/image/heard2.jpg')
+        "
+        class="img"
+      />
+      <view class="flex-col">
+        <view class="flex-row">
+          <view v-if="type === 1" class="flex-row">
+            <view class="user-box"></view>
+            <view class="items-center bubble-box">{{ mes }}</view>
+          </view>
+          <view v-else-if="type === 2">
+            <image :src="VITE_CDN_URL + mes" class="img-photo" />
+          </view>
+          <view v-else-if="type === 3">
+            <image :src="mes" class="img-photo" />
+          </view>
+          <view v-else-if="type === 4" class="flex-row">
+            <view class="user-box"></view>
+            <view class="items-center bubble-box">{{ mes }}</view>
+          </view>
         </view>
       </view>
     </view>

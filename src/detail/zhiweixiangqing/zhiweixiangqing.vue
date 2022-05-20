@@ -308,6 +308,8 @@ const communication = (i: string) => {
   for (const key in store.messages[store.userInformation.userInformationId]) {
     if (key === jobInformation.value.hrInformationId) {
       messageKey = key;
+    } else {
+      messageKey = i;
     }
   }
   uni.navigateTo({

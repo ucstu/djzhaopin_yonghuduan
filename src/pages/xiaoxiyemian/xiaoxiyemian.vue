@@ -45,6 +45,7 @@
               :is-read="isRead.get(item.hrInformationId)"
               :time="time.get(item.hrInformationId)"
               :message-key="messageKey.get(item.hrInformationId)"
+              :initiate-type="initiateType.get(item.hrInformationId)"
             />
           </view>
         </view>
@@ -71,6 +72,7 @@ const store = useMainStore();
 const mes = ref<Map<string, string>>(new Map());
 const time = ref<Map<string, string>>(new Map());
 const isRead = ref<Map<string, boolean>>(new Map());
+const initiateType = ref<Map<string, number>>(new Map());
 const messageKey = ref<Map<string, string>>(new Map());
 
 onShow(() => {
@@ -104,6 +106,16 @@ onShow(() => {
               res.data.body.hrInformationId
             ].length - 1
           ].haveRead
+        );
+        initiateType.value.set(
+          key,
+          store.messages[store.userInformation.userInformationId][
+            res.data.body.hrInformationId
+          ][
+            store.messages[store.userInformation.userInformationId][
+              res.data.body.hrInformationId
+            ].length - 1
+          ].initiateType
         );
         hrInfo.value.push(res.data.body);
       });
