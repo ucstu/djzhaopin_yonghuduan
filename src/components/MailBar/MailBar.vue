@@ -62,8 +62,6 @@ const props = defineProps({
   },
 });
 
-console.log(props.initiateType);
-
 onShow(() => {
   return props.isRead;
 });
@@ -82,9 +80,7 @@ const toChatPage = () => {
       "/mine/liaotianyemian/liaotianyemian?Id=" +
       i +
       "&key=" +
-      props.messageKey +
-      "&time=" +
-      props.time,
+      props.messageKey,
   });
 };
 </script>
