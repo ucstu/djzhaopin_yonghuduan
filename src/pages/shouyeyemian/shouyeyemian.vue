@@ -313,15 +313,15 @@ const onRefresh = () => {
 const onRestore = () => {
   /* 刷新获取新数据 */
    getCompanyInfosPositionInfos({
-    positionType: expects.value[activeIndex.value],
-    workAreaNames: city.value,
-    directionTags: directionTags.value,
-    salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
-    educations: filters.value.degree,
-    workingYears: filters.value.experience,
-    workTypes: filters.value.nature,
-    scales: filters.value.size,
-    financingStages: filters.value.stage,
+    // positionType: expects.value[activeIndex.value],
+    // workAreaNames: city.value,
+    // directionTags: directionTags.value,
+    // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+    // educations: filters.value.degree,
+    // workingYears: filters.value.experience,
+    // workTypes: filters.value.nature,
+    // scales: filters.value.size,
+    // financingStages: filters.value.stage,
     size: 10,
   }).then((res) => {
   jobDetails.value = res.data.body.positionInformations

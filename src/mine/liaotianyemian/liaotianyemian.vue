@@ -46,9 +46,16 @@
         <Left
           v-if="recode.initiateType === 2"
           :mes="recode.content"
+          :type="recode.messageType"
+          :time="time"
           :hr-info="hrInfo"
         ></Left>
-        <Right v-if="recode.initiateType === 1" :mes="recode.content"></Right
+        <Right
+          v-if="recode.initiateType === 1"
+          :mes="recode.content"
+          :type="recode.messageType"
+          :time="time"
+        ></Right
       ></view>
     </scroll-view>
     <view class="flex-col group-end justify-center">
@@ -111,6 +118,7 @@ const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(30);
 const hrInfo = ref<HrInformation>({} as HrInformation);
 const inputValue = ref("");
 const messageKey = ref("");
+const time = ref("");
 let scrollTop = ref(0);
 
 watchEffect(() => {
@@ -144,6 +152,9 @@ onLoad((e) => {
   }
   if (e.key) {
     messageKey.value = e.key;
+  }
+  if (e.time) {
+    time.value = e.time;
   }
 });
 

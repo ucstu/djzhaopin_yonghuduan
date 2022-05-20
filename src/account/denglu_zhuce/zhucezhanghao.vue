@@ -236,8 +236,8 @@ const registeredAccount = () => {
   }
 
   .group-2 {
-    position: absolute;
-    bottom: 100rpx;
+    position: relative;
+    top: 800rpx;
     font-size: 20rpx;
     line-height: 40rpx;
     color: rgb(163 154 154);

@@ -1,15 +1,34 @@
 <template>
-  <view class="flex-row user-bubble-box">
-    <image
-      :src="
-        VITE_CDN_URL +
-        (hrInfo.avatarUrl ? hrInfo.avatarUrl : '/image/heard2.jpg')
-      "
-      class="img"
-    />
-    <view class="flex-row">
-      <view class="user-box"></view>
-      <view class="items-center bubble-box">{{ mes }}</view>
+  <view class="flex-col user-bubble-box">
+    <view class="justify-center items-center" style="width: 100%; height: auto">
+      {{ time }}
+    </view>
+    <view class="flex-row" style="margin-top: 25rpx">
+      <image
+        :src="
+          VITE_CDN_URL +
+          (hrInfo.avatarUrl ? hrInfo.avatarUrl : '/image/heard2.jpg')
+        "
+        class="img"
+      />
+      <view class="flex-col">
+        <view class="flex-row">
+          <view v-if="type === 1" class="flex-row">
+            <view class="user-box"></view>
+            <view class="items-center bubble-box">{{ mes }}</view>
+          </view>
+          <view v-else-if="type === 2">
+            <image :src="VITE_CDN_URL + mes" class="img-photo" />
+          </view>
+          <view v-else-if="type === 3">
+            <image :src="mes" class="img-photo" />
+          </view>
+          <view v-else-if="type === 4" class="flex-row">
+            <view class="user-box"></view>
+            <view class="items-center bubble-box">{{ mes }}</view>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 </template>
@@ -17,12 +36,20 @@
 <script lang="ts" setup>
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 
-defineProps({
+const props = defineProps({
   hrInfo: {
     type: Object,
     default: () => ({}),
   },
   mes: {
+    type: String,
+    default: "",
+  },
+  type: {
+    type: Number,
+    default: 1,
+  },
+  time: {
     type: String,
     default: "",
   },
@@ -51,6 +78,13 @@ defineProps({
     word-break: break-all;
     background-color: rgb(39 156 234);
     border-radius: 15rpx;
+  }
+
+  .img-photo {
+    width: 300rpx;
+    height: 300rpx;
+    margin-left: 15rpx;
+    border-radius: 10rpx;
   }
 
   .user-box {

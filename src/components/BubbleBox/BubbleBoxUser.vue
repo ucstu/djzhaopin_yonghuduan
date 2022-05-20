@@ -1,8 +1,15 @@
 <template>
   <view class="flex-row justify-end user-bubble-box">
     <view class="flex-row">
-      <view class="items-center bubble-box">{{ mes }}</view>
-      <view class="user-box"></view>
+      <view v-if="type === 1" class="flex-row">
+        <view class="items-center bubble-box">{{ mes }}</view>
+        <view class="user-box"></view>
+      </view>
+      <image
+        v-else-if="type === 2"
+        :src="VITE_CDN_URL + mes"
+        class="img-photo"
+      />
     </view>
     <image :src="VITE_CDN_URL + store.userInformation.avatarUrl" class="img" />
   </view>
@@ -14,10 +21,14 @@ import { useMainStore } from "@/stores/main";
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 const store = useMainStore();
 
-defineProps({
+const props = defineProps({
   mes: {
     type: String,
     default: "",
+  },
+  type: {
+    type: Number,
+    default: 0,
   },
 });
 </script>
@@ -44,6 +55,13 @@ defineProps({
     word-break: break-all;
     background-color: rgb(39 156 234);
     border-radius: 15rpx;
+  }
+
+  .img-photo {
+    width: 300rpx;
+    height: 300rpx;
+    margin-right: 15rpx;
+    border-radius: 10rpx;
   }
 
   .user-box {

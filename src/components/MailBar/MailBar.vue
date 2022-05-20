@@ -14,7 +14,12 @@
       </view>
       <view class="justify-between items-center flex-row">
         <view class="message">
-          <text style="white-space: nowrap">{{ mes }}</text>
+          <text v-if="initiateType === 1" style="white-space: nowrap">{{
+            mes
+          }}</text>
+          <text v-else-if="initiateType === 2" style="white-space: nowrap"
+            >图片</text
+          >
         </view>
         <view v-if="!isRead" class="is-read"></view>
       </view>
@@ -51,7 +56,13 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  initiateType: {
+    type: Number,
+    default: 0,
+  },
 });
+
+console.log(props.initiateType);
 
 onShow(() => {
   return props.isRead;
@@ -71,7 +82,9 @@ const toChatPage = () => {
       "/mine/liaotianyemian/liaotianyemian?Id=" +
       i +
       "&key=" +
-      props.messageKey,
+      props.messageKey +
+      "&time=" +
+      props.time,
   });
 };
 </script>
