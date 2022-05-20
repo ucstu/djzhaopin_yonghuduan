@@ -121,21 +121,14 @@ onShow(() => {
   userInfos.value = store.userInformation;
   fullName.value = userInfos.value.firstName + userInfos.value.lastName;
   /* 投递记录 */
-  for (let i = 1; i <= 5; i++) {
-    getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
-      status: i as unknown as (1 | 2 | 3 | 4 | 5)[],
+  getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
+    status: status.value,
+    size: 10,
+  })
+    .then((res) => {
+      deliveryNum.value = res.data.body.totalCount;
     })
-      .then((res) => {
-        if (i === 1) {
-          deliveryNum.value = 0;
-          deliveryNum.value = res.data.body.totalCount;
-          deliveryRecords.value = res.data.body.deliveryRecords;
-        } else {
-          deliveryNum.value += res.data.body.totalCount;
-        }
-      })
-      .catch(failResponseHandler);
-  }
+    .catch(failResponseHandler);
   /* 收藏职位 */
   getUserInfosP0GarnerRecords(store.accountInformation.fullInformationId, {})
     .then((res) => {
