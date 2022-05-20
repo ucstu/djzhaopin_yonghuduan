@@ -44,9 +44,15 @@
         <Left
           v-if="recode.initiateType === 2"
           :mes="recode.content"
+          :type="recode.messageType"
+          :time="recode.createdAt"
           :hr-info="hrInfo"
         ></Left>
-        <Right v-if="recode.initiateType === 1" :mes="recode.content"></Right
+        <Right
+          v-if="recode.initiateType === 1"
+          :mes="recode.content"
+          :type="recode.messageType"
+        ></Right
       ></view>
     </scroll-view>
     <view class="flex-col group-end justify-center">

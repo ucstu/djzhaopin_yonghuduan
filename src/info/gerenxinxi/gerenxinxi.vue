@@ -54,6 +54,10 @@
         <text class="caption">参加工作时间</text>
         <text class="user-value">{{ workTime }}</text>
       </view>
+      <view class="flex-col group-box">
+        <text class="caption">社交主页(链接)</text>
+        <input v-model="userInformation.socialHomepage" class="user-value" />
+      </view>
       <view class="justify-center button-box">
         <view
           class="flex-col justify-center items-center button"

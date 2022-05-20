@@ -149,9 +149,11 @@ const forget = () => {
 <style lang="scss" scoped>
 .page {
   width: 100%;
-  height: 1334rpx;
+  height: auto;
 
   .group-1 {
+    position: relative;
+    top: 400rpx;
     width: 80%;
     font-size: 40rpx;
 
@@ -209,8 +211,8 @@ const forget = () => {
   }
 
   .group-2 {
-    position: absolute;
-    bottom: 100rpx;
+    position: relative;
+    top: 900rpx;
     font-size: 20rpx;
     line-height: 40rpx;
     color: rgb(163 154 154);
