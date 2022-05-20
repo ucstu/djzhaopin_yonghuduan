@@ -305,7 +305,7 @@ const collection = () => {
 // 沟通HR
 const communication = (i: string) => {
   let messageKey = "";
-  for (const key in store.messages) {
+  for (const key in store.messages[store.userInformation.userInformationId]) {
     if (key === jobInformation.value.hrInformationId) {
       messageKey = key;
     }

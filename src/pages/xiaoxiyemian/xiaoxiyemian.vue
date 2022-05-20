@@ -41,10 +41,10 @@
           <view v-for="(item, i) in hrInfo" :key="i">
             <MailBar
               :hr-info="item"
-              :mes="mes"
-              :is-read="isRead"
-              :time="time"
-              :message-key="messageKey"
+              :mes="mes.get(item.hrInformationId)"
+              :is-read="isRead.get(item.hrInformationId)"
+              :time="time.get(item.hrInformationId)"
+              :message-key="messageKey.get(item.hrInformationId)"
             />
           </view>
         </view>
@@ -62,42 +62,49 @@ import {
 import { DeliveryRecord, HrInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
+import usetimeChange from "@/utils/useTimeChange";
 import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const hrInfo = ref<HrInformation[]>([]);
 const store = useMainStore();
-const mes = ref("");
-const time = ref("");
-const isRead = ref(false);
-const messageKey = ref("");
+const mes = ref<Map<string, string>>(new Map());
+const time = ref<Map<string, string>>(new Map());
+const isRead = ref<Map<string, boolean>>(new Map());
+const messageKey = ref<Map<string, string>>(new Map());
 
 onShow(() => {
-  if (store.messages) {
+  if (store.messages[store.userInformation.userInformationId]) {
     hrInfo.value = [];
-    for (const key in store.messages) {
-      messageKey.value = key;
+    for (const key in store.messages[store.userInformation.userInformationId]) {
+      messageKey.value.set(key, key);
       getHrInfosP0(key).then((res) => {
-        mes.value =
-          store.messages[res.data.body.hrInformationId][
-            store.messages[res.data.body.hrInformationId].length - 1
-          ].content;
-        time.value =
-          store.messages[res.data.body.hrInformationId][
-            store.messages[res.data.body.hrInformationId].length - 1
-          ].createdAt;
-        if (
-          store.messages[res.data.body.hrInformationId][
-            store.messages[res.data.body.hrInformationId].length - 1
-          ].initiateType === 2
-        ) {
-          isRead.value =
-            store.messages[res.data.body.hrInformationId][
-              store.messages[res.data.body.hrInformationId].length - 1
-            ].haveRead;
-        } else {
-          isRead.value = true;
-        }
+        mes.value.set(
+          key,
+          store.messages[store.userInformation.userInformationId][key][
+            store.messages[store.userInformation.userInformationId][key]
+              .length - 1
+          ].content
+        );
+        time.value.set(
+          key,
+          usetimeChange(
+            store.messages[store.userInformation.userInformationId][key][
+              store.messages[store.userInformation.userInformationId][key]
+                .length - 1
+            ].createdAt
+          )
+        );
+        isRead.value.set(
+          key,
+          store.messages[store.userInformation.userInformationId][
+            res.data.body.hrInformationId
+          ][
+            store.messages[store.userInformation.userInformationId][
+              res.data.body.hrInformationId
+            ].length - 1
+          ].haveRead
+        );
         hrInfo.value.push(res.data.body);
       });
     }
@@ -105,12 +112,16 @@ onShow(() => {
 });
 // 一键已读
 const allRead = () => {
-  for (const key in store.messages) {
+  for (const key in store.messages[store.userInformation.userInformationId]) {
     if (
-      store.messages[key][store.messages[key].length - 1].initiateType === 2
+      store.messages[store.userInformation.userInformationId][key][
+        store.messages[store.userInformation.userInformationId][key].length - 1
+      ].initiateType === 2
     ) {
-      store.messages[key][store.messages[key].length - 1].haveRead = true;
-      isRead.value = true;
+      store.messages[store.userInformation.userInformationId][key][
+        store.messages[store.userInformation.userInformationId][key].length - 1
+      ].haveRead = true;
+      isRead.value.set(key, true);
     }
   }
 };

@@ -1,11 +1,17 @@
-import { MessageRecord } from "@/services/types";
-import { useMainStore } from "@/stores/main";
+import {
+  AccountInformation,
+  JobExpectation,
+  MessageRecord,
+  UserInformation
+} from "@/services/types";
+import { withReadStateMessageRecord } from "@/stores/main";
+import { Store } from "pinia";
 import Stomp from "stompjs";
 import WebSocketPolyfill from "./socket";
+import useDate from "./useDate";
+import useTime from "./useTime";
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
-
-const store = useMainStore();
 
 const socket = new WebSocketPolyfill(
   `${VITE_BASE_URL.replace(/^http/, "ws")}/ws`
@@ -13,14 +19,49 @@ const socket = new WebSocketPolyfill(
 
 const stompClient = Stomp.over(socket);
 
+let store: Store<
+  "main",
+  {
+    jsonWebToken: string;
+    userInformation: UserInformation;
+    systemInformation: UniApp.GetSystemInfoResult;
+    accountInformation: AccountInformation;
+    menuButtonInformation: UniApp.GetMenuButtonBoundingClientRectRes;
+    jobExpectations: JobExpectation[];
+    messages: {
+      [key: string]: { [key: string]: withReadStateMessageRecord[] };
+    };
+  },
+  {},
+  {}
+>;
+
 // @ts-ignore
 // stompClient.debug = null;
 
 const messageIds = new Set<string>();
 
-const connect = () => {
+export const connectStomp = (
+  _store: Store<
+    "main",
+    {
+      jsonWebToken: string;
+      userInformation: UserInformation;
+      systemInformation: UniApp.GetSystemInfoResult;
+      accountInformation: AccountInformation;
+      menuButtonInformation: UniApp.GetMenuButtonBoundingClientRectRes;
+      jobExpectations: JobExpectation[];
+      messages: {
+        [key: string]: { [key: string]: withReadStateMessageRecord[] };
+      };
+    },
+    {},
+    {}
+  >
+) => {
+  store = _store;
   stompClient.connect(
-    { Authorization: "Bearer " + store.jsonWebToken },
+    { Authorization: "Bearer " + _store.jsonWebToken },
     (frame) => {
       stompClient.subscribe("/user/queue/message", (message) => {
         // 每接收到一次消息都会触发这个回调
@@ -33,10 +74,21 @@ const connect = () => {
             timestamp: string;
           };
           for (const messageRecord of data.body) {
-            if (!store.messages[messageRecord.initiateId]) {
-              store.messages[messageRecord.initiateId] = [];
+            if (!store.messages[store.userInformation.userInformationId]) {
+              store.messages[store.userInformation.userInformationId] = {};
             }
-            store.messages[messageRecord.initiateId].push({
+            if (
+              !_store.messages[store.userInformation.userInformationId][
+                messageRecord.initiateId
+              ]
+            ) {
+              _store.messages[store.userInformation.userInformationId][
+                messageRecord.initiateId
+              ] = [];
+            }
+            _store.messages[store.userInformation.userInformationId][
+              messageRecord.initiateId
+            ].push({
               ...messageRecord,
               haveRead: false,
             });
@@ -54,7 +106,6 @@ const connect = () => {
           status: number;
           timestamp: string;
         };
-        console.log(data);
       });
       stompClient.subscribe("/topic/pingpong", (pong) => {});
       setInterval(() => {
@@ -72,12 +123,8 @@ const connect = () => {
 };
 
 const handleDisconnect = () => {
-  if (store.jsonWebToken) {
-    connect();
-  }
+  connectStomp(store);
 };
-
-connect();
 
 // 发送消息
 export const sendMessage = (
@@ -95,25 +142,18 @@ export const sendMessage = (
     serviceType,
   };
   stompClient.send("/message", {}, JSON.stringify(message));
-  if (!store.messages[serviceId]) {
-    store.messages[serviceId] = [];
+  if (!store.messages[store.userInformation.userInformationId]) {
+    store.messages[store.userInformation.userInformationId] = {};
   }
-  const time = new Date().getHours() + ":" + new Date().getMinutes();
-  store.messages[serviceId].push({
+  if (!store.messages[store.userInformation.userInformationId][serviceId]) {
+    store.messages[store.userInformation.userInformationId][serviceId] = [];
+  }
+  const time = new Date().toISOString();
+  store.messages[store.userInformation.userInformationId][serviceId].push({
     ...message,
-    haveRead: false,
-    createdAt: time,
-    updatedAt: time,
+    haveRead: true,
+    createdAt: useDate(time) + " " + useTime(time),
+    updatedAt: useDate(time) + " " + useTime(time),
     messageRecordId: "",
   });
-};
-
-export const sendPing = () => {
-  stompClient.send(
-    "/ping",
-    {},
-    JSON.stringify({
-      timestamp: new Date().toISOString(),
-    })
-  );
 };

@@ -61,7 +61,6 @@ onShow(() => {
   if (!interviewed.value.length) {
     emptyShow.value = true;
   } else {
-    console.log(interviewedJobs.value);
     return interviewedJobs.value;
   }
 });
