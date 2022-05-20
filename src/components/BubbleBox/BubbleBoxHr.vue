@@ -1,6 +1,12 @@
 <template>
   <view class="flex-row user-bubble-box">
-    <image :src="VITE_CDN_URL + hrInfo.avatarUrl" class="img" />
+    <image
+      :src="
+        VITE_CDN_URL +
+        (hrInfo.avatarUrl ? hrInfo.avatarUrl : '/image/heard2.jpg')
+      "
+      class="img"
+    />
     <view class="flex-col">
       <view class="flex-row">
         <view v-if="type === 1" class="flex-row">
