@@ -2,7 +2,7 @@ import {
   AccountInformation,
   JobExpectation,
   MessageRecord,
-  UserInformation
+  UserInformation,
 } from "@/services/types";
 import { withReadStateMessageRecord } from "@/stores/main";
 import { Store } from "pinia";
@@ -73,6 +73,11 @@ export const connectStomp = (
             status: number;
             timestamp: string;
           };
+          uni.showToast({
+            title: "你有新的消息",
+            icon: "none",
+            duration: 2000,
+          });
           for (const messageRecord of data.body) {
             if (!store.messages[store.userInformation.userInformationId]) {
               store.messages[store.userInformation.userInformationId] = {};

@@ -41,18 +41,9 @@ getUserInfosP0InspectionRecords(
       item.companyInformationId,
       item.positionInformationId
     ).then((res) => {
-      if (!myViews.value.length) {
+      let p = myViews.value.map((item) => item.positionInformationId);
+      if (!p.includes(res.data.body.positionInformationId)) {
         myViews.value.push(res.data.body);
-      } else {
-        for (const item of myViews.value) {
-          if (
-            item.positionInformationId === res.data.body.positionInformationId
-          ) {
-            return;
-          } else {
-            myViews.value.push(res.data.body);
-          }
-        }
       }
     });
   }
