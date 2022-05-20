@@ -1,8 +1,8 @@
 <template>
   <view class="flex-col user-bubble-box">
-    <view class="justify-center items-center" style="width: 100%; height: auto">
+    <!-- <view class="justify-center items-center" style="width: 100%; height: auto">
       {{ time }}
-    </view>
+    </view> -->
     <view class="flex-row" style="margin-top: 25rpx">
       <image
         :src="

@@ -43,18 +43,9 @@ getUserInfosP0InspectionRecords(
     for (const item of res.data.body.userInspectionRecords) {
       getCompanyInfosP0(item.companyInformationId)
         .then((res) => {
-          if (!companyInfo.value.length) {
+          let p = companyInfo.value.map((item) => item.companyInformationId);
+          if (!p.includes(res.data.body.companyInformationId)) {
             companyInfo.value.push(res.data.body);
-          } else {
-            for (const item of companyInfo.value) {
-              if (
-                item.companyInformationId === res.data.body.companyInformationId
-              ) {
-                return;
-              } else {
-                companyInfo.value.push(res.data.body);
-              }
-            }
           }
         })
         .catch(failResponseHandler);

@@ -228,6 +228,7 @@ onShow(() => {
       }
     })
     .catch(failResponseHandler);
+  // 查询所有项目经历
   getUserInfosP0ProjectExperiences(
     store.accountInformation.fullInformationId,
     {}

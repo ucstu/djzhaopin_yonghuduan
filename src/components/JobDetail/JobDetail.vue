@@ -37,7 +37,7 @@
         <text class="salary"
           >{{ jobDetail!.startingSalary }}k-{{ jobDetail!.ceilingSalary}}k</text
         >
-        <text class="date">{{ jobDetail!.releaseDate }}</text>
+        <text class="date">{{ jobDetail!.createdAt.slice(5,10) }}</text>
       </view>
     </view>
   </view>
@@ -171,6 +171,8 @@ const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
 
     .date {
       font-size: 24rpx;
+      color: rgb(0 0 0);
+      text-align: center;
     }
   }
 }
