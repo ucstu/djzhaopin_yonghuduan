@@ -19,6 +19,8 @@ const socket = new WebSocketPolyfill(
 
 const stompClient = Stomp.over(socket);
 
+let connected = false;
+
 // @ts-ignore
 // stompClient.debug = null;
 
@@ -63,6 +65,7 @@ export const connectStomp = (
   stompClient.connect(
     { Authorization: "Bearer " + _store.jsonWebToken },
     (frame) => {
+      connected = true;
       stompClient.subscribe("/user/queue/message", (message) => {
         // 每接收到一次消息都会触发这个回调
         // @ts-ignore
@@ -132,6 +135,14 @@ export const sendMessage = (
   serviceId: string,
   serviceType: number
 ) => {
+  if (!connected) {
+    uni.showToast({
+      title: "暂未连接到消息服务器，请耐心等待或重新进入程序",
+      icon: "none",
+      duration: 2000,
+    });
+    return;
+  }
   const message = {
     content,
     initiateId: store.accountInformation.fullInformationId,
