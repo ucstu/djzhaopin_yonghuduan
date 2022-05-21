@@ -57,7 +57,10 @@ const privacySet = () => {
   } else {
     store.userInformation.privacySettings = 2;
   }
-  putUserInfosP0(store.userInformation.userInformationId, store.userInformation)
+  putUserInfosP0(
+    store.accountInformation.fullInformationId,
+    store.userInformation
+  )
     .then((res) => {})
     .catch(failResponseHandler);
 };

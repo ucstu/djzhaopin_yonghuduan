@@ -35,7 +35,9 @@ const props = defineProps({
 const emit = defineEmits(["stateClick"]);
 
 if (props.collectionPosition) {
-  for (const key in store.messages[store.userInformation.userInformationId]) {
+  for (const key in store.messages[
+    store.accountInformation.fullInformationId
+  ]) {
     if (key === props.collectionPosition?.hrInformationId) {
       messageKey.value = key;
     }

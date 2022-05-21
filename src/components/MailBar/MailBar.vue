@@ -67,10 +67,10 @@ onShow(() => {
 });
 
 const toChatPage = () => {
-  store.messages[store.userInformation.userInformationId][
+  store.messages[store.accountInformation.fullInformationId][
     props.hrInfo.hrInformationId
   ][
-    store.messages[store.userInformation.userInformationId][
+    store.messages[store.accountInformation.fullInformationId][
       props.hrInfo.hrInformationId
     ].length - 1
   ].haveRead = true;

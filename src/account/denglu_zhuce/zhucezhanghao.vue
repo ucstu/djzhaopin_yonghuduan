@@ -158,8 +158,11 @@ const registeredAccount = () => {
             getUserInfosP0(res.data.body.accountInformation.fullInformationId)
               .then((res) => {
                 store.userInformation = res.data.body;
-                if (!store.messages[store.userInformation.userInformationId]) {
-                  store.messages[store.userInformation.userInformationId] = {};
+                if (
+                  !store.messages[store.accountInformation.fullInformationId]
+                ) {
+                  store.messages[store.accountInformation.fullInformationId] =
+                    {};
                 }
                 connectStomp(store);
                 uni.showToast({

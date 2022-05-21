@@ -31,7 +31,7 @@ const inputValue = ref("");
 const saveAdvantage = () => {
   store.userInformation.personalAdvantage = inputValue.value;
   putUserInfosP0(
-    store.userInformation.userInformationId,
+    store.accountInformation.fullInformationId,
     store.userInformation
   ).then(() => {
     uni.navigateBack({

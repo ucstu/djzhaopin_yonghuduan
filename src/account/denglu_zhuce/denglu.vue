@@ -128,8 +128,8 @@ const login = () => {
             ),
           ])
             .then((res) => {
-              if (!store.messages[store.userInformation.userInformationId]) {
-                store.messages[store.userInformation.userInformationId] = {};
+              if (!store.messages[store.accountInformation.fullInformationId]) {
+                store.messages[store.accountInformation.fullInformationId] = {};
               }
               connectStomp(store);
               store.userInformation = res[0].data.body;

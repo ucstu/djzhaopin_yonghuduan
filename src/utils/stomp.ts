@@ -77,15 +77,15 @@ export const connectStomp = (
           const page = pages[pages.length - 1];
           for (const messageRecord of data.body) {
             if (
-              !_store.messages[store.userInformation.userInformationId][
+              !_store.messages[store.accountInformation.fullInformationId][
                 messageRecord.initiateId
               ]
             ) {
-              _store.messages[store.userInformation.userInformationId][
+              _store.messages[store.accountInformation.fullInformationId][
                 messageRecord.initiateId
               ] = [];
             }
-            _store.messages[store.userInformation.userInformationId][
+            _store.messages[store.accountInformation.fullInformationId][
               messageRecord.initiateId
             ].push({
               ...messageRecord,
@@ -140,11 +140,11 @@ export const sendMessage = (
     serviceType,
   };
   stompClient.send("/message", {}, JSON.stringify(message));
-  if (!store.messages[store.userInformation.userInformationId][serviceId]) {
-    store.messages[store.userInformation.userInformationId][serviceId] = [];
+  if (!store.messages[store.accountInformation.fullInformationId][serviceId]) {
+    store.messages[store.accountInformation.fullInformationId][serviceId] = [];
   }
   const time = new Date().toISOString();
-  store.messages[store.userInformation.userInformationId][serviceId].push({
+  store.messages[store.accountInformation.fullInformationId][serviceId].push({
     ...message,
     haveRead: true,
     createdAt: useDate(time) + " " + useTime(time),

@@ -39,7 +39,7 @@
     <scroll-view class="group-info" :scroll-y="true" :scroll-top="scrollTop">
       <view
         v-for="recode in store.messages[
-          store.userInformation.userInformationId
+          store.accountInformation.fullInformationId
         ][messageKey]"
         :key="recode.messageRecordId"
       >
@@ -119,20 +119,22 @@ const messageKey = ref("");
 let scrollTop = ref(0);
 
 watchEffect(() => {
-  if (!store.messages[store.userInformation.userInformationId]) {
-    store.messages[store.userInformation.userInformationId] = {};
+  if (!store.messages[store.accountInformation.fullInformationId]) {
+    store.messages[store.accountInformation.fullInformationId] = {};
   }
   if (
-    store.messages[store.userInformation.userInformationId][messageKey.value]
+    store.messages[store.accountInformation.fullInformationId][messageKey.value]
   ) {
     nextTick(() => {
       scrollTop.value =
-        store.messages[store.userInformation.userInformationId][
+        store.messages[store.accountInformation.fullInformationId][
           messageKey.value
         ].length * uni.upx2px(200);
     });
   }
-  for (const key in store.messages[store.userInformation.userInformationId]) {
+  for (const key in store.messages[
+    store.accountInformation.fullInformationId
+  ]) {
     if (key === hrInfo.value.hrInformationId) {
       messageKey.value = key;
     }
