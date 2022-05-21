@@ -79,8 +79,9 @@ const emit = defineEmits(["comClick"]);
     }
 
     .group-1 {
+      width: 80%;
       height: 150rpx;
-      margin-left: 30rpx;
+      margin-left: 20rpx;
 
       .text {
         font-size: 35rpx;
@@ -104,7 +105,9 @@ const emit = defineEmits(["comClick"]);
       }
 
       .group-3 {
+        width: 78%;
         margin-top: 10rpx;
+        overflow: hidden;
         font-size: 18rpx;
         letter-spacing: 3.2rpx;
         white-space: nowrap;

@@ -93,9 +93,10 @@
     </view>
     <map
       v-if="companyInfo.location"
-      style="width: 100%; height: 300px"
+      style="width: 100%; height: 300px; margin-top: 20rpx"
       :latitude="companyInfo.location.latitude"
       :longitude="companyInfo.location.longitude"
+      :markers="markers"
     >
     </map>
   </view>
@@ -145,6 +146,16 @@ const companyInfo = ref<CompanyInformation>({} as CompanyInformation);
 const positionInfo = ref<PositionInformation[]>([]);
 const companyId = ref();
 const emptyShow = ref(false);
+const markers = ref([
+  {
+    id: 1,
+    latitude: 0,
+    longitude: 0,
+    iconPath: "../../static/icons/location.svg",
+    width: 30,
+    height: 30,
+  },
+]);
 /* 融资阶段 */
 const financingStages = [
   "",
@@ -190,6 +201,8 @@ onLoad((options) => {
     getCompanyInfosP0(companyId.value)
       .then((res) => {
         companyInfo.value = res.data.body;
+        markers.value[0].latitude = res.data.body.location.latitude;
+        markers.value[0].longitude = res.data.body.location.longitude;
       })
       .catch(failResponseHandler);
   } else {

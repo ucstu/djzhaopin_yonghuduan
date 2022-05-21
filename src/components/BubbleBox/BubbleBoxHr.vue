@@ -24,8 +24,11 @@
             <image :src="mes" class="img-photo" />
           </view>
           <view v-else-if="type === 4" class="flex-row">
-            <view class="user-box"></view>
-            <view class="items-center bubble-box">{{ mes }}</view>
+            <image
+              src="@/static/icons/file.svg"
+              class="img-file"
+              @click="downFile(mes)"
+            />
           </view>
         </view>
       </view>
@@ -54,6 +57,24 @@ const props = defineProps({
     default: "",
   },
 });
+
+const downFile = (m: string) => {
+  uni.downloadFile({
+    url: m,
+    success: (res) => {
+      uni.saveFile({
+        tempFilePath: res.tempFilePath,
+        success: (res) => {
+          uni.showToast({
+            title: "下载成功",
+            icon: "none",
+            duration: 2000,
+          });
+        },
+      });
+    },
+  });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -84,6 +105,13 @@ const props = defineProps({
     width: 300rpx;
     height: 300rpx;
     margin-left: 15rpx;
+    border-radius: 10rpx;
+  }
+
+  .img-file {
+    width: 120rpx;
+    height: 100rpx;
+    margin-left: 10rpx;
     border-radius: 10rpx;
   }
 

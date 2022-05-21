@@ -9,7 +9,7 @@
             v-for="(expectedSalary, i) in expectedSalaries"
             :key="i"
             class="justify-center items-center expect"
-            :class="activeSalary === i ? 'active' : ''"
+            :class="activeSalary === expectedSalary ? 'active' : ''"
             @click="activeSalaryOf(i)"
             >{{ expectedSalary }}</view
           >
@@ -87,7 +87,7 @@
             v-for="(industrySector, i) in industrySectors"
             :key="i"
             class="justify-center items-center expect"
-            :class="activeSector.includes(i) ? 'active' : ''"
+            :class="activeSector.includes(industrySector) ? 'active' : ''"
             @click="activeSectorOf(i)"
           >
             <text>{{ industrySector }}</text>
@@ -110,7 +110,8 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getFilterInformation } from "@/services/services";
 import { FilterInformation } from "@/services/types";
-import { ref } from "vue";
+import { onLoad } from "@dcloudio/uni-app";
+import { onMounted, ref } from "vue";
 
 const expectedSalaries = ref<FilterInformation["expectedSalary"]>([]); // 期望薪资
 const workExperiences = ref<FilterInformation["workExperience"]>([]); // 工作经验
@@ -130,51 +131,53 @@ const filterValue = ref({
   sector: <string[]>[], // 行业领域
 }); // 筛选值
 
-getFilterInformation().then((res) => {
-  expectedSalaries.value.splice(
-    0,
-    expectedSalaries.value.length,
-    ...res.data.body.expectedSalary
-  );
-  workExperiences.value.splice(
-    0,
-    workExperiences.value.length,
-    ...res.data.body.workExperience
-  );
-  degreeRequires.value.splice(
-    0,
-    degreeRequires.value.length,
-    ...res.data.body.education
-  );
-  jobNatures.value.splice(
-    0,
-    jobNatures.value.length,
-    ...res.data.body.natureWork
-  );
-  companySizes.value.splice(
-    0,
-    companySizes.value.length,
-    ...res.data.body.companySize
-  );
-  financeStages.value.splice(
-    0,
-    financeStages.value.length,
-    ...res.data.body.financingStage
-  );
-  industrySectors.value.splice(
-    0,
-    industrySectors.value.length,
-    ...res.data.body.industryField
-  );
+onMounted(() => {
+  getFilterInformation().then((res) => {
+    expectedSalaries.value.splice(
+      0,
+      expectedSalaries.value.length,
+      ...res.data.body.expectedSalary
+    );
+    workExperiences.value.splice(
+      0,
+      workExperiences.value.length,
+      ...res.data.body.workExperience
+    );
+    degreeRequires.value.splice(
+      0,
+      degreeRequires.value.length,
+      ...res.data.body.education
+    );
+    jobNatures.value.splice(
+      0,
+      jobNatures.value.length,
+      ...res.data.body.natureWork
+    );
+    companySizes.value.splice(
+      0,
+      companySizes.value.length,
+      ...res.data.body.companySize
+    );
+    financeStages.value.splice(
+      0,
+      financeStages.value.length,
+      ...res.data.body.financingStage
+    );
+    industrySectors.value.splice(
+      0,
+      industrySectors.value.length,
+      ...res.data.body.industryField
+    );
+  });
 });
 
 const activeSalary = ref(); // 期望薪资
 const activeSalaryOf = (index: number) => {
-  if (activeSalary.value === index) {
-    activeSalary.value = 0;
+  if (activeSalary.value === expectedSalaries.value[index]) {
+    activeSalary.value = "";
     filterValue.value.salary = "";
   } else {
-    activeSalary.value = index;
+    activeSalary.value = expectedSalaries.value[index];
     filterValue.value.salary = expectedSalaries.value[index];
   }
 };
@@ -182,7 +185,6 @@ const activeSalaryOf = (index: number) => {
 const activeExpect = ref<number[]>([]); // 工作经验
 const activeExpectOf = (index: number) => {
   if (activeExpect.value.includes(index)) {
-    activeExpect.value.sort((a, b) => a - b);
     activeExpect.value.splice(activeExpect.value.indexOf(index), 1);
   } else {
     activeExpect.value.push(index);
@@ -193,7 +195,6 @@ const activeExpectOf = (index: number) => {
 const activeRequire = ref<number[]>([]); // 学历要求
 const activeRequireOf = (index: number) => {
   if (activeRequire.value.includes(index)) {
-    activeRequire.value.sort((a, b) => a - b);
     activeRequire.value.splice(activeRequire.value.indexOf(index), 1);
   } else {
     activeRequire.value.push(index);
@@ -203,7 +204,6 @@ const activeRequireOf = (index: number) => {
 const activeNature = ref<number[]>([]); // 工作性质
 const activeNatureOf = (index: number) => {
   if (activeNature.value.includes(index)) {
-    activeNature.value.sort((a, b) => a - b);
     activeNature.value.splice(activeNature.value.indexOf(index), 1);
   } else {
     activeNature.value.push(index);
@@ -214,7 +214,6 @@ const activeNatureOf = (index: number) => {
 const activeSize = ref<number[]>([]); // 公司规模
 const activeSizeOf = (index: number) => {
   if (activeSize.value.includes(index)) {
-    activeSize.value.sort((a, b) => a - b);
     activeSize.value.splice(activeSize.value.indexOf(index), 1);
   } else {
     activeSize.value.push(index);
@@ -225,7 +224,6 @@ const activeSizeOf = (index: number) => {
 const activeStage = ref<number[]>([]); // 融资阶段
 const activeStageOf = (index: number) => {
   if (activeStage.value.includes(index)) {
-    activeStage.value.sort((a, b) => a - b);
     activeStage.value.splice(activeStage.value.indexOf(index), 1);
   } else {
     activeStage.value.push(index);
@@ -233,20 +231,31 @@ const activeStageOf = (index: number) => {
   filterValue.value.stage = activeStage.value;
 };
 
-const activeSector = ref<number[]>([]); // 行业领域
+const activeSector = ref<string[]>([]); // 行业领域
 const activeSectorOf = (index: number) => {
-  if (activeSector.value.includes(index)) {
-    activeSector.value.sort((a, b) => a - b);
-    activeSector.value.splice(activeSector.value.indexOf(index), 1);
-    filterValue.value.sector.splice(
-      filterValue.value.sector.indexOf(industrySectors.value[index]),
+  if (activeSector.value.includes(industrySectors.value[index])) {
+    activeSector.value.splice(
+      activeSector.value.indexOf(industrySectors.value[index]),
       1
     );
   } else {
-    activeSector.value.push(index);
-    filterValue.value.sector.push(industrySectors.value[index]);
+    activeSector.value.push(industrySectors.value[index]);
   }
+  filterValue.value.sector = activeSector.value;
 };
+
+onLoad((e) => {
+  if (e.filter) {
+    filterValue.value = JSON.parse(e.filter);
+    activeSalary.value = filterValue.value.salary;
+    activeExpect.value = filterValue.value.experience.map((item) => item - 1);
+    activeRequire.value = filterValue.value.degree.map((item) => item - 1);
+    activeNature.value = filterValue.value.nature.map((item) => item - 1);
+    activeSize.value = filterValue.value.size.map((item) => item - 1);
+    activeStage.value = filterValue.value.stage.map((item) => item - 1);
+    activeSector.value = filterValue.value.sector;
+  }
+});
 
 // 重置
 const replacement = () => {
@@ -257,16 +266,23 @@ const replacement = () => {
   activeSize.value.length = 0;
   activeStage.value.length = 0;
   activeSector.value.length = 0;
+  filterValue.value = {
+    salary: "",
+    experience: [],
+    degree: [],
+    nature: [],
+    size: [],
+    stage: [],
+    sector: [],
+  };
 };
 
 const saveScreen = () => {
-  filterValue.value.experience = filterValue.value.experience.map(
-    (item) => item + 1
-  );
-  filterValue.value.degree = filterValue.value.degree.map((item) => item + 1);
-  filterValue.value.nature = filterValue.value.nature.map((item) => item + 1);
-  filterValue.value.size = filterValue.value.size.map((item) => item + 1);
-  filterValue.value.stage = filterValue.value.stage.map((item) => item + 1);
+  filterValue.value.experience = activeExpect.value.map((item) => item + 1);
+  filterValue.value.degree = activeRequire.value.map((item) => item + 1);
+  filterValue.value.nature = activeNature.value.map((item) => item + 1);
+  filterValue.value.size = activeSize.value.map((item) => item + 1);
+  filterValue.value.stage = activeStage.value.map((item) => item + 1);
   uni.$emit("filterValue", filterValue.value); //首页筛选值
   uni.$emit("filter", filterValue.value); //搜索页筛选值
   uni.navigateBack({ delta: 1 });

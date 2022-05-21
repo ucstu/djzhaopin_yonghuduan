@@ -28,7 +28,10 @@
               :auto-height="true"
             />
           </scroll-view>
-          <view class="flex-col items-center justify-center upload">
+          <view
+            class="flex-col items-center justify-center upload"
+            @click="chooseImage"
+          >
             <image class="image" src="@/static/icons/camera.svg" />
             <text>上传图片</text>
           </view>
@@ -62,6 +65,17 @@ const choseType = (index: number) => {
   } else {
     choseNum.value.push(index);
   }
+};
+
+const chooseImage = () => {
+  uni.chooseImage({
+    count: 1,
+    sizeType: ["original", "compressed"],
+    sourceType: ["album", "camera"],
+    success: (res) => {
+      console.log(res);
+    },
+  });
 };
 
 const submit = () => {

@@ -66,15 +66,7 @@
             :auto-height="true"
           />
         </view>
-        <text
-          class="items-center text-send"
-          @click="
-            sendMessage(inputValue, 1, hrInfo.hrInformationId, 2);
-            inputValue = '';
-          "
-        >
-          发送</text
-        >
+        <text class="items-center text-send" @click="sendMes"> 发送</text>
       </view>
       <view class="justify-between function-box">
         <image class="image" src="@/static/icons/audio-fill.svg" />
@@ -116,21 +108,25 @@ const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(30);
 const hrInfo = ref<HrInformation>({} as HrInformation);
 const inputValue = ref("");
 const messageKey = ref("");
-let scrollTop = ref(0);
+const scrollTop = ref(0);
 
 watchEffect(() => {
+  if (
+    store.messages[store.accountInformation.fullInformationId][
+      hrInfo.value.hrInformationId
+    ]
+  ) {
+    let sTop =
+      store.messages[store.accountInformation.fullInformationId][
+        hrInfo.value.hrInformationId
+      ].length * uni.upx2px(150);
+    nextTick(() => {
+      scrollTop.value = sTop;
+    });
+  }
+
   if (!store.messages[store.accountInformation.fullInformationId]) {
     store.messages[store.accountInformation.fullInformationId] = {};
-  }
-  if (
-    store.messages[store.accountInformation.fullInformationId][messageKey.value]
-  ) {
-    nextTick(() => {
-      scrollTop.value =
-        store.messages[store.accountInformation.fullInformationId][
-          messageKey.value
-        ].length * uni.upx2px(200);
-    });
   }
   for (const key in store.messages[
     store.accountInformation.fullInformationId
@@ -159,6 +155,20 @@ const goBack = () => {
     delta: 1,
   });
 };
+
+const sendMes = () => {
+  if (inputValue.value.length) {
+    sendMessage(inputValue.value, 1, hrInfo.value.hrInformationId, 2);
+    inputValue.value = "";
+  } else {
+    uni.showToast({
+      title: "消息内容不能为空",
+      icon: "none",
+      duration: 1500,
+    });
+  }
+};
+
 // 发送图片
 const sendImage = () => {
   uni.chooseImage({
