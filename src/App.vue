@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { getAxiosInstance } from "@/services/config";
 import {
-  getUserInfosP0,
-  getUserInfosP0JobExpectations,
+getUserInfosP0,
+getUserInfosP0JobExpectations
 } from "@/services/services";
 import { useMainStore } from "@/stores/main";
 import { connectStomp } from "./utils/stomp";
@@ -30,6 +30,9 @@ if (store.jsonWebToken === null || !store.accountInformation) {
     ),
   ])
     .then((res) => {
+      if (!store.messages[store.userInformation.userInformationId]) {
+        store.messages[store.userInformation.userInformationId] = {};
+      }
       connectStomp(store);
       store.userInformation = res[0].data.body;
       store.jobExpectations = res[1].data.body.jobExpectations;

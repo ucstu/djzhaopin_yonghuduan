@@ -128,6 +128,9 @@ const login = () => {
             ),
           ])
             .then((res) => {
+              if (!store.messages[store.userInformation.userInformationId]) {
+                store.messages[store.userInformation.userInformationId] = {};
+              }
               connectStomp(store);
               store.userInformation = res[0].data.body;
               store.jobExpectations = res[1].data.body.jobExpectations;

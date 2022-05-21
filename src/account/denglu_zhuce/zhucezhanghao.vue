@@ -75,6 +75,7 @@ import {
 } from "@/services/services";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
+import { connectStomp } from "@/utils/stomp";
 import { ref } from "vue";
 
 const store = useMainStore();
@@ -157,6 +158,10 @@ const registeredAccount = () => {
             getUserInfosP0(res.data.body.accountInformation.fullInformationId)
               .then((res) => {
                 store.userInformation = res.data.body;
+                if (!store.messages[store.userInformation.userInformationId]) {
+                  store.messages[store.userInformation.userInformationId] = {};
+                }
+                connectStomp(store);
                 uni.showToast({
                   title: "注册成功",
                   icon: "none",
