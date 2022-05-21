@@ -99,22 +99,16 @@ onShow(() => {
         );
         isRead.value.set(
           key,
-          store.messages[store.userInformation.userInformationId][
-            res.data.body.hrInformationId
-          ][
-            store.messages[store.userInformation.userInformationId][
-              res.data.body.hrInformationId
-            ].length - 1
+          store.messages[store.userInformation.userInformationId][key][
+            store.messages[store.userInformation.userInformationId][key]
+              .length - 1
           ].haveRead
         );
         messageType.value.set(
           key,
-          store.messages[store.userInformation.userInformationId][
-            res.data.body.hrInformationId
-          ][
-            store.messages[store.userInformation.userInformationId][
-              res.data.body.hrInformationId
-            ].length - 1
+          store.messages[store.userInformation.userInformationId][key][
+            store.messages[store.userInformation.userInformationId][key]
+              .length - 1
           ].messageType
         );
         hrInfo.value.push(res.data.body);

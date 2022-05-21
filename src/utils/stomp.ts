@@ -2,7 +2,7 @@ import {
   AccountInformation,
   JobExpectation,
   MessageRecord,
-  UserInformation,
+  UserInformation
 } from "@/services/types";
 import { withReadStateMessageRecord } from "@/stores/main";
 import { Store } from "pinia";
@@ -73,11 +73,8 @@ export const connectStomp = (
             status: number;
             timestamp: string;
           };
-          uni.showToast({
-            title: "你有新的消息",
-            icon: "none",
-            duration: 2000,
-          });
+          const pages = getCurrentPages();
+          const page = pages[pages.length - 1];
           for (const messageRecord of data.body) {
             if (!store.messages[store.userInformation.userInformationId]) {
               store.messages[store.userInformation.userInformationId] = {};
@@ -95,7 +92,16 @@ export const connectStomp = (
               messageRecord.initiateId
             ].push({
               ...messageRecord,
-              haveRead: false,
+              haveRead: page.route === "mine/liaotianyemian/liaotianyemian",
+            });
+          }
+          if (
+            page.route !== "mine/liaotianyemian/liaotianyemian" &&
+            data.body.length > 0
+          ) {
+            uni.showToast({
+              title: "你收到了 " + data.body.length + " 条新消息",
+              duration: 2000,
             });
           }
         }
