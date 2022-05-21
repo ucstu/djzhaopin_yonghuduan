@@ -19,6 +19,11 @@ const socket = new WebSocketPolyfill(
 
 const stompClient = Stomp.over(socket);
 
+// @ts-ignore
+// stompClient.debug = null;
+
+const messageIds = new Set<string>();
+
 let store: Store<
   "main",
   {
@@ -35,11 +40,6 @@ let store: Store<
   {},
   {}
 >;
-
-// @ts-ignore
-// stompClient.debug = null;
-
-const messageIds = new Set<string>();
 
 export const connectStomp = (
   _store: Store<
@@ -115,16 +115,6 @@ export const connectStomp = (
           timestamp: string;
         };
       });
-      stompClient.subscribe("/topic/pingpong", (pong) => {});
-      setInterval(() => {
-        stompClient.send(
-          "/ping",
-          {},
-          JSON.stringify({
-            timestamp: new Date().toISOString(),
-          })
-        );
-      }, 30000);
     },
     handleDisconnect
   );
