@@ -174,7 +174,7 @@ onMounted(() => {
   {
     positionType: expects.value[0],
     workCityName: cityName.value,
-    // directionTags: directionTags.value,
+    directionTags: directionTags.value,
     salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
     size: 10,
   }
@@ -232,7 +232,7 @@ onLoad(() => {
       {
         positionType: expects.value[0],
         workCityName: cityName.value,
-        // directionTags: directionTags.value,
+        directionTags: directionTags.value,
         salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
         size: 10,
       }
@@ -241,16 +241,16 @@ onLoad(() => {
       }).catch(failResponseHandler)
     }else{
         getCompanyInfosPositionInfos({
-        // positionType: expects.value[activeIndex.value],
-        // workAreaNames: city.value,
-        // directionTags: directionTags.value,
-        // salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+        positionType: expects.value[activeIndex.value],
+        workAreaNames: city.value,
+        directionTags: directionTags.value,
+        salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
         comprehensions: filters.value.sector,
-        // educations: filters.value.degree,
-        // workingYears: filters.value.experience,
-        // workTypes: filters.value.nature,
-        // scales: filters.value.size,
-        // financingStages: filters.value.stage,
+        educations: filters.value.degree,
+        workingYears: filters.value.experience,
+        workTypes: filters.value.nature,
+        scales: filters.value.size,
+        financingStages: filters.value.stage,
         size: 10,
       }
       ).then((res) => {
@@ -286,22 +286,43 @@ const changeJobType = (index: number) => {
 const recommended = (index: number) => {
   showRecommend.value = index;
   if (index === 0) {  // 热门
-    getCompanyInfosPositionInfos({
-      positionType: expects.value[activeIndex.value],
-      workCityName: cityName.value,
-      workAreaNames: city.value,
-      directionTags: directionTags.value,
-      salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
-      educations: filters.value.degree,
-      workingYears: filters.value.experience,
-      workTypes: filters.value.nature,
-      scales: filters.value.size,
-      financingStages: filters.value.stage,
-      sort: ['positionName,asc'],
-      size: 10,
-      }).then((res) => {
-      jobDetails.value = res.data.body.positionInformations
-    }).catch(failResponseHandler)
+    if(
+      filters.value.salary=== ""&&
+      filters.value.sector.length===0&&
+      filters.value.degree.length===0&&
+      filters.value.experience.length===0&&
+      filters.value.nature.length===0&&
+      filters.value.size.length===0&&
+      filters.value.stage.length===0){
+        getCompanyInfosPositionInfos({
+          positionType: expects.value[activeIndex.value],
+          workCityName: cityName.value,
+          workAreaNames: city.value,
+          directionTags: directionTags.value,
+          salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+          sort: ['positionName,asc'],
+          size: 10,
+          }).then((res) => {
+          jobDetails.value = res.data.body.positionInformations
+        }).catch(failResponseHandler)
+      }else{
+        getCompanyInfosPositionInfos({
+          positionType: expects.value[activeIndex.value],
+          workCityName: cityName.value,
+          workAreaNames: city.value,
+          directionTags: directionTags.value,
+          salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+          educations: filters.value.degree,
+          workingYears: filters.value.experience,
+          workTypes: filters.value.nature,
+          scales: filters.value.size,
+          financingStages: filters.value.stage,
+          sort: ['positionName,asc'],
+          size: 10,
+          }).then((res) => {
+          jobDetails.value = res.data.body.positionInformations
+        }).catch(failResponseHandler)
+      }
   } else if (index === 1) {  // 附近
     uni.getLocation({
       success(res){
@@ -356,7 +377,27 @@ const onRefresh = () => {
 }
 const onRestore = () => {
   /* 刷新获取新数据 */
-   getCompanyInfosPositionInfos({
+  if(
+    filters.value.salary=== ""&&
+    filters.value.sector.length===0&&
+    filters.value.degree.length===0&&
+    filters.value.experience.length===0&&
+    filters.value.nature.length===0&&
+    filters.value.size.length===0&&
+    filters.value.stage.length===0){
+      getCompanyInfosPositionInfos(
+      {
+        positionType: expects.value[0],
+        workCityName: cityName.value,
+        directionTags: directionTags.value,
+        salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+        size: 10,
+      }
+      ).then((res) => {
+        jobDetails.value = res.data.body.positionInformations
+      }).catch(failResponseHandler)
+   }else{
+     getCompanyInfosPositionInfos({
     positionType: expects.value[activeIndex.value],
     workCityName: cityName.value,
     workAreaNames: city.value,
@@ -371,6 +412,8 @@ const onRestore = () => {
   }).then((res) => {
   jobDetails.value = res.data.body.positionInformations
 })
+  }
+
 }
 const onAbort = () => {
   // triggered.value = false
@@ -379,26 +422,48 @@ const onAbort = () => {
 const onReachBottom = () => {
   loadMore.value = true
   setTimeout(() => {
-    getCompanyInfosPositionInfos(
-  {
-    positionName: expects.value[activeIndex.value],
-    workCityName: cityName.value,
-    workAreaNames: city.value,
-    directionTags: directionTags.value,
-    salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
-    educations: filters.value.degree,
-    workingYears: filters.value.experience,
-    workTypes: filters.value.nature,
-    scales: filters.value.size,
-    financingStages: filters.value.stage,
-    size: 10,
-  }
-  ).then((res) => {
-    loadMore.value = false;
-    for( const item of res.data.body.positionInformations) {
-      jobDetails.value.push(item)
-    }
+    if(
+    filters.value.salary=== ""&&
+    filters.value.sector.length===0&&
+    filters.value.degree.length===0&&
+    filters.value.experience.length===0&&
+    filters.value.nature.length===0&&
+    filters.value.size.length===0&&
+    filters.value.stage.length===0){
+      getCompanyInfosPositionInfos(
+      {
+        positionType: expects.value[0],
+        workCityName: cityName.value,
+        directionTags: directionTags.value,
+        salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+        size: 10,
+      }
+      ).then((res) => {
+        loadMore.value = false;
+        for( const item of res.data.body.positionInformations) {
+          jobDetails.value.push(item)
+        }
+      }).catch(failResponseHandler)
+   }else{
+     getCompanyInfosPositionInfos({
+      positionType: expects.value[activeIndex.value],
+      workCityName: cityName.value,
+      workAreaNames: city.value,
+      directionTags: directionTags.value,
+      salary: `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`,
+      educations: filters.value.degree,
+      workingYears: filters.value.experience,
+      workTypes: filters.value.nature,
+      scales: filters.value.size,
+      financingStages: filters.value.stage,
+      size: 10,
+    }).then((res) => {
+      loadMore.value = false;
+      for( const item of res.data.body.positionInformations) {
+        jobDetails.value.push(item)
+      }
   })
+  }
   loadMore.value = false;
   }, 3000)
 }
