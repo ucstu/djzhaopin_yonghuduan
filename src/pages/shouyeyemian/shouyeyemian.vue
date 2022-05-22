@@ -269,6 +269,7 @@ onUnload(() => {
 const changeJobType = (index: number) => {
   activeIndex.value = index;
   cityName.value = cityValue.value[activeIndex.value];
+  directionTags.value = store.jobExpectations[activeIndex.value].directionTags;
   city.value.length = 0;
   getCompanyInfosPositionInfos(
   {
