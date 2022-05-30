@@ -80,7 +80,7 @@ getCompanyInfosP0(props.jobDetail?.companyInformationId).then((res) => {
   companyInfo.value = res.data.body;
 });
 const emit = defineEmits(["jobClick"]);
-const education = ref(["不要求", "大专", "本科", "硕士", "博士"]);
+const education = ref(["", "不要求", "大专", "本科", "硕士", "博士"]);
 </script>
 
 <style lang="scss" scoped>
