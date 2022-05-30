@@ -277,12 +277,13 @@ const saveJobExcept = () => {
           jobId.value,
           jobExpectation.value
         )
-          .then(() => {
+          .then((res) => {
             uni.showToast({
               title: "修改成功",
               icon: "none",
               duration: 1500,
             });
+            uni.$emit("changeJob", res.data.body);
           })
           .catch(failResponseHandler);
       } else {

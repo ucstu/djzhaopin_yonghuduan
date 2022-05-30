@@ -139,18 +139,16 @@ const allRead = () => {
 };
 
 /* 投递记录 */
-const status = ref<(1 | 2 | 3 | 4 | 5)[]>([1, 2, 3, 4, 5]);
-const deliveryRecords = ref<DeliveryRecord[]>([]);
-getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
-  status: status.value,
-})
-  .then((res) => {
-    deliveryRecords.value = res.data.body.deliveryRecords;
-  })
-  .catch(failResponseHandler);
-
 const toMyDelivery = () => {
-  let item = encodeURIComponent(JSON.stringify(deliveryRecords.value));
+  let deliveryRecords = <DeliveryRecord[]>[];
+  getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
+    status: 1 as unknown as (1 | 2 | 3 | 4 | 5)[],
+  })
+    .then((res) => {
+      deliveryRecords = res.data.body.deliveryRecords;
+    })
+    .catch(failResponseHandler);
+  let item = encodeURIComponent(JSON.stringify(deliveryRecords));
   uni.navigateTo({
     url: "/record/toudijilu/toudijilu?deliveryRecords=" + item,
   });

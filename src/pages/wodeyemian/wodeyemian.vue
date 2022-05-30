@@ -154,45 +154,56 @@ onShow(() => {
     .catch(failResponseHandler);
 });
 
+/**跳转页面 */
+// 编辑简历
 const toSelfInfo = () => {
   uni.navigateTo({ url: "/mine/bianjijianli/bianjijianli" });
 };
+// 投递记录
 const onClick_1 = () => {
   let item = encodeURIComponent(JSON.stringify(deliveryRecords.value));
   uni.navigateTo({
     url: "/record/toudijilu/toudijilu?deliveryRecords=" + item,
   });
 };
+// 收藏职位
 const onClick_2 = () => {
   let item = encodeURIComponent(JSON.stringify(favoritePosition.value));
   uni.navigateTo({
     url: "/record/shoucangzhiwei/shoucangzhiwei?favoritePosition=" + item,
   });
 };
+// 关注公司
 const onClick_3 = () => {
   let item = encodeURIComponent(JSON.stringify(focusCompany.value));
   uni.navigateTo({
     url: "/record/guanzhugongsi/guanzhugongsi?focusCompany=" + item,
   });
 };
+// 待面试
 const onClick_4 = () => {
   let item = encodeURIComponent(JSON.stringify(interviewPosition.value));
   uni.navigateTo({
     url: "/record/daimianshi/daimianshi?interviewPosition=" + item,
   });
 };
+// 上传简历附件
 const onClick_5 = () => {
   uni.navigateTo({ url: "/info/shangchuanjianli/shangchuanjianli" });
 };
+// 求职期望
 const onClick_6 = () => {
   uni.navigateTo({ url: "/info/qiuzhiyixiang/qiuzhiyixiang" });
 };
+// 用户反馈
 const onClick_7 = () => {
   uni.navigateTo({ url: "/setting/yonghufankui/yonghufankui" });
 };
+// 隐私设置
 const onClick_8 = () => {
   uni.navigateTo({ url: "/setting/yinsishezhi/yinsishezhi" });
 };
+// 设置
 const onClick_9 = () => {
   uni.navigateTo({ url: "/mine/shezhiyemian/shezhiyemian" });
 };
