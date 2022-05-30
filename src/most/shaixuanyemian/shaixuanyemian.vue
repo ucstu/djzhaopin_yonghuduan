@@ -175,17 +175,16 @@ onMounted(() => {
   });
 });
 
-// const activeSalary = ref(); // 期望薪资
+// 期望薪资
 const activeSalaryOf = (index: number) => {
   if (filterValue.value.salary === expectedSalaries.value[index]) {
     filterValue.value.salary = "";
   } else {
-    // activeSalary.value = expectedSalaries.value[index];
     filterValue.value.salary = expectedSalaries.value[index];
   }
 };
 
-// const activeExpect = ref<number[]>([]); // 工作经验
+// 工作经验
 const activeExpectOf = (index: number) => {
   if (filterValue.value.workingYears.includes(index)) {
     filterValue.value.workingYears.splice(
@@ -195,10 +194,9 @@ const activeExpectOf = (index: number) => {
   } else {
     filterValue.value.workingYears.push(index);
   }
-  // filterValue.value.workingYears = activeExpect.value;
 };
 
-// const activeRequire = ref<number[]>([]); // 学历要求
+// 学历要求
 const activeRequireOf = (index: number) => {
   if (filterValue.value.educations.includes(index)) {
     filterValue.value.educations.splice(
@@ -208,9 +206,8 @@ const activeRequireOf = (index: number) => {
   } else {
     filterValue.value.educations.push(index);
   }
-  // filterValue.value.educations = activeRequire.value;
 };
-// const activeNature = ref<number[]>([]); // 工作性质
+// 工作性质
 const activeNatureOf = (index: number) => {
   if (filterValue.value.workTypes.includes(index)) {
     filterValue.value.workTypes.splice(
@@ -220,10 +217,9 @@ const activeNatureOf = (index: number) => {
   } else {
     filterValue.value.workTypes.push(index);
   }
-  // filterValue.value.workTypes = activeNature.value;
 };
 
-// const activeSize = ref<number[]>([]); // 公司规模
+// 公司规模
 const activeSizeOf = (index: number) => {
   if (filterValue.value.scales.includes(index)) {
     filterValue.value.scales.splice(filterValue.value.scales.indexOf(index), 1);
@@ -233,7 +229,7 @@ const activeSizeOf = (index: number) => {
   // filterValue.value.scales = activeSize.value;
 };
 
-// const activeStage = ref<number[]>([]); // 融资阶段
+// 融资阶段
 const activeStageOf = (index: number) => {
   if (filterValue.value.financingStages.includes(index)) {
     filterValue.value.financingStages.splice(
@@ -246,7 +242,7 @@ const activeStageOf = (index: number) => {
   // filterValue.value.financingStages = activeStage.value;
 };
 
-// const activeSector = ref<string[]>([]); // 行业领域
+// 行业领域
 const activeSectorOf = (index: number) => {
   if (filterValue.value.comprehensions.includes(industrySectors.value[index])) {
     filterValue.value.comprehensions.splice(

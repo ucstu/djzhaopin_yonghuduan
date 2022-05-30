@@ -22,7 +22,13 @@
             v-for="(area, i) in areas"
             :key="i"
             class="toponym"
-            :class="areasIndex.includes(i) ? 'active' : ''"
+            :class="
+              filterValue.includes(area)
+                ? 'active'
+                : '' || countriesIndex == 0
+                ? 'active'
+                : ''
+            "
             @click="areasIndexOf(i)"
           >
             <text>{{ area }}</text>
@@ -38,10 +44,13 @@
         <text>重置</text>
       </view>
       <view
-        class="flex-col items-center justify-center identify"
+        class="flex-row items-center justify-center identify"
         @click="savePlace"
       >
         <text>确定</text>
+        <text v-if="filterValue.length" style="margin-left: 5rpx">{{
+          filterValue.length
+        }}</text>
       </view>
     </view>
   </view>
@@ -53,7 +62,7 @@ import { getAreaInformations } from "@/services/services";
 import { AreaInformations } from "@/services/types";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad, onUnload } from "@dcloudio/uni-app";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 const countries = ref<AreaInformations>([
   {
@@ -61,9 +70,9 @@ const countries = ref<AreaInformations>([
     areas: ["不限"],
   },
 ]);
+const areas = ref<string[]>([]);
 const countriesIndex = ref(0);
 const country = ref("位置");
-const areasIndex = ref([0]);
 const filterValue = ref<string[]>([]);
 const c = ref();
 
@@ -77,6 +86,17 @@ onLoad((e) => {
       .then((res) => {
         countries.value.slice(0, 1);
         countries.value.push(...res.data.body);
+        if (e.areas) {
+          filterValue.value = JSON.parse(e.areas);
+          if (filterValue.value.length) {
+            let count = countries.value.map((item) => item.countyName);
+            countriesIndex.value = count.indexOf(c.value);
+            areas.value = countries.value[countriesIndex.value].areas;
+          }
+        } else {
+          countriesIndex.value = 0;
+          areas.value = countries.value[countriesIndex.value].areas;
+        }
       })
       .catch(failResponseHandler);
   }
@@ -100,33 +120,31 @@ onLoad((e) => {
 onUnload(() => {
   uni.$off("liveCity");
 });
-const areas = computed(() => {
-  return countries.value[countriesIndex.value].areas;
-});
 
+// 选择地区
 const countriesIndexOf = (index: number) => {
   countriesIndex.value = index;
   country.value = countries.value[index].countyName;
+  areas.value = countries.value[index].areas;
+  filterValue.value = [];
 };
 
+// 选择范围
 const areasIndexOf = (index: number) => {
-  if (areasIndex.value.includes(index)) {
-    areasIndex.value.splice(areasIndex.value.indexOf(index), 1);
+  if (filterValue.value.includes(areas.value[index])) {
     filterValue.value.splice(filterValue.value.indexOf(areas.value[index]), 1);
   } else {
-    areasIndex.value.push(index);
     filterValue.value.push(areas.value[index]);
   }
 };
 /* 重置筛选 */
 const replacement = () => {
-  countriesIndex.value = 0;
-  areasIndex.value = [0];
   filterValue.value.length = 0;
   country.value = c.value;
 };
 // 存储选择的地区
 const savePlace = () => {
+  uni.$emit("city", country.value);
   uni.$emit("place", filterValue.value);
   uni.navigateBack({ delta: 1 });
 };
@@ -216,6 +234,7 @@ const changeCity = () => {
     .identify {
       width: 65%;
       margin-left: 20rpx;
+      color: #fff;
       background-color: rgb(84 188 163);
       border-radius: 10rpx;
     }

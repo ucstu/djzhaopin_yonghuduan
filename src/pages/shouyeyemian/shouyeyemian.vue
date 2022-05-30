@@ -195,7 +195,6 @@ onLoad(() => {
   /* 切换城市 */
     uni.$on("liveCity", (data) => {
       if(store.jobExpectations.length){
-        // cityName.value = data;
         jobFilter.value.workCityName = data;
           getCompanyInfosPositionInfos(jobFilter.value).then((res) => {
             jobDetails.value = res.data.body.positionInformations
@@ -203,6 +202,9 @@ onLoad(() => {
       }
     })
     /* 切换地区 */
+    uni.$on("city", (data)=>{
+      jobFilter.value.workCityName = data;
+    })
     uni.$on("place", (data) => {
         city.value = [];
         city.value = data;
@@ -229,6 +231,7 @@ onUnload(() => {
   uni.$off("liveCity");
   uni.$off("place");
   uni.$off("filterValue");
+  uni.$off("city");
 })
 
 /* 切换职位 */
@@ -291,8 +294,8 @@ const onRefresh = () => {
   triggered.value = false;
   },1000)
 }
+/* 刷新获取新数据 */
 const onRestore = () => {
-  /* 刷新获取新数据 */
       getCompanyInfosPositionInfos(jobFilter.value).then((res) => {
         jobDetails.value = res.data.body.positionInformations
       }).catch(failResponseHandler)
