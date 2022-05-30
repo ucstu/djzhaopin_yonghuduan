@@ -9,7 +9,7 @@
             v-for="(expectedSalary, i) in expectedSalaries"
             :key="i"
             class="justify-center items-center expect"
-            :class="activeSalary === expectedSalary ? 'active' : ''"
+            :class="filterValue.salary === expectedSalary ? 'active' : ''"
             @click="activeSalaryOf(i)"
             >{{ expectedSalary }}</view
           >
@@ -22,7 +22,7 @@
             v-for="(workExperience, i) in workExperiences"
             :key="i"
             class="justify-center items-center expect"
-            :class="activeExpect.includes(i) ? 'active' : ''"
+            :class="filterValue.workingYears.includes(i) ? 'active' : ''"
             @click="activeExpectOf(i)"
             >{{ workExperience }}</view
           >
@@ -35,7 +35,7 @@
             v-for="(education, i) in degreeRequires"
             :key="i"
             class="justify-center items-center expect"
-            :class="activeRequire.includes(i) ? 'active' : ''"
+            :class="filterValue.educations.includes(i) ? 'active' : ''"
             @click="activeRequireOf(i)"
             >{{ education }}</view
           >
@@ -48,7 +48,7 @@
             v-for="(jobNature, i) in jobNatures"
             :key="i"
             class="justify-center items-center expect"
-            :class="activeNature.includes(i) ? 'active' : ''"
+            :class="filterValue.workTypes.includes(i) ? 'active' : ''"
             @click="activeNatureOf(i)"
             >{{ jobNature }}</view
           >
@@ -61,7 +61,7 @@
             v-for="(companySize, i) in companySizes"
             :key="i"
             class="justify-center items-center expect"
-            :class="activeSize.includes(i) ? 'active' : ''"
+            :class="filterValue.scales.includes(i) ? 'active' : ''"
             @click="activeSizeOf(i)"
             >{{ companySize }}</view
           >
@@ -74,7 +74,7 @@
             v-for="(financeStage, i) in financeStages"
             :key="i"
             class="justify-center items-center expect"
-            :class="activeStage.includes(i) ? 'active' : ''"
+            :class="filterValue.financingStages.includes(i) ? 'active' : ''"
             @click="activeStageOf(i)"
             >{{ financeStage }}</view
           >
@@ -87,7 +87,11 @@
             v-for="(industrySector, i) in industrySectors"
             :key="i"
             class="justify-center items-center expect"
-            :class="activeSector.includes(industrySector) ? 'active' : ''"
+            :class="
+              filterValue.comprehensions.includes(industrySector)
+                ? 'active'
+                : ''
+            "
             @click="activeSectorOf(i)"
           >
             <text>{{ industrySector }}</text>
@@ -123,12 +127,12 @@ const industrySectors = ref<FilterInformation["industryField"]>([]); // 行业�
 
 const filterValue = ref({
   salary: "", // 期望薪资
-  experience: <number[]>[], // 工作经验
-  degree: <number[]>[], // 学历
-  nature: <number[]>[], // 工作性质
-  size: <number[]>[], // 公司规模
-  stage: <number[]>[], // 融资阶段
-  sector: <string[]>[], // 行业领域
+  workingYears: <number[]>[], // 工作经验
+  educations: <number[]>[], // 学历
+  workTypes: <number[]>[], // 工作性质
+  scales: <number[]>[], // 公司规模
+  financingStages: <number[]>[], // 融资阶段
+  comprehensions: <string[]>[], // 行业领域
 }); // 筛选值
 
 onMounted(() => {
@@ -171,118 +175,135 @@ onMounted(() => {
   });
 });
 
-const activeSalary = ref(); // 期望薪资
+// const activeSalary = ref(); // 期望薪资
 const activeSalaryOf = (index: number) => {
-  if (activeSalary.value === expectedSalaries.value[index]) {
-    activeSalary.value = "";
+  if (filterValue.value.salary === expectedSalaries.value[index]) {
     filterValue.value.salary = "";
   } else {
-    activeSalary.value = expectedSalaries.value[index];
+    // activeSalary.value = expectedSalaries.value[index];
     filterValue.value.salary = expectedSalaries.value[index];
   }
 };
 
-const activeExpect = ref<number[]>([]); // 工作经验
+// const activeExpect = ref<number[]>([]); // 工作经验
 const activeExpectOf = (index: number) => {
-  if (activeExpect.value.includes(index)) {
-    activeExpect.value.splice(activeExpect.value.indexOf(index), 1);
-  } else {
-    activeExpect.value.push(index);
-  }
-  filterValue.value.experience = activeExpect.value;
-};
-
-const activeRequire = ref<number[]>([]); // 学历要求
-const activeRequireOf = (index: number) => {
-  if (activeRequire.value.includes(index)) {
-    activeRequire.value.splice(activeRequire.value.indexOf(index), 1);
-  } else {
-    activeRequire.value.push(index);
-  }
-  filterValue.value.degree = activeRequire.value;
-};
-const activeNature = ref<number[]>([]); // 工作性质
-const activeNatureOf = (index: number) => {
-  if (activeNature.value.includes(index)) {
-    activeNature.value.splice(activeNature.value.indexOf(index), 1);
-  } else {
-    activeNature.value.push(index);
-  }
-  filterValue.value.nature = activeNature.value;
-};
-
-const activeSize = ref<number[]>([]); // 公司规模
-const activeSizeOf = (index: number) => {
-  if (activeSize.value.includes(index)) {
-    activeSize.value.splice(activeSize.value.indexOf(index), 1);
-  } else {
-    activeSize.value.push(index);
-  }
-  filterValue.value.size = activeSize.value;
-};
-
-const activeStage = ref<number[]>([]); // 融资阶段
-const activeStageOf = (index: number) => {
-  if (activeStage.value.includes(index)) {
-    activeStage.value.splice(activeStage.value.indexOf(index), 1);
-  } else {
-    activeStage.value.push(index);
-  }
-  filterValue.value.stage = activeStage.value;
-};
-
-const activeSector = ref<string[]>([]); // 行业领域
-const activeSectorOf = (index: number) => {
-  if (activeSector.value.includes(industrySectors.value[index])) {
-    activeSector.value.splice(
-      activeSector.value.indexOf(industrySectors.value[index]),
+  if (filterValue.value.workingYears.includes(index)) {
+    filterValue.value.workingYears.splice(
+      filterValue.value.workingYears.indexOf(index),
       1
     );
   } else {
-    activeSector.value.push(industrySectors.value[index]);
+    filterValue.value.workingYears.push(index);
   }
-  filterValue.value.sector = activeSector.value;
+  // filterValue.value.workingYears = activeExpect.value;
+};
+
+// const activeRequire = ref<number[]>([]); // 学历要求
+const activeRequireOf = (index: number) => {
+  if (filterValue.value.educations.includes(index)) {
+    filterValue.value.educations.splice(
+      filterValue.value.educations.indexOf(index),
+      1
+    );
+  } else {
+    filterValue.value.educations.push(index);
+  }
+  // filterValue.value.educations = activeRequire.value;
+};
+// const activeNature = ref<number[]>([]); // 工作性质
+const activeNatureOf = (index: number) => {
+  if (filterValue.value.workTypes.includes(index)) {
+    filterValue.value.workTypes.splice(
+      filterValue.value.workTypes.indexOf(index),
+      1
+    );
+  } else {
+    filterValue.value.workTypes.push(index);
+  }
+  // filterValue.value.workTypes = activeNature.value;
+};
+
+// const activeSize = ref<number[]>([]); // 公司规模
+const activeSizeOf = (index: number) => {
+  if (filterValue.value.scales.includes(index)) {
+    filterValue.value.scales.splice(filterValue.value.scales.indexOf(index), 1);
+  } else {
+    filterValue.value.scales.push(index);
+  }
+  // filterValue.value.scales = activeSize.value;
+};
+
+// const activeStage = ref<number[]>([]); // 融资阶段
+const activeStageOf = (index: number) => {
+  if (filterValue.value.financingStages.includes(index)) {
+    filterValue.value.financingStages.splice(
+      filterValue.value.financingStages.indexOf(index),
+      1
+    );
+  } else {
+    filterValue.value.financingStages.push(index);
+  }
+  // filterValue.value.financingStages = activeStage.value;
+};
+
+// const activeSector = ref<string[]>([]); // 行业领域
+const activeSectorOf = (index: number) => {
+  if (filterValue.value.comprehensions.includes(industrySectors.value[index])) {
+    filterValue.value.comprehensions.splice(
+      filterValue.value.comprehensions.indexOf(industrySectors.value[index]),
+      1
+    );
+  } else {
+    filterValue.value.comprehensions.push(industrySectors.value[index]);
+  }
 };
 
 onLoad((e) => {
   if (e.filter) {
-    filterValue.value = JSON.parse(e.filter);
-    activeSalary.value = filterValue.value.salary;
-    activeExpect.value = filterValue.value.experience.map((item) => item - 1);
-    activeRequire.value = filterValue.value.degree.map((item) => item - 1);
-    activeNature.value = filterValue.value.nature.map((item) => item - 1);
-    activeSize.value = filterValue.value.size.map((item) => item - 1);
-    activeStage.value = filterValue.value.stage.map((item) => item - 1);
-    activeSector.value = filterValue.value.sector;
+    let p = JSON.parse(e.filter);
+    if (Object.keys(p).length) {
+      filterValue.value.workingYears = p.workingYears.map(
+        (item: number) => item - 1
+      );
+      filterValue.value.educations = p.educations.map(
+        (item: number) => item - 1
+      );
+      filterValue.value.workTypes = p.workTypes.map((item: number) => item - 1);
+      filterValue.value.scales = p.scales.map((item: number) => item - 1);
+      filterValue.value.financingStages = p.financingStages.map(
+        (item: number) => item - 1
+      );
+    }
   }
 });
 
 // 重置
 const replacement = () => {
-  activeSalary.value = "";
-  activeExpect.value.length = 0;
-  activeRequire.value.length = 0;
-  activeNature.value.length = 0;
-  activeSize.value.length = 0;
-  activeStage.value.length = 0;
-  activeSector.value.length = 0;
   filterValue.value = {
     salary: "",
-    experience: [],
-    degree: [],
-    nature: [],
-    size: [],
-    stage: [],
-    sector: [],
+    workingYears: [],
+    educations: [],
+    workTypes: [],
+    scales: [],
+    financingStages: [],
+    comprehensions: [],
   };
 };
 
 const saveScreen = () => {
-  filterValue.value.experience = activeExpect.value.map((item) => item + 1);
-  filterValue.value.degree = activeRequire.value.map((item) => item + 1);
-  filterValue.value.nature = activeNature.value.map((item) => item + 1);
-  filterValue.value.size = activeSize.value.map((item) => item + 1);
-  filterValue.value.stage = activeStage.value.map((item) => item + 1);
+  filterValue.value.workingYears = filterValue.value.workingYears.map(
+    (item) => item + 1
+  );
+  filterValue.value.educations = filterValue.value.educations.map(
+    (item) => item + 1
+  );
+  filterValue.value.workTypes = filterValue.value.workTypes.map(
+    (item) => item + 1
+  );
+  filterValue.value.scales = filterValue.value.scales.map((item) => item + 1);
+  filterValue.value.financingStages = filterValue.value.financingStages.map(
+    (item) => item + 1
+  );
   uni.$emit("filterValue", filterValue.value); //首页筛选值
   uni.$emit("filter", filterValue.value); //搜索页筛选值
   uni.navigateBack({ delta: 1 });
