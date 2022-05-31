@@ -108,7 +108,7 @@ const userInfos = ref<UserInformation>({} as UserInformation);
 const education = ref(["未知", "大专", "本科", "硕士", "博士"]);
 const fullName = ref();
 const deliveryNum = ref(0);
-const deliveryRecords = ref<DeliveryRecord[]>([]);
+// const deliveryRecords = ref<DeliveryRecord[]>([]);
 const favoriteNum = ref(0);
 const favoritePosition = ref<GarnerRecord[]>([]);
 const focusNum = ref(0);
@@ -155,16 +155,26 @@ onShow(() => {
 });
 
 /**跳转页面 */
+
 // 编辑简历
 const toSelfInfo = () => {
   uni.navigateTo({ url: "/mine/bianjijianli/bianjijianli" });
 };
 // 投递记录
 const onClick_1 = () => {
-  let item = encodeURIComponent(JSON.stringify(deliveryRecords.value));
-  uni.navigateTo({
-    url: "/record/toudijilu/toudijilu?deliveryRecords=" + item,
-  });
+  getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
+    status: [1],
+    size: 10,
+  })
+    .then((res) => {
+      let item = encodeURIComponent(
+        JSON.stringify(res.data.body.deliveryRecords)
+      );
+      uni.navigateTo({
+        url: "/record/toudijilu/toudijilu?deliveryRecords=" + item,
+      });
+    })
+    .catch(failResponseHandler);
 };
 // 收藏职位
 const onClick_2 = () => {
