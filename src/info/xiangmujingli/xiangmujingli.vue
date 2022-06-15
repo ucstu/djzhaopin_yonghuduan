@@ -271,6 +271,7 @@ const saveProjectExperience = () => {
             icon: "none",
             duration: 1500,
           });
+          uni.navigateBack({ delta: 1 });
         })
         .catch(failResponseHandler);
     } else {
@@ -285,10 +286,10 @@ const saveProjectExperience = () => {
             icon: "none",
             duration: 1500,
           });
+          uni.navigateBack({ delta: 1 });
         })
         .catch(failResponseHandler);
     }
-    uni.navigateBack({ delta: 1 });
   }
 };
 // 删除项目经历
@@ -308,9 +309,9 @@ const deleteProjectExperience = () => {
               icon: "none",
               duration: 1500,
             });
+            uni.navigateBack({ delta: 1 });
           })
           .catch(failResponseHandler);
-        uni.navigateBack({ delta: 1 });
       } else if (res.cancel) {
         return;
       }

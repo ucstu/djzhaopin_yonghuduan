@@ -203,20 +203,34 @@ const workChange = (e: { detail: { value: number[] } }) => {
 };
 // 下一步
 const nextClick = () => {
-  postUserInfosP0WorkExperiences(store.accountInformation.fullInformationId, {
-    corporateName: companyName.value,
-    companyIndustry: companyType.value,
-    positionType: subject.value,
-    startTime: startTime.value,
-    endTime: endTime.value,
-    departmentName: "",
-    jobContent: "",
-    positionName: "",
-  })
-    .then(() => {
-      uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=` + 0 });
+  if (!companyName.value || !companyType.value || !subject.value) {
+    uni.showToast({
+      title: "请填写完整信息",
+      icon: "none",
+      duration: 1500,
+    });
+  } else if (startTime.value === "入职时间" || endTime.value === "离职时间") {
+    uni.showToast({
+      title: "请选择就职时间",
+      icon: "none",
+      duration: 1500,
+    });
+  } else {
+    postUserInfosP0WorkExperiences(store.accountInformation.fullInformationId, {
+      corporateName: companyName.value,
+      companyIndustry: companyType.value,
+      positionType: subject.value,
+      startTime: startTime.value,
+      endTime: endTime.value,
+      departmentName: "",
+      jobContent: "",
+      positionName: "",
     })
-    .catch(failResponseHandler);
+      .then(() => {
+        uni.navigateTo({ url: `/info/qiuzhiqiwang/qiuzhiqiwang?data=` + 0 });
+      })
+      .catch(failResponseHandler);
+  }
 };
 
 const skip = () => {

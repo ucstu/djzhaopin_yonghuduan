@@ -28,6 +28,7 @@ import { ref } from "vue";
 const store = useMainStore();
 
 const inputValue = ref("");
+// 添加个人优势
 const saveAdvantage = () => {
   store.userInformation.personalAdvantage = inputValue.value;
   putUserInfosP0(

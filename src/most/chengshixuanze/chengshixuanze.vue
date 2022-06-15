@@ -9,13 +9,12 @@
             :key="i"
             class="justify-center province"
             :class="provinceIndexOf === i ? 'active' : ''"
-            @click="provinceIndex(i)"
+            @click="provinceIndexOf = i"
             >{{ province.provinceName }}</view
           >
         </view>
       </scroll-view>
       <view class="group-right">
-        <text v-if="provinceIndexOf === 0" class="hot-cities">热门城市</text>
         <view class="flex-row cities">
           <view
             v-for="(city, i) in cities"
@@ -32,37 +31,15 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
-import { getCityInformations } from "@/services/services";
-import { computed, reactive, ref } from "vue";
+import { useMainStore } from "@/stores/main";
+import { computed, ref } from "vue";
 
-const provinces = reactive([
-  {
-    provinceName: "常用",
-    cities: [
-      "北京",
-      "上海",
-      "广州",
-      "深圳",
-      "杭州",
-      "南京",
-      "成都",
-      "武汉",
-      "西安",
-      "重庆",
-      "郑州",
-      "长沙",
-    ],
-  },
-]);
-getCityInformations().then((res) => {
-  provinces.push(...res.data.body);
-});
-const cities = computed(() => provinces[provinceIndexOf.value].cities);
+const store = useMainStore();
 
+const provinces = store.cityInformation;
 const provinceIndexOf = ref(0);
-const provinceIndex = (index: number) => {
-  provinceIndexOf.value = index;
-};
+
+const cities = computed(() => provinces[provinceIndexOf.value].cities);
 
 const cityIndex = (index: number) => {
   let city = cities.value[index];
@@ -119,13 +96,6 @@ const cityIndex = (index: number) => {
     height: 1520rpx;
 
     // #endif
-
-    .hot-cities {
-      margin-top: 20rpx;
-      margin-left: 20rpx;
-      font-size: 28rpx;
-      font-weight: bold;
-    }
 
     .cities {
       flex-wrap: wrap;

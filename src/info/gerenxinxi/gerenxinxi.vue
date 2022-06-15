@@ -171,8 +171,23 @@ const workTime = ref(workYear[userInformation.value.workingYears]); // 工作时
 const valueYear = ref();
 const valueMonth = ref();
 const valueDay = ref();
+fullName.value =
+  userInformation.value.firstName + userInformation.value.lastName;
+valueYear.value = parseInt(userInformation.value.dateOfBirth.slice(0, 4), 10);
+valueMonth.value = parseInt(userInformation.value.dateOfBirth.slice(5, 7), 10);
+valueDay.value = parseInt(userInformation.value.dateOfBirth.slice(8, 10), 10);
 
-// 选择出生日期
+onLoad(() => {
+  uni.$on("liveCity", (data) => {
+    userInformation.value.cityName = data;
+  });
+});
+
+onUnload(() => {
+  uni.$off("liveCity");
+});
+
+// 日期
 const date = new Date();
 const years = ref<number[]>([]);
 let year = date.getFullYear();
@@ -199,12 +214,6 @@ for (let i = 1; i <= 31; i++) {
   days.value.push(i);
 }
 const value = ref();
-
-fullName.value =
-  userInformation.value.firstName + userInformation.value.lastName;
-valueYear.value = parseInt(userInformation.value.dateOfBirth.slice(0, 4), 10);
-valueMonth.value = parseInt(userInformation.value.dateOfBirth.slice(5, 7), 10);
-valueDay.value = parseInt(userInformation.value.dateOfBirth.slice(8, 10), 10);
 value.value = [
   valueYear.value - 1960,
   valueMonth.value - 1,
@@ -285,16 +294,6 @@ const isCancel = () => {
 const changeCity = () => {
   uni.navigateTo({ url: "/most/chengshixuanze/chengshixuanze" });
 };
-
-onLoad(() => {
-  uni.$on("liveCity", (data) => {
-    userInformation.value.cityName = data;
-  });
-});
-
-onUnload(() => {
-  uni.$off("liveCity");
-});
 
 // 保存修改用户基本信息
 const saveInfos = () => {

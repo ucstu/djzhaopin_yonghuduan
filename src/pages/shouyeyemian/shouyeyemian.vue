@@ -107,7 +107,7 @@
 
 <script lang="ts" setup>
 import JobDetail from '@/components/JobDetail/JobDetail.vue';
-import { getCompanyInfosPositionInfos } from "@/services/services";
+import { getAreaInformations, getCompanyInfosPositionInfos } from "@/services/services";
 import { GetCompanyInfosPositionInfosQueryParams, PositionInformation } from '@/services/types';
 import { useMainStore } from '@/stores/main';
 import { failResponseHandler } from '@/utils/handler';
@@ -136,7 +136,6 @@ const loadMore = ref(false);
 // const cityName = ref('');
 
 const expects = ref<string[]>([])
-const directionTags = ref<string[]>([])
 const filters = ref({} as any); // 筛选值
 const recommend = ref([
   "热门",
@@ -172,22 +171,19 @@ onShow(() => {
   }
   // 获取期望城市
   cityValue.value = store.jobExpectations.map((item: { cityName: string; }) => item.cityName);
-  // if (store.jobExpectations.length > 0) {
-  //   directionTags.value = store.jobExpectations[activeIndex.value].directionTags;
-  //   jobFilter.value.directionTags = store.jobExpectations[activeIndex.value].directionTags;
-  //   jobFilter.value.salary = `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`;
-  // }
 })
 /* 默认 */
 onMounted(() => {
-  // cityName.value = cityValue.value[activeIndex.value];
   jobFilter.value.positionType = expects.value[activeIndex.value];
   jobFilter.value.workCityName = cityValue.value[activeIndex.value];
   jobFilter.value.directionTags = store.jobExpectations[activeIndex.value].directionTags;
   jobFilter.value.salary = `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`;
   getCompanyInfosPositionInfos(jobFilter.value).then((res) => {
     jobDetails.value = res.data.body.positionInformations
-  }).catch(failResponseHandler)
+  }).catch(failResponseHandler);
+  getAreaInformations({cityName: jobFilter.value.workCityName}).then((res)=> {
+    store.areas = res.data.body;
+  }).catch(failResponseHandler);
 })
 
 
@@ -237,8 +233,6 @@ onUnload(() => {
 /* 切换职位 */
 const changeJobType = (index: number) => {
   activeIndex.value = index;
-  // cityName.value = cityValue.value[activeIndex.value];
-  // directionTags.value = store.jobExpectations[activeIndex.value].directionTags;
   city.value.length = 0;
   filters.value = {};
   jobFilter.value.positionType = expects.value[activeIndex.value];
@@ -256,7 +250,10 @@ const changeJobType = (index: number) => {
   jobFilter.value
   ).then((res) => {
     jobDetails.value = res.data.body.positionInformations
-  }).catch(failResponseHandler)
+  }).catch(failResponseHandler);
+  getAreaInformations({cityName: jobFilter.value.workCityName}).then((res)=> {
+    store.areas = res.data.body;
+  }).catch(failResponseHandler);
 }
 /* 查看热门、附近、最新职位 */
 const recommended = (index: number) => {

@@ -1,8 +1,10 @@
 import {
   AccountInformation,
+  AreaInformations,
+  CityInformations,
   JobExpectation,
   MessageRecord,
-  UserInformation
+  UserInformation,
 } from "@/services/types";
 import { defineStore } from "pinia";
 import { uniStorage } from "./storage";
@@ -20,6 +22,8 @@ export const useMainStore = defineStore("main", {
     menuButtonInformation:
       null as unknown as UniApp.GetMenuButtonBoundingClientRectRes,
     jobExpectations: [] as JobExpectation[],
+    cityInformation: null as unknown as CityInformations,
+    areas: null as unknown as AreaInformations,
     messages: {} as {
       [key: string]: { [key: string]: withReadStateMessageRecord[] };
     },

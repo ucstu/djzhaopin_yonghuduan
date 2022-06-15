@@ -247,6 +247,7 @@ const popup = ref();
 // 收藏职位
 const isCollection = ref(false);
 const garnerRecordId = ref("");
+//判断是否收藏
 onMounted(() => {
   getUserInfosP0GarnerRecords(store.accountInformation.fullInformationId, {})
     .then((res) => {

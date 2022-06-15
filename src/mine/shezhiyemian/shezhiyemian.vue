@@ -49,24 +49,30 @@ import { useMainStore } from "@/stores/main";
 
 const store = useMainStore();
 
+// 我的账户
 const toMyAccount = () => {
   uni.navigateTo({ url: "/setting/wodezhanghu/wodezhanghu" });
 };
+// 设置密码
 const toPassWord = () => {
   uni.navigateTo({ url: "/setting/shezhimima/shezhimima" });
 };
 const toNotice = () => {
   uni.navigateTo({ url: "/setting/tongzhishezhi/tongzhishezhi" });
 };
+// 用户协议
 const toUserAgreement = () => {
   uni.navigateTo({ url: "/setting/yonghuxieyi/yonghuxieyi" });
 };
+// 隐私设置
 const toPrivacyPolicy = () => {
   uni.navigateTo({ url: "/setting/yinsicelve/yinsicelve" });
 };
+// 版本更新
 const toVersion = () => {
   uni.navigateTo({ url: "/setting/banbengengxin/banbengengxin" });
 };
+// 退出当前账号
 const exitAccount = () => {
   store.jobExpectations = [];
   store.jsonWebToken = null as unknown as string;

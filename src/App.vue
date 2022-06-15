@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { getAxiosInstance } from "@/services/config";
 import {
+  getCityInformations,
   getUserInfosP0,
   getUserInfosP0JobExpectations,
 } from "@/services/services";
@@ -28,6 +29,7 @@ if (store.jsonWebToken === null || !store.accountInformation) {
       store.accountInformation.fullInformationId,
       {}
     ),
+    getCityInformations(),
   ])
     .then((res) => {
       if (!store.messages[store.accountInformation.fullInformationId]) {
@@ -36,6 +38,7 @@ if (store.jsonWebToken === null || !store.accountInformation) {
       connectStomp(store);
       store.userInformation = res[0].data.body;
       store.jobExpectations = res[1].data.body.jobExpectations;
+      store.cityInformation = res[2].data.body;
       uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
     })
     .catch((err) => {

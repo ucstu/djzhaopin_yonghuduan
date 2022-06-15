@@ -59,9 +59,12 @@
           class="flex-row justify-between items-center"
           @click="choosePosition"
         >
-          <text class="text-input">{{
-            companyPositions[companyPosition]
-          }}</text>
+          <input
+            v-model="companyPositions[companyPosition]"
+            class="text-input"
+            type="text"
+            placeholder="请选择"
+          />
           <image class="image" src="@/static/icons/arrow-right.png" />
         </view>
       </view>

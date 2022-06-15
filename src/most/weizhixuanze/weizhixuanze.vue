@@ -60,9 +60,12 @@
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { getAreaInformations } from "@/services/services";
 import { AreaInformations } from "@/services/types";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
 import { onLoad, onUnload } from "@dcloudio/uni-app";
 import { ref } from "vue";
+
+const store = useMainStore();
 
 const countries = ref<AreaInformations>([
   {
@@ -80,39 +83,32 @@ onLoad((e) => {
   if (e.city) {
     country.value = e.city;
     c.value = e.city;
-    getAreaInformations({
-      cityName: country.value,
-    })
-      .then((res) => {
-        countries.value.slice(0, 1);
-        countries.value.push(...res.data.body);
-        if (e.areas) {
-          filterValue.value = JSON.parse(e.areas);
-          if (filterValue.value.length) {
-            let count = countries.value.map((item) => item.countyName);
-            countriesIndex.value = count.indexOf(c.value);
-            areas.value = countries.value[countriesIndex.value].areas;
-          }
-        } else {
-          countriesIndex.value = 0;
-          areas.value = countries.value[countriesIndex.value].areas;
-        }
-      })
-      .catch(failResponseHandler);
+    countries.value.splice(1, countries.value.length - 1);
+    for (const item of store.areas) {
+      countries.value.push(item);
+    }
+    if (e.areas) {
+      filterValue.value = JSON.parse(e.areas);
+      if (filterValue.value.length) {
+        let count = countries.value.map((item) => item.countyName);
+        countriesIndex.value = count.indexOf(c.value);
+        areas.value = countries.value[countriesIndex.value].areas;
+      } else {
+        countriesIndex.value = 0;
+        areas.value = countries.value[countriesIndex.value].areas;
+      }
+    }
   }
   uni.$on("liveCity", (city) => {
     countriesIndex.value = 0;
     country.value = city;
-    for (let i = 0; i <= countries.value.length; i++) {
-      if (countries.value.length > 1) {
-        countries.value.pop();
-      }
-    }
     getAreaInformations({
       cityName: country.value,
     })
       .then((res) => {
+        countries.value.splice(1, countries.value.length - 1);
         countries.value.push(...res.data.body);
+        store.areas = res.data.body;
       })
       .catch(failResponseHandler);
   });

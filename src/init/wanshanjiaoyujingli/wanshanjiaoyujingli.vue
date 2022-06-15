@@ -177,15 +177,13 @@ const showSchool = () => {
   isShowSchool.value = true;
   popup.value.show();
 };
-
+// 学历
 const edChange = (e: { detail: { value: number[] } }) => {
   educationId.value = e.detail.value[0] as 0 | 1 | 2 | 3 | 4;
   popup.value.hide();
 };
 
 const date = new Date();
-// const startYears = ref<number[]>([]);
-// const endYears = ref<number[]>([]);
 const years = ref<number[]>([]);
 const months = ref<number[]>([]);
 const days = ref<number[]>([]);
@@ -201,8 +199,10 @@ for (let i = 1; i <= 12; i++) {
 for (let i = 1; i <= 31; i++) {
   days.value.push(i);
 }
+// 选择器默认值
 const startValue = ref([year - 1970, month - 1, day - 1]);
 const endValue = ref([year, month - 1, day - 1]);
+// 选择在校时间
 const schoolChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;
   year = years.value[val[0]];
@@ -218,20 +218,37 @@ const schoolChange = (e: { detail: { value: never } }) => {
 };
 // 下一步
 const nextClick = () => {
-  postUserInfosP0EduExperiences(store.accountInformation.fullInformationId, {
-    schoolName: schoolName.value,
-    education: educationId.value,
-    majorName: subject.value,
-    admissionTime: startSchool.value,
-    graduationTime: endSchool.value,
-  })
-    .then((res) => {
-      store.userInformation.education = res.data.body.education;
-      uni.navigateTo({
-        url: "/init/wanshangongzuojingli/wanshangongzuojingli",
-      });
+  if (!schoolName.value || !educationId.value || !subject.value) {
+    uni.showToast({
+      title: "请填写完整信息",
+      icon: "none",
+      duration: 1500,
+    });
+  } else if (
+    startSchool.value === "入学时间" ||
+    endSchool.value === "毕业时间"
+  ) {
+    uni.showToast({
+      title: "请选择在校时间",
+      icon: "success",
+      duration: 1500,
+    });
+  } else {
+    postUserInfosP0EduExperiences(store.accountInformation.fullInformationId, {
+      schoolName: schoolName.value,
+      education: educationId.value,
+      majorName: subject.value,
+      admissionTime: startSchool.value,
+      graduationTime: endSchool.value,
     })
-    .catch(failResponseHandler);
+      .then((res) => {
+        store.userInformation.education = res.data.body.education;
+        uni.navigateTo({
+          url: "/init/wanshangongzuojingli/wanshangongzuojingli",
+        });
+      })
+      .catch(failResponseHandler);
+  }
 };
 
 const skip = () => {

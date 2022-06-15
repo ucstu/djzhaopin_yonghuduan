@@ -289,13 +289,7 @@ const alterEducate = (index: number) => {
       deleteEducate.value,
   });
 };
-// 查询所有项目经历
-getUserInfosP0ProjectExperiences(
-  store.accountInformation.fullInformationId,
-  {}
-).then((res) => {
-  projectExperiences.value = res.data.body.projectExperiences;
-});
+
 // 查看、修改、删除项目经历
 const alterProject = (index: number) => {
   let projectId = projectExperiences.value[index].projectExperienceId;
