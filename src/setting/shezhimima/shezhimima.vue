@@ -79,6 +79,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { md5 } from "@/MD5/MD5";
 import { getVerificationCode, putAccountInfosP0 } from "@/services/services";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
@@ -135,7 +136,7 @@ const savePassWord = () => {
     });
   } else {
     putAccountInfosP0(store.accountInformation.accountInformationId, {
-      password: password.value,
+      password: md5(password.value),
       verificationCode: vCode.value,
     })
       .then((res) => {

@@ -63,6 +63,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { md5 } from "@/MD5/MD5";
 import {
   getVerificationCode,
   putAccountInfosForget,
@@ -129,7 +130,7 @@ const registeredAccount = () => {
     putAccountInfosForget({
       userName: email.value,
       verificationCode: verification.value,
-      password: passwordNew.value,
+      password: md5(passwordNew.value),
     })
       .then((res) => {
         uni.showToast({

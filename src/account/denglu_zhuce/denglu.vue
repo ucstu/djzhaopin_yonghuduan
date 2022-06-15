@@ -63,6 +63,7 @@
 </template>
 
 <script lang="ts" setup>
+import { md5 } from "@/MD5/MD5";
 import { getAxiosInstance } from "@/services/config";
 import {
   getUserInfosP0,
@@ -105,7 +106,7 @@ const login = () => {
   } else {
     postAccountInfosLogin({
       userName: email.value,
-      password: password.value,
+      password: md5(password.value),
     })
       .then((res) => {
         if (res.data.body.accountInformation.accountType === 2) {

@@ -66,6 +66,7 @@
 
 <script lang="ts" setup>
 import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
+import { md5 } from "@/MD5/MD5";
 import { getAxiosInstance } from "@/services/config";
 import {
   getUserInfosP0,
@@ -147,7 +148,7 @@ const registeredAccount = () => {
       .then((res) => {
         postAccountInfosLogin({
           userName: email.value,
-          password: password.value,
+          password: md5(password.value),
         })
           .then((res) => {
             store.jsonWebToken = res.data.body.token;
