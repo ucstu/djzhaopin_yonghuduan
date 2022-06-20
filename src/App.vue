@@ -44,7 +44,6 @@ if (store.jsonWebToken === null || !store.accountInformation) {
           url: "/info/qiuzhiqiwang/qiuzhiqiwang?data=0",
         });
       } else {
-        console.log(store.jobExpectations.length);
         uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
       }
     })

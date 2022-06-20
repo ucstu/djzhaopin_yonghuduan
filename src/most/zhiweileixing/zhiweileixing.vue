@@ -16,9 +16,13 @@
       </view>
       <scroll-view class="group-2" :scroll-y="true">
         <view v-if="inputValue != ''">
-          <view v-for="(position, i) in filteredPositionNames" :key="i">{{
-            position
-          }}</view>
+          <view
+            v-for="(position, i) in filteredPositionNames"
+            :key="i"
+            :class="activePositionIndex === i ? 'active' : ''"
+            @click="positionType(i)"
+            >{{ position }}</view
+          >
         </view>
         <view v-else class="group-search">
           <view
@@ -135,9 +139,18 @@ onLoad((e) => {
   cityName.value = e.city;
 });
 
+const positionType = (index: number) => {
+  activePositionIndex.value = index;
+  uni.$emit("positiontypes", filteredPositionNames.value[index]);
+  uni.navigateBack({
+    delta: 1,
+  });
+};
+
 const positiontypes = (index: number) => {
   activePositionIndex.value = index;
   uni.$emit("positiontypes", positions.value[index]);
+  // 根据职位名搜索相关职位（搜索页面）
   if (value.value) {
     uni.navigateTo({
       url:

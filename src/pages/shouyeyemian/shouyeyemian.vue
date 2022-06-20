@@ -295,9 +295,13 @@ const onRefresh = () => {
 }
 /* 刷新获取新数据 */
 const onRestore = () => {
-      getCompanyInfosPositionInfos(jobFilter.value).then((res) => {
-        jobDetails.value = res.data.body.positionInformations
-      }).catch(failResponseHandler)
+  jobFilter.value.positionType = store.jobExpectations[activeIndex.value].positionName;
+  jobFilter.value.workCityName = cityValue.value[activeIndex.value];
+  jobFilter.value.directionTags = store.jobExpectations[activeIndex.value].directionTags;
+  jobFilter.value.salary = `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`
+  getCompanyInfosPositionInfos(jobFilter.value).then((res) => {
+    jobDetails.value = res.data.body.positionInformations
+  }).catch(failResponseHandler)
 
 }
 const onAbort = () => {
@@ -318,7 +322,7 @@ const onReachBottom = () => {
 }
 /** 添加求职期望 */
 const image_5OnClick = () => {
-  uni.navigateTo({ url: '/info/qiuzhiqiwang/qiuzhiqiwang' })
+  uni.navigateTo({ url: '/info/qiuzhiqiwang/qiuzhiqiwang?data=2' })
 }
 /**
  * 搜索跳转

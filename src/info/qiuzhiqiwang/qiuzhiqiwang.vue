@@ -167,13 +167,14 @@ const salaryExpectation = () => {
   }
   popup.value.hide();
 };
-
+const d = ref(1);
 onLoad((e) => {
   if (e.id !== undefined) {
     jobId.value = e.id;
   }
   if (e.data) {
-    if (parseInt(e.data) === 1) {
+    d.value = parseInt(e.data);
+    if (!parseInt(e.data)) {
       saveBtn.value = "保存";
     } else {
       saveBtn.value = "完成";
