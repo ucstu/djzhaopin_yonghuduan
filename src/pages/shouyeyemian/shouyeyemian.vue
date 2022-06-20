@@ -176,8 +176,10 @@ onShow(() => {
 onMounted(() => {
   jobFilter.value.positionType = expects.value[activeIndex.value];
   jobFilter.value.workCityName = cityValue.value[activeIndex.value];
-  jobFilter.value.directionTags = store.jobExpectations[activeIndex.value].directionTags;
-  jobFilter.value.salary = `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`;
+  if (store.jobExpectations.length) {
+    jobFilter.value.directionTags = store.jobExpectations[activeIndex.value].directionTags;
+    jobFilter.value.salary = `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`;
+  }
   getCompanyInfosPositionInfos(jobFilter.value).then((res) => {
     jobDetails.value = res.data.body.positionInformations
   }).catch(failResponseHandler);

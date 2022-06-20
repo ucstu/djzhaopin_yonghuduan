@@ -39,7 +39,14 @@ if (store.jsonWebToken === null || !store.accountInformation) {
       store.userInformation = res[0].data.body;
       store.jobExpectations = res[1].data.body.jobExpectations;
       store.cityInformation = res[2].data.body;
-      uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+      if (!store.jobExpectations.length) {
+        uni.navigateTo({
+          url: "/info/qiuzhiqiwang/qiuzhiqiwang?data=0",
+        });
+      } else {
+        console.log(store.jobExpectations.length);
+        uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+      }
     })
     .catch((err) => {
       uni.showToast({

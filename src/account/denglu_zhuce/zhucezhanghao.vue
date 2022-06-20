@@ -104,7 +104,14 @@ const getVerifiable = () => {
           duration: 1500,
         });
       })
-      .catch(failResponseHandler);
+      .catch((err) => {
+        uni.showToast({
+          title: "验证码发送失败，请稍后再试",
+          icon: "none",
+          duration: 1500,
+        });
+        failResponseHandler(err);
+      });
   } else {
     uni.showToast({
       title: "请输入正确的邮箱",
@@ -143,7 +150,7 @@ const registeredAccount = () => {
       userName: email.value,
       verificationCode: verification.value,
       accountType: 1,
-      password: password.value,
+      password: md5(password.value),
     })
       .then((res) => {
         postAccountInfosLogin({
