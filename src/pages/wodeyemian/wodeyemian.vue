@@ -86,15 +86,15 @@
 
 <script lang="ts" setup>
 import {
-  getUserInfosP0AttentionRecords,
-  getUserInfosP0DeliveryRecords,
-  getUserInfosP0GarnerRecords,
+getUserInfosP0AttentionRecords,
+getUserInfosP0DeliveryRecords,
+getUserInfosP0GarnerRecords
 } from "@/services/services";
 import {
-  AttentionRecord,
-  DeliveryRecord,
-  GarnerRecord,
-  UserInformation,
+AttentionRecord,
+DeliveryRecord,
+GarnerRecord,
+UserInformation
 } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
@@ -143,7 +143,7 @@ onShow(() => {
       focusCompany.value = res.data.body.attentionRecords;
     })
     .catch(failResponseHandler);
-  /* 投递记录 */
+  /* 待面试 */
   getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
     status: [4],
   })
@@ -178,23 +178,20 @@ const onClick_1 = () => {
 };
 // 收藏职位
 const onClick_2 = () => {
-  let item = encodeURIComponent(JSON.stringify(favoritePosition.value));
   uni.navigateTo({
-    url: "/record/shoucangzhiwei/shoucangzhiwei?favoritePosition=" + item,
+    url: "/record/shoucangzhiwei/shoucangzhiwei",
   });
 };
 // 关注公司
 const onClick_3 = () => {
-  let item = encodeURIComponent(JSON.stringify(focusCompany.value));
   uni.navigateTo({
-    url: "/record/guanzhugongsi/guanzhugongsi?focusCompany=" + item,
+    url: "/record/guanzhugongsi/guanzhugongsi",
   });
 };
 // 待面试
 const onClick_4 = () => {
-  let item = encodeURIComponent(JSON.stringify(interviewPosition.value));
   uni.navigateTo({
-    url: "/record/daimianshi/daimianshi?interviewPosition=" + item,
+    url: "/record/daimianshi/daimianshi?",
   });
 };
 // 上传简历附件

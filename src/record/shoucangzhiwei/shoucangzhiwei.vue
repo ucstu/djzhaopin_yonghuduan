@@ -22,20 +22,24 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
   deleteUserInfosP0GarnerRecordsP1,
   getCompanyInfosP0PositionInfosP1,
+  getUserInfosP0GarnerRecords,
 } from "@/services/services";
 import { PositionInformation } from "@/services/types";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad, onShow } from "@dcloudio/uni-app";
+import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
+
+const store = useMainStore();
 
 const favorites = ref();
 const favoritesPosition = ref<PositionInformation[]>([]);
 const cancelCollection = ref("取消收藏");
 const emptyShow = ref(true);
 
-onLoad((e) => {
-  if (e.favoritePosition) {
-    favorites.value = JSON.parse(e.favoritePosition);
+getUserInfosP0GarnerRecords(store.accountInformation.fullInformationId, {})
+  .then((res) => {
+    favorites.value = res.data.body.garnerRecords;
     for (const favorite of favorites.value) {
       getCompanyInfosP0PositionInfosP1(
         favorite.companyInformationId,
@@ -49,8 +53,8 @@ onLoad((e) => {
         })
         .catch(failResponseHandler);
     }
-  }
-});
+  })
+  .catch(failResponseHandler);
 
 onShow(() => {
   if (!favoritesPosition.value.length) {

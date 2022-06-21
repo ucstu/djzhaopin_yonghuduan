@@ -23,20 +23,24 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
   deleteUserInfosP0AttentionRecordsP1,
   getCompanyInfosP0,
+  getUserInfosP0AttentionRecords,
 } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
+import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad, onShow } from "@dcloudio/uni-app";
+import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
+
+const store = useMainStore();
 
 const attentionCompanies = ref<CompanyInformation[]>([]);
 const focusCompany = ref();
 const unfocus = ref("取消关注");
 const emptyShow = ref(true);
 
-onLoad((e) => {
-  if (e.focusCompany) {
-    focusCompany.value = JSON.parse(e.focusCompany);
+getUserInfosP0AttentionRecords(store.accountInformation.fullInformationId, {})
+  .then((res) => {
+    focusCompany.value = res.data.body.attentionRecords;
     for (const focus of focusCompany.value) {
       getCompanyInfosP0(focus.companyInformationId)
         .then((res) => {
@@ -47,8 +51,8 @@ onLoad((e) => {
         })
         .catch(failResponseHandler);
     }
-  }
-});
+  })
+  .catch(failResponseHandler);
 
 onShow(() => {
   if (!attentionCompanies.value.length) {

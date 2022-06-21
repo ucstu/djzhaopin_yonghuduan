@@ -23,11 +23,12 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import {
   deleteUserInfosP0DeliveryRecordsP1,
   getCompanyInfosP0PositionInfosP1,
+  getUserInfosP0DeliveryRecords,
 } from "@/services/services";
 import { PositionInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad, onShow } from "@dcloudio/uni-app";
+import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const store = useMainStore();
@@ -37,10 +38,11 @@ const interviewed = ref();
 const sendType = ref("放弃面试");
 const emptyShow = ref(true);
 
-/* 查询待面试职位信息 */
-onLoad((e) => {
-  if (e.interviewPosition) {
-    interviewed.value = JSON.parse(e.interviewPosition);
+getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
+  status: [4],
+})
+  .then((res) => {
+    interviewed.value = res.data.body.deliveryRecords;
     for (const interview of interviewed.value) {
       getCompanyInfosP0PositionInfosP1(
         interview.companyInformationId,
@@ -54,8 +56,8 @@ onLoad((e) => {
         })
         .catch(failResponseHandler);
     }
-  }
-});
+  })
+  .catch(failResponseHandler);
 
 onShow(() => {
   if (!interviewed.value.length) {

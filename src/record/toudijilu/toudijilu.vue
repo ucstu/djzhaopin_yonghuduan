@@ -37,7 +37,7 @@ import {
 import { DeliveryRecord, PositionInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad, onShow } from "@dcloudio/uni-app";
+import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
 const store = useMainStore();
@@ -49,9 +49,13 @@ const sendId = ref<DeliveryRecord["status"]>(1);
 const emptyShow = ref(true);
 
 /* 默认查看记录 */
-onLoad((e) => {
-  if (e.deliveryRecords) {
-    deliveryLength.value = JSON.parse(e.deliveryRecords);
+
+getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
+  status: [1],
+  size: 10,
+})
+  .then((res) => {
+    deliveryLength.value = res.data.body.deliveryRecords;
     for (const delivery of deliveryLength.value) {
       getCompanyInfosP0PositionInfosP1(
         delivery.companyInformationId,
@@ -66,8 +70,8 @@ onLoad((e) => {
         })
         .catch(failResponseHandler);
     }
-  }
-});
+  })
+  .catch(failResponseHandler);
 
 onShow(() => {
   if (deliveryLength.value === null) {

@@ -5,7 +5,7 @@
       class="section-1"
       :style="'height: ' + navigationBarTop + 'px'"
     ></view>
-    <view class="flex-col section-2">
+    <view class="flex-col section-2" style="padding: 0 20rpx 20rpx">
       <view
         class="justify-between items-center"
         :style="
@@ -80,7 +80,7 @@
     <!--  #endif -->
     <!--  #ifndef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ -->
     <view class="section-1"></view>
-    <view class="flex-col section-2">
+    <view class="flex-col section-2" style="padding: 0 10rpx 20rpx">
       <view style="width: 92%; height: auto; margin-left: 4%">
         <view class="justify-between items-center">
           <scroll-view :scroll-x="true" class="flex-row list">

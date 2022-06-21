@@ -15,7 +15,7 @@
       />
     </view>
   </view>
-  <view v-if="emptyShow" class="justify-center image">
+  <view v-if="companyInfos.length ? false : true" class="justify-center image">
     <image src="@/static/icons/nodata.svg" />
   </view>
   <view class="company-detail">
@@ -53,72 +53,43 @@
 <script lang="ts" setup>
 import CompanyDetail from "@/components/CompanyDetail/CompanyDetail.vue";
 import wybPopup from "@/components/wyb-popup/wyb-popup.vue";
-import { getCompanyInfos, getCompanyInfosP0 } from "@/services/services";
+import { getCompanyInfos } from "@/services/services";
 import { CompanyInformation } from "@/services/types";
 import { failResponseHandler } from "@/utils/handler";
-import { onLoad, onUnload } from "@dcloudio/uni-app";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+
+const props = defineProps({
+  searchContent: {
+    type: String,
+    default: "",
+  },
+});
 
 const companyInfos = ref<CompanyInformation[]>([]);
 const sortValue = ["综合排序", "距离优先", "公司规模", "融资阶段"];
 const sortval = ref(sortValue[0]);
-const emptyShow = ref(false);
-const companyName = ref("");
 
-onLoad((e) => {
-  if (e.company) {
-    companyInfos.value = JSON.parse(e.company);
-  }
-  if (e.searchCode) {
-    let data = parseInt(e.searchCode);
-    if (!data) {
-      emptyShow.value = true;
-    }
-  }
-  if (e.position) {
-    let position = JSON.parse(e.position);
-    companyInfos.value = [];
-    for (const item of position) {
-      getCompanyInfosP0(item.companyInformationId).then((res) => {
-        companyInfos.value.push(res.data.body);
-        if (companyInfos.value.length) {
-          emptyShow.value = false;
-        } else {
-          emptyShow.value = true;
-        }
-      });
-    }
-  }
-  if (e.name) {
-    companyName.value = e.name;
-    getCompanyInfos({
-      companyName: companyName.value,
+getCompanyInfos({
+  companyName: props.searchContent,
+})
+  .then((res) => {
+    companyInfos.value = res.data.body.companyInformations;
+  })
+  .catch(failResponseHandler);
+
+uni.$on("filter", (data) => {
+  getCompanyInfos({
+    companyName: props.searchContent,
+    scales: data.size as (1 | 5 | 2 | 3 | 4 | 6)[],
+    financingStages: data.stage as (2 | 1 | 3 | 4 | 5 | 6 | 7 | 8)[],
+  })
+    .then((res) => {
+      companyInfos.value = res.data.body.companyInformations;
     })
-      .then((res) => {
-        companyInfos.value = res.data.body.companyInformations;
-        if (res.data.body.companyInformations.length === 0) {
-          emptyShow.value = true;
-        }
-      })
-      .catch(failResponseHandler);
-  }
-  uni.$on("filter", (data) => {
-    getCompanyInfos({
-      companyName: companyName.value,
-      scales: data.size as (1 | 5 | 2 | 3 | 4 | 6)[],
-      financingStages: data.stage as (2 | 1 | 3 | 4 | 5 | 6 | 7 | 8)[],
-    })
-      .then((res) => {
-        companyInfos.value = res.data.body.companyInformations;
-        if (res.data.body.companyInformations.length === 0) {
-          emptyShow.value = true;
-        }
-      })
-      .catch(failResponseHandler);
-  });
+    .catch(failResponseHandler);
 });
 
-onUnload(() => {
+onMounted(() => {
   uni.$off("filter");
 });
 
@@ -138,6 +109,7 @@ const sortChoose = (index: number) => {
   if (index === 1) {
     // 距离优先
     getCompanyInfos({
+      companyName: props.searchContent,
       sort: ["cityName,asc"],
     }).then((res) => {
       companyInfos.value = res.data.body.companyInformations;
@@ -145,6 +117,7 @@ const sortChoose = (index: number) => {
   } else if (index === 2) {
     getCompanyInfos({
       // 公司规模
+      companyName: props.searchContent,
       sort: ["scale,desc"],
     }).then((res) => {
       companyInfos.value = res.data.body.companyInformations;
@@ -152,6 +125,7 @@ const sortChoose = (index: number) => {
   } else if (index === 3) {
     getCompanyInfos({
       // 融资阶段
+      companyName: props.searchContent,
       sort: ["financingStage,desc"],
     }).then((res) => {
       companyInfos.value = res.data.body.companyInformations;
@@ -159,6 +133,7 @@ const sortChoose = (index: number) => {
   } else {
     // 综合排序
     getCompanyInfos({
+      companyName: props.searchContent,
       sort: ["companyName,asc"],
     }).then((res) => {
       companyInfos.value = res.data.body.companyInformations;

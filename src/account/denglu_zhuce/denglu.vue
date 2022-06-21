@@ -66,6 +66,7 @@
 import { md5 } from "@/MD5/MD5";
 import { getAxiosInstance } from "@/services/config";
 import {
+  getCityInformations,
   getUserInfosP0,
   getUserInfosP0JobExpectations,
   postAccountInfosLogin,
@@ -127,6 +128,7 @@ const login = () => {
               res.data.body.accountInformation.fullInformationId,
               {}
             ),
+            getCityInformations(),
           ])
             .then((res) => {
               if (!store.messages[store.accountInformation.fullInformationId]) {
@@ -135,6 +137,7 @@ const login = () => {
               connectStomp(store);
               store.userInformation = res[0].data.body;
               store.jobExpectations = res[1].data.body.jobExpectations;
+              store.cityInformation = res[2].data.body;
               if (!store.userInformation.firstName) {
                 uni.reLaunch({
                   url: "/init/wanshangerenxinxi/wanshangerenxinxi",

@@ -1,5 +1,5 @@
 <template>
-  <SearchBar :city="cityName"></SearchBar>
+  <SearchBar :city="cityName" :search-content="searchContent"></SearchBar>
   <view class="justify-between about">
     <text
       class="justify-center text-title"
@@ -14,39 +14,34 @@
       >公司</text
     >
   </view>
-  <FilterBar v-if="position"></FilterBar>
-  <SearchAndFilter v-if="company"></SearchAndFilter>
+  <FilterBar
+    v-if="position && searchContent"
+    :search-content="searchContent"
+  ></FilterBar>
+  <SearchAndFilter
+    v-if="company && searchContent"
+    :search-content="searchContent"
+  ></SearchAndFilter>
 </template>
 
 <script lang="ts" setup>
 import FilterBar from "@/components/SearchAndFilter/FilterBar.vue";
 import SearchAndFilter from "@/components/SearchAndFilter/SearchAndFilter.vue";
 import SearchBar from "@/components/SearchAndFilter/SearchBar.vue";
-import { PositionInformation } from "@/services/types";
 import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 
-const position = ref(false);
+const position = ref(true);
 const company = ref(false);
 const cityName = ref("");
-const jobDetails = ref<PositionInformation[]>([]);
+const searchContent = ref("");
 
 onLoad((e) => {
   if (e.city) {
     cityName.value = e.city;
   }
-  if (e.data) {
-    let data = parseInt(e.data);
-    if (data) {
-      if (data === 1) {
-        position.value = true;
-      } else {
-        company.value = true;
-      }
-    }
-  }
-  if (e.position) {
-    jobDetails.value = JSON.parse(e.position);
+  if (e.searchContent) {
+    searchContent.value = e.searchContent;
   }
 });
 

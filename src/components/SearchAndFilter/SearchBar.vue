@@ -30,7 +30,7 @@
             class="search"
             @click="searchOnClick"
           />
-          <input v-model="searchContent" type="text" class="search-text" placeholder="请输入关键字">
+          <input v-model="_searchContent" type="text" class="search-text" placeholder="请输入关键字">
         </view>
         <text class="cancel" @click="text_1OnClick">取消</text>
       </view>
@@ -39,9 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getCompanyInfos, getCompanyInfosPositionInfos } from "@/services/services";
 import { useMainStore } from "@/stores/main";
-import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
 
 const store = useMainStore();
@@ -52,42 +50,28 @@ const navigationBarHeight = store.menuButtonInformation.height;
 
 const navigationBarTop = store.menuButtonInformation.top - uni.upx2px(45);
 
-const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(50);
+const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(20);
 /* #endif */
 
 const props = defineProps({
+  searchContent: {
+    type: String,
+    default: "",
+  },
   city: {
     type: String,
     default: "",
   },
 })
-const searchContent = ref("");
 
-
+const _searchContent = ref(props.searchContent);
 
 const textOnClick = () => {
   uni.navigateTo({ url: "/most/chengshixuanze/chengshixuanze" });
 };
 const searchOnClick = () => {
-  if(searchContent.value !== ""){
-    getCompanyInfosPositionInfos({
-      positionName: searchContent.value,
-    }).then((res) => {
-      if(res.data.body.positionInformations.length !== 0){
-        let item = encodeURIComponent(JSON.stringify(res.data.body.positionInformations));
-        uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei?position=" + item + "&data=" + 1 + "&city=" + props.city });
-      }else {
-        getCompanyInfos({
-        companyName: searchContent.value,
-      }).then((res) => {
-        if(res.data.body.companyInformations.length !== 0){
-          let item = encodeURIComponent(JSON.stringify(res.data.body.companyInformations));
-          uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei?company=" + item + "&data=" + 2 + "&city=" + props.city });
-        }else{
-          uni.navigateTo({url: "/detail/xiangguanzhiwei/xiangguanzhiwei?data=" + 1 +"&searchCode=" + 0 + "&city=" + props.city});}
-      }).catch(failResponseHandler);
-      }
-    }).catch(failResponseHandler)
+  if (_searchContent.value !== "") {
+    uni.navigateTo({ url: "/detail/xiangguanzhiwei/xiangguanzhiwei?searchContent=" + _searchContent.value + "&city=" + props.city });
   }else{
     uni.showToast({
       title: "搜索内容不能为空",
@@ -96,6 +80,7 @@ const searchOnClick = () => {
     });
   }
 }
+// 当用户单击“取消”按钮时将调用的函数。
 const text_1OnClick = () => {
  uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
 };
