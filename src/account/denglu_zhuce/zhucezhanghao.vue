@@ -69,6 +69,7 @@ import NavigationBar from "@/components/NavigationBar/NavigationBar.vue";
 import { md5 } from "@/MD5/MD5";
 import { getAxiosInstance } from "@/services/config";
 import {
+  getCityInformations,
   getUserInfosP0,
   getVerificationCode,
   postAccountInfos,
@@ -163,6 +164,9 @@ const registeredAccount = () => {
             getAxiosInstance(undefined).defaults.headers.common[
               "Authorization"
             ] = "Bearer " + res.data.body.token;
+            getCityInformations().then((res) => {
+              store.cityInformation = res.data.body;
+            });
             getUserInfosP0(res.data.body.accountInformation.fullInformationId)
               .then((res) => {
                 store.userInformation = res.data.body;

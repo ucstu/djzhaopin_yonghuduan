@@ -135,7 +135,13 @@ const login = () => {
               connectStomp(store);
               store.userInformation = res[0].data.body;
               store.jobExpectations = res[1].data.body.jobExpectations;
-              uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+              if (!store.userInformation.firstName) {
+                uni.reLaunch({
+                  url: "/init/wanshangerenxinxi/wanshangerenxinxi",
+                });
+              } else {
+                uni.switchTab({ url: "/pages/shouyeyemian/shouyeyemian" });
+              }
             })
             .catch(failResponseHandler);
         }

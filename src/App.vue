@@ -40,7 +40,7 @@ if (store.jsonWebToken === null || !store.accountInformation) {
       store.jobExpectations = res[1].data.body.jobExpectations;
       store.cityInformation = res[2].data.body;
       if (!store.jobExpectations.length) {
-        uni.navigateTo({
+        uni.reLaunch({
           url: "/info/qiuzhiqiwang/qiuzhiqiwang?data=0",
         });
       } else {
