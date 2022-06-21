@@ -2,7 +2,9 @@
   <view class="flex-col page">
     <view class="group-top">
       <view class="justify-between items-center top-box">
-        <text class="info-title">消息</text>
+        <text class="info-title"
+          >消息 ({{ connected ? "已连接" : "等待连接" }})</text
+        >
         <text class="items-center info-del" @click="allRead">一键已读</text>
       </view>
     </view>
@@ -63,6 +65,7 @@ import {
 import { DeliveryRecord, HrInformation } from "@/services/types";
 import { useMainStore } from "@/stores/main";
 import { failResponseHandler } from "@/utils/handler";
+import { connected } from "@/utils/stomp";
 import usetimeChange from "@/utils/useTimeChange";
 import { onShow } from "@dcloudio/uni-app";
 import { ref } from "vue";

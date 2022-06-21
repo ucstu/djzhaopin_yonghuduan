@@ -7,6 +7,7 @@ import {
 import { withReadStateMessageRecord } from "@/stores/main";
 import { Store } from "pinia";
 import Stomp from "stompjs";
+import { ref } from "vue";
 import WebSocketPolyfill from "./socket";
 import useDate from "./useDate";
 import useTime from "./useTime";
@@ -19,7 +20,7 @@ const socket = new WebSocketPolyfill(
 
 const stompClient = Stomp.over(socket);
 
-let connected = false;
+export const connected = ref(false);
 
 // @ts-ignore
 // stompClient.debug = null;
@@ -65,7 +66,7 @@ export const connectStomp = (
   stompClient.connect(
     { Authorization: "Bearer " + _store.jsonWebToken },
     (frame) => {
-      connected = true;
+      connected.value = true;
       stompClient.subscribe("/user/queue/message", (message) => {
         // 每接收到一次消息都会触发这个回调
         // @ts-ignore
@@ -125,6 +126,7 @@ export const connectStomp = (
 };
 
 const handleDisconnect = () => {
+  connected.value = false;
   connectStomp(store);
 };
 
@@ -135,7 +137,7 @@ export const sendMessage = (
   serviceId: string,
   serviceType: number
 ) => {
-  if (!connected) {
+  if (!connected.value) {
     uni.showToast({
       title: "暂未连接到消息服务器，请耐心等待或重新进入程序",
       icon: "none",
