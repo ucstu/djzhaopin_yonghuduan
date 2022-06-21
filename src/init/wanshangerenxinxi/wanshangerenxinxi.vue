@@ -39,13 +39,13 @@
           <text
             class="sex"
             :class="changeSex ? 'active' : ''"
-            @click="changeSex = !changeSex"
+            @click="changeSex = true"
             >男</text
           >
           <text
             class="sex"
             :class="!changeSex ? 'active' : ''"
-            @click="changeSex = !changeSex"
+            @click="changeSex = false"
             >女</text
           >
         </view>

@@ -174,7 +174,7 @@ onLoad((e) => {
   }
   if (e.data) {
     d.value = parseInt(e.data);
-    if (!parseInt(e.data)) {
+    if (parseInt(e.data)) {
       saveBtn.value = "保存";
     } else {
       saveBtn.value = "完成";
