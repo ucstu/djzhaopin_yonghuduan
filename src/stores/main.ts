@@ -7,7 +7,6 @@ import {
   UserInformation,
 } from "@/services/types";
 import { defineStore } from "pinia";
-import { uniStorage } from "./storage";
 
 export interface withReadStateMessageRecord extends MessageRecord {
   haveRead: boolean;
@@ -30,11 +29,5 @@ export const useMainStore = defineStore("main", {
   }),
   persist: {
     enabled: true,
-    strategies: [
-      {
-        key: "pinia-main",
-        storage: uniStorage,
-      },
-    ],
   },
 });

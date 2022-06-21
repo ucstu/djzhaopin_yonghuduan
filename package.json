@@ -47,7 +47,7 @@
     "@dcloudio/uni-quickapp-webview": "3.0.0-alpha-3040820220426002",
     "axios": "^0.27.2",
     "pinia": "^2.0.14",
-    "pinia-plugin-persist": "^1.0.0",
+    "pinia-plugin-persist-uni": "^1.1.3",
     "stompjs": "^2.3.3",
     "vue": "^3.2.34",
     "vue-i18n": "^9.1.10"
