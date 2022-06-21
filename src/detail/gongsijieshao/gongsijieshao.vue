@@ -283,11 +283,11 @@ const jobClick = (p: string, c: string) => {
 .page {
   width: 100%;
   height: auto;
-  margin-left: 20rpx;
   overflow-y: auto;
 
   .company-description {
     width: 710rpx;
+    margin-left: 2%;
     border-bottom: 2rpx solid rgb(230 230 230);
 
     .logo {
@@ -362,12 +362,11 @@ const jobClick = (p: string, c: string) => {
   }
 
   .group-btn {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     z-index: 999;
-    width: 92%;
+    width: 100%;
     height: 100rpx;
-    margin-left: 4%;
     background-color: #fff;
 
     .image-focus {

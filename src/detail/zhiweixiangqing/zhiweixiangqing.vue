@@ -89,7 +89,7 @@
     <view> </view>
   </view>
   <view class="flex-row items-center justify-between btn-box">
-    <view class="flex-col justify-center items-center">
+    <view class="flex-col justify-center items-center" style="padding-left: 4%">
       <image
         v-if="!isCollection"
         class="image-collection"
@@ -417,7 +417,7 @@ const viewResume = () => {
 }
 
 .btn-box {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   z-index: 999;
   width: 100%;
