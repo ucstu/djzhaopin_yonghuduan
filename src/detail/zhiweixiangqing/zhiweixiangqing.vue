@@ -47,16 +47,6 @@
           </view>
         </view>
       </view>
-      <!-- <view class="items-center hr-info">
-        <image
-          v-if="companyInformation.logoUrl"
-          class="hr"
-          :src="VITE_CDN_URL + companyInformation.logoUrl"
-        />
-        <text style="padding-left: 15rpx">{{
-          companyInformation
-        }}</text>
-      </view> -->
       <view class="job-description">
         <text style="font-size: 30rpx; font-weight: 400">职位描述</text>
         <view class="flex-col description">
@@ -430,9 +420,8 @@ const viewResume = () => {
   position: absolute;
   bottom: 0;
   z-index: 999;
-  width: 92%;
+  width: 100%;
   height: 100rpx;
-  margin-left: 4%;
   background-color: #fff;
 
   .image-collection {

@@ -175,8 +175,8 @@ const submit = () => {
 }
 
 .sub {
-  position: absolute;
-  bottom: 40rpx;
+  position: relative;
+  top: 500rpx;
   width: 100%;
 
   .btn {

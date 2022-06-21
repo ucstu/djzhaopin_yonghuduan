@@ -111,8 +111,8 @@ import { getAreaInformations, getCompanyInfosPositionInfos } from "@/services/se
 import { GetCompanyInfosPositionInfosQueryParams, PositionInformation } from '@/services/types';
 import { useMainStore } from '@/stores/main';
 import { failResponseHandler } from '@/utils/handler';
-import { onLoad, onShow, onUnload } from '@dcloudio/uni-app';
-import { onMounted, ref } from 'vue';
+import { onLoad, onUnload } from '@dcloudio/uni-app';
+import { computed, onMounted, ref, watchEffect } from 'vue';
 
 const store = useMainStore();
 
@@ -127,7 +127,7 @@ const navigationBarWidth = store.menuButtonInformation.left - uni.upx2px(30)
 const expectationWidth = store.menuButtonInformation.left - uni.upx2px(170)
 /* #endif */
 
-const cityValue = ref<string[]>([]);
+const cityValue = computed(() => store.jobExpectations.map((item: { cityName: string; }) => item.cityName))
 const city = ref<string[]>([]);
 const activeIndex = ref(0);
 const showRecommend = ref(0);
@@ -135,7 +135,7 @@ const triggered = ref(false);
 const loadMore = ref(false);
 // const cityName = ref('');
 
-const expects = ref<string[]>([])
+const expects = computed(() =>  store.jobExpectations.map((item: { positionName: string; }) => item.positionName));
 const filters = ref({} as any); // 筛选值
 const recommend = ref([
   "热门",
@@ -162,16 +162,19 @@ const jobFilter = ref<GetCompanyInfosPositionInfosQueryParams>({
   size: 10
 })
 
-onShow(() => {
-  // 获取期望职位
-  expects.value = store.jobExpectations.map((item: { positionName: string; }) => item.positionName);
-  // 期望职位改变默认显示第一个
-  if(expects.value.length < cityValue.value.length){
+watchEffect(() => {
+  if (activeIndex.value >= expects.value.length) {
     activeIndex.value = 0;
+    jobFilter.value.positionType = expects.value[activeIndex.value];
+    jobFilter.value.workCityName = cityValue.value[activeIndex.value];
+    jobFilter.value.directionTags = store.jobExpectations[activeIndex.value].directionTags;
+    jobFilter.value.salary = `${store.jobExpectations[activeIndex.value].startingSalary},${store.jobExpectations[activeIndex.value].ceilingSalary}`;
+    getCompanyInfosPositionInfos(jobFilter.value).then((res) => {
+    jobDetails.value = res.data.body.positionInformations
+  }).catch(failResponseHandler);
   }
-  // 获取期望城市
-  cityValue.value = store.jobExpectations.map((item: { cityName: string; }) => item.cityName);
 })
+
 /* 默认 */
 onMounted(() => {
   jobFilter.value.positionType = expects.value[activeIndex.value];
