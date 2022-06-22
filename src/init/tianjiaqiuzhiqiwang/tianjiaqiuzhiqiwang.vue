@@ -47,7 +47,7 @@ const cityExpectation = ref("请选择");
 const salaryExpectation = ref("请选择");
 
 const view_6OnClick = () => {
-  uni.navigateTo({ url: "/detail/zhiweileixing/zhiweileixing" });
+  uni.navigateTo({ url: "/most/zhiweileixing/zhiweileixing" });
 };
 
 const view_7OnClick = () => {

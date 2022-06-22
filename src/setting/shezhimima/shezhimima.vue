@@ -94,7 +94,7 @@ const seen = ref(false);
 const seen2 = ref(false);
 const typeText = ref("text");
 const typePassword = ref("password");
-
+// 获取验证码
 const getVerification = () => {
   getVerificationCode({
     email: store.accountInformation.userName,
@@ -108,7 +108,7 @@ const getVerification = () => {
     })
     .catch(failResponseHandler);
 };
-
+// 修改密码并进行判断
 const savePassWord = () => {
   if (password.value !== password2.value) {
     uni.showToast({

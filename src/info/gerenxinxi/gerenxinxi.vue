@@ -165,7 +165,7 @@ const workYear = [
   "3-5年",
   "5-10年",
   "10年以上",
-];
+]; //工作经验
 const workTime = ref(workYear[userInformation.value.workingYears]); // 工作时间
 
 const valueYear = ref();
@@ -218,7 +218,7 @@ value.value = [
   valueYear.value - 1960,
   valueMonth.value - 1,
   valueDay.value - 1,
-];
+]; //选择器默认值
 
 /* 上传头像 */
 const chooseImage = () => {
@@ -259,7 +259,7 @@ const chooseImage = () => {
     },
   });
 };
-
+// 出生日期
 const birthday = ref();
 const age = ref();
 const worktime = ref([1]);
@@ -277,11 +277,13 @@ const bindChange = (e: { detail: { value: never } }) => {
     age.value = date.getFullYear() - year;
   }
 };
+// 工作经验选择器
 const workConfirm = () => {
   workTime.value = workYear[userInformation.value.workingYears];
   popup.value.hide();
 };
 
+// 当用户单击弹出窗口中的确认按钮时调用的函数。它设置用户的出生日期和年龄。
 const isConfirm = () => {
   userInformation.value.dateOfBirth = birthday.value;
   userInformation.value.age = age.value;

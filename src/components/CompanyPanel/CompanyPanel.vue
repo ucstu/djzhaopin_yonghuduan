@@ -25,6 +25,8 @@ defineProps({
     type: String,
   },
 });
+
+// 用于发出事件的函数。
 const emit = defineEmits(["unfocus"]);
 
 const toCompanyInfo = (c: string) => {

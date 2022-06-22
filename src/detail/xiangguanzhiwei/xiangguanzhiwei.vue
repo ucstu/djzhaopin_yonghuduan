@@ -36,6 +36,7 @@ const company = ref(false);
 const cityName = ref("");
 const searchContent = ref("");
 
+// 加载页面时调用的函数。
 onLoad((e) => {
   if (e.city) {
     cityName.value = e.city;

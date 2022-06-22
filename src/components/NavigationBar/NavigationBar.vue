@@ -59,6 +59,7 @@ const store = useMainStore();
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
 
+// 获取小程序胶囊的高度、顶部和左侧。
 const navigationBarHeight = store.menuButtonInformation.height;
 
 const navigationBarTop = store.menuButtonInformation.top;
@@ -81,7 +82,7 @@ const props = defineProps({
     default: "",
   },
 });
-
+// 自定义事件
 const emit = defineEmits(["rightClick"]);
 
 const leftUrl = computed(() => {

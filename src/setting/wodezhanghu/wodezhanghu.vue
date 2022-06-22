@@ -73,7 +73,7 @@ import { failResponseHandler } from "@/utils/handler";
 import { ref } from "vue";
 
 const store = useMainStore();
-
+// 隐藏账号
 const phoneNumber = store.accountInformation.userName.replace(
   /(\d{3})\d{4}(\d{4})/,
   "$1****$2"
@@ -104,7 +104,7 @@ const deleteAccount = () => {
     })
     .catch(failResponseHandler);
 };
-
+// 重新获取验证码
 const sendVerification = () => {
   getVerificationCode({ email: phoneNumber })
     .then(() => {
@@ -120,6 +120,7 @@ const sendVerification = () => {
 const cancelDelete = () => {
   popup.value.hide();
 };
+// 注销账号并退出登录
 const confirmDelete = () => {
   deleteAccountInfosP0(store.accountInformation.accountInformationId, {
     verificationCode: code.value,

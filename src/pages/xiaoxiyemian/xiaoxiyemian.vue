@@ -79,6 +79,7 @@ const messageType = ref<Map<string, number>>(new Map());
 const messageKey = ref<Map<string, string>>(new Map());
 
 onShow(() => {
+  // 从store获取消息信息。
   if (store.messages[store.accountInformation.fullInformationId]) {
     hrInfo.value = [];
     for (const key in store.messages[
@@ -86,6 +87,7 @@ onShow(() => {
     ]) {
       messageKey.value.set(key, key);
       getHrInfosP0(key).then((res) => {
+        // 用于获取最新消息信息。
         mes.value.set(
           key,
           store.messages[store.accountInformation.fullInformationId][key][

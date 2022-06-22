@@ -31,9 +31,10 @@ const props = defineProps({
     type: String,
   },
 });
-
+// 自定义事件
 const emit = defineEmits(["stateClick"]);
 
+// 获取消息密钥的方法。
 if (props.collectionPosition) {
   for (const key in store.messages[
     store.accountInformation.fullInformationId

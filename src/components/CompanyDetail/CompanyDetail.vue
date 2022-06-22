@@ -34,6 +34,7 @@ const props = defineProps({
   },
 });
 
+// 一个常量数组，用于将融资阶段映射到相应的字符串。
 const financingStages = [
   "",
   "未融资",
@@ -45,6 +46,7 @@ const financingStages = [
   "上市公司",
   "不需要融资",
 ];
+// 一个常量数组，用于将公司规模映射到对应的字符串。
 const scales = [
   "",
   "少于15人",
@@ -55,6 +57,7 @@ const scales = [
   "2000人以上",
 ];
 
+// 定义事件名称的函数。
 const emit = defineEmits(["comClick"]);
 </script>
 

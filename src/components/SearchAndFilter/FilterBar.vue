@@ -81,14 +81,13 @@ const jobDetails = ref<PositionInformation[]>([]);
 const sortValue = ["综合排序", "距离优先", "薪资待遇", "学历要求", "工作经验"];
 const sortval = ref(sortValue[0]);
 
-console.log(props.searchContent);
-
 getCompanyInfosPositionInfos({
   positionType: props.searchContent,
 }).then((res) => {
   jobDetails.value = res.data.body.positionInformations;
 });
 
+// 在“shaixuanyemian”页面中发出的事件“filter”的监听器。
 uni.$on("filter", (data) => {
   getCompanyInfosPositionInfos({
     positionType: props.searchContent,
@@ -102,10 +101,12 @@ uni.$on("filter", (data) => {
   });
 });
 
+// 安装组件后调用的生命周期挂钩。
 onMounted(() => {
   uni.$off("filter");
 });
 
+// 弹出层
 const popup = ref();
 const sort = () => {
   popup.value.show();

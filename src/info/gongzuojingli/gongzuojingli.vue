@@ -286,6 +286,7 @@ for (let i = 1; i <= 31; i++) {
 }
 const defaultStart = ref([year, month, day]); /* 默认入职时间 */
 const defaultEnd = ref([year, month, day]); /* 默认离职时间 */
+// 选择器
 const bindChange = (e: any) => {
   let val = e.detail.value;
   year = years.value[val[0]];
@@ -333,6 +334,7 @@ const showTextarea = () => {
   showPositionType.value = false;
   showPositionText.value = true;
 };
+// 清除输入字段的函数。
 const clearLength = () => {
   companyContent.value = "";
 };

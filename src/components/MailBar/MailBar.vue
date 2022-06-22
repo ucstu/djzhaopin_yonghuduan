@@ -66,6 +66,7 @@ onShow(() => {
   return props.isRead;
 });
 
+// 当用户单击消息时调用的函数。它会将消息更改为已阅读，然后导航到聊天页面。
 const toChatPage = () => {
   store.messages[store.accountInformation.fullInformationId][
     props.hrInfo.hrInformationId

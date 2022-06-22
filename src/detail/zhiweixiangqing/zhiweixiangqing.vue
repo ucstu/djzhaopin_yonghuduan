@@ -166,9 +166,9 @@ const store = useMainStore();
 
 const jobInformation = ref<PositionInformation>({} as PositionInformation); // 职位信息
 
-const educates = ref(["不要求", "大专", "本科", "硕士", "博士"]);
-const workYears = ref(["经验不限", "在校/应届", "3年以下", "3-5年", "5-10年"]);
-const positionType = ref(["", "全职", "兼职", "实习"]);
+const educates = ref(["不要求", "大专", "本科", "硕士", "博士"]); //学历要求
+const workYears = ref(["经验不限", "在校/应届", "3年以下", "3-5年", "5-10年"]); //工作经验
+const positionType = ref(["", "全职", "兼职", "实习"]); // 工作类型
 /* 融资阶段 */
 const financingStages = [
   "",
@@ -194,6 +194,7 @@ const scales = [
 /* 周末休息时间 */
 const weekendReleaseTime = ref(["", "周末双休", "周末单休", "大小周"]);
 
+// 在地图上创建标记。
 const markers = ref([
   {
     id: 0,
@@ -252,8 +253,10 @@ onMounted(() => {
     .catch(failResponseHandler);
 });
 
+// 上面的代码是用户点击收藏按钮时调用的函数。
 const collection = () => {
   isCollection.value = !isCollection.value;
+  // 判断是否收藏
   if (isCollection.value) {
     postUserInfosP0GarnerRecords(store.accountInformation.fullInformationId, {
       positionInformationId: positionId.value,

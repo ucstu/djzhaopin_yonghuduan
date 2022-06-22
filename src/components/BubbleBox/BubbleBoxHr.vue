@@ -39,6 +39,7 @@
 <script lang="ts" setup>
 const VITE_CDN_URL = import.meta.env.VITE_CDN_URL;
 
+// 定义组件的 props。接收父组件传值
 const props = defineProps({
   hrInfo: {
     type: Object,
@@ -58,6 +59,7 @@ const props = defineProps({
   },
 });
 
+// 下载文件的函数。
 const downFile = (m: string) => {
   uni.downloadFile({
     url: m,

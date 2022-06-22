@@ -77,6 +77,7 @@ getCompanyInfos({
   })
   .catch(failResponseHandler);
 
+// 监听事件`filter`然后从事件中获取数据，然后使用数据获取公司信息。
 uni.$on("filter", (data) => {
   getCompanyInfos({
     companyName: props.searchContent,
@@ -96,6 +97,7 @@ onMounted(() => {
 const filterCompany = () => {
   uni.navigateTo({ url: "/most/shaixuanyemian/shaixuanyemian" });
 };
+// 弹出层
 const popup = ref();
 const sort = () => {
   popup.value.show();

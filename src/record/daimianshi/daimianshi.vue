@@ -38,6 +38,7 @@ const interviewed = ref();
 const sendType = ref("放弃面试");
 const emptyShow = ref(true);
 
+// 查询待面试信息
 getUserInfosP0DeliveryRecords(store.accountInformation.fullInformationId, {
   status: [4],
 })

@@ -204,6 +204,7 @@ for (let i = 1; i <= 31; i++) {
 }
 const value1 = ref([years.value[0], months.value[0], days.value[0]]);
 const value2 = ref([year, month - 1, day]);
+// 更改选择器视图时调用的函数。
 const bindChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;
   year = years.value[val[0]];

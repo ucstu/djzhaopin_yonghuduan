@@ -101,6 +101,7 @@ getPositionTypes().then((res) => {
   fields.push(...res.data.body);
 });
 
+// 显示弹出层
 const showDirections = (index: number) => {
   activeFieldIndex.value = index;
   nextTick(() => {
@@ -110,6 +111,7 @@ const showDirections = (index: number) => {
 
 const inputValue = ref("");
 
+// 一个计算属性，返回所有位置名称的数组。
 const positionNames = computed(() => {
   let result = [];
   for (const searchType of fields) {
@@ -122,6 +124,7 @@ const positionNames = computed(() => {
   return result;
 });
 
+// 计算属性。
 const filteredPositionNames = computed(() => {
   let result = [];
   for (const positionName of positionNames.value) {
@@ -139,6 +142,8 @@ onLoad((e) => {
   cityName.value = e.city;
 });
 
+// 当用户单击搜索栏中的职位名称时调用的函数。它将 activePositionIndex 设置为被点击的位置名称的索引，发出一个名为 positiontypes
+// 的事件，并将位置名称作为有效负载，然后导航回上一页。
 const positionType = (index: number) => {
   activePositionIndex.value = index;
   uni.$emit("positiontypes", filteredPositionNames.value[index]);
@@ -147,6 +152,8 @@ const positionType = (index: number) => {
   });
 };
 
+// 当用户点击搜索栏中的职位名称时调用的函数。它将 activePositionIndex 设置为单击位置名称的索引，发出一个名为 positiontypes
+// 的事件，并将位置名称作为有效负载，然后导航回一页。
 const positiontypes = (index: number) => {
   activePositionIndex.value = index;
   uni.$emit("positiontypes", positions.value[index]);

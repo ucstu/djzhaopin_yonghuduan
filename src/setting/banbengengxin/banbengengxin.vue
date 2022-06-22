@@ -62,7 +62,7 @@ getNewVersion().then((res) => {
     versionNum.value = res.data.body;
   }
 });
-
+// 查询版本更新
 const checkVersion = () => {
   getNewVersion().then((res) => {
     if (res.data.body) {

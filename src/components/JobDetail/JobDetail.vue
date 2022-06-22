@@ -55,6 +55,7 @@ const props = defineProps({
     type: Object,
   },
 });
+// 融资阶段
 const financingStage = ref([
   "",
   "未融资",
@@ -66,6 +67,7 @@ const financingStage = ref([
   "上市公司",
   "不需要融资",
 ]);
+// 公司规模
 const scale = ref([
   "",
   "少于15人",

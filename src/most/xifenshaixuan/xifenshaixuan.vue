@@ -73,6 +73,7 @@ const checkedClassifyName = ref<subDivisionLabels[]>([]);
 const checkedSubLabels = ref<subDivisionLabels["subLabels"]>([]);
 
 onMounted(() => {
+  // 用于从服务器获取数据的函数。
   getDirectionTags({ positionName: "撒辣椒粉" }).then((res) => {
     checkedClassifyName.value = res.data.body.map((classify) => {
       const checkedLabels = classify.subdivisionLabels.map((label) => {
@@ -92,6 +93,7 @@ onMounted(() => {
 });
 
 let checkeds = ref<string[]>([]);
+// 用于检查用户是否选择了超过 3 个标签的功能。
 const checkedInfo = (check: boolean) => {
   if (checkeds.value.length === 3 && check === false) {
     uni.showToast({
@@ -102,6 +104,7 @@ const checkedInfo = (check: boolean) => {
   }
 };
 
+// 用于发出事件 `saveTags` 并将 `checkeds` 的值传递给父组件的函数。
 const saveTags = () => {
   uni.$emit("saveTags", checkeds.value);
   uni.navigateBack({ delta: 1 });

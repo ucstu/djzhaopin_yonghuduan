@@ -189,6 +189,7 @@ onMounted(() => {
     .catch(failResponseHandler);
 });
 
+// 一个生命周期钩子。它在页面加载时调用。
 onLoad((options) => {
   if (options.companyId) {
     companyId.value = options.companyId;
@@ -210,7 +211,9 @@ onLoad((options) => {
 /* 关注公司 */
 const focusOn = () => {
   focus.value = !focus.value;
+  // 这是用于关注于公司的功能
   if (focus.value) {
+    // 增加关注记录接口
     postUserInfosP0AttentionRecords(
       store.accountInformation.fullInformationId,
       {

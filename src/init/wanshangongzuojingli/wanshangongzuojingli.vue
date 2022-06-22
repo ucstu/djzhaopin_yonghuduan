@@ -181,9 +181,10 @@ for (let i = 1; i <= 12; i++) {
 for (let i = 1; i <= 31; i++) {
   days.value.push(i);
 }
-const startValue = ref([year, month - 1, day - 1]);
-const endValue = ref([year, month - 1, day - 1]);
+const startValue = ref([year, month - 1, day - 1]); //选择器默认值
+const endValue = ref([year, month - 1, day - 1]); //选择器默认值
 
+// 用于更改选取器值的函数。
 const workChange = (e: { detail: { value: number[] } }) => {
   let val = e.detail.value;
   year = years.value[val[0]];
@@ -203,6 +204,7 @@ const workChange = (e: { detail: { value: number[] } }) => {
 };
 // 下一步
 const nextClick = () => {
+  // 检查用户是否填写了所有信息。
   if (!companyName.value || !companyType.value || !subject.value) {
     uni.showToast({
       title: "请填写完整信息",

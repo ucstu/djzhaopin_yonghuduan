@@ -140,6 +140,7 @@ for (let i = 1; i <= 31; i++) {
   days.value.push(i);
 }
 const value = ref([9999, month - 1, day - 1]);
+// 更改选择器视图时调用的函数。
 const bindChange = (e: { detail: { value: never } }) => {
   let val = e.detail.value;
   year = years.value[val[0]];

@@ -87,6 +87,7 @@ const password = ref("");
 const verification = ref();
 const isAgree = ref(false);
 
+// 用于获取验证码的函数。
 const getVerifiable = () => {
   if (email.value === "") {
     uni.showToast({
@@ -95,8 +96,10 @@ const getVerifiable = () => {
       duration: 1500,
     });
   } else if (
+    // 用于检查电子邮件是否有效的正则表达式。
     /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email.value)
   ) {
+    //调用验证码接口
     getVerificationCode({ email: email.value })
       .then((res) => {
         uni.showToast({
@@ -121,6 +124,7 @@ const getVerifiable = () => {
     });
   }
 };
+// 当用户单击注册按钮时调用的函数。
 const registeredAccount = () => {
   if (email.value === "" || password.value === "") {
     uni.showToast({
@@ -159,6 +163,7 @@ const registeredAccount = () => {
           password: md5(password.value),
         })
           .then((res) => {
+            // 用于存储用户的信息。
             store.jsonWebToken = res.data.body.token;
             store.accountInformation = res.data.body.accountInformation;
             getAxiosInstance(undefined).defaults.headers.common[
@@ -170,6 +175,7 @@ const registeredAccount = () => {
             getUserInfosP0(res.data.body.accountInformation.fullInformationId)
               .then((res) => {
                 store.userInformation = res.data.body;
+                // 用于初始化消息对象。
                 if (
                   !store.messages[store.accountInformation.fullInformationId]
                 ) {

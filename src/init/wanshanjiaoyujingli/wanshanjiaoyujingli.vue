@@ -172,6 +172,7 @@ const showEducation = () => {
   isShowSchool.value = false;
   popup.value.show();
 };
+// 显示弹出层
 const showSchool = () => {
   isShowEd.value = false;
   isShowSchool.value = true;

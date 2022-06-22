@@ -95,6 +95,7 @@ onLoad(() => {
   }
 });
 
+// 一个生命周期钩子。页面显示时调用。
 onShow(() => {
   getUserInfosP0JobExpectations(store.accountInformation.fullInformationId, {})
     .then((res) => {
@@ -135,6 +136,7 @@ const popup = ref();
 const jobStatus = () => {
   popup.value.show();
 };
+// 当用户更改选取器的值时调用的函数。
 const entryChange = (e: { detail: { value: number[] } }) => {
   entryTime.value = entryTimes[e.detail.value[0]];
   store.userInformation.jobStatus = e.detail.value[0] as 1 | 2 | 3;

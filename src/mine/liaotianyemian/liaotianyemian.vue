@@ -111,6 +111,7 @@ const messageKey = ref("");
 const scrollTop = ref(0);
 
 watchEffect(() => {
+  // 用于在页面高度发生变化时滚动到页面底部。
   if (
     store.messages[store.accountInformation.fullInformationId][
       hrInfo.value.hrInformationId
@@ -125,6 +126,7 @@ watchEffect(() => {
     });
   }
 
+  // 这是为了检查用户是否已经与 HR 进行过对话。如果没有，它将创建一个新的对话。
   if (!store.messages[store.accountInformation.fullInformationId]) {
     store.messages[store.accountInformation.fullInformationId] = {};
   }
@@ -156,6 +158,7 @@ const goBack = () => {
   });
 };
 
+// 发送消息的函数。
 const sendMes = () => {
   if (inputValue.value.length) {
     sendMessage(inputValue.value, 1, hrInfo.value.hrInformationId, 2);

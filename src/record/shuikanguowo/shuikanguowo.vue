@@ -32,7 +32,7 @@ const store = useMainStore();
 
 const companyInfo = ref<CompanyInformation[]>([]);
 const emptyShow = ref(false);
-
+// 查询查看记录
 getUserInfosP0InspectionRecords(
   store.accountInformation.fullInformationId,
   {}

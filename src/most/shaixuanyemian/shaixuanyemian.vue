@@ -257,6 +257,8 @@ const activeSectorOf = (index: number) => {
 onLoad((e) => {
   if (e.filter) {
     let p = JSON.parse(e.filter);
+    // 检查过滤器值是否为空。如果不为空，则会将值映射到
+    // filterValue.value.workingYears、filterValue.value.educations、filterValue.value.workTypes、filterValue.value.scales、filterValue.value.financingStages。
     if (Object.keys(p).length) {
       filterValue.value.workingYears = p.workingYears.map(
         (item: number) => item - 1
@@ -286,6 +288,7 @@ const replacement = () => {
   };
 };
 
+// 当用户点击“确认”按钮时调用的函数。用于保存过滤值并返回上一页。
 const saveScreen = () => {
   filterValue.value.workingYears = filterValue.value.workingYears.map(
     (item) => item + 1

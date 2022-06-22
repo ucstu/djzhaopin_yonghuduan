@@ -83,6 +83,7 @@ const email = ref("");
 const password = ref("");
 const isAgree = ref(false);
 
+// 当用户单击登录按钮时调用的函数。
 const login = () => {
   if (email.value === "" || password.value === "") {
     uni.showToast({
@@ -111,6 +112,7 @@ const login = () => {
     })
       .then((res) => {
         if (res.data.body.accountInformation.accountType === 2) {
+          //判断是否为企业账号
           uni.showToast({
             title: "此账号为企业账号，请移步企业端登录",
             icon: "none",
@@ -119,6 +121,7 @@ const login = () => {
         } else {
           store.jsonWebToken = res.data.body.token;
           store.accountInformation = res.data.body.accountInformation;
+          // 在 axios 实例的标头中设置令牌。
           getAxiosInstance(undefined).defaults.headers.common[
             "Authorization"
           ] = `Bearer ${res.data.body.token}`;
@@ -131,6 +134,7 @@ const login = () => {
             getCityInformations(),
           ])
             .then((res) => {
+              // 这是用户登录成功后执行的代码。
               if (!store.messages[store.accountInformation.fullInformationId]) {
                 store.messages[store.accountInformation.fullInformationId] = {};
               }
@@ -138,6 +142,7 @@ const login = () => {
               store.userInformation = res[0].data.body;
               store.jobExpectations = res[1].data.body.jobExpectations;
               store.cityInformation = res[2].data.body;
+              // 如果用户没有填写个人信息，则跳转到个人信息页面，否则跳转到首页。
               if (!store.userInformation.firstName) {
                 uni.reLaunch({
                   url: "/init/wanshangerenxinxi/wanshangerenxinxi",

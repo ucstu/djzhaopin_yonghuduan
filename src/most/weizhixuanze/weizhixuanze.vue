@@ -80,6 +80,7 @@ const filterValue = ref<string[]>([]);
 const c = ref();
 
 onLoad((e) => {
+  // 这是加载页面时执行的代码。
   if (e.city) {
     country.value = e.city;
     c.value = e.city;
@@ -99,6 +100,7 @@ onLoad((e) => {
       }
     }
   }
+  // 监听事件`liveCity`，当它被触发时，会执行回调函数。
   uni.$on("liveCity", (city) => {
     countriesIndex.value = 0;
     country.value = city;
@@ -113,6 +115,7 @@ onLoad((e) => {
       .catch(failResponseHandler);
   });
 });
+// 卸载页面时调用的函数。
 onUnload(() => {
   uni.$off("liveCity");
 });

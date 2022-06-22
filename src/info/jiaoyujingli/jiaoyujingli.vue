@@ -266,6 +266,7 @@ const saveEducation = () => {
     });
   } else {
     if (educateId.value !== undefined) {
+      //修改教育经历
       putUserInfosP0EduExperiencesP1(
         store.accountInformation.fullInformationId,
         educateId.value,
@@ -286,6 +287,7 @@ const saveEducation = () => {
         .catch(failResponseHandler);
     } else {
       postUserInfosP0EduExperiences(
+        //新增教育经历
         store.accountInformation.fullInformationId,
         {
           schoolName: schoolName.value,

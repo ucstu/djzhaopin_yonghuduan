@@ -43,13 +43,13 @@ const store = useMainStore();
 
 const userInfos = store.userInformation;
 const isAnonymous = ref(true);
-
+// 判断显示状态
 if (store.userInformation.privacySettings === 1) {
   isAnonymous.value = true;
 } else {
   isAnonymous.value = false;
 }
-
+// 改变显示状态
 const privacySet = () => {
   isAnonymous.value = !isAnonymous.value;
   if (isAnonymous.value) {

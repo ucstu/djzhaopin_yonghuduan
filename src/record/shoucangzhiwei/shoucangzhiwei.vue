@@ -36,7 +36,7 @@ const favorites = ref();
 const favoritesPosition = ref<PositionInformation[]>([]);
 const cancelCollection = ref("取消收藏");
 const emptyShow = ref(true);
-
+// 查询收藏记录
 getUserInfosP0GarnerRecords(store.accountInformation.fullInformationId, {})
   .then((res) => {
     favorites.value = res.data.body.garnerRecords;

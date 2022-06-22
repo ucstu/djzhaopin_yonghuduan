@@ -74,6 +74,7 @@ const toVersion = () => {
 };
 // 退出当前账号
 const exitAccount = () => {
+  // 清除存储中的数据。
   store.jobExpectations = [];
   store.jsonWebToken = null as unknown as string;
   store.userInformation = null as unknown as UserInformation;

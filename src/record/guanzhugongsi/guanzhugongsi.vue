@@ -37,7 +37,7 @@ const attentionCompanies = ref<CompanyInformation[]>([]);
 const focusCompany = ref();
 const unfocus = ref("取消关注");
 const emptyShow = ref(true);
-
+// 查询关注公司记录
 getUserInfosP0AttentionRecords(store.accountInformation.fullInformationId, {})
   .then((res) => {
     focusCompany.value = res.data.body.attentionRecords;
@@ -60,7 +60,7 @@ onShow(() => {
     emptyShow.value = true;
   }
 });
-
+// 删除关注记录
 const unsubscribe = (index: string) => {
   let attentionRecordId = focusCompany.value.find(
     (item: { companyInformationId: string }) => {

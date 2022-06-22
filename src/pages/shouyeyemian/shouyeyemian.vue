@@ -207,7 +207,7 @@ import { computed, onMounted, ref, watchEffect } from "vue";
 const store = useMainStore();
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-
+// 获取小程序胶囊的高宽值
 const navigationBarHeight = store.menuButtonInformation.height;
 
 const navigationBarTop = store.menuButtonInformation.top;
@@ -226,7 +226,7 @@ const showRecommend = ref(0);
 const triggered = ref(false);
 const loadMore = ref(false);
 // const cityName = ref('');
-
+//职位名
 const expects = computed(() =>
   store.jobExpectations.map(
     (item: { positionName: string }) => item.positionName
@@ -255,6 +255,7 @@ const jobFilter = ref<GetCompanyInfosPositionInfosQueryParams>({
 });
 
 watchEffect(() => {
+  // 上面的代码是用于更改作业过滤器的代码的一部分。
   if (activeIndex.value >= expects.value.length) {
     activeIndex.value = 0;
     jobFilter.value.positionType = expects.value[activeIndex.value];
@@ -337,6 +338,7 @@ onLoad(() => {
       .catch(failResponseHandler);
   });
 });
+// 删除事件侦听器。
 onUnload(() => {
   uni.$off("liveCity");
   uni.$off("place");
@@ -349,6 +351,7 @@ const changeJobType = (index: number) => {
   activeIndex.value = index;
   city.value.length = 0;
   filters.value = {};
+  // 更新 jobFilter 对象的值
   jobFilter.value.positionType = expects.value[activeIndex.value];
   jobFilter.value.workCityName = cityValue.value[activeIndex.value];
   jobFilter.value.directionTags =

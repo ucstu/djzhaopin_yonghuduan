@@ -45,7 +45,7 @@ import { ref } from "vue";
 const store = useMainStore();
 
 /* #ifdef MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
-
+// 获取小程序胶囊高度等
 const navigationBarHeight = store.menuButtonInformation.height;
 
 const navigationBarTop = store.menuButtonInformation.top - uni.upx2px(45);

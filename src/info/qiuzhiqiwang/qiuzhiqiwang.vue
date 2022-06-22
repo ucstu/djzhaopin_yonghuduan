@@ -149,12 +149,14 @@ for (let i = 5; i <= 100; i++) {
   endSalary.value.push(i);
 }
 const value = ref([5, 8]);
+// 当用户更改选择器视图的值时调用的函数。
 const salaryChange = (e: { detail: { value: number[] } }) => {
   let val = e.detail.value;
   start.value = startSalary.value[val[0]];
   end.value = endSalary.value[val[1]];
   value.value = [val[0], val[1]];
 };
+// 当用户单击弹出窗口中的“确认”按钮时调用的函数。
 const salaryExpectation = () => {
   if (start.value === 0 || end.value === 0) {
     jobExpectation.value.startingSalary = 6;
@@ -188,6 +190,7 @@ onLoad((e) => {
     } else {
       deleteEx.value = "删除";
     }
+    // 获取工作期望信息的函数。
     getUserInfosP0JobExpectationsP1(
       store.accountInformation.fullInformationId,
       jobId.value
@@ -212,9 +215,11 @@ onLoad((e) => {
       })
       .catch(failResponseHandler);
   }
+  // 监听组件 `chengshixuanze` 发出的事件 `liveCity`。
   uni.$on("liveCity", (date) => {
     jobExpectation.value.cityName = date;
   });
+  // 监听组件`zhiweileixing`发出的事件`positiontypes`。
   uni.$on("positiontypes", (t) => {
     jobExpectation.value.positionName = t;
     if (jobExpectation.value.positionName !== "") {
@@ -223,6 +228,7 @@ onLoad((e) => {
       directionShow.value = false;
     }
   });
+  // 组件 `xifenshaixuan` 发出的事件 `saveTags` 的监听器。
   uni.$on("saveTags", (tag) => {
     if (tag.length !== 0) {
       directionTag.value = "";

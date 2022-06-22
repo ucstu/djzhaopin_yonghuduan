@@ -77,7 +77,7 @@ const chooseImage = () => {
     },
   });
 };
-
+// 提交反馈
 const submit = () => {
   if (!opinion.value) {
     uni.showToast({

@@ -76,6 +76,7 @@ const passwordNew = ref("");
 const passwordAffirm = ref("");
 const verification = ref();
 
+// 用于获取验证码的函数。
 const getVerifiable = () => {
   if (email.value === "") {
     uni.showToast({
@@ -84,6 +85,7 @@ const getVerifiable = () => {
       duration: 1500,
     });
   } else if (
+    // 检查电子邮件是否有效的正则表达式。
     /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(email.value)
   ) {
     getVerificationCode({ email: email.value })
@@ -103,6 +105,7 @@ const getVerifiable = () => {
     });
   }
 };
+// 用于检查输入信息然后向服务器发送请求的函数。
 const registeredAccount = () => {
   if (
     email.value === "" ||
@@ -127,6 +130,7 @@ const registeredAccount = () => {
       duration: 1500,
     });
   } else {
+    // 忘记密码调用接口
     putAccountInfosForget({
       userName: email.value,
       verificationCode: verification.value,
