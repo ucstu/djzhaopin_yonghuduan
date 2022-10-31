@@ -5,7 +5,7 @@
 东江人才招聘-用户端：[演示地址](https://djyh.ucstu.com) [Github仓库](https://github.com/ucstu/djzhaopin_yonghuduan)\
 东江人才招聘-HR端：[演示地址](https://djhr.ucstu.com) [Github仓库](https://github.com/ucstu/djzhaopin_hrduan)\
 东江人才招聘-管理端：[演示地址](https://djadmin.ucstu.com) [Github仓库](https://github.com/ucstu/djzhaopin_admin)\
-东江人才招聘-后端：[Github仓库](https://github.com/ucstu/djzhaopin_backend)
+东江人才招聘-后端：[Github仓库](https://github.com/ucstu/djzhaopin_backend)\
 演示视频：
 
 ## Ⓜ️ 主要功能
